@@ -41,8 +41,10 @@ Route::group(['prefix' => 'dashboard'], function () {
 });
 /* Route Dashboards */
 
-/* Rutas Programada */
+/* Rutas Programada - inicio */
 Route::get('test/test1', [TestController::class,'index']);
+
+/* Rutas Programada - fin */
 
 /* Route Apps */
 Route::group(['prefix' => 'app'], function () {
