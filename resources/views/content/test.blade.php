@@ -15,6 +15,7 @@
 <!-- Codgio HTML del contenido (Importante) -->
 @section('content')
 <test></test>
+
 @endsection
 
 <!-- Indicarlo los script de la plantilla (Opcional) -->
