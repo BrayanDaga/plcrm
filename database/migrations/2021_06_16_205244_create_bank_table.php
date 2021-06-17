@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableAccountTypeByUser extends Migration
+class CreateBankTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateTableAccountTypeByUser extends Migration
      */
     public function up()
     {
-        Schema::create('table_account_type_by_user', function (Blueprint $table) {
+        Schema::create('bank', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_user_membreship');
-            $table->bigInteger('id_account_type');
-            $table->double('prince');
-            $table->integer('igv');
-            $table->double('total');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateTableAccountTypeByUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_account_type_by_user');
+        Schema::dropIfExists('bank');
     }
 }
