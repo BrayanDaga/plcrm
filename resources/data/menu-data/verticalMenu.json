@@ -46,6 +46,12 @@
       "slug": "app-email"
     },
     {
+      "url": "system/binary-branch",
+      "name": "Red-Binary",
+      "icon": "package",
+      "slug": ""
+    },
+    {
       "url": "app/chat",
       "name": "Chat",
       "icon": "message-square",

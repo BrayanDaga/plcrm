@@ -16,6 +16,7 @@ use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\BinaryBranchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,9 @@ Route::group(['prefix' => 'dashboard'], function () {
 
 /* Rutas Programada - inicio */
 Route::get('test/test1', [TestController::class,'index']);
+Route::group(['prefix' => 'system'], function () {
+    Route::get('binary-branch', [BinaryBranchController::class,'binary_branch']);
+});
 
 /* Rutas Programada - fin */
 
