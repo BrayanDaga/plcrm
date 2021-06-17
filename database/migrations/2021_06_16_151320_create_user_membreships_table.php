@@ -15,17 +15,20 @@ class CreateUserMembreshipsTable extends Migration
     {
         Schema::create('user_membreships', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_document_type');
-            $table->string('name', 30);
-            $table->string('last_name', 50);
-            $table->date('date_birth');
-            $table->string('phone', 12);
-            $table->bigInteger('country');
-            $table->string('email', 50);
             $table->string('user', 20);
             $table->string('password');
+            $table->string('name', 30);
+            $table->string('last_name', 50);
+            $table->string('phone', 12);
+            $table->date('date_birth');
+            $table->string('email', 50);
             $table->string('referrer_sponsor');
-            $table->bigInteger('id_account_type');
+            $table->integer('id_country')->unsigned();
+            $table->foreign('id_country')->references('id')->on('country');
+            $table->integer('id_document_type')->unsigned();
+            $table->foreign('id_document_type')->references('id')->on('document_type');
+            $table->integer('id_account_type')->unsigned();
+            $table->foreign('id_account_type')->references('id')->on('account_type');
             $table->timestamps();
         });
     }
