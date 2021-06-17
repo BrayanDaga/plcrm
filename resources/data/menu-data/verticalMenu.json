@@ -22,16 +22,16 @@
       ]
     },
     {
-      "name": "Test",
+      "name": "User Membreship",
       "icon": "package",
       "dropdown": "1",
       "slug": "",
       "submenu": [
         {
-          "url": "test/test1",
-          "name": "Test 1",
+          "url": "user-membreship/register",
+          "name": "Register",
           "icon": "mail",
-          "slug": "app-email"
+          "slug": "user-membreship-register"
         }
       ]
     },
