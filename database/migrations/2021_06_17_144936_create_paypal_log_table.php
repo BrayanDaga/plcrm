@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWalletTable extends Migration
+class CreatePaypalLogTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateWalletTable extends Migration
      */
     public function up()
     {
-        Schema::create('wallet', function (Blueprint $table) {
+        Schema::create('paypal_log', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_user_membreship')->unsigned();
-            $table->foreign('id_user_membreship')->references('id')->on('user_membreships');
-            $table->double('amount', 10, 2);
+            $table->string('txn_id');
+            $table->text('log');
+            $table->datetime('posted_date');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateWalletTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wallet');
+        Schema::dropIfExists('paypal_log');
     }
 }

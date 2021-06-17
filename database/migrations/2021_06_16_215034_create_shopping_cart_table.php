@@ -15,10 +15,13 @@ class CreateShoppingCartTable extends Migration
     {
         Schema::create('shopping_cart', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user_membreship')->unsigned();
+            $table->bigInteger('id_user_membreship')->unsigned();
             $table->foreign('id_user_membreship')->references('id')->on('user_membreships');
-            $table->integer('id_user_sponsor')->unsigned();
+            $table->bigInteger('id_user_sponsor')->unsigned();
             $table->foreign('id_user_sponsor')->references('id')->on('user_membreships');
+            $table->bigInteger('id_product')->unsigned();
+            $table->foreign('id_product')->references('id')->on('product');
+            $table->integer('quantity')->default('0');
             $table->timestamps();
         });
     }
