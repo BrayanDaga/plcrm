@@ -15,7 +15,7 @@ class CreateFinancialBalanceTable extends Migration
     {
         Schema::create('financial_balance', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user_membreship')->unsigned();
+            $table->bigInteger('id_user_membreship')->unsigned();
             $table->foreign('id_user_membreship')->references('id')->on('user_membreships');
             $table->double('balance', 10, 2);
             $table->timestamps();
