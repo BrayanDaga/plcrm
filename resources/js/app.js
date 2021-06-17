@@ -2,8 +2,8 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
-Vue.component('test', require('./components/Test.vue').default);
-Vue.component('binary-branch', require('./components/binary-branch/index').default);
+// Vue.component('binary-branch', require('./components/index.vue').default);
+Vue.component('user-membreship-register', require('./components/user-membreship/Register.vue').default);
 
 import moment from 'moment';
 
@@ -14,6 +14,7 @@ Vue.filter('formatDate', function(value) {
             .format('D MMM YYYY');
     }
 });
+
 const app = new Vue({
     el: '#app'
 });

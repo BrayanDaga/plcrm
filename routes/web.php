@@ -15,8 +15,8 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\BinaryBranchController;
+use App\Http\Controllers\UserMembreshipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,9 +43,12 @@ Route::group(['prefix' => 'dashboard'], function () {
 /* Route Dashboards */
 
 /* Rutas Programada - inicio */
-Route::get('test/test1', [TestController::class,'index']);
 Route::group(['prefix' => 'system'], function () {
     Route::get('binary-branch', [BinaryBranchController::class,'binary_branch']);
+});
+Route::group(['prefix' => 'user-membreship'], function () {
+    Route::get('/register', [UserMembreshipController::class,'register'])->name('user-membreship-register');
+    Route::post('/create', [UserMembreshipController::class,'create']);
 });
 
 /* Rutas Programada - fin */
