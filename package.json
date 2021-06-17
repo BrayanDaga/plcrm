@@ -10,7 +10,8 @@
         "production": "mix --production"
     },
     "dependencies": {
-        "bootstrap": "4.6.0"
+        "bootstrap": "4.6.0",
+        "moment": "^2.29.1"
     },
     "devDependencies": {
         "axios": "^0.21",

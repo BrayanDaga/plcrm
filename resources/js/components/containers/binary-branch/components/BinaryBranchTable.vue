@@ -24,29 +24,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
+                            <tr v-for="tempUsers in this.usersMembreship" v-bind:key="tempUsers.id">
+                                <td>{{ tempUsers.name }}</td>
                                 <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
+                                <td>{{ tempUsers.referrer_sponsor }}</td>
+                                <td>{{ tempUsers.created_at | formatDate }}</td>
                                 <td>5</td>
                                 <td>6</td>
                                 <td>7</td>
@@ -61,6 +43,28 @@
 
 <script>
 export default {
+    data() {
+        return {
+            filter: {
+                name: 'name',
+                created_at: 'created_at'
+            },
+            usersMembreship: []
+        };
+    },
+    mounted() {
+        const url = '/api/usersMembreship/list';
+        axios
+            .get(url, {
+                params: {
+                    sName: 'name'
+                }
+            })
+            .then(response => {
+                this.usersMembreship = response.data;
+                console.log(response.data);
+            });
+    },
     name: 'BinaryBranchTable'
 };
 </script>
