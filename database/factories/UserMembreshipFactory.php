@@ -26,17 +26,17 @@ class UserMembreshipFactory extends Factory
     public function definition()
     {
         return [
-            'id_document_type' => 10,
-            'name' => $this->faker->name,
-            'last_name' => $this->faker->lastName,
-            'date_birth' => now(),
-            'phone' => '987654321',
-            'country' => 15,
-            'email' => $this->faker->email,
             'user' => $this->faker->unique()->word,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'name' => $this->faker->name,
+            'last_name' => $this->faker->lastName,
+            'phone' => '987654321',
+            'date_birth' => now(),
+            'email' => $this->faker->email,
             'referrer_sponsor' => $this->faker->firstName,
-            'id_account_type' => 10,
+            'id_country' => rand(1, 50),
+            'id_document_type' => rand(1, 4),
+            'id_account_type' => rand(1, 3),
         ];
     }
 }
