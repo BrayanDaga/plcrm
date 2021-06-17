@@ -23,11 +23,11 @@ class CreateUserMembreshipsTable extends Migration
             $table->date('date_birth');
             $table->string('email', 50);
             $table->string('referrer_sponsor');
-            $table->integer('id_country')->unsigned();
+            $table->bigInteger('id_country')->unsigned();
             $table->foreign('id_country')->references('id')->on('country');
-            $table->integer('id_document_type')->unsigned();
+            $table->bigInteger('id_document_type')->unsigned();
             $table->foreign('id_document_type')->references('id')->on('document_type');
-            $table->integer('id_account_type')->unsigned();
+            $table->bigInteger('id_account_type')->unsigned();
             $table->foreign('id_account_type')->references('id')->on('account_type');
             $table->timestamps();
         });

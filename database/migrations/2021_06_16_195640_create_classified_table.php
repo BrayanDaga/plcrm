@@ -15,9 +15,9 @@ class CreateClassifiedTable extends Migration
     {
         Schema::create('classified', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user_membreship')->unsigned();
+            $table->bigInteger('id_user_membreship')->unsigned();
             $table->foreign('id_user_membreship')->references('id')->on('user_membreships');
-            $table->integer('id_user_sponsor')->unsigned();
+            $table->bigInteger('id_user_sponsor')->unsigned();
             $table->foreign('id_user_sponsor')->references('id')->on('user_membreships');
             $table->string('binary_sponsor', 50);
             $table->string('position', 2);
