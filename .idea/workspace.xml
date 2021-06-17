@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6044cf9b-a26b-4ac4-8a21-c3f608db22f2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/database/seeders/AccountTypeSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeders/CountrySeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeders/DocumentTypeSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/UserMembreshipFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserMembreshipFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/AccountType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Country.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/DocumentType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/UserMembreship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/UserMembreship.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +203,7 @@
       <workItem from="1623903163003" duration="5470000" />
       <workItem from="1623950191454" duration="147000" />
       <workItem from="1623950370657" duration="258000" />
-      <workItem from="1623951231915" duration="2674000" />
+      <workItem from="1623951231915" duration="4600000" />
     </task>
     <servers />
   </component>
