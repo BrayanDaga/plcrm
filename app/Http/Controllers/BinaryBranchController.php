@@ -16,9 +16,12 @@ class BinaryBranchController extends Controller
 
 
     // Metodo para listar los usuarios
-    public function getListUsersMembreship(): JsonResponse
+    public function getListUsersMembreship($filter = 'created_at'): JsonResponse
     {
-        $list_user_membreship = UserMembreship::all();
+        $list_user_membreship = UserMembreship::query()
+            ->with(['country','accountType','documentType'])
+            ->orderBy($filter)
+            ->paginate(5);
         return response()->json($list_user_membreship);
     }
 }
