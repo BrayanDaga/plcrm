@@ -15,11 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(CountrySeeder::class);
+        $this->call(DocumentTypeSeeder::class);
+        $this->call(AccountTypeSeeder::class);
         UserMembreship::factory(20)->create();
-        // $this->call(UserMembreshipFactory::class);
-        //$this->call(CountrySeeder::class);
-        //$this->call(AccountTypeSeeder::class);
-        //$this->call(DocumentTypeSeeder::class);
     }
 }
