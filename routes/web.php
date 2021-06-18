@@ -49,6 +49,7 @@ Route::group(['prefix' => 'system'], function () {
 Route::group(['prefix' => 'user-membreship'], function () {
     Route::get('/register', [UserMembreshipController::class,'register'])->name('user-membreship-register');
     Route::post('/create', [UserMembreshipController::class,'create']);
+    Route::get('/get-data-user/{name}', [UserMembreshipController::class,'getDataUser']);
 });
 
 /* Rutas Programada - fin */

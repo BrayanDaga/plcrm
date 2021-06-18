@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserMembreship;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserMembreshipController extends Controller
 {
@@ -16,7 +17,7 @@ class UserMembreshipController extends Controller
     {
         $table = new UserMembreship();
         $table->user = $request->user;
-        $table->password = $request->password;
+        $table->password = Hash::make($request->password);
         $table->name = $request->name;
         $table->last_name = $request->last_name;
         $table->phone = $request->phone;
@@ -31,5 +32,11 @@ class UserMembreshipController extends Controller
             $json = ['status' => 200];
             return json_encode($json);
         endif;
+    }
+
+    public function getDataUser($user)
+    {
+        $data = UserMembreship::where('user', $user)->get();
+        return response()->json($data, 200);
     }
 }
