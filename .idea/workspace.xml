@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6044cf9b-a26b-4ac4-8a21-c3f608db22f2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/AccountType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Country.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/DocumentType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/UserMembreship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/UserMembreship.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/binary-branch/BinaryBranch.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/BinaryBranchTable.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Branch.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/index.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,14 +164,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/.nvm/versions/node/v14.16.1/lib/node_modules/prettier" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v14.16.1/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$USER_HOME$/.nvm/versions/node/v14.16.1/lib/node_modules/prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -177,6 +180,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/components/binary-branch" />
       <recent name="$PROJECT_DIR$/resources/js/components" />
       <recent name="$PROJECT_DIR$/resources/js/components/containers/binary-branch" />
     </key>
@@ -204,6 +208,8 @@
       <workItem from="1623950191454" duration="147000" />
       <workItem from="1623950370657" duration="258000" />
       <workItem from="1623951231915" duration="4600000" />
+      <workItem from="1623970475827" duration="240000" />
+      <workItem from="1623970806498" duration="35000" />
     </task>
     <servers />
   </component>
