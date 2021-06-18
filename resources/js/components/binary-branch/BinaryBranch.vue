@@ -32,7 +32,12 @@
                                     v-for="tempUsers in this.usersMembreship"
                                     v-bind:key="tempUsers.id"
                                 >
-                                    <td>{{ tempUsers.name }}</td>
+                                    <td>
+                                        <p style="width: 220px">
+                                            {{ tempUsers.name }}
+                                        </p>
+                                    </td>
+
                                     <td>2</td>
                                     <td>{{ tempUsers.referrer_sponsor }}</td>
                                     <td>{{ tempUsers.document_type.document }}</td>
@@ -45,7 +50,52 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Separated Pagination starts -->
+                    <div class="col-md-6 col-sm-12">
+                        <div class="card">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center mt-2">
+                                    <li
+                                        v-if="pagination.current_page > 1"
+                                        class="page-item prev-item"
+                                    >
+                                        <a
+                                            href="#"
+                                            @click.prevent="changePage(pagination.current_page - 1)"
+                                            class="page-link"
+                                        ></a>
+                                    </li>
+                                    <template v-for="page in pagesNumber">
+                                        <li
+                                            class="page-item"
+                                            v-bind:class="[page === isActive && 'active']"
+                                        >
+                                            <a
+                                                href="#"
+                                                class="page-link"
+                                                @click.prevent="changePage(page)"
+                                            >
+                                                {{ page }}
+                                            </a>
+                                        </li>
+                                    </template>
+                                    <li
+                                        v-if="pagination.current_page < pagination.last_page"
+                                        class="page-item next-item"
+                                    >
+                                        <a
+                                            href="#"
+                                            @click.prevent="changePage(pagination.current_page + 1)"
+                                            class="page-link"
+                                        ></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
+                <!-- Separated Pagination ends -->
             </div>
         </div>
     </div>
@@ -53,27 +103,66 @@
 
 <script>
 export default {
+    created() {
+        this.getUsersMembreship();
+    },
     data() {
         return {
             filter: {
                 name: 'name',
                 created_at: 'created_at',
             },
+            pagination: {
+                total: 0,
+                current_page: 0,
+                per_page: 0,
+                last_page: 0,
+                from: 0,
+                to: 0,
+            },
+            offset: 2,
             usersMembreship: [],
         };
     },
-    mounted() {
-        const url = '/api/usersMembreship/list';
-        axios
-            .get(url, {
-                params: {
-                    sName: 'name',
-                },
-            })
-            .then((response) => {
-                this.usersMembreship = response.data.data;
-                console.log(response.data.data);
+    computed: {
+        isActive: function () {
+            return this.pagination.current_page;
+        },
+        pagesNumber: function () {
+            if (!this.pagination.to) {
+                return [];
+            }
+
+            let from = this.pagination.current_page - this.offset;
+            if (from < 1) {
+                from = 1;
+            }
+            let to = from + this.offset * 2;
+            if (to >= this.pagination.last_page) {
+                to = this.pagination.last_page;
+            }
+
+            const pagesArray = [];
+            while (from <= to) {
+                pagesArray.push(from);
+                from++;
+            }
+            return pagesArray;
+        },
+    },
+    methods: {
+        getUsersMembreship: function (page) {
+            const url = `/api/usersMembreship/list?page=${page}`;
+            axios.get(url).then((response) => {
+                this.usersMembreship = response.data.result.data;
+                this.pagination = response.data.pagination;
+                console.log(response.data);
             });
+        },
+        changePage: function (page) {
+            this.pagination.current_page = page;
+            this.getUsersMembreship(page);
+        },
     },
     name: 'BinaryBranch',
 };
