@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6044cf9b-a26b-4ac4-8a21-c3f608db22f2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/api/api.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/api/api.user-membreship.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/custom-spinner/CustomSpinner.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/binary-branch/BinaryBranch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/binary-branch/BinaryBranch.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +23,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JavaScript File" />
         <option value="Vue Single File Component" />
       </list>
     </option>
@@ -208,7 +212,8 @@
       <workItem from="1623970806498" duration="35000" />
       <workItem from="1623975535785" duration="900000" />
       <workItem from="1624026174644" duration="9425000" />
-      <workItem from="1624041527723" duration="310000" />
+      <workItem from="1624041527723" duration="1947000" />
+      <workItem from="1624045588814" duration="188000" />
     </task>
     <servers />
   </component>
