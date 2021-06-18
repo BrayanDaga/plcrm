@@ -9,4 +9,6 @@ class AccountType extends Model
 {
     use HasFactory;
     protected $table = "account_type";
+
+
 }

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserMembreship extends Model
@@ -13,19 +14,19 @@ class UserMembreship extends Model
     use HasFactory;
     protected $table = "user_membreships";
 
-    public function country(): HasOne
+    public function country(): BelongsTo
     {
-        return $this->hasOne(Country::class);
+        return $this->belongsTo(Country::class,'id_country');
     }
 
-    public function accountType(): HasOne
+    public function accountType(): BelongsTo
     {
-        return $this->hasOne(AccountType::class);
+        return $this->belongsTo(AccountType::class,'id_account_type');
     }
 
-    public function documentType(): HasOne
+    public function documentType(): BelongsTo
     {
-        return $this->hasOne(DocumentType::class);
+        return $this->belongsTo(DocumentType::class,'id_document_type');
     }
 
 }

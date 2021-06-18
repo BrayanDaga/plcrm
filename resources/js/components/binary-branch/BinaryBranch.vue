@@ -17,12 +17,14 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Pierna Afiliacion</th>
-                                    <th>Patrocinador Binario</th>
+                                    <th>Posicion</th>
+                                    <th>Patrocinador</th>
+                                    <th>Tipo de Documento</th>
+                                    <th>Tipo de Cuenta</th>
+                                    <th>Telefono</th>
+                                    <th>Email</th>
+                                    <th>Pais</th>
                                     <th>Fecha de inscripcion</th>
-                                    <th>Fecha de Vencimiento</th>
-                                    <th>Activo</th>
-                                    <th>Calificado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,10 +35,12 @@
                                     <td>{{ tempUsers.name }}</td>
                                     <td>2</td>
                                     <td>{{ tempUsers.referrer_sponsor }}</td>
+                                    <td>{{ tempUsers.document_type.document }}</td>
+                                    <td>{{ tempUsers.account_type.account }}</td>
+                                    <td>{{ tempUsers.phone }}</td>
+                                    <td>{{ tempUsers.email }}</td>
+                                    <td>{{ tempUsers.country.name }}</td>
                                     <td>{{ tempUsers.created_at | formatDate }}</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -67,8 +71,8 @@ export default {
                 },
             })
             .then((response) => {
-                this.usersMembreship = response.data;
-                console.log(response.data);
+                this.usersMembreship = response.data.data;
+                console.log(response.data.data);
             });
     },
     name: 'BinaryBranch',

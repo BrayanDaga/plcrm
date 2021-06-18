@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6044cf9b-a26b-4ac4-8a21-c3f608db22f2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/binary-branch/BinaryBranch.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/BinaryBranchTable.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Branch.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BinaryBranchController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BinaryBranchController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/AccountType.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/AccountType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/UserMembreship.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/UserMembreship.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/binary-branch/BinaryBranch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/binary-branch/BinaryBranch.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,6 +209,8 @@
       <workItem from="1623951231915" duration="4600000" />
       <workItem from="1623970475827" duration="240000" />
       <workItem from="1623970806498" duration="35000" />
+      <workItem from="1623975535785" duration="900000" />
+      <workItem from="1624026174644" duration="3321000" />
     </task>
     <servers />
   </component>
