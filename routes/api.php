@@ -20,4 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Api
-Route::get('/usersMembreship/list', [BinaryBranchController::class,'getListUsersMembreship'])->name('getListUsersMembreship');
+Route::get('/usersMembreship', [BinaryBranchController::class,'getListUsersMembreship'])->name('getListUsersMembreship');

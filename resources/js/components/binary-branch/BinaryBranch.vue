@@ -164,6 +164,7 @@ export default {
     },
     methods: {
         getUsersMembreship: function (page) {
+            this.initialLoading = true;
             apiUserMembreship.list(page).then((response) => {
                 this.usersMembreship = response.result.data;
                 this.pagination = response.pagination;
