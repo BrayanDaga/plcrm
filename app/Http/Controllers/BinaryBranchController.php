@@ -19,9 +19,11 @@ class BinaryBranchController extends Controller
     public function getListUsersMembreship(Request $request): JsonResponse
     {
         $list_user_membreship = UserMembreship::query()
-            ->with(['country','accountType','documentType'])
+            ->join('classified','user_membreships.id', '=', 'classified.id_user_membreship')
+            ->with(['country', 'accountType', 'documentType'])
             ->orderBy('name')
             ->paginate(5);
+
         return response()->json([
             'pagination' => [
                 'total' => $list_user_membreship->total(),
