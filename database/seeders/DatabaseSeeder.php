@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //$this->call(CountrySeeder::class);
-        //$this->call(DocumentTypeSeeder::class);
-        //$this->call(AccountTypeSeeder::class);
+        $this->call(CountrySeeder::class);
+        $this->call(DocumentTypeSeeder::class);
+        $this->call(AccountTypeSeeder::class);
+        UserMembreship::factory(20)->create();
         $this->call(ClassifiedSeeder::class);
-        //UserMembreship::factory(20)->create();
     }
 }
