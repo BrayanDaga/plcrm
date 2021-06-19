@@ -6,14 +6,14 @@
                 <div class="col-lg-3">
                     <div class="form-group">
                         <label for="user">User</label>
-                        <input type="text" id="user" class="form-control" v-model="form.user">
+                        <input type="text" id="user" class="form-control" v-model="form.user" @keyup="validateUser">
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" id="password" class="form-control" v-model="form.password">
                     </div>
                     <div class="form-group">
-                        <label for="repassword">Re-Password</label>
+                        <label for="repassword">Re-Password <span v-if="form.repassword !== form.password" class="text-danger font-weight-bold pl-1">Passwords do not match</span></label>
                         <input type="password" id="repassword" class="form-control" v-model="form.repassword">
                     </div>
                     <div class="form-group">
@@ -94,10 +94,19 @@ export default {
                 referrer_sponsor:'',
                 id_country:'',
                 id_account_type:''
-            }
+            },
+            validatePassword: false
         }
     },
     methods: {
+        validateUser(){
+            const user = this.form.user;
+            axios.get(`/user-membreship/get-data-user/${user}`)
+            .then(r => {
+                console.log(r);
+            })
+            .catch(r => console.log(r));
+        },
         add(){
             axios.post('/user-membreship/create', this.form)
         }
