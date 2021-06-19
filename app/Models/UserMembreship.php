@@ -14,9 +14,15 @@ class UserMembreship extends Model
     use HasFactory;
     protected $table = "user_membreships";
 
+
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class,'id_country');
+    }
+
+    public function classified(): HasOne
+    {
+        return $this->hasOne(Classified::class,'id_user_membreship');
     }
 
     public function accountType(): BelongsTo

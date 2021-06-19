@@ -14,23 +14,15 @@ class AccountTypeSeeder extends Seeder
      */
     public function run()
     {
+        $accounts = array('Account I','Account II','Account III','Account IV','Account V');
         //
-        DB::table('account_type')->insert([
-            'account' => 'CuentaI',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
 
-        DB::table('account_type')->insert([
-            'account' => 'CuentaII',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        DB::table('account_type')->insert([
-            'account' => 'CuentaIII',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        foreach ($accounts as $account){
+            DB::table('account_type')->insert([
+                'account' => $account,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
