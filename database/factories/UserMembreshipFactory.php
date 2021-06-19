@@ -37,7 +37,7 @@ class UserMembreshipFactory extends Factory
             'id_country' => rand(1, 50),
             'id_document_type' => rand(1, 4),
             'nro_document' => '1111111111',
-            'id_account_type' => rand(1, 3),
+            'id_account_type' => rand(1, 5),
         ];
     }
 }

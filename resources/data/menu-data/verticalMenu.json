@@ -49,7 +49,7 @@
       "url": "system/binary-branch",
       "name": "Red-Binary",
       "icon": "package",
-      "slug": ""
+      "slug": "binary-branch"
     },
     {
       "url": "app/chat",

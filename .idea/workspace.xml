@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6044cf9b-a26b-4ac4-8a21-c3f608db22f2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/api/api.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/api/api.user-membreship.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/custom-spinner/CustomSpinner.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/binary-branch/BinaryBranch.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/binary-branch/BinaryBranch.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,6 +157,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -213,7 +211,10 @@
       <workItem from="1623975535785" duration="900000" />
       <workItem from="1624026174644" duration="9425000" />
       <workItem from="1624041527723" duration="1947000" />
-      <workItem from="1624045588814" duration="188000" />
+      <workItem from="1624045588814" duration="1057000" />
+      <workItem from="1624047682432" duration="6997000" />
+      <workItem from="1624068917968" duration="4290000" />
+      <workItem from="1624108937832" duration="3237000" />
     </task>
     <servers />
   </component>

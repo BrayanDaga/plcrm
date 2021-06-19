@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DocumentTypeSeeder::class);
         $this->call(AccountTypeSeeder::class);
         UserMembreship::factory(20)->create();
+        $this->call(ClassifiedSeeder::class);
     }
 }

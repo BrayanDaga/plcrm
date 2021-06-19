@@ -44,7 +44,7 @@ Route::group(['prefix' => 'dashboard'], function () {
 
 /* Rutas Programada - inicio */
 Route::group(['prefix' => 'system'], function () {
-    Route::get('binary-branch', [BinaryBranchController::class,'binary_branch']);
+    Route::get('binary-branch', [BinaryBranchController::class,'binary_branch'])->name('binary-branch');
 });
 Route::group(['prefix' => 'user-membreship'], function () {
     Route::get('/register', [UserMembreshipController::class,'register'])->name('user-membreship-register');

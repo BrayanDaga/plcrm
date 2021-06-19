@@ -29,9 +29,15 @@ class UserMembreship extends Model
         'id_account_type'
     ];
 
+
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class,'id_country');
+    }
+
+    public function classified(): HasOne
+    {
+        return $this->hasOne(Classified::class,'id_user_membreship');
     }
 
     public function accountType(): BelongsTo
