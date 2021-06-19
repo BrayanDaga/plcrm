@@ -18,11 +18,12 @@ class BinaryBranchController extends Controller
     // Metodo para listar los usuarios
     public function getListUsersMembreship(Request $request): JsonResponse
     {
-        $list_user_membreship = UserMembreship::query()
-            ->with(['country','accountType','documentType'])
+        $list_user_membreship = UserMembreship::with(['country','accountType','documentType'])
+            ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
             ->orderBy('name')
-            ->paginate(5);
-        return response()->json([
+            ->paginate(1);
+
+        $data_pagination = [
             'pagination' => [
                 'total' => $list_user_membreship->total(),
                 'current_page' => $list_user_membreship->currentPage(),
@@ -32,6 +33,8 @@ class BinaryBranchController extends Controller
                 'to' => $list_user_membreship->lastPage(),
             ],
             'result' => $list_user_membreship
-        ]);
+        ];
+
+        return response()->json($data_pagination);
     }
 }
