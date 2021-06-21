@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="form-group">
-                        <label for="user">User</label>
+                        <label for="user">User <span v-if="validateUserMembreship" class="text-danger font-weight-bold pl-1">User Exists</span></label>
                         <input type="text" id="user" class="form-control" v-model="form.user" @keyup="validateUser">
                     </div>
                     <div class="form-group">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Phones</label>
-                        <input type="tel" id="phone" class="form-control" v-model="form.phone">
+                        <input type="tel" id="phone" class="form-control" v-model="form.phone" maxlength="10">
                     </div>
                     <div class="form-group">
                         <label for="date_birth">Date Birth</label>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-group">
                         <label for="nro_document">Nro. Document</label>
-                        <input type="text" id="nro_document" class="form-control" v-model="form.nro_document">
+                        <input type="number" id="nro_document" class="form-control" v-model="form.nro_document" maxlength="12">
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -95,7 +95,7 @@ export default {
                 id_country:'',
                 id_account_type:''
             },
-            validatePassword: false
+            validateUserMembreship: false
         }
     },
     methods: {
@@ -103,7 +103,13 @@ export default {
             const user = this.form.user;
             axios.get(`/user-membreship/get-data-user/${user}`)
             .then(r => {
-                console.log(r);
+                if(Array.isArray(r.data) && r.data.length){
+                    if(r.data[0].user == user){
+                        this.validateUserMembreship = true;
+                    }
+                }else{
+                    this.validateUserMembreship = false;
+                }
             })
             .catch(r => console.log(r));
         },
@@ -112,4 +118,5 @@ export default {
         }
     }
 }
+
 </script>
