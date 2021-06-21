@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DocumentType;
 use App\Models\UserMembreship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +11,8 @@ class UserMembreshipController extends Controller
 {
     public function Register()
     {
-        return view('content.user-membreship.register');
+        $document_type = DocumentType::all();
+        return view('content.user-membreship.register', ['documentType' => $document_type]);
     }
 
     public function Create(Request $request)
