@@ -1,5 +1,5 @@
 <!-- Incluyendo el layouts (Importante) -->
-@extends('layouts/contentLayoutMaster')
+@extends('layouts.contentLayoutMaster')
 
 <!-- Establecer el titulo del modulo (Importante) -->
 @section('title', 'Arbol Binario')
