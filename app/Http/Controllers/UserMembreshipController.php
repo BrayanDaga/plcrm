@@ -13,6 +13,11 @@ class UserMembreshipController extends Controller
         return view('content.user-membreship.register');
     }
 
+    public function List()
+    {
+        return view('content.user-membreship.list');
+    }
+
     public function Create(Request $request)
     {
         $table = new UserMembreship();
