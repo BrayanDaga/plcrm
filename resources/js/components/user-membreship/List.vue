@@ -67,10 +67,20 @@
                                             <label for="first-name">Registros por pagina :</label>
                                         </div>
                                         <div class="col-sm-5">
-                                            <select id="first-name" class="custom-select">
-                                                <option value="5" selected="selected">5</option>
-                                                <option value="10">10</option>
-                                                <option value="15">15</option>
+                                            <select
+                                                v-model="pageSize"
+                                                id="first-name"
+                                                class="custom-select"
+                                                @change="getUsersMembreship"
+                                            >
+                                                <option
+                                                    v-for="(item, index) in itemForPage"
+                                                    :value="item"
+                                                    :selected="index === 0"
+                                                    :key="index"
+                                                >
+                                                    {{ item }}
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -143,6 +153,7 @@ export default {
     },
     data() {
         return {
+            itemForPage: [5, 10, 15],
             pageSize: 5,
             initialLoading: true,
             filter: {
@@ -189,8 +200,13 @@ export default {
     },
     methods: {
         getUsersMembreship: function(page) {
+            const params = {
+                pageSize: this.pageSize,
+                page: page
+            };
             this.initialLoading = true;
-            apiUserMembreship.listUserMembreship(page, this.pageSize).then(response => {
+
+            apiUserMembreship.listUserMembreship(params).then(response => {
                 this.usersMembreship = response.result.data;
                 this.pagination = response.pagination;
                 this.initialLoading = false;
@@ -199,9 +215,6 @@ export default {
         changePage: function(page) {
             this.pagination.current_page = page;
             this.getUsersMembreship(page);
-        },
-        setDropdown: function() {
-            this.openDropdown = !this.openDropdown;
         }
     },
     name: 'List'
