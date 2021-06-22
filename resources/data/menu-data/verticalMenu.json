@@ -32,12 +32,6 @@
                     "name": "Register",
                     "icon": "mail",
                     "slug": "user-membreship-register"
-                },
-                {
-                    "url": "user-membreship/list",
-                    "name": "List",
-                    "icon": "mail",
-                    "slug": "user-membreship-register"
                 }
             ]
         },
@@ -50,6 +44,10 @@
             "name": "Email",
             "icon": "mail",
             "slug": "app-email"
+        },
+        {
+            "navheader": "Section User",
+            "slug": ""
         },
         {
             "url": "system/binary-branch",
@@ -70,6 +68,10 @@
                     "slug": "user-membreship-list"
                 }
             ]
+        },
+        {
+            "navheader": "Other Section",
+            "slug": ""
         },
         {
             "url": "app/chat",

@@ -185,4 +185,6 @@ return [
   "User Membreship" => "User Membreship",
   "User-Scroll" => "Usuarios",
   "User-Scroll-List" => "Listar Usuarios",
+  "Section User" => "Seccion Usuarios",
+  "Other Section" => "Otras Secciones",
 ];
