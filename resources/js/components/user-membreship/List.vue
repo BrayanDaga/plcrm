@@ -34,7 +34,11 @@
                                             </p>
                                         </td>
 
-                                        <td>2</td>
+                                        <td>
+                                            {{
+                                                tempUsers.position === '1' ? 'Izquierda' : 'Derecha'
+                                            }}
+                                        </td>
                                         <td>{{ tempUsers.referrer_sponsor }}</td>
                                         <td>{{ tempUsers.document_type.document }}</td>
                                         <td>{{ tempUsers.account_type.account }}</td>
