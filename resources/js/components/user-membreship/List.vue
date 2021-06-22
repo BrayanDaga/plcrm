@@ -34,7 +34,11 @@
                                             </p>
                                         </td>
 
-                                        <td>2</td>
+                                        <td>
+                                            {{
+                                                tempUsers.position === '1' ? 'Izquierda' : 'Derecha'
+                                            }}
+                                        </td>
                                         <td>{{ tempUsers.referrer_sponsor }}</td>
                                         <td>{{ tempUsers.document_type.document }}</td>
                                         <td>{{ tempUsers.account_type.account }}</td>
@@ -139,7 +143,7 @@ export default {
     },
     data() {
         return {
-            openDropdown: false,
+            pageSize: 5,
             initialLoading: true,
             filter: {
                 name: 'name',
@@ -186,7 +190,7 @@ export default {
     methods: {
         getUsersMembreship: function(page) {
             this.initialLoading = true;
-            apiUserMembreship.list(page).then(response => {
+            apiUserMembreship.listUserMembreship(page, this.pageSize).then(response => {
                 this.usersMembreship = response.result.data;
                 this.pagination = response.pagination;
                 this.initialLoading = false;
