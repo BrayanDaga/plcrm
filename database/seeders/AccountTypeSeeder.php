@@ -14,7 +14,7 @@ class AccountTypeSeeder extends Seeder
      */
     public function run()
     {
-        $accounts = array('Account I','Account II','Account III','Account IV','Account V');
+        $accounts = array('School', 'Academy', 'University', 'Invited');
         //
 
         foreach ($accounts as $account){

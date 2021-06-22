@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DocumentType;
+use App\Models\AccountType;
 use App\Models\UserMembreship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,11 @@ class UserMembreshipController extends Controller
     public function Register()
     {
         $document_type = DocumentType::select('id', 'document')->get();
-        return view('content.user-membreship.register', ['documentType' => $document_type]);
+        $account_type = AccountType::select('id', 'account')->where('status', '1')->get();
+        return view('content.user-membreship.register', [
+            'document_type' => $document_type,
+            'account_type' => $account_type
+        ]);
     }
 
     public function List()
@@ -35,7 +40,7 @@ class UserMembreshipController extends Controller
         $table->id_document_type = $request->id_document_type;
         $table->id_account_type = $request->id_account_type;
         $table->nro_document = $request->nro_document;
-        if($table->save()):
+        if ($table->save()) :
             $json = ['status' => 200];
             return json_encode($json);
         endif;
