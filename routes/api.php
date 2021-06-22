@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BinaryBranchController;
+use App\Http\Controllers\UserMembreshipController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Api
 Route::get('/usersMembreship', [BinaryBranchController::class,'getListUsersMembreship'])->name('getListUsersMembreship');
+Route::get('/usersMembreship/list', [UserMembreshipController::class,'GetList'])->name('GetList');

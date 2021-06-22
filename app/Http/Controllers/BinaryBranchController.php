@@ -21,7 +21,7 @@ class BinaryBranchController extends Controller
         $list_user_membreship = UserMembreship::with(['country','accountType','documentType'])
             ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
             ->orderBy('name')
-            ->paginate(1);
+            ->paginate(5);
 
         $data_pagination = [
             'pagination' => [

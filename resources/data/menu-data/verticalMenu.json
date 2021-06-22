@@ -46,6 +46,10 @@
             "slug": "app-email"
         },
         {
+            "navheader": "Section User",
+            "slug": ""
+        },
+        {
             "url": "system/binary-branch",
             "name": "Red-Binary",
             "icon": "briefcase",
@@ -64,6 +68,10 @@
                     "slug": "user-membreship-list"
                 }
             ]
+        },
+        {
+            "navheader": "Other Section",
+            "slug": ""
         },
         {
             "url": "app/chat",

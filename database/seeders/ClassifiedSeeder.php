@@ -34,7 +34,7 @@ class ClassifiedSeeder extends Seeder
                 'id_user_membreship' => $id + 1,
                 'id_user_sponsor' => $id + 1,
                 'binary_sponsor' => 'test 1',
-                'position' => '0',
+                'position' => '2',
                 'classification' => 26,
                 'status' => '1',
                 'authorized' => '0',

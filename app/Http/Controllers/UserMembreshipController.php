@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DocumentType;
 use App\Models\AccountType;
 use App\Models\UserMembreship;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,6 +24,35 @@ class UserMembreshipController extends Controller
     public function List()
     {
         return view('content.user-membreship.list');
+    }
+
+    public function GetList(Request $request) : JsonResponse
+    {
+        $pageSize = 5;
+        if ($request->pageSize)
+        {
+            $pageSize = (int)$request->pageSize;
+        }
+
+        $list_user_membreship = UserMembreship::query()
+            ->with(['country','accountType','documentType'])
+            ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
+            ->orderBy('name')
+            ->paginate($pageSize);
+
+        $data_pagination = [
+            'pagination' => [
+                'total' => $list_user_membreship->total(),
+                'current_page' => $list_user_membreship->currentPage(),
+                'per_page' => $list_user_membreship->perPage(),
+                'last_page' => $list_user_membreship->lastPage(),
+                'from' => $list_user_membreship->firstItem(),
+                'to' => $list_user_membreship->lastPage(),
+            ],
+            'result' => $list_user_membreship
+        ];
+
+        return response()->json($data_pagination);
     }
 
     public function Create(Request $request)

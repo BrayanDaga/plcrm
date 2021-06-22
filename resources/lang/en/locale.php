@@ -186,4 +186,6 @@ return [
   "Register" => "Register",
   "User-Scroll" => "Usuarios",
   "User-Scroll-List" => "Listar Usuarios",
+  "Section User" => "Seccion Usuarios",
+  "Other Section" => "Otras Secciones",
 ];
