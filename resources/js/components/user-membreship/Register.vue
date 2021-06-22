@@ -78,6 +78,7 @@
 </template>
 <script>
 export default {
+    props: ['documentType'],
     data(){
         return {
             form: {
@@ -97,6 +98,9 @@ export default {
             },
             validateUserMembreship: false
         }
+    },
+    created(){
+        console.log(this.documentType);
     },
     methods: {
         validateUser(){

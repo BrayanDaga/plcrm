@@ -11,7 +11,7 @@ class UserMembreshipController extends Controller
 {
     public function Register()
     {
-        $document_type = DocumentType::all();
+        $document_type = DocumentType::select('id', 'document')->get();
         return view('content.user-membreship.register', ['documentType' => $document_type]);
     }
 
