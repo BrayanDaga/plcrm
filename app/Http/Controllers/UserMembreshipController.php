@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PagingParams;
+use App\Helpers\UserMembershipParams;
 use App\Models\DocumentType;
 use App\Models\AccountType;
 use App\Models\UserMembreship;
@@ -27,19 +29,22 @@ class UserMembreshipController extends Controller
         return view('content.user-membreship.list');
     }
 
-    public function GetList(Request $request) : JsonResponse
+    public function GetList(Request $request): JsonResponse
     {
-        $pageSize = 5;
-        if ($request->pageSize)
-        {
-            $pageSize = (int)$request->pageSize;
+        $pagingParams = new UserMembershipParams();
+
+        if ($request->pageSize) {
+            $pagingParams->setPageSize($request->pageSize);
+        }
+        if ($request->order) {
+            $pagingParams->setOrderBy($request->order);
         }
 
         $list_user_membreship = UserMembreship::query()
-            ->with(['country','accountType','documentType'])
+            ->with(['country', 'accountType', 'documentType'])
             ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
-            ->orderBy('name')
-            ->paginate($pageSize);
+            ->orderBy('user_membreships.' . $pagingParams->OrderBy, 'asc')
+            ->paginate($pagingParams->PageSize);
 
         $data_pagination = [
             'pagination' => [
@@ -71,7 +76,7 @@ class UserMembreshipController extends Controller
         $table->id_document_type = $request->id_document_type;
         $table->id_account_type = $request->id_account_type;
         $table->nro_document = $request->nro_document;
-        if ($table->save()) :
+        if ($table->save()):
             $json = ['status' => 200];
             return json_encode($json);
         endif;

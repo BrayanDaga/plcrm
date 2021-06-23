@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\UserMembershipParams;
 use App\Models\UserMembreship;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -18,10 +19,19 @@ class BinaryBranchController extends Controller
     // Metodo para listar los usuarios
     public function getListUsersMembreship(Request $request): JsonResponse
     {
+        $pagingParams = new UserMembershipParams();
+
+        if ($request->pageSize) {
+            $pagingParams->setPageSize($request->pageSize);
+        }
+        if ($request->order) {
+            $pagingParams->setOrderBy($request->order);
+        }
+
         $list_user_membreship = UserMembreship::with(['country','accountType','documentType'])
             ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
-            ->orderBy('name')
-            ->paginate(5);
+            ->orderBy('user_membreships.' . $pagingParams->OrderBy, 'asc')
+            ->paginate($pagingParams->PageSize);
 
         $data_pagination = [
             'pagination' => [
