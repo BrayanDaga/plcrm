@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDocumentTypeTable extends Migration
+class AddColumnStatusAccountType extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateDocumentTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('document_type', function (Blueprint $table) {
-            $table->id();
-            $table->string('document', 20);
-            $table->timestamps();
+        Schema::table('account_type', function (Blueprint $table) {
+            $table->string('status', 1)->default('1');
         });
     }
 
@@ -27,6 +25,6 @@ class CreateDocumentTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_type');
+        //
     }
 }

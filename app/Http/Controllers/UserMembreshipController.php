@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\PagingParams;
 use App\Helpers\UserMembershipParams;
 use App\Models\DocumentType;
+use App\Models\AccountType;
 use App\Models\UserMembreship;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,7 +16,12 @@ class UserMembreshipController extends Controller
     public function Register()
     {
         $document_type = DocumentType::select('id', 'document')->get();
-        return view('content.user-membreship.register', ['documentType' => $document_type]);
+        $account_type = AccountType::select('id', 'account')->where('status', '1')->get();
+        
+        return view('content.user-membreship.register', [
+            'document_type' => $document_type,
+            'account_type' => $account_type
+        ]);
     }
 
     public function List()

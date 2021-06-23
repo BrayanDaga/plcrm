@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AppsController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserInterfaceController;
 use App\Http\Controllers\CardsController;
 use App\Http\Controllers\ComponentsController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\BinaryBranchController;
 use App\Http\Controllers\UserMembreshipController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,31 +30,39 @@ use App\Http\Controllers\UserMembreshipController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Main Page Route
-// Route::get('/', [DashboardController::class,'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
-Route::get('/', [DashboardController::class,'dashboardEcommerce'])->name('dashboard-ecommerce');
-
 Auth::routes(['verify' => true]);
-
-/* Route Dashboards */
-Route::group(['prefix' => 'dashboard'], function () {
-  Route::get('analytics', [DashboardController::class,'dashboardAnalytics'])->name('dashboard-analytics');
-  Route::get('ecommerce', [DashboardController::class,'dashboardEcommerce'])->name('dashboard-ecommerce');
-});
-/* Route Dashboards */
+Route::post('login', [LoginController::class, 'login'])->name('login');
 
 /* Rutas Programada - inicio */
-Route::group(['prefix' => 'system'], function () {
+/**
+ * Todas las rutas establecidas deben de estar dentro de "Middleware Auth"
+ */
+Route::group(['middleware' => ['auth']], function () {
+  // Main Page Route
+  // Route::get('/', [DashboardController::class,'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
+  Route::get('/', [DashboardController::class,'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
+  
+  
+  /* Route Dashboards */
+  Route::group(['prefix' => 'dashboard'], function () {
+    Route::get('analytics', [DashboardController::class,'dashboardAnalytics'])->name('dashboard-analytics');
+    Route::get('ecommerce', [DashboardController::class,'dashboardEcommerce'])->name('dashboard-ecommerce');
+  });
+  /* Route Dashboards */
+  
+  Route::group(['prefix' => 'system'], function () {
     Route::get('binary-branch', [BinaryBranchController::class,'binary_branch'])->name('binary-branch');
-});
-Route::group(['prefix' => 'user-membreship'], function () {
+  });
+
+  Route::group(['prefix' => 'user-membreship'], function () {
     Route::get('/register', [UserMembreshipController::class,'register'])->name('user-membreship-register');
     Route::get('/list', [UserMembreshipController::class,'list'])->name('user-membreship-list');
     Route::post('/create', [UserMembreshipController::class,'create']);
     Route::get('/get-data-user/{name}', [UserMembreshipController::class,'getDataUser']);
-});
+  });
 
+  Route::post('/logout', [LoginController::class,'logout'])->name('logout');
+});
 /* Rutas Programada - fin */
 
 /* Route Apps */

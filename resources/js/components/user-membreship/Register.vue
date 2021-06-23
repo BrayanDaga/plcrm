@@ -43,7 +43,7 @@
                     <div class="form-group">
                         <label for="id_document_type">Document Type</label>
                         <select id="id_document_type" class="form-control" v-model="form.id_document_type">
-                            <option value="1">document type</option>
+                            <option v-for="dt in listDocumentType" v-bind:key="dt.id" :value="dt.id">{{ dt.document }}</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -54,7 +54,7 @@
                 <div class="col-lg-3">
                     <div class="form-group">
                         <label for="referrer_sponsor">Referrer/Sponsor</label>
-                        <input type="text" id="referrer_sponsor" class="form-control" v-model="form.referrer_sponsor">
+                        <input type="text" id="referrer_sponsor" class="form-control" v-model="form.referrer_sponsor" value="Admin">
                     </div>
                     <div class="form-group">
                         <label for="id_country">Country</label>
@@ -65,7 +65,7 @@
                     <div class="form-group">
                         <label for="id_account_type">Account Type</label>
                         <select id="id_account_type" class="form-control" v-model="form.id_account_type">
-                            <option value="1">test account_type</option>
+                            <option v-for="at in listAccountType" v-bind:key="at.id" :value="at.id">{{ at.account }}</option>
                         </select>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
 </template>
 <script>
 export default {
-    props: ['documentType'],
+    props: ['documentType', 'accountType'],
     data(){
         return {
             form: {
@@ -96,11 +96,14 @@ export default {
                 id_country:'',
                 id_account_type:''
             },
-            validateUserMembreship: false
+            validateUserMembreship: false,
+            listDocumentType: [],
+            listAccountType: []
         }
     },
     created(){
-        console.log(this.documentType);
+        this.listDocumentType = this.documentType
+        this.listAccountType = this.accountType
     },
     methods: {
         validateUser(){
@@ -120,6 +123,13 @@ export default {
         add(){
             axios.post('/user-membreship/create', this.form)
         }
+    },
+    mounted() {
+        const idDocumentType = document.getElementById('id_document_type');
+        idDocumentType.selectedIndex = 0;
+
+        const idAccountType = document.getElementById('id_account_type');
+        idAccountType.selectedIndex = 0;
     }
 }
 
