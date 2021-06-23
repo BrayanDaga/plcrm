@@ -8,6 +8,31 @@
                         <div class="card-header">
                             <h4 class="card-title">Lista de Usuarios</h4>
                         </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <div class="col-sm-7 col-form-label">
+                                    <label for="order-by">Ordenar Por:</label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <select
+                                        v-model="orderBy"
+                                        class="custom-select"
+                                        id="order-by"
+                                        @change="getUsersMembreship"
+                                    >
+                                        <option
+                                            v-for="(item, index) in orderObject.orderName"
+                                            :value="orderObject.orderBy[index]"
+                                            :selected="index === 0"
+                                            :key="index"
+                                        >
+                                            {{ item }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -64,12 +89,14 @@
                                 <div class="col-xl-4 col-lg-12">
                                     <div class="form-group row mt-1">
                                         <div class="col-sm-7 col-form-label">
-                                            <label for="first-name">Registros por pagina :</label>
+                                            <label for="items-for-page"
+                                                >Registros por pagina :</label
+                                            >
                                         </div>
                                         <div class="col-sm-5">
                                             <select
                                                 v-model="pageSize"
-                                                id="first-name"
+                                                id="items-for-page"
                                                 class="custom-select"
                                                 @change="getUsersMembreship"
                                             >
@@ -153,6 +180,11 @@ export default {
     },
     data() {
         return {
+            orderObject: {
+                orderName: ['Fecha de subscripcion', 'Nombre', 'Tipo de Documento'],
+                orderBy: ['created_at', 'name', 'id_document_type']
+            },
+            orderBy: 'created_at',
             itemForPage: [5, 10, 15],
             pageSize: 5,
             initialLoading: true,
@@ -202,10 +234,10 @@ export default {
         getUsersMembreship: function(page) {
             const params = {
                 pageSize: this.pageSize,
+                order: this.orderBy,
                 page: page
             };
             this.initialLoading = true;
-
             apiUserMembreship.listUserMembreship(params).then(response => {
                 this.usersMembreship = response.result.data;
                 this.pagination = response.pagination;
