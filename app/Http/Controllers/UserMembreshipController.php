@@ -15,6 +15,7 @@ class UserMembreshipController extends Controller
     {
         $document_type = DocumentType::select('id', 'document')->get();
         $account_type = AccountType::select('id', 'account')->where('status', '1')->get();
+        
         return view('content.user-membreship.register', [
             'document_type' => $document_type,
             'account_type' => $account_type
