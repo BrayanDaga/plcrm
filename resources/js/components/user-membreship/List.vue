@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <div class="card-text">
                                 <div class="col-sm-7 col-form-label">
-                                    <label for="order-by">Ordenar Por:</label>
+                                    <label for="order-by">Ordenar:</label>
                                 </div>
                                 <div class="col-sm-5">
                                     <select
