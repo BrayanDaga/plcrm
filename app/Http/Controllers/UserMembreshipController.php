@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\PagingParams;
+use App\Helpers\Helper;
 use App\Helpers\UserMembershipParams;
 use App\Models\DocumentType;
 use App\Models\AccountType;
@@ -17,10 +17,13 @@ class UserMembreshipController extends Controller
     {
         $document_type = DocumentType::select('id', 'document')->get();
         $account_type = AccountType::select('id', 'account')->where('status', '1')->get();
+        $get_auth_config = Helper::getAuthConfig();
+        $get_auth_config = json_encode($get_auth_config);
         
         return view('content.user-membreship.register', [
             'document_type' => $document_type,
-            'account_type' => $account_type
+            'account_type' => $account_type,
+            'get_auth_config' => $get_auth_config
         ]);
     }
 

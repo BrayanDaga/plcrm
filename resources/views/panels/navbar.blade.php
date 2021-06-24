@@ -254,8 +254,8 @@
         <li class="nav-item dropdown dropdown-user">
           <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="user-nav d-sm-flex d-none">
-              <span class="user-name font-weight-bolder">John Doe</span>
-              <span class="user-status">Admin</span>
+              <span class="user-name font-weight-bolder">{{ $get_auth_config['user']->name }} {{ $get_auth_config['user']->last_name }}</span>
+              <span class="user-status">{{ $get_auth_config['account_type']->account }}</span>
             </div>
             <span class="avatar">
               <img class="round" src="{{asset('images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="40" width="40">
@@ -371,7 +371,7 @@
             <img src="{{asset('images/portrait/small/avatar-s-8.jpg')}}" alt="png" height="32">
           </div>
           <div class="search-data">
-            <p class="search-data-title mb-0">John Doe</p>
+            <p class="search-data-title mb-0">{{ $get_auth_config['user']->name }}</p>
             <small class="text-muted">UI designer</small>
           </div>
         </div>
