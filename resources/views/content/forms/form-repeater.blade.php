@@ -25,7 +25,7 @@
                         class="form-control"
                         id="itemname"
                         aria-describedby="itemname"
-                        placeholder="Vuexy Admin Template"
+                        placeholder="Promolider Admin Template"
                       />
                     </div>
                   </div>
