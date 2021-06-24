@@ -15,7 +15,7 @@ class CreateDocumentTypeTable extends Migration
     {
         Schema::create('document_type', function (Blueprint $table) {
             $table->id();
-            $table->string('document', 20);
+            $table->string('document', 25);
             $table->timestamps();
         });
     }

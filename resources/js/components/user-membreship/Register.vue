@@ -54,7 +54,7 @@
                 <div class="col-lg-3">
                     <div class="form-group">
                         <label for="referrer_sponsor">Referrer/Sponsor</label>
-                        <input type="text" id="referrer_sponsor" class="form-control" v-model="form.referrer_sponsor" value="Admin">
+                        <input type="text" id="referrer_sponsor" class="form-control" v-model="form.referrer_sponsor" disabled>
                     </div>
                     <div class="form-group">
                         <label for="id_country">Country</label>
@@ -78,7 +78,7 @@
 </template>
 <script>
 export default {
-    props: ['documentType', 'accountType'],
+    props: ['documentType', 'accountType', 'auth'],
     data(){
         return {
             form: {
@@ -102,6 +102,7 @@ export default {
         }
     },
     created(){
+        this.form.referrer_sponsor = this.auth.user.name;
         this.listDocumentType = this.documentType
         this.listAccountType = this.accountType
     },

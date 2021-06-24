@@ -14,7 +14,7 @@ class DocumentTypeSeeder extends Seeder
      */
     public function run()
     {
-        $documents = array('DNI','PASAPORTE','CARNET DE EXTRANJERIA', 'OTROS');
+        $documents = array('DNI','Pasaporte','Carnet de Extranjeria', 'Otros');
 
         foreach ($documents as $document){
             DB::table('document_type')->insert([

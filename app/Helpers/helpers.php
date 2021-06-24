@@ -2,8 +2,11 @@
 
 namespace App\Helpers;
 
+use App\Models\AccountType;
 use Config;
+use Illuminate\Support\Facades\Config as FacadesConfig;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class Helper
 {
@@ -155,9 +158,16 @@ class Helper
         if (isset($pageConfigs)) {
             if (count($pageConfigs) > 0) {
                 foreach ($pageConfigs as $config => $val) {
-                    Config::set('custom.' . $demo . '.' . $config, $val);
+                    FacadesConfig::set('custom.' . $demo . '.' . $config, $val);
                 }
             }
         }
+    }
+
+    public static function getAuthConfig(){
+        $user = Auth::user();
+        $account_type = AccountType::find($user->id_account_type);
+        $json = ['user' => $user, 'account_type' => $account_type];
+        return $json;
     }
 }

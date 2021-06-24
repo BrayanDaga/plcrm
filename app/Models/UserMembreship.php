@@ -26,7 +26,7 @@ class UserMembreship extends Authenticatable
         'phone',
         'date_birth',
         'email',
-        'referrer_sponsor',
+        'id_referrer_sponsor',
         'id_country',
         'id_document_type',
         'id_account_type'

@@ -15,8 +15,12 @@ class ClassifiedSeeder extends Seeder
     public function run()
     {
 
-        for ($index = 0; $index < 10; $index++){
-            $id = rand(1, 19);
+        /**
+         * se estan cambiando algunos valos con fines de generar menos datos de prueba
+         */
+
+        for ($index = 0; $index < 5; $index++){
+            $id = rand(1, 5);
             DB::table('classified')->insert([
                 'id_user_membreship' => $id,
                 'id_user_sponsor' => $id,

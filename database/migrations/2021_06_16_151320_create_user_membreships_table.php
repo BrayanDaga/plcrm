@@ -22,7 +22,7 @@ class CreateUserMembreshipsTable extends Migration
             $table->string('phone', 12);
             $table->date('date_birth');
             $table->string('email', 50);
-            $table->string('referrer_sponsor');
+            $table->integer('id_referrer_sponsor');
             $table->bigInteger('id_country')->unsigned();
             $table->foreign('id_country')->references('id')->on('country');
             $table->bigInteger('id_document_type')->unsigned();
