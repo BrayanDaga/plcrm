@@ -13,48 +13,37 @@
                                 <div id="account-details" class="active">
                                     <form novalidate="novalidate">
                                         <div class="row">
-                                            <div class="form-group col-md-5">
-                                                <label for="name" class="form-label">
-                                                    Name :
+                                            <div class="form-group col-md-6">
+                                                <label class="form-label">
+                                                    Search:
                                                 </label>
-                                                <input
-                                                    v-model="sendName"
-                                                    type="text"
-                                                    name="name"
-                                                    id="name"
-                                                    placeholder="Send for name"
-                                                    class="form-control"
-                                                    aria-invalid="false"
-                                                    autocomplete="off"
-                                                />
-                                            </div>
-                                            <div class="form-group col-md-2 mt-2">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-icon rounded-circle btn-outline-primary"
-                                                    @click="getUsersMembreship"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="14"
-                                                        height="14"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        stroke-width="2"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        class="feather feather-search"
-                                                    >
-                                                        <circle cx="11" cy="11" r="8"></circle>
-                                                        <line
-                                                            x1="21"
-                                                            y1="21"
-                                                            x2="16.65"
-                                                            y2="16.65"
-                                                        ></line>
-                                                    </svg>
-                                                </button>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <button
+                                                            type="button"
+                                                            class="btn btn-outline-primary waves-effect"
+                                                            @click="getUsersMembreship"
+                                                        >
+                                                            <i data-feather="search"></i>
+                                                        </button>
+                                                    </div>
+                                                    <input
+                                                        v-model="searchName"
+                                                        type="text"
+                                                        placeholder="Button on both side"
+                                                        aria-label="Amount"
+                                                        class="form-control"
+                                                    />
+                                                    <div class="input-group-append">
+                                                        <button
+                                                            type="button"
+                                                            class="btn btn-outline-primary waves-effect"
+                                                            @click="getUsersMembreship"
+                                                        >
+                                                            Search !
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group col-md-5">
                                                 <label for="order-by" class="form-label">
@@ -234,7 +223,7 @@ export default {
     },
     data() {
         return {
-            sendName: '',
+            searchName: '',
             orderObject: {
                 orderName: ['Fecha de subscripcion', 'Nombre', 'Tipo de Documento'],
                 orderBy: ['created_at', 'name', 'id_document_type']
@@ -284,7 +273,7 @@ export default {
     methods: {
         getUsersMembreship: function(page) {
             const params = {
-                send: this.sendName,
+                search: this.searchName,
                 pageSize: this.pageSize,
                 order: this.orderBy,
                 page: page
