@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CountrySeeder::class);
         $this->call(DocumentTypeSeeder::class);
         $this->call(AccountTypeSeeder::class);
-        UserMembreship::factory()->create(); // se reduce la cantida de datos de pruebas
-        $this->call(ClassifiedSeeder::class);
+        // UserMembreship::factory()->create(); // se reduce la cantida de datos de pruebas
+        // $this->call(ClassifiedSeeder::class);
     }
 }

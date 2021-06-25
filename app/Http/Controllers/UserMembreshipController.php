@@ -6,6 +6,8 @@ use App\Helpers\Helper;
 use App\Helpers\UserMembershipParams;
 use App\Models\DocumentType;
 use App\Models\AccountType;
+use App\Models\Classified;
+use App\Models\Country;
 use App\Models\UserMembreship;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,17 +15,19 @@ use Illuminate\Support\Facades\Hash;
 
 class UserMembreshipController extends Controller
 {
-    public function Register()
+    public function Register($id_referrer_sponsor)
     {
+        $sponsor = UserMembreship::find($id_referrer_sponsor);
         $document_type = DocumentType::select('id', 'document')->get();
         $account_type = AccountType::select('id', 'account')->where('status', '1')->get();
-        $get_auth_config = Helper::getAuthConfig();
-        $get_auth_config = json_encode($get_auth_config);
+        $country = Country::select('id', 'name')->get();
         
         return view('content.user-membreship.register', [
             'document_type' => $document_type,
             'account_type' => $account_type,
-            'get_auth_config' => $get_auth_config
+            'country' => $country,
+            'id_referrer_sponsor' => $sponsor->id,
+            'sponsor_name' => $sponsor->name,
         ]);
     }
 
@@ -74,11 +78,12 @@ class UserMembreshipController extends Controller
         $table->phone = $request->phone;
         $table->date_birth = $request->date_birth;
         $table->email = $request->email;
-        $table->referrer_sponsor = $request->referrer_sponsor;
+        $table->id_referrer_sponsor = $request->id_referrer_sponsor;
         $table->id_country = $request->id_country;
         $table->id_document_type = $request->id_document_type;
         $table->id_account_type = $request->id_account_type;
         $table->nro_document = $request->nro_document;
+        
         if ($table->save()):
             $json = ['status' => 200];
             return json_encode($json);

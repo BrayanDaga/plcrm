@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
   });
 
   Route::group(['prefix' => 'user-membreship'], function () {
-    Route::get('/register', [UserMembreshipController::class,'register'])->name('user-membreship-register');
+    Route::get('/register/{id_referrer_sponsor}', [UserMembreshipController::class,'register'])->name('user-membreship-register');
     Route::get('/list', [UserMembreshipController::class,'list'])->name('user-membreship-list');
     Route::post('/create', [UserMembreshipController::class,'create']);
     Route::get('/get-data-user/{name}', [UserMembreshipController::class,'getDataUser']);
