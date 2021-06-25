@@ -46,8 +46,13 @@ class UserMembreshipController extends Controller
         if ($request->order) {
             $pagingParams->setOrderBy($request->order);
         }
+        if ($request->send)
+        {
+            $pagingParams->setSend($request->send);
+        }
 
         $list_user_membreship = UserMembreship::query()
+            ->orWhere('name', 'like', '%' . $request->send . '%')
             ->with(['country', 'accountType', 'documentType'])
             ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
             ->orderBy('user_membreships.' . $pagingParams->OrderBy, 'asc')

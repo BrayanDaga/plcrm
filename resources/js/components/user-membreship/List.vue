@@ -6,29 +6,79 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Lista de Usuarios</h4>
+                            <h4 class="card-title">User List</h4>
                         </div>
                         <div class="card-body">
                             <div class="card-text">
-                                <div class="col-sm-7 col-form-label">
-                                    <label for="order-by">Ordenar:</label>
-                                </div>
-                                <div class="col-sm-5">
-                                    <select
-                                        v-model="orderBy"
-                                        class="custom-select"
-                                        id="order-by"
-                                        @change="getUsersMembreship"
-                                    >
-                                        <option
-                                            v-for="(item, index) in orderObject.orderName"
-                                            :value="orderObject.orderBy[index]"
-                                            :selected="index === 0"
-                                            :key="index"
-                                        >
-                                            {{ item }}
-                                        </option>
-                                    </select>
+                                <div id="account-details" class="active">
+                                    <form novalidate="novalidate">
+                                        <div class="row">
+                                            <div class="form-group col-md-5">
+                                                <label for="name" class="form-label">
+                                                    Name :
+                                                </label>
+                                                <input
+                                                    v-model="sendName"
+                                                    type="text"
+                                                    name="name"
+                                                    id="name"
+                                                    placeholder="Send for name"
+                                                    class="form-control"
+                                                    aria-invalid="false"
+                                                    autocomplete="off"
+                                                />
+                                            </div>
+                                            <div class="form-group col-md-2 mt-2">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-icon rounded-circle btn-outline-primary"
+                                                    @click="getUsersMembreship"
+                                                >
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="14"
+                                                        height="14"
+                                                        viewBox="0 0 24 24"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        class="feather feather-search"
+                                                    >
+                                                        <circle cx="11" cy="11" r="8"></circle>
+                                                        <line
+                                                            x1="21"
+                                                            y1="21"
+                                                            x2="16.65"
+                                                            y2="16.65"
+                                                        ></line>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div class="form-group col-md-5">
+                                                <label for="order-by" class="form-label">
+                                                    Order by:
+                                                </label>
+                                                <select
+                                                    v-model="orderBy"
+                                                    class="custom-select"
+                                                    id="order-by"
+                                                    @change="getUsersMembreship"
+                                                >
+                                                    <option
+                                                        v-for="(item,
+                                                        index) in orderObject.orderName"
+                                                        :value="orderObject.orderBy[index]"
+                                                        :selected="index === 0"
+                                                        :key="index"
+                                                    >
+                                                        {{ item }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +98,7 @@
                                         <th>Fecha de inscripcion</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody v-if="usersMembreship.length > 0">
                                     <tr
                                         v-for="tempUsers in this.usersMembreship"
                                         v-bind:key="tempUsers.id"
@@ -74,11 +124,15 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div
+                                v-if="usersMembreship.length === 0"
+                                role="alert"
+                                class="alert alert-warning text-center m-5"
+                            >
+                                <h1 class="alert-heading">No results found</h1>
+                            </div>
                         </div>
-
-                        <!-- Separated Pagination starts -->
                     </div>
-                    <!-- Separated Pagination ends -->
                 </div>
             </div>
             <div class="row">
@@ -89,9 +143,9 @@
                                 <div class="col-xl-4 col-lg-12">
                                     <div class="form-group row mt-1">
                                         <div class="col-sm-7 col-form-label">
-                                            <label for="items-for-page"
-                                                >Registros por pagina :</label
-                                            >
+                                            <label for="items-for-page">
+                                                Items for page:
+                                            </label>
                                         </div>
                                         <div class="col-sm-5">
                                             <select
@@ -180,6 +234,7 @@ export default {
     },
     data() {
         return {
+            sendName: '',
             orderObject: {
                 orderName: ['Fecha de subscripcion', 'Nombre', 'Tipo de Documento'],
                 orderBy: ['created_at', 'name', 'id_document_type']
@@ -188,10 +243,6 @@ export default {
             itemForPage: [5, 10, 15],
             pageSize: 5,
             initialLoading: true,
-            filter: {
-                name: 'name',
-                created_at: 'created_at'
-            },
             pagination: {
                 total: 0,
                 current_page: 0,
@@ -233,6 +284,7 @@ export default {
     methods: {
         getUsersMembreship: function(page) {
             const params = {
+                send: this.sendName,
                 pageSize: this.pageSize,
                 order: this.orderBy,
                 page: page
