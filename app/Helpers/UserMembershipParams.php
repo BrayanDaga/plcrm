@@ -6,7 +6,24 @@ namespace App\Helpers;
 
 class UserMembershipParams extends PagingParams
 {
-    public $OrderBy = 'id';
+    public $OrderBy = 'updated_at';
+    public $send = '';
+
+    /**
+     * @return string
+     */
+    public function getSend(): string
+    {
+        return $this->send;
+    }
+
+    /**
+     * @param string $send
+     */
+    public function setSend(string $send): void
+    {
+        $this->send = $send;
+    }
 
     /**
      * @return string

@@ -20,7 +20,7 @@ class ClassifiedSeeder extends Seeder
          */
 
         for ($index = 0; $index < 5; $index++){
-            $id = rand(1, 5);
+            $id = rand(1, 4);
             DB::table('classified')->insert([
                 'id_user_membreship' => $id,
                 'id_user_sponsor' => $id,
