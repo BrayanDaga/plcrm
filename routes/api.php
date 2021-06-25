@@ -3,6 +3,7 @@
 use App\Http\Controllers\BinaryBranchController;
 use App\Http\Controllers\UserMembreshipController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*Auth::routes(['verify' => true]);
+Route::group(['middleware' => ['auth']], function(){
+    // Api
+
+});*/
+
+/*Auth::routes(['verify' => true]);*/
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+/*Route::get('/usersMembreship/list', [UserMembreshipController::class, 'GetList'])
+    ->name('GetList');*/
+/*
+Route::group(['middleware' => ['auth', 'api']], function(){
+    Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])
+        ->name('getListUsersMembreship');
 
-// Api
-Route::get('/usersMembreship', [BinaryBranchController::class,'getListUsersMembreship'])->name('getListUsersMembreship');
-Route::get('/usersMembreship/list', [UserMembreshipController::class,'GetList'])->name('GetList');
+});*/
+
