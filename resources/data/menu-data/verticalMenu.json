@@ -46,7 +46,7 @@
             "slug": "app-email"
         },
         {
-            "navheader": "Section User",
+            "navheader": "Users Section",
             "slug": ""
         },
         {
@@ -66,6 +66,24 @@
                     "name": "User-Scroll-List",
                     "icon": "circle",
                     "slug": "user-membreship-list"
+                }
+            ]
+        },
+        {
+            "navheader": "Configurations Section",
+            "slug": ""
+        },
+        {
+            "name": "Configurations-Scroll",
+            "icon": "settings",
+            "dropdown": "1",
+            "slug": "",
+            "submenu": [
+                {
+                    "url": "configurations/bank",
+                    "name": "Bank",
+                    "icon": "circle",
+                    "slug": "bank"
                 }
             ]
         },

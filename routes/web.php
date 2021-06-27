@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BankController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
@@ -60,6 +61,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/create', [UserMembreshipController::class, 'create']);
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
     });
+
+    Route::group(['prefix' => 'configurations'], function () {
+        Route::get('/bank', [BankController::class, 'index'])->name('bank');
+    });
+
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
