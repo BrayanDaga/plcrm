@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\BinaryBranchController;
 use App\Http\Controllers\UserMembreshipController;
 use Illuminate\Http\Request;
@@ -34,6 +35,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth', 'api']], function(){
     Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])
         ->name('getListUsersMembreship');
-
 });*/
 
+Route::get('/bank/{id}', [BankController::class, 'Detail'])
+    ->name('Detail');
+
+Route::get('/bank', [BankController::class, 'List'])
+    ->name('List');
+
+Route::post('/bank', [BankController::class, 'Add'])
+    ->name('Add');
+
+Route::put('/bank/{id}', [BankController::class, 'Edit'])
+    ->name('Edit');
+
+Route::delete('/bank/{id}', [BankController::class, 'Delete'])
+    ->name('Delete');
