@@ -33,18 +33,18 @@ class UserMembreshipFactory extends Factory
          * los metodos "rand" se cambian los valores
          */
         return [
-            'user' => $this->faker->unique()->word,
-            'password' => $password ?: $password = bcrypt('secret'),
-            'name' => $this->faker->name,
-            'last_name' => $this->faker->lastName,
-            'phone' => '987654321',
-            'date_birth' => now(),
-            'email' => $this->faker->email,
-            'id_referrer_sponsor' => 1,
+            'user' => 'admin',
+            'password' => $password ?: $password = bcrypt('admin'),
+            'name' => 'Administrator',
+            'last_name' => 'Promolider',
+            'phone' => '999999999',
+            'date_birth' => '1990-05-01',
+            'email' => 'admin@promolider.test',
+            'id_referrer_sponsor' => 0,
             'id_country' => rand(1, 50),
             'id_document_type' => rand(1, 4),
             'nro_document' => '1111111111',
-            'id_account_type' => rand(1, 4),
+            'id_account_type' => rand(1, 4)
         ];
     }
 }

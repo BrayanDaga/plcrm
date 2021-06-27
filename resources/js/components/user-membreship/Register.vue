@@ -2,6 +2,7 @@
     <div>
         <h2>Register User</h2>
         <form @submit.prevent="add">
+            <input type="hidden" v-model="form.id_referrer_sponsor">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="form-group">
@@ -59,7 +60,7 @@
                     <div class="form-group">
                         <label for="id_country">Country</label>
                         <select id="id_country" class="form-control" v-model="form.id_country">
-                            <option value="1">test country</option>
+                            <option v-for="co in listCountry" v-bind:key="co.id" :value="co.id">{{ co.name }}</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -78,10 +79,11 @@
 </template>
 <script>
 export default {
-    props: ['documentType', 'accountType', 'auth'],
+    props: ['documentType', 'accountType', 'country', 'idReferrerSponsor', 'sponsorName'],
     data(){
         return {
             form: {
+                id_referrer_sponsor:'',
                 user:'',
                 password:'',
                 repassword:'',
@@ -98,13 +100,16 @@ export default {
             },
             validateUserMembreship: false,
             listDocumentType: [],
-            listAccountType: []
+            listAccountType: [],
+            listCountry: []
         }
     },
     created(){
-        this.form.referrer_sponsor = this.auth.user.name;
+        this.form.id_referrer_sponsor = this.idReferrerSponsor;
+        this.form.referrer_sponsor = this.sponsorName;
         this.listDocumentType = this.documentType
         this.listAccountType = this.accountType
+        this.listCountry = this.country
     },
     methods: {
         validateUser(){
@@ -130,7 +135,10 @@ export default {
         idDocumentType.selectedIndex = 0;
 
         const idAccountType = document.getElementById('id_account_type');
-        idAccountType.selectedIndex = 0;
+        idAccountType.selectedIndex = 1;
+
+        const idCountry = document.getElementById('id_country');
+        idCountry.selectedIndex = 0;
     }
 }
 

@@ -28,7 +28,7 @@
             "slug": "",
             "submenu": [
                 {
-                    "url": "user-membreship/register",
+                    "url": "user-membreship/register/1",
                     "name": "Register",
                     "icon": "mail",
                     "slug": "user-membreship-register"
