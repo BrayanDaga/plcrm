@@ -1,0 +1,243 @@
+<template>
+    <div>
+        <section id="basic-horizontal-layouts">
+            <div class="row">
+                <div class="col-md-12 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">{{ editMode ? 'Edit Payment Method' : 'Add Payment Method' }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form form-horizontal">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="bank-name">
+                                                    Payment Method Name
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input
+                                                    v-model="form.name"
+                                                    type="text"
+                                                    id="bank-name"
+                                                    class="form-control"
+                                                    name="name"
+                                                    placeholder="Payment Method"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9 offset-sm-3">
+                                        <button
+                                            @click.prevent="submit()"
+                                            type="reset"
+                                            class="btn btn-primary mr-1"
+                                            :disabled="loading"
+                                        >
+                                            <span
+                                                class="spinner-border spinner-border-sm"
+                                                role="status"
+                                                aria-hidden="true"
+                                                v-if="loading"
+                                            ></span>
+                                            <span class="ml-25 align-middle">
+                                                {{ editMode ? 'Edit' : 'Add' }}
+                                            </span>
+                                        </button>
+                                        <button
+                                            @click.prevent="resetForm"
+                                            type="reset"
+                                            class="btn btn-outline-secondary"
+                                        >
+                                            Reset
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="row" id="basic-table">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Payment Methods</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            This table lists all the Promolider Payment Methods
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nro</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody v-if="!initialLoading">
+                                <tr v-for="(tempBank, index) in banks" :key="tempBank.id">
+                                    <td>{{ index + 1 }}</td>
+                                    <td style="width: 220px;">{{ tempBank.name }}</td>
+                                    <td>
+                                        <div class="demo-inline-spacing">
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-secondary round"
+                                                @click.prevent="editBank(tempBank.id)"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-danger round"
+                                                @click="deleteBank(tempBank.id, $event)"
+                                                :name="tempBank.id.toString()"
+                                                :id="tempBank.id.toString()"
+                                                :disabled="
+                                                    loadingDelete &&
+                                                        targetDelete === tempBank.id.toString()
+                                                "
+                                            >
+                                                <span
+                                                    class="spinner-border spinner-border-sm text-danger"
+                                                    role="status"
+                                                    aria-hidden="true"
+                                                    v-if="
+                                                        targetDelete === tempBank.id.toString() &&
+                                                            loadingDelete
+                                                    "
+                                                ></span>
+                                                <span class="ml-25 align-middle">
+                                                    Delete
+                                                </span>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-info round"
+                                                @click="detailBank(tempBank.id)"
+                                            >
+                                                Detail
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="m-10" v-if="initialLoading">
+                            <custom-spinner></custom-spinner>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import apiBank from '../../api/api.bank';
+import CustomSpinner from '../custom-spinner/CustomSpinner';
+
+const formBank = {
+    id: null,
+    name: ''
+};
+export default {
+    components: { CustomSpinner },
+    mounted() {
+        this.listBanks();
+    },
+    data() {
+        return {
+            targetDelete: '',
+            initialLoading: true,
+            loading: false,
+            loadingDelete: false,
+            banks: [],
+            form: { ...formBank },
+            editMode: false,
+            pagination: {
+                total: 0,
+                current_page: 0,
+                per_page: 0,
+                last_page: 0,
+                from: 0,
+                to: 0
+            }
+        };
+    },
+    methods: {
+        resetForm() {
+            this.form = { ...formBank };
+            this.editMode = false;
+        },
+        listBanks() {
+            this.initialLoading = true;
+            apiBank.list().then(response => {
+                this.initialLoading = false;
+                this.banks = response.data;
+
+                /*Agregando al date pagination*/
+                this.pagination = response.meta;
+                delete this.pagination.links;
+                delete this.pagination.path;
+            });
+        },
+        editBank(id) {
+            this.editMode = true;
+            this.form = this.banks.find(tempBank => tempBank.id === id);
+        },
+        deleteBank(id, event) {
+            console.log(id);
+            console.log(event.target.id);
+            console.log(event.target.name);
+            this.targetDelete = event.target.id === '' ? event.target.name : event.target.id;
+            console.log(this.targetDelete);
+
+            console.log(this.targetDelete === id.toString());
+            this.loadingDelete = true;
+            apiBank.delete(id).then(() => {
+                this.loadingDelete = false;
+                this.listBanks();
+            });
+        },
+        detailBank(id) {
+            /*this.loading = true;*/
+            /*apiBank.detail(id).then(response => {
+          this.loading = false;
+      });*/
+        },
+        submit() {
+            this.loading = true;
+            const bank = {
+                id: this.form.id,
+                name: this.form.name
+            };
+            if (bank.id && this.editMode) {
+                console.log(this.form);
+                apiBank.edit(bank, bank.id).then(() => {
+                    this.loading = false;
+                    this.listBanks();
+                    this.resetForm();
+                });
+            } else {
+                apiBank.add(bank).then(() => {
+                    this.loading = false;
+                    this.listBanks();
+                    this.resetForm();
+                });
+            }
+        }
+    },
+    name: 'PaymentMethod'
+};
+</script>
+
+<style scoped></style>

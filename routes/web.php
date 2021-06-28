@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
@@ -62,8 +64,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
     });
 
-    Route::group(['prefix' => 'configurations'], function () {
+    Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
+        Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
     });
 
 

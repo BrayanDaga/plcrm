@@ -12,7 +12,7 @@ class BankController extends Controller
 {
     public function index()
     {
-        return view('content.configurations.bank');
+        return view('content.config.bank');
     }
 
     public function Add(Request $request)
@@ -78,6 +78,5 @@ class BankController extends Controller
         return ($result)->response()->setStatusCode(200);
 
     }
-
 
 }

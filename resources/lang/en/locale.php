@@ -191,4 +191,5 @@ return [
     "Configurations Section" => "Configurations Section",
     "Configurations-Scroll" => "Configurations",
     "Bank" => "Bank",
+    "Payment Method" => "Payment Method",
 ];

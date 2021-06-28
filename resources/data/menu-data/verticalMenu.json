@@ -80,10 +80,16 @@
             "slug": "",
             "submenu": [
                 {
-                    "url": "configurations/bank",
+                    "url": "config/bank",
                     "name": "Bank",
                     "icon": "circle",
                     "slug": "bank"
+                },
+                {
+                    "url": "config/payment-method",
+                    "name": "Payment Method",
+                    "icon": "circle",
+                    "slug": "payment-method"
                 }
             ]
         },
