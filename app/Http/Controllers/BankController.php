@@ -6,6 +6,7 @@ use App\Http\Resources\BankResource;
 use App\Models\Bank;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class BankController extends Controller
 {
@@ -32,10 +33,10 @@ class BankController extends Controller
     {
         $bank = Bank::findOrFail($id);
         $result = new BankResource($bank);
-
+/*
         if ($bank) {
             return ($result)->response()->setStatusCode(404);
-        }
+        }*/
 
         $bank->name = $request->name ?? $bank->name;
 
@@ -59,9 +60,9 @@ class BankController extends Controller
         return $result->response()->setStatusCode(400);
     }
 
-    public function List(Request $request)
+    public function List(Request $request): AnonymousResourceCollection
     {
-        $banks = Bank::paginate(5);
+        $banks = Bank::paginate(10);
         return BankResource::collection($banks);
     }
 
