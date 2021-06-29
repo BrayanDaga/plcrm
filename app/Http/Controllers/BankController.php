@@ -33,10 +33,10 @@ class BankController extends Controller
     {
         $bank = Bank::findOrFail($id);
         $result = new BankResource($bank);
-/*
-        if ($bank) {
+
+        if ($bank == null) {
             return ($result)->response()->setStatusCode(404);
-        }*/
+        }
 
         $bank->name = $request->name ?? $bank->name;
 
@@ -71,7 +71,7 @@ class BankController extends Controller
         $bank = Bank::findOrFail($id);
         $result = new BankResource($bank);
 
-        if ($bank) {
+        if ($bank == null) {
             return ($result)->response()->setStatusCode(404);
         }
 

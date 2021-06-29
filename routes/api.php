@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BinaryBranchController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\UserMembreshipController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,4 +51,19 @@ Route::put('/bank/{id}', [BankController::class, 'Edit'])
     ->name('Edit');
 
 Route::delete('/bank/{id}', [BankController::class, 'Delete'])
+    ->name('Delete');
+
+Route::get('/paymentMethod/{id}', [PaymentMethodController::class, 'Detail'])
+    ->name('Detail');
+
+Route::get('/paymentMethod', [PaymentMethodController::class, 'List'])
+    ->name('List');
+
+Route::post('/paymentMethod', [PaymentMethodController::class, 'Add'])
+    ->name('Add');
+
+Route::put('/paymentMethod/{id}', [PaymentMethodController::class, 'Edit'])
+    ->name('Edit');
+
+Route::delete('/paymentMethod/{id}', [PaymentMethodController::class, 'Delete'])
     ->name('Delete');
