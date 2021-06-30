@@ -7,23 +7,24 @@ namespace App\Helpers;
 class UserMembershipParams extends PagingParams
 {
     public $OrderBy = 'updated_at';
-    public $send = '';
+    public $search = '';
 
     /**
      * @return string
      */
-    public function getSend(): string
+    public function getSearch(): string
     {
-        return $this->send;
+        return $this->search;
     }
 
     /**
-     * @param string $send
+     * @param string $search
      */
-    public function setSend(string $send): void
+    public function setSearch(string $search): void
     {
-        $this->send = $send;
+        $this->search = $search;
     }
+
 
     /**
      * @return string

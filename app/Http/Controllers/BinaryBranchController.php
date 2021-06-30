@@ -12,7 +12,7 @@ class BinaryBranchController extends Controller
 {
     public function binary_branch()
     {
-        return view('content.binary-branch.binary_branch');
+        return view('content.binary-branch.index');
     }
 
 

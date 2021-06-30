@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BankController;
+use App\Http\Controllers\PaymentMethodController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
@@ -61,14 +63,56 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
     });
 
+    Route::group(['prefix' => 'config'], function () {
+        Route::get('/bank', [BankController::class, 'index'])->name('bank');
+        Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
+    });
+
+
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    /*Route api*/
+    /*Start Route api*/
     Route::group(['prefix' => 'api'], function () {
-        Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])->name('getListUsersMembreship');
-        Route::get('/usersMembreship/list', [UserMembreshipController::class, 'GetList'])->name('GetList');
+        /*Start api user-membreship*/
+        Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])
+            ->name('getListUsersMembreship');
+        Route::get('/usersMembreship/list', [UserMembreshipController::class, 'GetList'])
+            ->name('GetList');
+        /*End api user-membreship*/
+
+        /*Start api config payment-method*/
+        Route::get('/paymentMethod/{id}', [PaymentMethodController::class, 'Detail'])
+            ->name('Detail');
+        Route::get('/paymentMethod', [PaymentMethodController::class, 'List'])
+            ->name('List');
+        Route::post('/paymentMethod', [PaymentMethodController::class, 'Add'])
+            ->name('Add');
+        Route::put('/paymentMethod/{id}', [PaymentMethodController::class, 'Edit'])
+            ->name('Edit');
+        Route::delete('/paymentMethod/{id}', [PaymentMethodController::class, 'Delete'])
+            ->name('Delete');
+        /*End api config payment-method*/
+
+        /*Start api config bank*/
+
+        Route::get('/bank/{id}', [BankController::class, 'Detail'])
+            ->name('Detail');
+
+        Route::get('/bank', [BankController::class, 'List'])
+            ->name('List');
+
+        Route::post('/bank', [BankController::class, 'Add'])
+            ->name('Add');
+
+        Route::put('/bank/{id}', [BankController::class, 'Edit'])
+            ->name('Edit');
+
+        Route::delete('/bank/{id}', [BankController::class, 'Delete'])
+            ->name('Delete');
+        
+        /*End api config bank*/
     });
-    /*Route api*/
+    /*End Route api*/
 });
 /* Rutas Programada - fin */
 

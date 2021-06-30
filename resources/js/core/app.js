@@ -66,7 +66,7 @@ window.colors = {
 
     $.app.menu.init(compactMenu);
 
-    // Navigation configurations
+    // Navigation config
     var config = {
       speed: 300 // set speed to expand / collpase menu
     };

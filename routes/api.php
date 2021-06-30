@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\BinaryBranchController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\UserMembreshipController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +36,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth', 'api']], function(){
     Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])
         ->name('getListUsersMembreship');
-
 });*/
-

@@ -11,6 +11,8 @@ Vue.filter('formatDate', function (value) {
 });
 
 Vue.component('binary-branch', require('./components/binary-branch/BinaryBranch').default);
+Vue.component('bank', require('./components/config/bank/Bank').default);
+Vue.component('payment-method', require('./components/config/payment-method/PaymentMethod').default);
 Vue.component(
     'user-membreship-list',
     require('./components/user-membreship/List').default
