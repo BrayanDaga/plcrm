@@ -4,6 +4,7 @@
       @confirm-delete="confirmDeletePaymentMethod"
       :payment-method="selectPaymentMethod"
     ></custom-delete-modal>
+    <custom-success-modal :payment-method="selectPaymentMethod"></custom-success-modal>
     <section id="basic-horizontal-layouts">
       <div class="row">
         <div class="col-md-12 col-12">
@@ -29,12 +30,16 @@
                           class="form-control"
                           name="name"
                           placeholder="Payment Method"
+                          autocomplete="false"
+                          ref="name-payment-method"
                         />
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-9 offset-sm-3">
                     <button
+                      data-toggle="modal"
+                      data-target="#success-modal"
                       @click.prevent="submit()"
                       type="reset"
                       class="btn btn-primary mr-1"
@@ -135,13 +140,14 @@
 import apiPaymentMethod from '../../../api/api.payment-method';
 import CustomSpinner from '../../../common/custom-spinner/CustomSpinner';
 import CustomDeleteModal from './components/CustomDeleteModal';
+import CustomSuccessModal from './components/CustomSuccessModal';
 
 const formPaymentMethod = {
   id: null,
   name: '',
 };
 export default {
-  components: { CustomDeleteModal, CustomSpinner },
+  components: { CustomSuccessModal, CustomDeleteModal, CustomSpinner },
   mounted() {
     this.listPaymentMethods();
   },
@@ -183,6 +189,7 @@ export default {
     editPaymentMethod(id) {
       this.editMode = true;
       this.form = this.paymentMethods.find((tempPaymentMethod) => tempPaymentMethod.id === id);
+      this.$refs['name-payment-method'].focus();
     },
     deletePaymentMethod(id) {
       this.selectPaymentMethod = this.paymentMethods.find(
@@ -191,7 +198,8 @@ export default {
     },
     confirmDeletePaymentMethod(confirm) {
       if (confirm) {
-        this.reload();
+        this.listPaymentMethods();
+        this.resetForm();
       }
     },
     detailBank(id) {
@@ -207,18 +215,20 @@ export default {
         name: this.form.name,
       };
       if (paymentMethod.id && this.editMode) {
-        apiPaymentMethod.edit(paymentMethod).then(() => {
-          this.loading = false;
-          this.reload();
+        apiPaymentMethod.edit(paymentMethod).then((response) => {
+          this.successfully(response, true);
         });
       } else {
-        apiPaymentMethod.add(paymentMethod).then(() => {
-          this.loading = false;
-          this.reload();
+        apiPaymentMethod.add(paymentMethod).then((response) => {
+          this.successfully(response, false);
         });
       }
     },
-    reload() {
+    successfully(response, edit) {
+      this.selectPaymentMethod = response.data;
+      this.selectPaymentMethod.isEdit = edit;
+      this.loading = false;
+      $('#success-modal').modal('show');
       this.listPaymentMethods();
       this.resetForm();
     },
