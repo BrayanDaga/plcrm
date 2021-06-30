@@ -72,12 +72,29 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    /*Route api*/
+    /*Start Route api*/
     Route::group(['prefix' => 'api'], function () {
-        Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])->name('getListUsersMembreship');
-        Route::get('/usersMembreship/list', [UserMembreshipController::class, 'GetList'])->name('GetList');
+        /*Start api user-membreship*/
+        Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])
+            ->name('getListUsersMembreship');
+        Route::get('/usersMembreship/list', [UserMembreshipController::class, 'GetList'])
+            ->name('GetList');
+        /*End api user-membreship*/
+
+        /*Start api config payment-method*/
+        Route::get('/paymentMethod/{id}', [PaymentMethodController::class, 'Detail'])
+            ->name('Detail');
+        Route::get('/paymentMethod', [PaymentMethodController::class, 'List'])
+            ->name('List');
+        Route::post('/paymentMethod', [PaymentMethodController::class, 'Add'])
+            ->name('Add');
+        Route::put('/paymentMethod/{id}', [PaymentMethodController::class, 'Edit'])
+            ->name('Edit');
+        Route::delete('/paymentMethod/{id}', [PaymentMethodController::class, 'Delete'])
+            ->name('Delete');
+        /*End api config payment-method*/
     });
-    /*Route api*/
+    /*End Route api*/
 });
 /* Rutas Programada - fin */
 

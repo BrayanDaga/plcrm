@@ -52,18 +52,3 @@ Route::put('/bank/{id}', [BankController::class, 'Edit'])
 
 Route::delete('/bank/{id}', [BankController::class, 'Delete'])
     ->name('Delete');
-
-Route::get('/paymentMethod/{id}', [PaymentMethodController::class, 'Detail'])
-    ->name('Detail');
-
-Route::get('/paymentMethod', [PaymentMethodController::class, 'List'])
-    ->name('List');
-
-Route::post('/paymentMethod', [PaymentMethodController::class, 'Add'])
-    ->name('Add');
-
-Route::put('/paymentMethod/{id}', [PaymentMethodController::class, 'Edit'])
-    ->name('Edit');
-
-Route::delete('/paymentMethod/{id}', [PaymentMethodController::class, 'Delete'])
-    ->name('Delete');

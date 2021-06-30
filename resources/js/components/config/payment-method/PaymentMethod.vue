@@ -114,13 +114,13 @@
                       >
                         Delete
                       </button>
-                      <button
+                      <!--                      <button
                         type="button"
                         class="btn btn-outline-info round"
                         @click="detailBank(tempPaymentMethod.id)"
                       >
                         Detail
-                      </button>
+                      </button>-->
                     </div>
                   </td>
                 </tr>
@@ -174,6 +174,7 @@ export default {
     resetForm() {
       this.form = { ...formPaymentMethod };
       this.editMode = false;
+      this.rules = true;
     },
     listPaymentMethods() {
       this.initialLoading = true;
@@ -203,12 +204,12 @@ export default {
         this.resetForm();
       }
     },
-    detailBank(id) {
-      /*this.loading = true;*/
-      /*apiPaymentMethod.detail(id).then(response => {
+    /*    detailBank(id) {
+      /!*this.loading = true;*!/
+      /!*apiPaymentMethod.detail(id).then(response => {
           this.loading = false;
-      });*/
-    },
+      });*!/
+    },*/
     submit() {
       if (this.form.name === '') {
         this.rules = false;
