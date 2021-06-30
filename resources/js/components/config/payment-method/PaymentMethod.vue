@@ -32,14 +32,14 @@
                           placeholder="Payment Method"
                           autocomplete="false"
                           ref="name-payment-method"
+                          :class="rules ? '' : 'is-invalid'"
                         />
+                        <div class="invalid-feedback" v-if="!rules">This field is required</div>
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-9 offset-sm-3">
                     <button
-                      data-toggle="modal"
-                      data-target="#success-modal"
                       @click.prevent="submit()"
                       type="reset"
                       class="btn btn-primary mr-1"
@@ -153,6 +153,7 @@ export default {
   },
   data() {
     return {
+      rules: true,
       selectPaymentMethod: {},
       initialLoading: true,
       loading: false,
@@ -209,6 +210,13 @@ export default {
       });*/
     },
     submit() {
+      if (this.form.name === '') {
+        this.rules = false;
+        this.$refs['name-payment-method'].focus();
+        return;
+      }
+
+      this.rules = true;
       this.loading = true;
       const paymentMethod = {
         id: this.form.id,
