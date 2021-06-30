@@ -37,18 +37,3 @@ Route::group(['middleware' => ['auth', 'api']], function(){
     Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])
         ->name('getListUsersMembreship');
 });*/
-
-Route::get('/bank/{id}', [BankController::class, 'Detail'])
-    ->name('Detail');
-
-Route::get('/bank', [BankController::class, 'List'])
-    ->name('List');
-
-Route::post('/bank', [BankController::class, 'Add'])
-    ->name('Add');
-
-Route::put('/bank/{id}', [BankController::class, 'Edit'])
-    ->name('Edit');
-
-Route::delete('/bank/{id}', [BankController::class, 'Delete'])
-    ->name('Delete');

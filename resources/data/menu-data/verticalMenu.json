@@ -70,11 +70,11 @@
             ]
         },
         {
-            "navheader": "Configurations Section",
+            "navheader": "Config Section",
             "slug": ""
         },
         {
-            "name": "Configurations-Scroll",
+            "name": "Config-Scroll",
             "icon": "settings",
             "dropdown": "1",
             "slug": "",

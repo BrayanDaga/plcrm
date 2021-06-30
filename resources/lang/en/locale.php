@@ -188,8 +188,8 @@ return [
     "User-Scroll-List" => "Users List",
     "Users Section" => "Users Section",
     "Other Section" => "Other Section",
-    "Configurations Section" => "Configurations Section",
-    "Configurations-Scroll" => "Configurations",
+    "Config Section" => "Config Section",
+    "Config-Scroll" => "Config",
     "Bank" => "Bank",
     "Payment Method" => "Payment Method",
 ];

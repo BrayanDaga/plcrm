@@ -216,8 +216,8 @@ export default {
         this.$refs['name-payment-method'].focus();
         return;
       }
-
       this.rules = true;
+
       this.loading = true;
       const paymentMethod = {
         id: this.form.id,

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\PaymentMethodController;
-use App\Models\PaymentMethod;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
@@ -93,6 +92,25 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/paymentMethod/{id}', [PaymentMethodController::class, 'Delete'])
             ->name('Delete');
         /*End api config payment-method*/
+
+        /*Start api config bank*/
+
+        Route::get('/bank/{id}', [BankController::class, 'Detail'])
+            ->name('Detail');
+
+        Route::get('/bank', [BankController::class, 'List'])
+            ->name('List');
+
+        Route::post('/bank', [BankController::class, 'Add'])
+            ->name('Add');
+
+        Route::put('/bank/{id}', [BankController::class, 'Edit'])
+            ->name('Edit');
+
+        Route::delete('/bank/{id}', [BankController::class, 'Delete'])
+            ->name('Delete');
+        
+        /*End api config bank*/
     });
     /*End Route api*/
 });
