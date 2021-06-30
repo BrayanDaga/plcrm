@@ -142,8 +142,8 @@
 </template>
 
 <script>
-import apiBank from '../../api/api.bank';
-import CustomSpinner from '../custom-spinner/CustomSpinner';
+import apiBank from '../../../api/api.bank';
+import CustomSpinner from '../../../common/custom-spinner/CustomSpinner';
 
 const formBank = {
     id: null,

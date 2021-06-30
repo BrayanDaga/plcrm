@@ -1,5 +1,9 @@
 <template>
   <div>
+    <custom-delete-modal
+      @confirm-delete="confirmDeletePaymentMethod"
+      :payment-method="selectPaymentMethod"
+    ></custom-delete-modal>
     <section id="basic-horizontal-layouts">
       <div class="row">
         <div class="col-md-12 col-12">
@@ -92,27 +96,18 @@
                       <button
                         type="button"
                         class="btn btn-outline-secondary round"
-                        @click.prevent="editBank(tempPaymentMethod.id)"
+                        @click.prevent="editPaymentMethod(tempPaymentMethod.id)"
                       >
                         Edit
                       </button>
                       <button
                         type="button"
                         class="btn btn-outline-danger round"
-                        @click="deleteBank(tempPaymentMethod.id, $event)"
-                        :name="tempPaymentMethod.id.toString()"
-                        :id="tempPaymentMethod.id.toString()"
-                        :disabled="
-                          loadingDelete && targetDelete === tempPaymentMethod.id.toString()
-                        "
+                        @click="deletePaymentMethod(tempPaymentMethod.id)"
+                        data-toggle="modal"
+                        data-target="#delete-modal"
                       >
-                        <span
-                          class="spinner-border spinner-border-sm text-danger"
-                          role="status"
-                          aria-hidden="true"
-                          v-if="targetDelete === tempPaymentMethod.id.toString() && loadingDelete"
-                        ></span>
-                        <span class="ml-25 align-middle"> Delete </span>
+                        Delete
                       </button>
                       <button
                         type="button"
@@ -137,24 +132,24 @@
 </template>
 
 <script>
-import apiPaymentMethod from '../../api/api.payment-method';
-import CustomSpinner from '../custom-spinner/CustomSpinner';
+import apiPaymentMethod from '../../../api/api.payment-method';
+import CustomSpinner from '../../../common/custom-spinner/CustomSpinner';
+import CustomDeleteModal from './components/CustomDeleteModal';
 
 const formPaymentMethod = {
   id: null,
   name: '',
 };
 export default {
-  components: { CustomSpinner },
+  components: { CustomDeleteModal, CustomSpinner },
   mounted() {
-    this.listBanks();
+    this.listPaymentMethods();
   },
   data() {
     return {
-      targetDelete: '',
+      selectPaymentMethod: {},
       initialLoading: true,
       loading: false,
-      loadingDelete: false,
       paymentMethods: [],
       form: { ...formPaymentMethod },
       editMode: false,
@@ -173,7 +168,7 @@ export default {
       this.form = { ...formPaymentMethod };
       this.editMode = false;
     },
-    listBanks() {
+    listPaymentMethods() {
       this.initialLoading = true;
       apiPaymentMethod.list().then((response) => {
         this.initialLoading = false;
@@ -185,17 +180,19 @@ export default {
         delete this.pagination.path;
       });
     },
-    editBank(id) {
+    editPaymentMethod(id) {
       this.editMode = true;
       this.form = this.paymentMethods.find((tempPaymentMethod) => tempPaymentMethod.id === id);
     },
-    deleteBank(id, event) {
-      this.targetDelete = event.target.id === '' ? event.target.name : event.target.id;
-      this.loadingDelete = true;
-      apiPaymentMethod.delete(id).then(() => {
-        this.loadingDelete = false;
-        this.listBanks();
-      });
+    deletePaymentMethod(id) {
+      this.selectPaymentMethod = this.paymentMethods.find(
+        (tempPaymentMethod) => tempPaymentMethod.id === id
+      );
+    },
+    confirmDeletePaymentMethod(confirm) {
+      if (confirm) {
+        this.reload();
+      }
     },
     detailBank(id) {
       /*this.loading = true;*/
@@ -222,7 +219,7 @@ export default {
       }
     },
     reload() {
-      this.listBanks();
+      this.listPaymentMethods();
       this.resetForm();
     },
   },
