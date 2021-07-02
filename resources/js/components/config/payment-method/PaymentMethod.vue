@@ -86,6 +86,7 @@
                 <tr>
                   <th>Nro</th>
                   <th>Name</th>
+                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -97,7 +98,27 @@
                   <td>{{ index + 1 }}</td>
                   <td style="width: 220px">{{ tempPaymentMethod.name }}</td>
                   <td>
+                    <div :class="tempPaymentMethod.status === '1' ? 'text-danger' : 'text-success'">
+                      {{ tempPaymentMethod.status === '1' ? 'Delete' : 'Activate' }}
+                    </div>
+                  </td>
+                  <td>
                     <div class="demo-inline-spacing">
+                      <button
+                        type="button"
+                        class="btn round"
+                        @click="deletePaymentMethod(tempPaymentMethod.id)"
+                        data-toggle="modal"
+                        data-target="#delete-modal"
+                        :class="
+                          tempPaymentMethod.status === '0'
+                            ? 'btn-outline-danger'
+                            : 'btn-outline-success'
+                        "
+                      >
+                        {{ tempPaymentMethod.status === '0' ? 'Delete' : 'Activate' }}
+                      </button>
+
                       <button
                         type="button"
                         class="btn btn-outline-secondary round"
@@ -105,22 +126,6 @@
                       >
                         Edit
                       </button>
-                      <button
-                        type="button"
-                        class="btn btn-outline-danger round"
-                        @click="deletePaymentMethod(tempPaymentMethod.id)"
-                        data-toggle="modal"
-                        data-target="#delete-modal"
-                      >
-                        Delete
-                      </button>
-                      <!--                      <button
-                        type="button"
-                        class="btn btn-outline-info round"
-                        @click="detailBank(tempPaymentMethod.id)"
-                      >
-                        Detail
-                      </button>-->
                     </div>
                   </td>
                 </tr>
@@ -145,6 +150,7 @@ import CustomSuccessModal from './components/CustomSuccessModal';
 const formPaymentMethod = {
   id: null,
   name: '',
+  state: ''
 };
 export default {
   components: { CustomSuccessModal, CustomDeleteModal, CustomSpinner },
@@ -166,8 +172,8 @@ export default {
         per_page: 0,
         last_page: 0,
         from: 0,
-        to: 0,
-      },
+        to: 0
+      }
     };
   },
   methods: {
@@ -178,7 +184,7 @@ export default {
     },
     listPaymentMethods() {
       this.initialLoading = true;
-      apiPaymentMethod.list().then((response) => {
+      apiPaymentMethod.list().then(response => {
         this.initialLoading = false;
         this.paymentMethods = response.data;
 
@@ -190,18 +196,20 @@ export default {
     },
     editPaymentMethod(id) {
       this.editMode = true;
-      this.form = this.paymentMethods.find((tempPaymentMethod) => tempPaymentMethod.id === id);
+      this.form = this.paymentMethods.find(tempPaymentMethod => tempPaymentMethod.id === id);
       this.$refs['name-payment-method'].focus();
     },
     deletePaymentMethod(id) {
       this.selectPaymentMethod = this.paymentMethods.find(
-        (tempPaymentMethod) => tempPaymentMethod.id === id
+        tempPaymentMethod => tempPaymentMethod.id === id
       );
     },
-    confirmDeletePaymentMethod(confirm) {
+    confirmDeletePaymentMethod(confirm, status) {
       if (confirm) {
+        const message = status === '1' ? 'Deleted' : 'Activated';
         this.listPaymentMethods();
         this.resetForm();
+        this.showToast('success', `Payment method was successfully ${message}`);
       }
     },
     /*    detailBank(id) {
@@ -221,15 +229,20 @@ export default {
       this.loading = true;
       const paymentMethod = {
         id: this.form.id,
-        name: this.form.name,
+        name: this.form.name
       };
       if (paymentMethod.id && this.editMode) {
-        apiPaymentMethod.edit(paymentMethod).then((response) => {
+        apiPaymentMethod.edit(paymentMethod).then(response => {
           this.successfully(response, true);
+          this.showToast(
+            'success',
+            `Payment method ${response.data.name} was successfully Updated`
+          );
         });
       } else {
-        apiPaymentMethod.add(paymentMethod).then((response) => {
+        apiPaymentMethod.add(paymentMethod).then(response => {
           this.successfully(response, false);
+          this.showToast('success', `Payment method ${response.data.name} was successfully Added`);
         });
       }
     },
@@ -237,12 +250,19 @@ export default {
       this.selectPaymentMethod = response.data;
       this.selectPaymentMethod.isEdit = edit;
       this.loading = false;
-      $('#success-modal').modal('show');
+      // $('#success-modal').modal('show');
       this.listPaymentMethods();
       this.resetForm();
     },
+    showToast(type, message) {
+      toastr[type](`${message}`, `${type}!`, {
+        positionClass: 'toast-top-center',
+        closeButton: true,
+        tapToDismiss: false
+      });
+    }
   },
-  name: 'PaymentMethod',
+  name: 'PaymentMethod'
 };
 </script>
 

@@ -1,12 +1,12 @@
 <template>
   <div class="d-inline-block">
     <div
-        class="modal fade text-left modal-danger"
-        id="delete-modal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="myModalLabel140"
-        aria-hidden="true"
+      class="modal fade text-left modal-danger"
+      id="delete-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel140"
+      aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -17,16 +17,17 @@
             </button>
           </div>
           <div class="modal-body">
-            You want to delete the payment method {{ paymentMethod.name }}
+            You want to {{ paymentMethod.status === '1' ? 'Activate' : 'Delete' }} the payment
+            method {{ paymentMethod.name }}
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-danger" @click="onDelete">
               <span
-                  class="spinner-border spinner-border-sm text-danger"
-                  role="status"
-                  aria-hidden="true"
-                  v-if="loading"
+                class="spinner-border spinner-border-sm text-danger"
+                role="status"
+                aria-hidden="true"
+                v-if="loading"
               ></span>
               <span class="ml-25 align-middle"> Accept </span>
             </button>
@@ -44,31 +45,35 @@ export default {
   props: {
     paymentMethod: {
       type: Object,
-      require: true,
-    },
+      require: true
+    }
   },
   emits: {
-    /*Recibe un campo boolean*/
-    'confirm-delete': function (bool) {},
+    'confirm-delete': function(bool, status) {
+      /*Recibe un campo boolean y un campo status '1' o '0'*/
+    }
   },
   data() {
     return {
-      loading: false,
+      loading: false
     };
   },
   methods: {
     onDelete() {
       if (this.paymentMethod) {
         this.loading = true;
-        apiPaymentMethod.delete(this.paymentMethod.id).then(() => {
+        const params = {
+          status: this.paymentMethod.status === '1' ? '0' : '1'
+        };
+        apiPaymentMethod.delete(this.paymentMethod.id, params).then(response => {
           this.loading = false;
           $('#delete-modal').modal('hide');
-          this.$emit('confirm-delete', true);
+          this.$emit('confirm-delete', true, response.data.status);
         });
       }
-    },
+    }
   },
-  name: 'CustomDeleteModal',
+  name: 'CustomDeleteModal'
 };
 </script>
 

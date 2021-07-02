@@ -4,12 +4,13 @@
 <!-- Establecer el titulo del modulo (Importante) -->
 @section('title', 'Payment Method')
 
-<!-- Indicar los estilos de la plantilla (OPCIONAL) -->
 @section('vendor-style')
+    <!-- vendor css files -->
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}">
 @endsection
-
-<!-- Indicar los estilos personalizados (Opcional) -->
 @section('page-style')
+    <!-- Page css files -->
+    <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-toastr.css')) }}">
 @endsection
 
 <!-- Codgio HTML del contenido (Importante) -->
@@ -17,10 +18,11 @@
     <payment-method></payment-method>
 @endsection
 
-<!-- Indicarlo los script de la plantilla (Opcional) -->
 @section('vendor-script')
+    <!-- vendor files -->
+    <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
 @endsection
-
-<!-- Inbdicar los script personalizado (Opcional) -->
 @section('page-script')
+    <!-- Page js files -->
+    <script src="{{ asset(mix('js/scripts/extensions/ext-component-toastr.js')) }}"></script>
 @endsection
