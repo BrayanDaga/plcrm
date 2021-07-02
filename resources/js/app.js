@@ -14,7 +14,7 @@ Vue.filter('formatDate', function(value) {
 
 /** Start components Config */
 Vue.component('bank', require('./components/config/bank/Bank').default);
-Vue.component('message', require('./components/config/message/Message').default);
+Vue.component('advertisement', require('./components/config/advertisement/Advertisement').default);
 Vue.component(
   'payment-method',
   require('./components/config/payment-method/PaymentMethod').default

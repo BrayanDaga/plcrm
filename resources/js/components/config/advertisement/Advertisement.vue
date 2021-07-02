@@ -1,12 +1,12 @@
 <template>
     <div>
-        Desde component message
+        Desde component advertisement
     </div>
 </template>
 
 <script>
     export default {
-        
+        name : "Advertisement"
     }
 </script>
 

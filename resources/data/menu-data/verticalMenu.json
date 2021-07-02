@@ -80,10 +80,10 @@
             "slug": "",
             "submenu": [
                 {
-                    "url": "config/message",
-                    "name": "Messages",
+                    "url": "config/advertisements",
+                    "name": "Advertisements",
                     "icon": "circle",
-                    "slug": "message"
+                    "slug": "advertisements"
                 },
                 {
                     "url": "config/bank",

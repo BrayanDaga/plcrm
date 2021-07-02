@@ -2,7 +2,7 @@
 @extends('layouts.contentLayoutMaster')
 
 <!-- Establecer el titulo del modulo (Importante) -->
-@section('title', 'Payment Method')
+@section('title', 'Advertisements')
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -15,7 +15,7 @@
 
 <!-- Codgio HTML del contenido (Importante) -->
 @section('content')
-    <message></message>
+    <advertisement></advertisement>
 @endsection
 
 @section('vendor-script')
