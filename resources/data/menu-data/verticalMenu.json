@@ -80,6 +80,12 @@
             "slug": "",
             "submenu": [
                 {
+                    "url": "config/message",
+                    "name": "Messages",
+                    "icon": "circle",
+                    "slug": "message"
+                },
+                {
                     "url": "config/bank",
                     "name": "Bank",
                     "icon": "circle",

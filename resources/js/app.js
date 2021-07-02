@@ -4,25 +4,30 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
-Vue.filter('formatDate', function (value) {
-    if (value) {
-        return moment(String(value)).locale('es').format('D MMM YYYY');
-    }
+Vue.filter('formatDate', function(value) {
+  if (value) {
+    return moment(String(value))
+      .locale('es')
+      .format('D MMM YYYY');
+  }
 });
 
-Vue.component('binary-branch', require('./components/binary-branch/BinaryBranch').default);
+/** Start components Config */
 Vue.component('bank', require('./components/config/bank/Bank').default);
-Vue.component('payment-method', require('./components/config/payment-method/PaymentMethod').default);
+Vue.component('message', require('./components/config/message/Message').default);
 Vue.component(
-    'user-membreship-list',
-    require('./components/user-membreship/List').default
-);Vue.component(
-    'user-membreship-register',
-    require('./components/user-membreship/Register.vue').default
+  'payment-method',
+  require('./components/config/payment-method/PaymentMethod').default
+);
+/** End components Config */
+
+Vue.component('binary-branch', require('./components/binary-branch/BinaryBranch').default);
+Vue.component('user-membreship-list', require('./components/user-membreship/List').default);
+Vue.component(
+  'user-membreship-register',
+  require('./components/user-membreship/Register.vue').default
 );
 
-
-
 const app = new Vue({
-    el: '#app',
+  el: '#app'
 });
