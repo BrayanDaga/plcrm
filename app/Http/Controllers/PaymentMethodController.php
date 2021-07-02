@@ -20,6 +20,7 @@ class PaymentMethodController extends Controller
     {
         $paymentMethod = new PaymentMethod();
         $paymentMethod->name = $request->name;
+        $paymentMethod->status = '0';
 
         $result = new PaymentMethodResource($paymentMethod);
 
@@ -49,12 +50,18 @@ class PaymentMethodController extends Controller
         return $result->response()->setStatusCode(400);
     }
 
-    public function Delete($id)
+    public function Delete(Request $request, $id)
     {
         $paymentMethod = PaymentMethod::findOrFail($id);
         $result = new PaymentMethodResource($paymentMethod);
+    
+        if ($paymentMethod == null) {
+            return ($result)->response()->setStatusCode(404);
+        }
 
-        if ($paymentMethod->delete()) {
+        $paymentMethod->status = $request->status ?? $paymentMethod->status;
+
+        if ($paymentMethod->save()) {
             return ($result)->response()->setStatusCode(200);
         }
 

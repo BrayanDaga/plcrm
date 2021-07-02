@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes(['verify' => true]);
 Route::post('login', [LoginController::class, 'login'])->name('login');
 
@@ -109,7 +110,6 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::delete('/bank/{id}', [BankController::class, 'Delete'])
             ->name('Delete');
-        
         /*End api config bank*/
     });
     /*End Route api*/
