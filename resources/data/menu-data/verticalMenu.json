@@ -42,21 +42,29 @@
         {
             "url": "config/user-request",
             "name": "User Request",
-            "icon": "package",
+            "icon": "circle",
             "slug": "user-request"
         },
         {
-            "navheader": "Apps & Pages",
-            "slug": ""
+            "url": "config/advertisements",
+            "name": "Advertisements",
+            "icon": "circle",
+            "slug": "advertisements"
         },
         {
-            "url": "app/email",
-            "name": "Email",
-            "icon": "mail",
-            "slug": "app-email"
+            "url": "config/bank",
+            "name": "Bank",
+            "icon": "circle",
+            "slug": "bank"
         },
         {
-            "navheader": "Users Section",
+            "url": "config/payment-method",
+            "name": "Payment Method",
+            "icon": "circle",
+            "slug": "payment-method"
+        },
+        {
+            "navheader": "Users",
             "slug": ""
         },
         {
@@ -80,34 +88,14 @@
             ]
         },
         {
-            "navheader": "Config Section",
+            "navheader": "Apps & Pages",
             "slug": ""
         },
         {
-            "name": "Config-Scroll",
-            "icon": "settings",
-            "dropdown": "1",
-            "slug": "",
-            "submenu": [
-                {
-                    "url": "config/advertisements",
-                    "name": "Advertisements",
-                    "icon": "circle",
-                    "slug": "advertisements"
-                },
-                {
-                    "url": "config/bank",
-                    "name": "Bank",
-                    "icon": "circle",
-                    "slug": "bank"
-                },
-                {
-                    "url": "config/payment-method",
-                    "name": "Payment Method",
-                    "icon": "circle",
-                    "slug": "payment-method"
-                }
-            ]
+            "url": "app/email",
+            "name": "Email",
+            "icon": "mail",
+            "slug": "app-email"
         },
         {
             "navheader": "Other Section",
