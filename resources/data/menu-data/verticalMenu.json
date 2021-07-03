@@ -80,6 +80,12 @@
             "slug": "",
             "submenu": [
                 {
+                    "url": "config/advertisements",
+                    "name": "Advertisements",
+                    "icon": "circle",
+                    "slug": "advertisements"
+                },
+                {
                     "url": "config/bank",
                     "name": "Bank",
                     "icon": "circle",

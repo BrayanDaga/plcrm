@@ -192,4 +192,5 @@ return [
     "Config-Scroll" => "Config",
     "Bank" => "Bank",
     "Payment Method" => "Payment Method",
+    "Advertisements" => "Advertisements",
 ];
