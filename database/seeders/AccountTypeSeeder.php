@@ -19,5 +19,10 @@ class AccountTypeSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
+
+        // Actualizando el estado el tipo de cuenta "admin" a 0
+        DB::table('account_type')
+        ->where('id', 1)
+        ->update(['status' => 0]);
     }
 }

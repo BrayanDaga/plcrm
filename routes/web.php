@@ -18,6 +18,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\BinaryBranchController;
 use App\Http\Controllers\UserMembreshipController;
+use App\Http\Controllers\UserRequestController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -59,6 +60,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/list', [UserMembreshipController::class, 'list'])->name('user-membreship-list');
         Route::post('/create', [UserMembreshipController::class, 'create']);
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
+    });
+    
+    // User Request
+    Route::group(['prefix' => 'config/user-request'], function () {
+        Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

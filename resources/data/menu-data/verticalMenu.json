@@ -36,6 +36,16 @@
             ]
         },
         {
+            "navheader": "Config",
+            "slug": ""
+        },
+        {
+            "url": "config/user-request",
+            "name": "User Request",
+            "icon": "package",
+            "slug": "user-request"
+        },
+        {
             "navheader": "Apps & Pages",
             "slug": ""
         },

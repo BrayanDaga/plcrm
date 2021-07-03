@@ -75,6 +75,15 @@ class UserMembreshipController extends Controller
 
     public function Create(Request $request)
     {
+        // Obtener datos de tipo de cuenta segun el id
+        $account_type = AccountType::find($request->id_account_type);
+        $price = $account_type->price;
+        $iva = $account_type->iva;
+        $total_price_iva = ($price  * $iva) + $price;
+
+        // Validacion de tipo de cuenta
+        
+
         $table = new UserMembreship();
         $table->user = $request->user;
         $table->password = Hash::make($request->password);

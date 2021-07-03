@@ -188,4 +188,6 @@ return [
   "User-Scroll-List" => "Listar Usuarios",
   "Section User" => "Seccion Usuarios",
   "Other Section" => "Otras Secciones",
+  "Config" => "Config",
+  "User Request" => "User Request",
 ];
