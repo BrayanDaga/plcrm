@@ -21,6 +21,7 @@ use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\BinaryBranchController;
 use App\Http\Controllers\UserMembreshipController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AccountTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -296,3 +297,6 @@ Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('ma
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
+
+
+Route::apiResource('accountType',AccountTypeController::class);
