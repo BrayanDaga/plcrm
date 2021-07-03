@@ -2,7 +2,7 @@
 @extends('layouts.contentLayoutMaster')
 
 <!-- Establecer el titulo del modulo (Importante) -->
-@section('title', 'Arbol Binario')
+@section('title', 'Bank')
 
 <!-- Indicar los estilos de la plantilla (OPCIONAL) -->
 @section('vendor-style')
@@ -14,7 +14,7 @@
 
 <!-- Codgio HTML del contenido (Importante) -->
 @section('content')
-    <binary-branch></binary-branch>
+    <bank></bank>
 @endsection
 
 <!-- Indicarlo los script de la plantilla (Opcional) -->

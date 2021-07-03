@@ -56,7 +56,7 @@
             "slug": "app-email"
         },
         {
-            "navheader": "Section User",
+            "navheader": "Users Section",
             "slug": ""
         },
         {
@@ -76,6 +76,36 @@
                     "name": "User-Scroll-List",
                     "icon": "circle",
                     "slug": "user-membreship-list"
+                }
+            ]
+        },
+        {
+            "navheader": "Config Section",
+            "slug": ""
+        },
+        {
+            "name": "Config-Scroll",
+            "icon": "settings",
+            "dropdown": "1",
+            "slug": "",
+            "submenu": [
+                {
+                    "url": "config/advertisements",
+                    "name": "Advertisements",
+                    "icon": "circle",
+                    "slug": "advertisements"
+                },
+                {
+                    "url": "config/bank",
+                    "name": "Bank",
+                    "icon": "circle",
+                    "slug": "bank"
+                },
+                {
+                    "url": "config/payment-method",
+                    "name": "Payment Method",
+                    "icon": "circle",
+                    "slug": "payment-method"
                 }
             ]
         },

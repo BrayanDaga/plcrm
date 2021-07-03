@@ -147,7 +147,7 @@
 
 <script>
 import apiUserMembreship from '../../api/api.user-membreship';
-import CustomSpinner from '../custom-spinner/CustomSpinner';
+import CustomSpinner from '../../common/custom-spinner/CustomSpinner';
 
 export default {
     components: { CustomSpinner },
