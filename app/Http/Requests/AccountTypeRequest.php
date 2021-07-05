@@ -25,13 +25,13 @@ class AccountTypeRequest extends FormRequest
     {
         return [
             'account' => 'required',
-            'price' => 'required',
-            'iva' => 'nullable',
-            'comission' => 'nullable',
-            'disc_purchases' => 'nullable',
-            'pay_in_binary' => 'nullable',
-            'profit_on_purchases' => 'nullable',
-            'profit_on_purchases_2' => 'nullable',
+            'price' => ['required','numeric','min:0'],
+            'iva' => ['nullable','numeric','min:0'],
+            'comission' => ['nullable','numeric','min:0'],
+            'disc_purchases' => ['nullable','numeric','min:0'],
+            'pay_in_binary' => ['nullable','numeric','min:0'],
+            'profit_on_purchases' => ['nullable','numeric','min:0'],
+            'profit_on_purchases_2' => ['nullable','numeric','min:0'],
         ];
     }
 }

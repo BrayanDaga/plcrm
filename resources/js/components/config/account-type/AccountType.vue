@@ -216,7 +216,7 @@
                   <td> {{ accountType.price }}  </td>
                     <td>
                     <div :class="accountType.status === '1' ? 'text-danger' : 'text-success'">
-                      {{ accountType.status === '1' ? 'Delete' : 'Activate' }}
+                      {{ accountType.status === '1' ? 'Deleted' : 'Activate' }}
                     </div>
                 <td> {{ accountType.iva }}  </td>
                 <td> {{ accountType.disc_purchases }}  </td>
