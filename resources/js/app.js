@@ -21,6 +21,8 @@ Vue.component(
     require('./components/user-membreship/Register.vue').default
 );
 
+Vue.component('account-type', require('./components/config/account-type/AccountType').default);
+
 
 
 const app = new Vue({

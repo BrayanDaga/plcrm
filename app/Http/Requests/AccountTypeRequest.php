@@ -27,6 +27,7 @@ class AccountTypeRequest extends FormRequest
             'account' => 'required',
             'price' => 'required',
             'iva' => 'nullable',
+            'comission' => 'nullable',
             'disc_purchases' => 'nullable',
             'pay_in_binary' => 'nullable',
             'profit_on_purchases' => 'nullable',

@@ -18,14 +18,28 @@ class CreateAccountTypeTest extends TestCase
 
         $response = $this->postJson(route('accountType.store'), [
             'price' => 200.00,
-            'account'=>'Account de prueba']);
+            'account'=>'Account de prueba',
+            'iva' => 5,
+            'comission' => 0.5,
+            'disc_purchases' => 4,
+            'pay_in_binary' =>3,
+            'profit_on_purchases' => 4,
+            'profit_on_purchases_2' => 1,
+        ]);
 
          $response->assertJson([
-             'data' => ['price' => 200],
+             'data' => ['comission' => 0.5],
          ]);
 
         $this->assertDatabaseHas('account_type', [
-            'account' => 'Account de prueba'
-        ]);
+            'price' => 200.00,
+            'account'=>'Account de prueba',
+            'iva' => 5,
+            'comission' => 0.5,
+            'disc_purchases' => 4,
+            'pay_in_binary' =>3,
+            'profit_on_purchases' => 4,
+            'profit_on_purchases_2' => 1,
+      ]);
     }
 }

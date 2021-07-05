@@ -7,6 +7,8 @@ use App\Http\Controllers\UserMembreshipController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountTypeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +39,4 @@ Route::group(['middleware' => ['auth', 'api']], function(){
     Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])
         ->name('getListUsersMembreship');
 });*/
+Route::apiResource('accountType',AccountTypeController::class);

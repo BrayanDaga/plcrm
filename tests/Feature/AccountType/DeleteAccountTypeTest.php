@@ -17,12 +17,15 @@ class DeleteAccountTypeTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $accountType = AccountType::factory()->create(['account'=>'account-delete','status'=>'1',]);
+        $accountType = AccountType::factory()->create(['account'=>'account-delete','status'=>'0']);
 
-        $response = $this->deleteJson(route('accountType.destroy', $accountType))->assertStatus(200);
+        $response = $this->deleteJson(route('accountType.destroy', [
+            $accountType,
+            'status' => 1,
+            ]))->assertStatus(200);
 
          $this->assertDatabaseHas('account_type', [
-             'status' => '0'
+             'status' => 1
          ]);
     }
 }

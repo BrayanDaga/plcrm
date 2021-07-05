@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountTypeRequest;
+use App\Http\Resources\AccountTypeResource;
 use App\Models\AccountType;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,8 @@ class AccountTypeController extends Controller
      */
     public function index()
     {
-        $accountTypes  = AccountType::where('status',1)->latest()->paginate();
-        return response()->json($accountTypes);
+        $accountTypes  = AccountType::paginate();
+        return AccountTypeResource::collection($accountTypes);
     }
 
     /**
@@ -31,7 +32,6 @@ class AccountTypeController extends Controller
         $accountType = new AccountType( $request->validated() );
         $accountType->save();
         return response()->json(['data' => $accountType]);
-
     }
 
     /**
@@ -42,7 +42,8 @@ class AccountTypeController extends Controller
      */
     public function show(AccountType $accountType)
     {
-        return response()->json(['data' => $accountType]);
+        $accountType = new AccountTypeResource($accountType);
+        return $accountType;
     }
 
     /**
@@ -56,7 +57,8 @@ class AccountTypeController extends Controller
     {
         $accountType->fill($request->validated());
         $accountType->update();
-        return response()->json(['data' => $accountType]);
+        $accountType = new AccountTypeResource($accountType);
+        return $accountType;
     }
 
     /**
@@ -65,10 +67,14 @@ class AccountTypeController extends Controller
      * @param  \App\Models\AccountType  $accountType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AccountType $accountType)
+    public function destroy(Request $request,AccountType $accountType)
     {
-        $accountType->status = '0';
+        $result = new AccountTypeResource($accountType);
+        $accountType->status = $request->status ?? $accountType->status;
         $accountType->save();
-        return response()->json(['data' => $accountType]);
+        if ($accountType->save()) {
+            return ($result)->response()->setStatusCode(200);
+        }
+        return $result->response()->setStatusCode(400);
     }
 }

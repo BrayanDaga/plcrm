@@ -14,7 +14,7 @@ class AccountTypeSeeder extends Seeder
         foreach ($accounts as $account) {
             DB::table('account_type')->insert([
                 'account' => $account,
-                'status' => 1,
+                'status' => 0,
                 'price' => 200,
                 'created_at' => now(),
                 'updated_at' => now(),

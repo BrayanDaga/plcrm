@@ -21,11 +21,15 @@ class UpdateAccountTypeTest extends TestCase
        $response = $this->putJson(route('accountType.update', [
            $accountType,
         'price' => 200.00,
+        'comission' => 0.5,
+        'iva' => 0.4,
         'account'=>'Account  modificado']))->assertStatus(200);
        
         $this->assertDatabaseHas('account_type', [
             'account' => 'Account  modificado',
-            'price' => 200.00
+            'price' => 200.00,
+            'comission' => 0.5,
+            'iva' => 0.4,
         ]);
    }
 }

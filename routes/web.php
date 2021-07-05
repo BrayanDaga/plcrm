@@ -21,7 +21,6 @@ use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\BinaryBranchController;
 use App\Http\Controllers\UserMembreshipController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AccountTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +67,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
         Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
+    
+        Route::view('/account-type', 'content.config.account-type');
     });
+
+
 
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -299,4 +302,3 @@ Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('ma
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
 
-Route::apiResource('accountType',AccountTypeController::class);

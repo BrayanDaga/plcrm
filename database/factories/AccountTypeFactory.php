@@ -24,7 +24,7 @@ class AccountTypeFactory extends Factory
         return [
             'account' => $this->faker->word(),
             'price' => $this->faker->randomFloat(5, $min = 10,999.99), // 48.8932
-            'status' => $this->faker->randomElement(['1','2']),
+            'status' => '0',
         ];
     }
 }

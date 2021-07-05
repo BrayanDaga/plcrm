@@ -90,7 +90,14 @@
                     "name": "Payment Method",
                     "icon": "circle",
                     "slug": "payment-method"
+                },
+                {
+                    "url": "config/account-type",
+                    "name": "Account Type",
+                    "icon": "circle",
+                    "slug": "account-type"
                 }
+
             ]
         },
         {
