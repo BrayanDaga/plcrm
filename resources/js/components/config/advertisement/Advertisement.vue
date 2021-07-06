@@ -221,7 +221,7 @@ export default {
       apiAdvertisement.list().then((response) => {
         this.initialLoading = false;
         this.advertisements = response.data;
-        
+
         /*Agregando al date pagination*/
         this.pagination = response.meta;
         delete this.pagination.links;

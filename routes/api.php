@@ -10,11 +10,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/account-type/get-data-id/{id}', [AccountTypeController::class, 'getDataBytId']);
-
-/*Start api config messages*/
-Route::get('/advertisements/{id}', [AdvertisementsController::class, 'Detail'])->name('Detail');
-Route::get('/advertisements', [AdvertisementsController::class, 'List'])->name('List');
-Route::post('/advertisements', [AdvertisementsController::class, 'Add'])->name('Add');
-Route::put('/advertisements/{id}', [AdvertisementsController::class, 'Edit'])->name('Edit');
-Route::delete('/advertisements/{id}', [AdvertisementsController::class, 'Delete'])->name('Delete');
-/*End api config messages*/
