@@ -90,7 +90,7 @@
                   <td>{{ tempAdvertisement.created_at | formatDate }}</td>
                   <td>
                     <div :class="tempAdvertisement.status === '1' ? 'text-danger' : 'text-success'">
-                      {{ tempAdvertisement.status === '1' ? 'Disabled' : 'Enable' }}
+                      {{ tempAdvertisement.status === '1' ? 'Disable' : 'Enable' }}
                     </div>
                   </td>
                   <td>
@@ -107,7 +107,7 @@
                             : 'btn-outline-success'
                         "
                       >
-                        {{ tempAdvertisement.status === '0' ? 'Disabled' : 'Activate' }}
+                        {{ tempAdvertisement.status === '0' ? 'Disable' : 'Activate' }}
                       </button>
                     </div>
                   </td>

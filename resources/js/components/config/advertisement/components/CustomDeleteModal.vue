@@ -11,7 +11,11 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="myModalLabel140">
+            <h5
+              class="modal-title"
+              :class="advertisement.status === '0' ? 'text-danger' : 'text-success'"
+              id="myModalLabel140"
+            >
               {{ advertisement.status === '1' ? 'Activate' : 'Disabled' }} Advertisement
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -23,7 +27,12 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger" @click="onDelete">
+            <button
+              type="button"
+              class="btn"
+              :class="advertisement.status === '0' ? 'btn-danger' : 'btn-success'"
+              @click="onDelete"
+            >
               <span
                 class="spinner-border spinner-border-sm text-danger"
                 role="status"
