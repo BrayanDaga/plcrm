@@ -40,7 +40,6 @@ class AdvertisementsController extends Controller
 
         $advertisement->message = $request->message ?? $advertisement->message;
 
-
         if ($advertisement->save()) {
             return ($result)->response()->setStatusCode(200);
         };

@@ -2,9 +2,9 @@ import api from './api';
 
 const apiAdvertisements = {
   list: () => api.get('/api/advertisements'),
-  add: advertisements => api.post('/api/advertisements', advertisements),
+  add: advertisement => api.post('/api/advertisements', advertisement),
   detail: id => api.get(`/api/advertisements/${id}`),
-  edit: advertisements => api.put(`/api/advertisements/${advertisements.id}`, advertisements),
+  edit: advertisement => api.put(`/api/advertisements/${advertisement.id}`, advertisement),
   delete: (id, params) => api.deleteState(`/api/advertisements/${id}`, params)
 };
 

@@ -15,11 +15,15 @@
                   <div class="form-group">
                     <label for="text-area-message">Message :</label>
                     <textarea
+                      ref="message-advertisement"
+                      v-model="form.message"
                       class="form-control"
                       id="text-area-message"
                       rows="3"
                       placeholder="Add Message"
-                    ></textarea>
+                      :class="rules ? '' : 'is-invalid'"
+                    />
+                    <div class="invalid-feedback" v-if="!rules">This field is required</div>
                   </div>
                 </div>
                 <div class="col-sm-9 offset-sm-8">
@@ -50,70 +54,6 @@
       </div>
     </section>
 
-    <section id="basic-horizontal-layouts">
-      <div class="row">
-        <div class="col-md-12 col-12">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">
-                {{ editMode ? 'Edit Advertisement' : 'Add Advertisement' }}
-              </h4>
-            </div>
-            <div class="card-body">
-              <form class="form">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group row">
-                      <div class="col-sm-3 col-form-label">
-                        <label for="bank-name"> Message </label>
-                      </div>
-                      <div class="col-sm-9">
-                        <textarea
-                          v-model="form.message"
-                          id="bank-name"
-                          class="form-control"
-                          name="name"
-                          placeholder="Advertisement"
-                          autocomplete="false"
-                          ref="message-advertisement"
-                          :class="rules ? '' : 'is-invalid'"
-                        />
-                        <div class="invalid-feedback" v-if="!rules">This field is required</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-9 offset-sm-3">
-                    <button
-                      @click.prevent="submit()"
-                      type="reset"
-                      class="btn btn-primary mr-1"
-                      :disabled="loading"
-                    >
-                      <span
-                        class="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                        v-if="loading"
-                      ></span>
-                      <span class="ml-25 align-middle">
-                        {{ editMode ? 'Edit' : 'Add' }}
-                      </span>
-                    </button>
-                    <button
-                      @click.prevent="resetForm"
-                      type="reset"
-                      class="btn btn-outline-secondary"
-                    >
-                      Reset
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
     <div class="row" id="basic-table">
       <div class="col-12">
         <div class="card">
@@ -154,12 +94,13 @@
                       <button
                         type="button"
                         class="btn round"
-                        @click="deleteBank(tempAdvertisement.id)"
+                        @click="deleteAdverstiment(tempAdvertisement.id)"
                         :class="
                           tempAdvertisement.status === '0'
                             ? 'btn-outline-danger'
                             : 'btn-outline-success'
                         "
+                        id="confirm-adverstiment-delete"
                       >
                         {{ tempAdvertisement.status === '0' ? 'Desactivate' : 'Activate' }}
                       </button>
@@ -169,7 +110,7 @@
                     <button
                       type="button"
                       class="btn btn-outline-secondary round"
-                      @click.prevent="editBank(tempAdvertisement.id)"
+                      @click.prevent="editAdverstiment(tempAdvertisement.id)"
                     >
                       Edit
                     </button>
@@ -207,6 +148,7 @@ export default {
     return {
       rules: true,
       form: { ...formAdvertisement },
+      selectAdvertisement: {},
       editMode: false,
       initialLoading: false,
       loading: false,
@@ -214,13 +156,66 @@ export default {
     };
   },
   methods: {
-    submit() {},
+    submit() {
+      if (this.form.message === '') {
+        this.rules = false;
+        this.$refs['message-advertisement'].focus();
+        return;
+      }
+      this.rules = true;
+      this.loading = true;
+      const advertisement = {
+        id: this.form.id,
+        message: this.form.message
+      };
+      if (advertisement.id && this.editMode) {
+        apiAdvertisement.edit(advertisement).then(response => {
+          this.successfully(response, true);
+          this.showToast('success', `Advertisement was successfully Updated`);
+        });
+      } else {
+        apiAdvertisement.add(advertisement).then(response => {
+          this.successfully(response, false);
+          this.showToast('success', `Advertisement was successfully Added`);
+        });
+      }
+    },
+    deleteAdverstiment(id) {
+      
+    },
+    editAdverstiment(id) {
+      if (id) {
+        this.editMode = true;
+        this.form = this.advertisements.find(tempAdvertisement => tempAdvertisement.id === id);
+        this.$refs['message-advertisement'].focus();
+      }
+    },
     listAdverstisment() {
       this.initialLoading = true;
       apiAdvertisement.list().then(response => {
         this.initialLoading = false;
         this.advertisements = response.data;
       });
+    },
+    successfully(response, edit) {
+      this.selectAdvertisement = response.data;
+      this.selectAdvertisement.isEdit = edit;
+      this.loading = false;
+      // $('#success-modal').modal('show');
+      this.listAdverstisment();
+      this.resetForm();
+    },
+    showToast(type, message) {
+      toastr[type](`${message}`, `${type}!`, {
+        positionClass: 'toast-top-center',
+        closeButton: true,
+        tapToDismiss: false
+      });
+    },
+    resetForm() {
+      this.form = { ...formAdvertisement };
+      this.editMode = false;
+      this.rules = true;
     }
   },
   name: 'Advertisement'
