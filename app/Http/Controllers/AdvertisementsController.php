@@ -16,13 +16,13 @@ class AdvertisementsController extends Controller
 
     public function Add(Request $request)
     {
-        $message = new Advertisement();
-        $message->content = $request->content;
-        $message->status = '0';
+        $advertisement = new Advertisement();
+        $advertisement->message = $request->message;
+        $advertisement->status = '0';
 
-        $result = new AdvertisementResource($message);
+        $result = new AdvertisementResource($advertisement);
 
-        if ($message->save()) :
+        if ($advertisement->save()) :
             return ($result)->response()->setStatusCode(200);
         endif;
 
@@ -31,17 +31,16 @@ class AdvertisementsController extends Controller
 
     public function Edit(Request $request, $id)
     {
-        $message = Advertisement::findOrFail($id);
-        $result = new AdvertisementResource($message);
+        $advertisement = Advertisement::findOrFail($id);
+        $result = new AdvertisementResource($advertisement);
 
-        if ($message == null) {
+        if ($advertisement == null) {
             return ($result)->response()->setStatusCode(404);
         }
 
-        $message->content = $request->content ?? $message->content;
+        $advertisement->message = $request->message ?? $advertisement->message;
 
-
-        if ($message->save()) {
+        if ($advertisement->save()) {
             return ($result)->response()->setStatusCode(200);
         };
 
@@ -50,16 +49,16 @@ class AdvertisementsController extends Controller
 
     public function Delete(Request $request, $id)
     {
-        $message = Advertisement::findOrFail($id);
-        $result = new AdvertisementResource($message);
+        $advertisement = Advertisement::findOrFail($id);
+        $result = new AdvertisementResource($advertisement);
 
-        if ($message == null) {
+        if ($advertisement == null) {
             return ($result)->response()->setStatusCode(404);
         }
 
-        $message->status = $request->status ?? $message->status;
+        $advertisement->status = $request->status ?? $advertisement->status;
 
-        if ($message->save()) {
+        if ($advertisement->save()) {
             return ($result)->response()->setStatusCode(200);
         }
 
@@ -68,16 +67,16 @@ class AdvertisementsController extends Controller
 
     public function List(Request $request): AnonymousResourceCollection
     {
-        $messages = Advertisement::paginate(10);
-        return AdvertisementResource::collection($messages);
+        $advertisements = Advertisement::paginate(10);
+        return AdvertisementResource::collection($advertisements);
     }
 
     public function Detail($id)
     {
-        $message = Advertisement::findOrFail($id);
-        $result = new AdvertisementResource($message);
+        $advertisement = Advertisement::findOrFail($id);
+        $result = new AdvertisementResource($advertisement);
 
-        if ($message == null) {
+        if ($advertisement == null) {
             return ($result)->response()->setStatusCode(404);
         }
         return ($result)->response()->setStatusCode(200);
