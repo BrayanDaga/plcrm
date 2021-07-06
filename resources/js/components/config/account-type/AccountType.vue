@@ -30,7 +30,7 @@
                         :class="errors.hasOwnProperty('account') ? 'is-invalid' : ''"
                       />
                       <div class="invalid-feedback" v-if="errors.hasOwnProperty('account')">
-                        {{ errors.account }}
+                        {{ errors.account[0] }}
                       </div>
                     </div>
                   </div>
@@ -49,7 +49,7 @@
                         :class="errors.hasOwnProperty('price') ? 'is-invalid' : ''"
                       />
                       <div class="invalid-feedback" v-if="errors.hasOwnProperty('price')">
-                        {{ errors.price }}
+                        {{ errors.price[0] }}
                       </div>
                     </div>
                   </div>
@@ -68,7 +68,7 @@
                         :class="errors.hasOwnProperty('comission') ? 'is-invalid' : ''"
                       />
                       <div class="invalid-feedback" v-if="errors.hasOwnProperty('comission')">
-                        {{ errors.comission }}
+                        {{ errors.comission[0] }}
                       </div>
                     </div>
                   </div>
@@ -87,7 +87,7 @@
                         :class="errors.hasOwnProperty('iva') ? 'is-invalid' : ''"
                       />
                       <div class="invalid-feedback" v-if="errors.hasOwnProperty('iva')">
-                        {{ errors.iva }}
+                        {{ errors.iva[0] }}
                       </div>
                     </div>
                   </div>
@@ -106,7 +106,7 @@
                         :class="errors.hasOwnProperty('pay_in_binary') ? 'is-invalid' : ''"
                       />
                       <div class="invalid-feedback" v-if="errors.hasOwnProperty('pay_in_binary')">
-                        {{ errors.pay_in_binary }}
+                        {{ errors.pay_in_binary[0] }}
                       </div>
                     </div>
                   </div>
@@ -125,7 +125,7 @@
                         :class="errors.hasOwnProperty('disc_purchases') ? 'is-invalid' : ''"
                       />
                       <div class="invalid-feedback" v-if="errors.hasOwnProperty('disc_purchases')">
-                        {{ errors.disc_purchases }}
+                        {{ errors.disc_purchases[0] }}
                       </div>
                     </div>
                   </div>
@@ -148,7 +148,7 @@
                         class="invalid-feedback"
                         v-if="errors.hasOwnProperty('profit_on_purchases')"
                       >
-                        {{ errors.profit_on_purchases }}
+                        {{ errors.profit_on_purchases[0] }}
                       </div>
                     </div>
                   </div>
@@ -171,7 +171,7 @@
                         class="invalid-feedback"
                         v-if="errors.hasOwnProperty('profit_on_purchases_2')"
                       >
-                        {{ errors.profit_on_purchases_2 }}
+                        {{ errors.profit_on_purchases_2[0] }}
                       </div>
                     </div>
                   </div>
@@ -318,7 +318,7 @@ export default {
       loading: false,
       accountTypes: [],
       editMode: false,
-      errors: [],
+      errors: {},
       pagination: {
         total: 0,
         current_page: 0,
@@ -336,10 +336,47 @@ export default {
     resetForm() {
       this.form = { ...formAccountType };
       this.editMode = false;
-      this.errors = [];
+      this.errors = {};
+    },
+    errorsMessage(err) {
+      if (err.response.data.hasOwnProperty('errors')) {
+        const errors = err.response.data.errors;
+        this.errors = errors;
+
+        if (this.errors.account) {
+          this.$refs['account-account-type'].focus();
+          return;
+        }
+        if (this.errors.price) {
+          this.$refs['price-account-type'].focus();
+          return;
+        }
+
+        if (this.errors.comission) {
+          this.$refs['comission-account-type'].focus();
+          return;
+        }
+
+        if (this.errors.pay_in_binary) {
+          this.$refs['pay_in_binary-account-type'].focus();
+          return;
+        }
+        if (this.errors.disc_purchases) {
+          this.$refs['disc_purchases-account-type'].focus();
+          return;
+        }
+        if (this.errors.profit_on_purchases) {
+          this.$refs['profit_on_purchases-account-type'].focus();
+          return;
+        }
+        if (this.errors.profit_on_purchases_2) {
+          this.$refs['profit_on_purchases_2-account-type'].focus();
+          return;
+        }
+      }
     },
     submit() {
-      this.errors = [];
+      this.errors = {};
 
       this.loading = true;
       const accountType = {
@@ -354,13 +391,23 @@ export default {
         comission: this.form.comission,
       };
       if (accountType.id && this.editMode) {
-        apiAccountType.edit(accountType).then((response) => {
-          this.successfully(response, true);
-          this.showToast(
-            'success',
-            `Account Type method ${response.data.name} was successfully Updated`
-          );
-        });
+        apiAccountType
+          .edit(accountType)
+          .then((response) => {
+            this.successfully(response, true);
+            this.showToast(
+              'success',
+              `Account Type method ${response.data.name} was successfully Updated`
+            );
+          })
+          .catch((err) => {
+            console.log(err.response.data.errors);
+
+            this.errorsMessage(err);
+          })
+          .finally(() => {
+            this.loading = false;
+          });
       } else {
         apiAccountType
           .add(accountType)
@@ -373,41 +420,7 @@ export default {
           })
           .catch((err) => {
             console.log(err.response.data.errors);
-
-            if (err.response.data.hasOwnProperty('errors')) {
-              const errors = err.response.data.errors;
-              this.errors = errors;
-            }
-            if (this.errors.hasOwnProperty('account')) {
-              this.$refs['account-account-type'].focus();
-              return;
-            }
-            if (this.errors.hasOwnProperty('price')) {
-              this.$refs['price-account-type'].focus();
-              return;
-            }
-
-            if (this.errors.hasOwnProperty('comission')) {
-              this.$refs['comission-account-type'].focus();
-              return;
-            }
-
-            if (this.errors.hasOwnProperty('pay_in_binary')) {
-              this.$refs['pay_in_binary-account-type'].focus();
-              return;
-            }
-            if (this.errors.hasOwnProperty('disc_purchases')) {
-              this.$refs['disc_purchases-account-type'].focus();
-              return;
-            }
-            if (this.errors.hasOwnProperty('profit_on_purchases')) {
-              this.$refs['profit_on_purchases-account-type'].focus();
-              return;
-            }
-            if (this.errors.hasOwnProperty('profit_on_purchases_2')) {
-              this.$refs['profit_on_purchases_2-account-type'].focus();
-              return;
-            }
+            this.errorsMessage(err);
           })
           .finally(() => {
             this.loading = false;
@@ -415,6 +428,7 @@ export default {
       }
     },
     editAccountType(id) {
+      this.errors = {};
       this.editMode = true;
       this.form = this.accountTypes.find((accountType) => accountType.id === id);
       this.$refs['account-account-type'].focus();
