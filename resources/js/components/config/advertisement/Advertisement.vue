@@ -1,5 +1,9 @@
 <template>
   <div>
+    <custom-delete-modal
+      @confirm-delete="confirmDeleteAdvertisement"
+      :advertisement="selectAdvertisement"
+    ></custom-delete-modal>
     <section class="basic-textarea">
       <div class="row">
         <div class="col-12">
@@ -94,15 +98,16 @@
                       <button
                         type="button"
                         class="btn round"
-                        @click="deleteAdverstiment(tempAdvertisement.id)"
+                        @click="deleteAdvertisement(tempAdvertisement.id)"
+                        data-toggle="modal"
+                        data-target="#delete-modal"
                         :class="
                           tempAdvertisement.status === '0'
                             ? 'btn-outline-danger'
                             : 'btn-outline-success'
                         "
-                        id="confirm-adverstiment-delete"
                       >
-                        {{ tempAdvertisement.status === '0' ? 'Desactivate' : 'Activate' }}
+                        {{ tempAdvertisement.status === '0' ? 'Disabled' : 'Activate' }}
                       </button>
                     </div>
                   </td>
@@ -110,7 +115,7 @@
                     <button
                       type="button"
                       class="btn btn-outline-secondary round"
-                      @click.prevent="editAdverstiment(tempAdvertisement.id)"
+                      @click.prevent="editAdvertisement(tempAdvertisement.id)"
                     >
                       Edit
                     </button>
@@ -131,18 +136,19 @@
 <script>
 import apiAdvertisement from '../../../api/api.advertisement';
 import CustomSpinner from '../../../common/custom-spinner/CustomSpinner.vue';
+import CustomDeleteModal from './components/CustomDeleteModal';
 
 const formAdvertisement = {
   id: null,
   message: '',
   state: '',
-  created_at: null
+  created_at: null,
 };
 
 export default {
-  components: { CustomSpinner },
+  components: { CustomSpinner, CustomDeleteModal },
   mounted() {
-    this.listAdverstisment();
+    this.listAdvertisements();
   },
   data() {
     return {
@@ -152,7 +158,7 @@ export default {
       editMode: false,
       initialLoading: false,
       loading: false,
-      advertisements: []
+      advertisements: [],
     };
   },
   methods: {
@@ -166,33 +172,45 @@ export default {
       this.loading = true;
       const advertisement = {
         id: this.form.id,
-        message: this.form.message
+        message: this.form.message,
       };
       if (advertisement.id && this.editMode) {
-        apiAdvertisement.edit(advertisement).then(response => {
+        apiAdvertisement.edit(advertisement).then((response) => {
           this.successfully(response, true);
           this.showToast('success', `Advertisement was successfully Updated`);
         });
       } else {
-        apiAdvertisement.add(advertisement).then(response => {
+        apiAdvertisement.add(advertisement).then((response) => {
           this.successfully(response, false);
           this.showToast('success', `Advertisement was successfully Added`);
         });
       }
     },
-    deleteAdverstiment(id) {
-      
+    deleteAdvertisement(id) {
+      if (id) {
+        this.selectAdvertisement = this.advertisements.find(
+          (tempAdvertisement) => tempAdvertisement.id === id
+        );
+      }
     },
-    editAdverstiment(id) {
+    confirmDeleteAdvertisement(confirm, status) {
+      if (confirm) {
+        const message = status === '1' ? 'Disable' : 'Activate';
+        this.listAdvertisements();
+        this.resetForm();
+        this.showToast('success', `Advertisement was successfully ${message}`);
+      }
+    },
+    editAdvertisement(id) {
       if (id) {
         this.editMode = true;
-        this.form = this.advertisements.find(tempAdvertisement => tempAdvertisement.id === id);
+        this.form = this.advertisements.find((tempAdvertisement) => tempAdvertisement.id === id);
         this.$refs['message-advertisement'].focus();
       }
     },
-    listAdverstisment() {
+    listAdvertisements() {
       this.initialLoading = true;
-      apiAdvertisement.list().then(response => {
+      apiAdvertisement.list().then((response) => {
         this.initialLoading = false;
         this.advertisements = response.data;
       });
@@ -202,23 +220,23 @@ export default {
       this.selectAdvertisement.isEdit = edit;
       this.loading = false;
       // $('#success-modal').modal('show');
-      this.listAdverstisment();
+      this.listAdvertisements();
       this.resetForm();
     },
     showToast(type, message) {
       toastr[type](`${message}`, `${type}!`, {
         positionClass: 'toast-top-center',
         closeButton: true,
-        tapToDismiss: false
+        tapToDismiss: false,
       });
     },
     resetForm() {
       this.form = { ...formAdvertisement };
       this.editMode = false;
       this.rules = true;
-    }
+    },
   },
-  name: 'Advertisement'
+  name: 'Advertisement',
 };
 </script>
 
