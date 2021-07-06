@@ -1,6 +1,6 @@
 <template>
   <div>
-      <custom-delete-modal
+    <custom-delete-modal
       @confirm-delete="confirmDeleteAccountType"
       :account-type="selectAccountType"
     ></custom-delete-modal>
@@ -10,145 +10,173 @@
         <div class="col-md-12 col-12">
           <div class="card">
             <div class="card-header">
-              <h4 class="card-title">
-                Add Account Type
-              </h4>
+              <h4 class="card-title">Add Account Type</h4>
             </div>
             <div class="card-body">
-     
-        
-            <form class="form">
-            <div class="row">
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                        <label for="account"> Account </label>
-                 <input
-                 v-model="form.account"
-                          type="text"
-                          id="account"
-                          class="form-control"
-                          name="account"
-                          placeholder="Account"
-                          autocomplete="false"
-                          ref="account-account-type"
-                            :class="rules ? '' : 'is-invalid'"
-                        />
-                   <div class="invalid-feedback" v-if="!rules">This field is required</div>
-
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                        <label for="price"> Price</label>
-                 <input
-                          type="text"
-                          id="price"
-                          class="form-control"
-                          name="price"
-                          placeholder="Price"
-                          autocomplete="false"
-                          ref="price-account-type"
-                          v-model="form.price"
-                          :class="rules ? '' : 'is-invalid'"
-                        />
-                    <div class="invalid-feedback" v-if="!rules">This field is required</div>
-
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                        <label for="comissionable"> Comissionable </label>  
-                        <input
-                          type="text"
-                          id="comissionable"
-                          class="form-control"
-                          name="comissionable"
-                          placeholder="comissionable (optional)"
-                          autocomplete="false"
-                          ref="comissionable-account-type"
-                          v-model="form.comission"
-                        />             
+              <form class="form">
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="account"> Account </label>
+                      <input
+                        v-model="form.account"
+                        type="text"
+                        id="account"
+                        class="form-control"
+                        name="account"
+                        placeholder="Account"
+                        autocomplete="false"
+                        ref="account-account-type"
+                        :class="errors.hasOwnProperty('account') ? 'is-invalid' : ''"
+                      />
+                      <div class="invalid-feedback" v-if="errors.hasOwnProperty('account')">
+                        {{ errors.account }}
+                      </div>
+                    </div>
                   </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                        <label for="iva"> Iva</label>
-                  <input
-                          type="text"
-                          id="iva"
-                          class="form-control"
-                          name="iva"
-                          placeholder="iva(optional)"
-                          autocomplete="false"
-                          ref="iva-account-type"
-                          v-model="form.iva"
-                        />
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                        <label for="pay_in_binary">Discount on purchases</label>
-                 <input
-                          type="text"
-                          id="pay_in_binary"
-                          class="form-control"
-                          name="pay_in_binary"
-                          placeholder="Discount on EJ purchase: 20 (20% without the symbol)"
-                          autocomplete="false"
-                          ref="pay_in_binary-account-type"
-                          v-model="form.pay_in_binary"
-                        />
-                </div>
-              </div>
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                        <label for="disc_purchases">% in binary cut</label>
-                  <input
-                          type="text"
-                          id="disc_purchases"
-                          class="form-control"
-                          name="disc_purchases"
-                          placeholder="% in binary cut EJ: 15 (15% without the symbol)"
-                          autocomplete="false"
-                          ref="disc_purchases-account-type"
-                          v-model="form.disc_purchases"
-                        />
-                </div>
-              </div>
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="price"> Price</label>
+                      <input
+                        type="text"
+                        id="price"
+                        class="form-control"
+                        name="price"
+                        placeholder="Price"
+                        autocomplete="false"
+                        ref="price-account-type"
+                        v-model="form.price"
+                        :class="errors.hasOwnProperty('price') ? 'is-invalid' : ''"
+                      />
+                      <div class="invalid-feedback" v-if="errors.hasOwnProperty('price')">
+                        {{ errors.price }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="comission"> Comissionable </label>
+                      <input
+                        type="text"
+                        id="comissiona"
+                        class="form-control"
+                        name="comission"
+                        placeholder="comissionable (optional)"
+                        autocomplete="false"
+                        ref="comission-account-type"
+                        v-model="form.comission"
+                        :class="errors.hasOwnProperty('comission') ? 'is-invalid' : ''"
+                      />
+                      <div class="invalid-feedback" v-if="errors.hasOwnProperty('comission')">
+                        {{ errors.comission }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="iva"> Iva</label>
+                      <input
+                        type="text"
+                        id="iva"
+                        class="form-control"
+                        name="iva"
+                        placeholder="iva(optional)"
+                        autocomplete="false"
+                        ref="iva-account-type"
+                        v-model="form.iva"
+                        :class="errors.hasOwnProperty('iva') ? 'is-invalid' : ''"
+                      />
+                      <div class="invalid-feedback" v-if="errors.hasOwnProperty('iva')">
+                        {{ errors.iva }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="pay_in_binary">Discount on purchases</label>
+                      <input
+                        type="text"
+                        id="pay_in_binary"
+                        class="form-control"
+                        name="pay_in_binary"
+                        placeholder="Discount on EJ purchase: 20 (20% without the symbol)"
+                        autocomplete="false"
+                        ref="pay_in_binary-account-type"
+                        v-model="form.pay_in_binary"
+                        :class="errors.hasOwnProperty('pay_in_binary') ? 'is-invalid' : ''"
+                      />
+                      <div class="invalid-feedback" v-if="errors.hasOwnProperty('pay_in_binary')">
+                        {{ errors.pay_in_binary }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="disc_purchases">% in binary cut</label>
+                      <input
+                        type="text"
+                        id="disc_purchases"
+                        class="form-control"
+                        name="disc_purchases"
+                        placeholder="% in binary cut EJ: 15 (15% without the symbol)"
+                        autocomplete="false"
+                        ref="disc_purchases-account-type"
+                        v-model="form.disc_purchases"
+                        :class="errors.hasOwnProperty('disc_purchases') ? 'is-invalid' : ''"
+                      />
+                      <div class="invalid-feedback" v-if="errors.hasOwnProperty('disc_purchases')">
+                        {{ errors.disc_purchases }}
+                      </div>
+                    </div>
+                  </div>
 
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                        <label for="disc_purchases">Gain on Purchases</label>
-                   <input
-                          type="text"
-                          id="disc_purchases"
-                          class="form-control"
-                          name="disc_purchases"
-                          placeholder="% Profit on Purchases"
-                          autocomplete="false"
-                          ref="disc_purchases-account-type"
-                          v-model="form.profit_on_purchases"
-                        />
-                </div>
-              </div>
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="profit_on_purchases">Gain on Purchases</label>
+                      <input
+                        type="text"
+                        id="profit_on_purchases"
+                        class="form-control"
+                        name="profit_on_purchases"
+                        placeholder="% Profit on Purchases"
+                        autocomplete="false"
+                        ref="profit_on_purchases-account-type"
+                        v-model="form.profit_on_purchases"
+                        :class="errors.hasOwnProperty('profit_on_purchases') ? 'is-invalid' : ''"
+                      />
+                      <div
+                        class="invalid-feedback"
+                        v-if="errors.hasOwnProperty('profit_on_purchases')"
+                      >
+                        {{ errors.profit_on_purchases }}
+                      </div>
+                    </div>
+                  </div>
 
-              <div class="col-md-6 col-12">
-                <div class="form-group">
-                        <label for="disc_purchases">Gain on 2nd Generation Purchases</label>
- <input
-                          type="text"
-                          id="disc_purchases"
-                          class="form-control"
-                          name="disc_purchases"
-                          placeholder="% Gain on 2nd Generation Purchases"
-                          autocomplete="false"
-                          ref="disc_purchases-account-type"
-                          v-model="form.profit_on_purchases_2"
-                        />
-                </div>
-              </div>
-              <div class="col-12">
-              <button
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="profit_on_purchases_2">Gain on 2nd Generation Purchases</label>
+                      <input
+                        type="text"
+                        id="profit_on_purchases_2"
+                        class="form-control"
+                        name="profit_on_purchases_2"
+                        placeholder="% Gain on 2nd Generation Purchases"
+                        autocomplete="false"
+                        ref="profit_on_purchases_2-account-type"
+                        v-model="form.profit_on_purchases_2"
+                        :class="errors.hasOwnProperty('profit_on_purchases_2') ? 'is-invalid' : ''"
+                      />
+                      <div
+                        class="invalid-feedback"
+                        v-if="errors.hasOwnProperty('profit_on_purchases_2')"
+                      >
+                        {{ errors.profit_on_purchases_2 }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <button
                       @click.prevent="submit()"
                       type="reset"
                       class="btn btn-primary mr-1"
@@ -170,16 +198,17 @@
                       class="btn btn-outline-secondary"
                     >
                       Reset
-                    </button>              </div>
-            </div>
-          </form>
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-       <div class="row" id="basic-table">
+    <div class="row" id="table-small">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
@@ -193,7 +222,7 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th >Nro</th>
+                  <th>Nro</th>
                   <th>Account</th>
                   <th>Price</th>
                   <th>Status</th>
@@ -203,27 +232,26 @@
                   <th>Gain on Purchases</th>
                   <th>% Gain on 2nd Generation Purchases</th>
                   <th>Commissionable</th>
-                    <th>Actions</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody v-if="!initialLoading">
-                <tr
-                  v-for="(accountType, index) in accountTypes"
-                  :key="accountType.id"
-                >
+                <tr v-for="(accountType, index) in accountTypes" :key="accountType.id">
                   <td>{{ index + 1 }}</td>
                   <td>{{ accountType.account }}</td>
-                  <td> {{ accountType.price }}  </td>
-                    <td>
+                  <td>{{ accountType.price }}</td>
+                  <td>
                     <div :class="accountType.status === '1' ? 'text-danger' : 'text-success'">
                       {{ accountType.status === '1' ? 'Deleted' : 'Activate' }}
                     </div>
-                <td> {{ accountType.iva }}  </td>
-                <td> {{ accountType.disc_purchases }}  </td>
-                <td> {{ accountType.pay_in_binary }}  </td>
-                <td> {{ accountType.profit_on_purchases }}  </td>
-                <td> {{ accountType.profit_on_purchases_2 }}  </td>
-                <td> {{ accountType.comission }}  </td>
+                  </td>
+
+                  <td>{{ accountType.iva }}</td>
+                  <td>{{ accountType.disc_purchases }}</td>
+                  <td>{{ accountType.pay_in_binary }}</td>
+                  <td>{{ accountType.profit_on_purchases }}</td>
+                  <td>{{ accountType.profit_on_purchases_2 }}</td>
+                  <td>{{ accountType.comission }}</td>
 
                   <td>
                     <div class="demo-inline-spacing">
@@ -234,9 +262,7 @@
                         data-toggle="modal"
                         data-target="#delete-modal"
                         :class="
-                          accountType.status === '0'
-                            ? 'btn-outline-danger'
-                            : 'btn-outline-success'
+                          accountType.status === '0' ? 'btn-outline-danger' : 'btn-outline-success'
                         "
                       >
                         {{ accountType.status === '0' ? 'Delete' : 'Activate' }}
@@ -273,57 +299,47 @@ import CustomSuccessModal from './components/CustomSuccessModal';
 const formAccountType = {
   id: null,
   account: '',
-  price:0,
-  iva:0,
-  disc_purchases:0,
-  pay_in_binary:0,
+  price: 0,
+  iva: 0,
+  disc_purchases: 0,
+  pay_in_binary: 0,
   profit_on_purchases: 0,
   profit_on_purchases_2: 0,
   comission: 0,
-  state: ''
+  state: '',
 };
 export default {
   components: { CustomSuccessModal, CustomDeleteModal, CustomSpinner },
-  data(){
-      return {
-      rules: true,
+  data() {
+    return {
       form: { ...formAccountType },
       selectAccountType: {},
       initialLoading: true,
       loading: false,
-      accountTypes : [],
+      accountTypes: [],
       editMode: false,
+      errors: [],
       pagination: {
         total: 0,
         current_page: 0,
         per_page: 0,
         last_page: 0,
         from: 0,
-        to: 0
-      }
+        to: 0,
+      },
     };
   },
   created() {
-      this.listAccountTypes();
+    this.listAccountTypes();
   },
   methods: {
     resetForm() {
       this.form = { ...formAccountType };
       this.editMode = false;
-      this.rules = true;
+      this.errors = [];
     },
     submit() {
-      if (this.form.account === '') {
-        this.rules = false;
-        this.$refs['account-account-type'].focus();
-        return;
-      }
-      if (this.form.price < 0 ) {
-        this.rules = false;
-        this.$refs['price-account-type'].focus();
-        return;
-      }
-      this.rules = true;
+      this.errors = [];
 
       this.loading = true;
       const accountType = {
@@ -337,44 +353,80 @@ export default {
         profit_on_purchases_2: this.form.profit_on_purchases_2,
         comission: this.form.comission,
       };
-       if (accountType.id && this.editMode) {
-         apiAccountType.edit(accountType).then(response => {
-           this.successfully(response, true);
-           this.showToast(
-             'success',
-             `Account Type method ${response.data.name} was successfully Updated`
-           );
-         });
-       } 
-       else{
-         apiAccountType.add(accountType).then(response => {
-          this.successfully(response, false);
-          this.showToast('success', `Account type ${response.data.account} was successfully Added`);
+      if (accountType.id && this.editMode) {
+        apiAccountType.edit(accountType).then((response) => {
+          this.successfully(response, true);
+          this.showToast(
+            'success',
+            `Account Type method ${response.data.name} was successfully Updated`
+          );
         });
-       }
-        
-      
+      } else {
+        apiAccountType
+          .add(accountType)
+          .then((response) => {
+            this.successfully(response, false);
+            this.showToast(
+              'success',
+              `Account type ${response.data.account} was successfully Added`
+            );
+          })
+          .catch((err) => {
+            console.log(err.response.data.errors);
+
+            if (err.response.data.hasOwnProperty('errors')) {
+              const errors = err.response.data.errors;
+              this.errors = errors;
+            }
+            if (this.errors.hasOwnProperty('account')) {
+              this.$refs['account-account-type'].focus();
+              return;
+            }
+            if (this.errors.hasOwnProperty('price')) {
+              this.$refs['price-account-type'].focus();
+              return;
+            }
+
+            if (this.errors.hasOwnProperty('comission')) {
+              this.$refs['comission-account-type'].focus();
+              return;
+            }
+
+            if (this.errors.hasOwnProperty('pay_in_binary')) {
+              this.$refs['pay_in_binary-account-type'].focus();
+              return;
+            }
+            if (this.errors.hasOwnProperty('disc_purchases')) {
+              this.$refs['disc_purchases-account-type'].focus();
+              return;
+            }
+            if (this.errors.hasOwnProperty('profit_on_purchases')) {
+              this.$refs['profit_on_purchases-account-type'].focus();
+              return;
+            }
+            if (this.errors.hasOwnProperty('profit_on_purchases_2')) {
+              this.$refs['profit_on_purchases_2-account-type'].focus();
+              return;
+            }
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
     },
     editAccountType(id) {
       this.editMode = true;
-      this.form = this.accountTypes.find(accountType => accountType.id === id);
+      this.form = this.accountTypes.find((accountType) => accountType.id === id);
       this.$refs['account-account-type'].focus();
     },
-     deleteAccountType(id) {
-      this.selectAccountType = this.accountTypes.find(
-        AccountType => AccountType.id === id
-      );
+    deleteAccountType(id) {
+      this.selectAccountType = this.accountTypes.find((AccountType) => AccountType.id === id);
     },
-      listAccountTypes() {
+    listAccountTypes() {
       this.initialLoading = true;
-      apiAccountType.list().then(response => {
+      apiAccountType.list().then((response) => {
         this.initialLoading = false;
         this.accountTypes = response.data;
-
-        /*Agregando al date pagination*/
-        this.pagination = response.meta;
-        delete this.pagination.links;
-        delete this.pagination.path;
       });
     },
     confirmDeleteAccountType(confirm, status) {
@@ -389,20 +441,18 @@ export default {
       toastr[type](`${message}`, `${type}!`, {
         positionClass: 'toast-top-center',
         closeButton: true,
-        tapToDismiss: false
+        tapToDismiss: false,
       });
     },
-     successfully(response, edit) {
+    successfully(response, edit) {
       this.selectAccountType = response.data;
       this.selectAccountType.isEdit = edit;
       this.loading = false;
-      // $('#success-modal').modal('show');
       this.listAccountTypes();
       this.resetForm();
     },
-  
   },
-  name: 'AccountType'
+  name: 'AccountType',
 };
 </script>
 
