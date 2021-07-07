@@ -410,7 +410,7 @@ export default {
         apiAccountType
           .edit(accountType)
           .then((response) => {
-            this.successfully(response, true);
+            this.successfully(response, true, this.pagination.current_page);
             this.showToast(
               'success',
               `Account Type method ${response.data.name} was successfully Updated`
@@ -428,7 +428,7 @@ export default {
         apiAccountType
           .add(accountType)
           .then((response) => {
-            this.successfully(response, false);
+            this.successfully(response, false, this.pagination.last_page);
             this.showToast(
               'success',
               `Account type ${response.data.account} was successfully Added`
@@ -473,7 +473,7 @@ export default {
     confirmDeleteAccountType(confirm, status) {
       if (confirm) {
         const message = status === '1' ? 'Deleted' : 'Activated';
-        this.listAccountTypes();
+        this.listAccountTypes(this.pagination.current_page);
         this.resetForm();
         this.showToast('success', `Account type was successfully ${message}`);
       }
@@ -485,11 +485,11 @@ export default {
         tapToDismiss: false,
       });
     },
-    successfully(response, edit) {
+    successfully(response, edit,page) {
       this.selectAccountType = response.data;
       this.selectAccountType.isEdit = edit;
       this.loading = false;
-      this.listAccountTypes();
+      this.listAccountTypes(page);
       this.resetForm();
     },
     changePage: function(page) {

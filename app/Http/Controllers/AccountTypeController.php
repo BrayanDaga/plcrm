@@ -30,6 +30,7 @@ class AccountTypeController extends Controller
     public function store(AccountTypeRequest $request)
     {
         $accountType = new AccountType( $request->validated() );
+        $accountType->status = 0;
         $accountType->save();
         return response()->json(['data' => $accountType]);
     }
