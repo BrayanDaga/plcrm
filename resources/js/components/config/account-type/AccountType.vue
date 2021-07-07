@@ -93,7 +93,7 @@
                   </div>
                   <div class="col-md-6 col-12">
                     <div class="form-group">
-                      <label for="pay_in_binary">Discount on purchases</label>
+                      <label for="pay_in_binary">Disc on purchases</label>
                       <input
                         type="text"
                         id="pay_in_binary"
@@ -243,11 +243,11 @@
                   <th>Price</th>
                   <th>Status</th>
                   <th>Iva</th>
-                  <th>Discount on purchases%</th>
+                  <th>% Discount on purchases</th>
                   <th>payment in binary cut%</th>
                   <th>Gain on Purchases</th>
                   <th>% Gain on 2nd Generation Purchases</th>
-                  <th>Commissionable</th>
+                  <th>Commission</th>
                   <th>Actions</th>
                 </tr>
               </thead>
