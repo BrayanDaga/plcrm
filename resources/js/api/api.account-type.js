@@ -1,7 +1,7 @@
 import api from './api';
 
 const apiAccountType = {
-  list: () => api.get('/api/accountType'),
+  list: (params) => api.getPaginate(`/api/accountType`,params),
   add: accountType => api.post('/api/accountType', accountType),
   detail: id => api.get(`/api/accountType/${id}`),
   edit: accountType => api.put(`/api/accountType/${accountType.id}`, accountType),

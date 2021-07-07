@@ -218,6 +218,22 @@
             <div class="card-text">This table lists all the Promolider Account Types</div>
           </div>
 
+ 
+     <nav aria-label="Page navigation example">
+            <ul class="pagination mt-2">
+              <li class="page-item prev" v-if="pagination.current_page > 1">
+                <a class="page-link" href="#"  @click.prevent="changePage(pagination.current_page - 1)"></a></li>
+
+              <li class="page-item" v-for="page in pagesNumber" :key="page"
+              :class="pagination.current_page === page ? 'active' : ''" 
+              ><a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a></li>
+
+              <li class="page-item next" v-if="pagination.current_page < pagination.last_page">
+                <a class="page-link" href="#"  @click.prevent="changePage(pagination.current_page + 1)"></a></li>
+            </ul>
+          </nav>
+
+
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -236,8 +252,8 @@
                 </tr>
               </thead>
               <tbody v-if="!initialLoading">
-                <tr v-for="(accountType, index) in accountTypes" :key="accountType.id">
-                  <td>{{ index + 1 }}</td>
+                <tr v-for="accountType in accountTypes" :key="accountType.id">
+                  <td>{{ accountType.id }}</td>
                   <td>{{ accountType.account }}</td>
                   <td>{{ accountType.price }}</td>
                   <td>
@@ -321,16 +337,16 @@ export default {
       errors: {},
       pagination: {
         total: 0,
-        current_page: 0,
+        current_page: 1,
         per_page: 0,
         last_page: 0,
-        from: 0,
+        from: 1,
         to: 0,
       },
     };
   },
   created() {
-    this.listAccountTypes();
+    this.listAccountTypes(this.pagination.current_page);
   },
   methods: {
     resetForm() {
@@ -436,11 +452,22 @@ export default {
     deleteAccountType(id) {
       this.selectAccountType = this.accountTypes.find((AccountType) => AccountType.id === id);
     },
-    listAccountTypes() {
+    listAccountTypes(page) {
+        const params = {
+          page : page
+        };      
       this.initialLoading = true;
-      apiAccountType.list().then((response) => {
+      apiAccountType.list(params).then((response) => {
         this.initialLoading = false;
         this.accountTypes = response.data;
+
+        this.pagination.per_page = response.meta.per_page;
+        this.pagination.current_page = response.meta.current_page;
+        this.pagination.from = response.meta.from;
+        this.pagination.total = response.meta.total;
+        this.pagination.to = response.meta.to;
+        this.pagination.last_page = response.meta.last_page;
+
       });
     },
     confirmDeleteAccountType(confirm, status) {
@@ -465,7 +492,24 @@ export default {
       this.listAccountTypes();
       this.resetForm();
     },
+    changePage: function(page) {
+			this.pagination.current_page = page;
+			this.listAccountTypes(page);
+		}
   },
+  computed: {
+		isActived: function() {
+			return this.pagination.current_page;
+		},
+		pagesNumber: function() {
+    // let from = parseInt(this.pagination.from);
+    let pagesArray = [];
+      for (let from = 1;from <= 5; from++) {     
+            pagesArray.push(from);
+      }
+			return pagesArray;
+		}
+	},
   name: 'AccountType',
 };
 </script>
