@@ -7,5 +7,6 @@
         :country="{{ $country }}"
         :id-referrer-sponsor="{{ $id_referrer_sponsor }}"
         :sponsor-name="'{{ $sponsor_name }}'"
+        :payment-methods="{{ $payment_methods }}"
     ></user-membreship-register>
 @endsection
