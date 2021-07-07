@@ -4,6 +4,36 @@
       @confirm-delete="confirmDeleteAdvertisement"
       :advertisement="selectAdvertisement"
     ></custom-delete-modal>
+    <!-- Alert With Icon start -->
+    <section v-if="totalMessages" id="alerts-with-icons">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="demo-spacing-0">
+                <div
+                  class="alert"
+                  :class="
+                    totalMessages <= 5
+                      ? 'alert-primary'
+                      : totalMessages > 5 && totalMessages <= 8
+                      ? 'alert-info'
+                      : 'alert-danger'
+                  "
+                  role="alert"
+                >
+                  <div class="alert-body">
+                    <i data-feather="star"></i>
+                    <span> Total Messages {{ totalMessages }}/10 </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Alert With Icon end -->
     <section class="basic-textarea">
       <div class="row">
         <div class="col-12">
@@ -153,6 +183,7 @@ export default {
   data() {
     return {
       rules: true,
+      totalMessages: null,
       form: { ...formAdvertisement },
       selectAdvertisement: {},
       editMode: false,
@@ -176,6 +207,12 @@ export default {
         this.$refs['message-advertisement'].focus();
         return;
       }
+
+      if (this.totalMessages === 10 && !this.editMode) {
+        this.showToast('error', 'Sorry you have reached the limit to add ads');
+        return;
+      }
+
       this.rules = true;
       this.loading = true;
       const advertisement = {
@@ -221,7 +258,8 @@ export default {
       apiAdvertisement.list().then((response) => {
         this.initialLoading = false;
         this.advertisements = response.data;
-
+        this.totalMessages = this.advertisements.length;
+        console.log(this.totalMessages);
         /*Agregando al date pagination*/
         this.pagination = response.meta;
         delete this.pagination.links;
@@ -237,7 +275,7 @@ export default {
       this.resetForm();
     },
     showToast(type, message) {
-      toastr[type](`${message}`, `${type}!`, {
+      toastr[type](`${message}`, `${type.toUpperCase()}!`, {
         positionClass: 'toast-top-center',
         closeButton: true,
         tapToDismiss: false,
