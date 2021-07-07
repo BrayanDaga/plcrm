@@ -218,21 +218,34 @@
             <div class="card-text">This table lists all the Promolider Account Types</div>
           </div>
 
- 
-     <nav aria-label="Page navigation example">
+          <nav aria-label="Page navigation example">
             <ul class="pagination mt-2">
               <li class="page-item prev" v-if="pagination.current_page > 1">
-                <a class="page-link" href="#"  @click.prevent="changePage(pagination.current_page - 1)"></a></li>
+                <a
+                  class="page-link"
+                  href="#"
+                  @click.prevent="changePage(pagination.current_page - 1)"
+                ></a>
+              </li>
 
-              <li class="page-item" v-for="page in pagesNumber" :key="page"
-              :class="pagination.current_page === page ? 'active' : ''" 
-              ><a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a></li>
+              <li
+                class="page-item"
+                v-for="page in pagesNumber"
+                :key="page"
+                :class="pagination.current_page === page ? 'active' : ''"
+              >
+                <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
+              </li>
 
               <li class="page-item next" v-if="pagination.current_page < pagination.last_page">
-                <a class="page-link" href="#"  @click.prevent="changePage(pagination.current_page + 1)"></a></li>
+                <a
+                  class="page-link"
+                  href="#"
+                  @click.prevent="changePage(pagination.current_page + 1)"
+                ></a>
+              </li>
             </ul>
           </nav>
-
 
           <div class="table-responsive">
             <table class="table">
@@ -453,9 +466,9 @@ export default {
       this.selectAccountType = this.accountTypes.find((AccountType) => AccountType.id === id);
     },
     listAccountTypes(page) {
-        const params = {
-          page : page
-        };      
+      const params = {
+        page: page,
+      };
       this.initialLoading = true;
       apiAccountType.list(params).then((response) => {
         this.initialLoading = false;
@@ -467,7 +480,6 @@ export default {
         this.pagination.total = response.meta.total;
         this.pagination.to = response.meta.to;
         this.pagination.last_page = response.meta.last_page;
-
       });
     },
     confirmDeleteAccountType(confirm, status) {
@@ -485,31 +497,31 @@ export default {
         tapToDismiss: false,
       });
     },
-    successfully(response, edit,page) {
+    successfully(response, edit, page) {
       this.selectAccountType = response.data;
       this.selectAccountType.isEdit = edit;
       this.loading = false;
       this.listAccountTypes(page);
       this.resetForm();
     },
-    changePage: function(page) {
-			this.pagination.current_page = page;
-			this.listAccountTypes(page);
-		}
+    changePage: function (page) {
+      this.pagination.current_page = page;
+      this.listAccountTypes(page);
+    },
   },
   computed: {
-		isActived: function() {
-			return this.pagination.current_page;
-		},
-		pagesNumber: function() {
-    // let from = parseInt(this.pagination.from);
-    let pagesArray = [];
-      for (let from = 1;from <= 5; from++) {     
-            pagesArray.push(from);
+    isActived: function () {
+      return this.pagination.current_page;
+    },
+    pagesNumber: function () {
+      // let from = parseInt(this.pagination.from);
+      let pagesArray = [];
+      for (let from = 1; from <= 5; from++) {
+        pagesArray.push(from);
       }
-			return pagesArray;
-		}
-	},
+      return pagesArray;
+    },
+  },
   name: 'AccountType',
 };
 </script>
