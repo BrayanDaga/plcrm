@@ -8,6 +8,7 @@ use App\Models\DocumentType;
 use App\Models\AccountType;
 use App\Models\Classified;
 use App\Models\Country;
+use App\Models\PaymentMethod;
 use App\Models\UserMembreship;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class UserMembreshipController extends Controller
         $document_type = DocumentType::select('id', 'document')->get();
         $account_type = AccountType::select('id', 'account')->where('status', '1')->get();
         $country = Country::select('id', 'name')->get();
+        $payment_methods = PaymentMethod::select('id', 'name')->get();
         
         return view('content.user-membreship.register', [
             'document_type' => $document_type,
@@ -28,6 +30,7 @@ class UserMembreshipController extends Controller
             'country' => $country,
             'id_referrer_sponsor' => $sponsor->id,
             'sponsor_name' => $sponsor->name,
+            'payment_methods' => $payment_methods,
         ]);
     }
 

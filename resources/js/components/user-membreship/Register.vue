@@ -1,102 +1,115 @@
 <template>
     <div>
-        <h2>Register User</h2>
-        <form @submit.prevent="add">
-            <input type="hidden" v-model="form.id_referrer_sponsor">
-            <h4>User</h4>
-            <hr>
-            <div class="d-flex flex-wrap">
-                <div class="form-group pr-1">
-                    <label for="user">User <span v-if="validateUserMembreship" class="text-danger font-weight-bold pl-1">User Exists</span></label>
-                    <input type="text" id="user" class="form-control" v-model="form.user" @keyup="validateUser">
-                </div>
-                <div class="form-group pr-1">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" v-model="form.password">
-                </div>
-                <div class="form-group pr-1">
-                    <label for="repassword">Re-Password <span v-if="form.repassword !== form.password" class="text-danger font-weight-bold pl-1">Passwords do not match</span></label>
-                    <input type="password" id="repassword" class="form-control" v-model="form.repassword">
-                </div>
-                <div class="form-group pr-1">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" v-model="form.email">
-                </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <form @submit.prevent="add">
+                    <input type="hidden" v-model="form.id_referrer_sponsor">
+                    <h4>User</h4>
+                    <hr>
+                    <div class="d-flex flex-wrap">
+                        <div class="form-group pr-1">
+                            <label for="user">User <span v-if="validateUserMembreship" class="text-danger font-weight-bold pl-1">User Exists</span></label>
+                            <input type="text" id="user" class="form-control" v-model="form.user" @keyup="validateUser">
+                        </div>
+                        <div class="form-group pr-1">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" class="form-control" v-model="form.password">
+                        </div>
+                        <div class="form-group pr-1">
+                            <label for="repassword">Re-Password <span v-if="form.repassword !== form.password" class="text-danger font-weight-bold pl-1">Passwords do not match</span></label>
+                            <input type="password" id="repassword" class="form-control" v-model="form.repassword">
+                        </div>
+                        <div class="form-group pr-1">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" v-model="form.email">
+                        </div>
+                    </div>
+                    <h4>Personal Information</h4>
+                    <hr>
+                    <div class="d-flex flex-wrap">
+                        <div class="form-group pr-1">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" v-model="form.name">
+                        </div>
+                        <div class="form-group pr-1">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" id="last_name" class="form-control" v-model="form.last_name">
+                        </div>
+                        <div class="form-group pr-1">
+                            <label for="phone">Phones</label>
+                            <input type="tel" id="phone" class="form-control" v-model="form.phone" maxlength="10">
+                        </div>
+                        <div class="form-group pr-1">
+                            <label for="date_birth">Date Birth</label>
+                            <input type="date" id="date_birth" class="form-control" v-model="form.date_birth">
+                        </div>
+                        <div class="form-group pr-1">
+                            <label for="id_document_type">Document Type</label>
+                            <select id="id_document_type" class="form-control" v-model="form.id_document_type">
+                                <option v-for="dt in listDocumentType" v-bind:key="dt.id" :value="dt.id">{{ dt.document }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group pr-1">
+                            <label for="nro_document">Nro. Document</label>
+                            <input type="number" id="nro_document" class="form-control" v-model="form.nro_document" maxlength="12">
+                        </div>
+                        <div class="form-group pr-1">
+                            <label for="id_country">Country</label>
+                            <select id="id_country" class="form-control" v-model="form.id_country">
+                                <option v-for="co in listCountry" v-bind:key="co.id" :value="co.id">{{ co.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <h4>Direct Sponsor</h4>
+                    <hr>
+                    <div class="d-flex flex-wrap">
+                        <div class="form-group">
+                            <label for="referrer_sponsor">Referrer/Sponsor</label>
+                            <input type="text" id="referrer_sponsor" class="form-control" v-model="form.referrer_sponsor" disabled>
+                        </div>
+                    </div>
+                    <h4>Membreship Data</h4>
+                    <hr>
+                    <div class="d-flex flex-wrap">
+                        <div class="form-group pr-1">
+                            <label for="id_account_type">Account Type</label>
+                            <select id="id_account_type" class="form-control" @change="changeTablePrice($event)" v-model="form.id_account_type">
+                                <option value="0">-------</option>
+                                <option v-for="at in listAccountType" v-bind:key="at.id" :value="at.id">{{ at.account }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group pr-1" v-if="tablePrice">
+                            <label for="price">Price</label>
+                            <input type="text" id="price" class="form-control" v-model="form.price" disabled>
+                        </div>
+                        <div class="form-group pr-1" v-if="tablePrice">
+                            <label for="iva">IVA</label>
+                            <input type="text" id="iva" class="form-control" v-model="form.iva" disabled>
+                        </div>
+                        <div class="form-group pr-1" v-if="tablePrice">
+                            <label for="total_cost_membreship">Total cost of Membreship</label>
+                            <input type="text" id="total_cost_membreship" class="form-control" v-model="form.total_cost_membreship" disabled>
+                        </div>
+                    </div>
+                    <h4>Payment Methods</h4>
+                    <div class="d-flex flex-wrap">
+                        <div class="form-group pr-1">
+                            <label for="id_payment_method">Select Type of Payment</label>
+                            <select id="id_payment_method" class="form-control" v-model="form.id_payment_method">
+                                <option value="0">-------</option>
+                                <option v-for="pm in listPaymentMethods" v-bind:key="pm.id" :value="pm.id">{{ pm.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Register</button>
+                </form>
             </div>
-            <h4>Personal Information</h4>
-            <hr>
-            <div class="d-flex flex-wrap">
-                <div class="form-group pr-1">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" class="form-control" v-model="form.name">
-                </div>
-                <div class="form-group pr-1">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" class="form-control" v-model="form.last_name">
-                </div>
-                <div class="form-group pr-1">
-                    <label for="phone">Phones</label>
-                    <input type="tel" id="phone" class="form-control" v-model="form.phone" maxlength="10">
-                </div>
-                <div class="form-group pr-1">
-                    <label for="date_birth">Date Birth</label>
-                    <input type="date" id="date_birth" class="form-control" v-model="form.date_birth">
-                </div>
-                <div class="form-group pr-1">
-                    <label for="id_document_type">Document Type</label>
-                    <select id="id_document_type" class="form-control" v-model="form.id_document_type">
-                        <option v-for="dt in listDocumentType" v-bind:key="dt.id" :value="dt.id">{{ dt.document }}</option>
-                    </select>
-                </div>
-                <div class="form-group pr-1">
-                    <label for="nro_document">Nro. Document</label>
-                    <input type="number" id="nro_document" class="form-control" v-model="form.nro_document" maxlength="12">
-                </div>
-                <div class="form-group pr-1">
-                    <label for="id_country">Country</label>
-                    <select id="id_country" class="form-control" v-model="form.id_country">
-                        <option v-for="co in listCountry" v-bind:key="co.id" :value="co.id">{{ co.name }}</option>
-                    </select>
-                </div>
-            </div>
-            <h4>Direct Sponsor</h4>
-            <hr>
-            <div class="d-flex flex-wrap">
-                <div class="form-group">
-                    <label for="referrer_sponsor">Referrer/Sponsor</label>
-                    <input type="text" id="referrer_sponsor" class="form-control" v-model="form.referrer_sponsor" disabled>
-                </div>
-            </div>
-            <h4>Membreship Data</h4>
-            <hr>
-            <div class="d-flex flex-wrap">
-                <div class="form-group pr-1">
-                    <label for="id_account_type">Account Type</label>
-                    <select id="id_account_type" class="form-control" @change="changeTablePrice($event)" v-model="form.id_account_type">
-                        <option value="0">-------</option>
-                        <option v-for="at in listAccountType" v-bind:key="at.id" :value="at.id">{{ at.account }}</option>
-                    </select>
-                </div>
-                <div class="form-group pr-1" v-if="tablePrice">
-                    <label for="price">Price</label>
-                    <input type="text" id="price" class="form-control" v-model="form.price" disabled>
-                </div>
-                <div class="form-group pr-1" v-if="tablePrice">
-                    <label for="iva">IVA</label>
-                    <input type="text" id="iva" class="form-control" v-model="form.iva" disabled>
-                </div>
-                <div class="form-group pr-1" v-if="tablePrice">
-                    <label for="total_cost_membreship">Total cost of Membreship</label>
-                    <input type="text" id="total_cost_membreship" class="form-control" v-model="form.total_cost_membreship" disabled>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-success">Register</button>
-        </form>
+        </div>
     </div>
 </template>
 <script>
 export default {
-    props: ['documentType', 'accountType', 'country', 'idReferrerSponsor', 'sponsorName'],
+    props: ['documentType', 'accountType', 'country', 'idReferrerSponsor', 'sponsorName', 'paymentMethods'],
     data(){
         return {
             form: {
@@ -117,11 +130,13 @@ export default {
                 price:'',
                 iva:'',
                 total_cost_membreship:'',
+                id_payment_method:'',
             },
             validateUserMembreship: false,
             listDocumentType: [],
             listAccountType: [],
             listCountry: [],
+            listPaymentMethods: [],
             tablePrice: false
         }
     },
@@ -131,6 +146,7 @@ export default {
         this.listDocumentType = this.documentType
         this.listAccountType = this.accountType
         this.listCountry = this.country
+        this.listPaymentMethods = this.paymentMethods
     },
     methods: {
         validateUser(){
@@ -181,6 +197,9 @@ export default {
 
         const idCountry = document.getElementById('id_country');
         idCountry.selectedIndex = 0;
+
+        const idPaymentMethod = document.getElementById('id_payment_method');
+        idPaymentMethod.selectedIndex = 0;
     }
 }
 
