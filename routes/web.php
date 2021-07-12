@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\AdvertisementsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\BinaryBranchController;
 use App\Http\Controllers\UserMembreshipController;
+use App\Http\Controllers\UserRequestController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -64,11 +66,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
     });
 
+    // User Request
+    Route::group(['prefix' => 'config/user-request'], function () {
+        Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
+    });
+
     Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
         Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
     
         Route::view('/account-type', 'content.config.account-type');
+        Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
     });
 
 
@@ -84,6 +92,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/usersMembreship/list', [UserMembreshipController::class, 'GetList'])
             ->name('GetList');
         /*End api user-membreship*/
+
+        /*Start api config messages*/
+        Route::get('/advertisements/{id}', [AdvertisementsController::class, 'Detail'])->name('Detail');
+        Route::get('/advertisements', [AdvertisementsController::class, 'List'])->name('List');
+        Route::post('/advertisements', [AdvertisementsController::class, 'Add'])->name('Add');
+        Route::put('/advertisements/{id}', [AdvertisementsController::class, 'Edit'])->name('Edit');
+        Route::delete('/advertisements/{id}', [AdvertisementsController::class, 'Delete'])->name('Delete');
+        /*End api config messages*/
 
         /*Start api config payment-method*/
         Route::get('/paymentMethod/{id}', [PaymentMethodController::class, 'Detail'])

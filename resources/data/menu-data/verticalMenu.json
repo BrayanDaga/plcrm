@@ -36,17 +36,35 @@
             ]
         },
         {
-            "navheader": "Apps & Pages",
+            "navheader": "Config",
             "slug": ""
         },
         {
-            "url": "app/email",
-            "name": "Email",
-            "icon": "mail",
-            "slug": "app-email"
+            "url": "config/user-request",
+            "name": "User Request",
+            "icon": "circle",
+            "slug": "user-request"
         },
         {
-            "navheader": "Users Section",
+            "url": "config/advertisements",
+            "name": "Advertisements",
+            "icon": "circle",
+            "slug": "advertisements"
+        },
+        {
+            "url": "config/bank",
+            "name": "Bank",
+            "icon": "circle",
+            "slug": "bank"
+        },
+        {
+            "url": "config/payment-method",
+            "name": "Payment Method",
+            "icon": "circle",
+            "slug": "payment-method"
+        },
+        {
+            "navheader": "Users",
             "slug": ""
         },
         {
@@ -70,7 +88,7 @@
             ]
         },
         {
-            "navheader": "Config Section",
+            "navheader": "Apps & Pages",
             "slug": ""
         },
         {
@@ -99,6 +117,13 @@
                 }
 
             ]
+        },
+      {
+            "url": "app/email",
+            "name": "Email",
+            "icon": "mail",
+            "slug": "app-email"
+
         },
         {
             "navheader": "Other Section",

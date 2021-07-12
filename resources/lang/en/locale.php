@@ -186,11 +186,14 @@ return [
     "Register" => "Register",
     "User-Scroll" => "Users",
     "User-Scroll-List" => "Users List",
-    "Users Section" => "Users Section",
+    "Users" => "Users",
     "Other Section" => "Other Section",
     "Config Section" => "Config Section",
-    "Config-Scroll" => "Config",
+    "Config" => "Config",
     "Bank" => "Bank",
     "Payment Method" => "Payment Method",
     "Account Type" => "Account Type",
+    "Advertisements" => "Advertisements",
+    "User Request" => "User Request",
+    "User Request" => "User Request"
 ];

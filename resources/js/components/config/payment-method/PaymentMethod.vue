@@ -150,7 +150,7 @@ import CustomSuccessModal from './components/CustomSuccessModal';
 const formPaymentMethod = {
   id: null,
   name: '',
-  state: ''
+  state: '',
 };
 export default {
   components: { CustomSuccessModal, CustomDeleteModal, CustomSpinner },
@@ -172,8 +172,8 @@ export default {
         per_page: 0,
         last_page: 0,
         from: 0,
-        to: 0
-      }
+        to: 0,
+      },
     };
   },
   methods: {
@@ -184,7 +184,7 @@ export default {
     },
     listPaymentMethods() {
       this.initialLoading = true;
-      apiPaymentMethod.list().then(response => {
+      apiPaymentMethod.list().then((response) => {
         this.initialLoading = false;
         this.paymentMethods = response.data;
 
@@ -196,12 +196,12 @@ export default {
     },
     editPaymentMethod(id) {
       this.editMode = true;
-      this.form = this.paymentMethods.find(tempPaymentMethod => tempPaymentMethod.id === id);
+      this.form = this.paymentMethods.find((tempPaymentMethod) => tempPaymentMethod.id === id);
       this.$refs['name-payment-method'].focus();
     },
     deletePaymentMethod(id) {
       this.selectPaymentMethod = this.paymentMethods.find(
-        tempPaymentMethod => tempPaymentMethod.id === id
+        (tempPaymentMethod) => tempPaymentMethod.id === id
       );
     },
     confirmDeletePaymentMethod(confirm, status) {
@@ -229,10 +229,10 @@ export default {
       this.loading = true;
       const paymentMethod = {
         id: this.form.id,
-        name: this.form.name
+        name: this.form.name,
       };
       if (paymentMethod.id && this.editMode) {
-        apiPaymentMethod.edit(paymentMethod).then(response => {
+        apiPaymentMethod.edit(paymentMethod).then((response) => {
           this.successfully(response, true);
           this.showToast(
             'success',
@@ -240,7 +240,7 @@ export default {
           );
         });
       } else {
-        apiPaymentMethod.add(paymentMethod).then(response => {
+        apiPaymentMethod.add(paymentMethod).then((response) => {
           this.successfully(response, false);
           this.showToast('success', `Payment method ${response.data.name} was successfully Added`);
         });
@@ -258,11 +258,11 @@ export default {
       toastr[type](`${message}`, `${type}!`, {
         positionClass: 'toast-top-center',
         closeButton: true,
-        tapToDismiss: false
+        tapToDismiss: false,
       });
-    }
+    },
   },
-  name: 'PaymentMethod'
+  name: 'PaymentMethod',
 };
 </script>
 

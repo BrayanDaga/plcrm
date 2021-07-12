@@ -6,23 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 class AddColumRequestUserMembreship extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        //
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
+        Schema::table('user_membreships', function (Blueprint $table) {
+            $table->string('request', 1)->default('0');
+        });
     }
 }

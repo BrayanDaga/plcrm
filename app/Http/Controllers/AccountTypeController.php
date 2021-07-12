@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountTypeRequest;
 use App\Http\Resources\AccountTypeResource;
-use App\Models\AccountType;
-use Illuminate\Http\Request;
 
 class AccountTypeController extends Controller
 {
@@ -77,5 +75,10 @@ class AccountTypeController extends Controller
             return ($result)->response()->setStatusCode(200);
         }
         return $result->response()->setStatusCode(400);
+    }
+    public function getDataBytId($id)
+    {
+        $data = AccountType::find($id);
+        return response()->json($data);
     }
 }
