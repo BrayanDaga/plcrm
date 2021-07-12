@@ -514,9 +514,8 @@ export default {
       return this.pagination.current_page;
     },
     pagesNumber: function () {
-      // let from = parseInt(this.pagination.from);
       let pagesArray = [];
-      for (let from = 1; from <= 5; from++) {
+      for (let from = 1; from <= this.pagination.last_page; from++) {
         pagesArray.push(from);
       }
       return pagesArray;
