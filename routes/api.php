@@ -4,7 +4,6 @@ use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\AdvertisementsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AccountTypeController;
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

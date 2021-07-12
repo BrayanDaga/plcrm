@@ -14,7 +14,7 @@ class AddColumnComissionAccountType extends Migration
     public function up()
     {
         Schema::table('account_type', function (Blueprint $table) {
-            $table->unsignedDecimal('comission',5,2)->default(0.0);
+            $table->unsignedDouble('comission',10,2)->default(0);
         });
     }
 

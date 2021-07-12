@@ -14,7 +14,7 @@ class AddColumnDiscPurchasesAccountType extends Migration
     public function up()
     {
         Schema::table('account_type', function (Blueprint $table) {
-            $table->unsignedInteger('disc_purchases',)->default(0);
+            $table->unsignedDouble('disc_purchases',10,2)->default(0);
         });
     }
 

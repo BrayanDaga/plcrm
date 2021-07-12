@@ -14,7 +14,7 @@ class AddColumnIvaAccountType extends Migration
     public function up()
     {
         Schema::table('account_type', function (Blueprint $table) {
-            $table->unsignedInteger('iva',)->default(0);
+            $table->unsignedDouble('iva',10,2)->default(0.0);
         });
     }
 

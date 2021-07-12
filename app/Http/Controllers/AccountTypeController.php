@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountType;
+use Illuminate\Http\Request;
 use App\Http\Requests\AccountTypeRequest;
 use App\Http\Resources\AccountTypeResource;
 

@@ -14,7 +14,7 @@ class AddColumnPriceAccountType extends Migration
     public function up()
     {
         Schema::table('account_type', function (Blueprint $table) {
-            $table->decimal('price',5,2)->default(0.0);
+            $table->unsignedDouble('price',10,2)->default(0.0);
         });
     }
 
