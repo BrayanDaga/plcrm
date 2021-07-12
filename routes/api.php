@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AccountTypeController;
-use App\Http\Controllers\AdvertisementsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
