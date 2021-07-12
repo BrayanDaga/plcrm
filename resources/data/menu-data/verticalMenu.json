@@ -92,10 +92,38 @@
             "slug": ""
         },
         {
+            "name": "Config-Scroll",
+            "icon": "settings",
+            "dropdown": "1",
+            "slug": "",
+            "submenu": [
+                {
+                    "url": "config/bank",
+                    "name": "Bank",
+                    "icon": "circle",
+                    "slug": "bank"
+                },
+                {
+                    "url": "config/payment-method",
+                    "name": "Payment Method",
+                    "icon": "circle",
+                    "slug": "payment-method"
+                },
+                {
+                    "url": "config/account-type",
+                    "name": "Account Type",
+                    "icon": "circle",
+                    "slug": "account-type"
+                }
+
+            ]
+        },
+      {
             "url": "app/email",
             "name": "Email",
             "icon": "mail",
             "slug": "app-email"
+
         },
         {
             "navheader": "Other Section",

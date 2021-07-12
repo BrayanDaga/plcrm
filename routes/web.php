@@ -74,8 +74,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
         Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
+    
+        Route::view('/account-type', 'content.config.account-type');
         Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
     });
+
+
 
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -312,3 +316,5 @@ Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('ma
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
+
+
