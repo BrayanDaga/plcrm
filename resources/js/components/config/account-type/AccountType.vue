@@ -270,8 +270,8 @@
                   <td>{{ accountType.account }}</td>
                   <td>{{ accountType.price }}</td>
                   <td>
-                    <div :class="accountType.status === '1' ? 'text-danger' : 'text-success'">
-                      {{ accountType.status === '1' ? 'Deleted' : 'Activate' }}
+                    <div :class="accountType.status === '0' ? 'text-danger' : 'text-success'">
+                      {{ accountType.status === '0' ? 'Deleted' : 'Activate' }}
                     </div>
                   </td>
 
@@ -291,10 +291,10 @@
                         data-toggle="modal"
                         data-target="#delete-modal"
                         :class="
-                          accountType.status === '0' ? 'btn-outline-danger' : 'btn-outline-success'
+                          accountType.status === '1' ? 'btn-outline-danger' : 'btn-outline-success'
                         "
                       >
-                        {{ accountType.status === '0' ? 'Delete' : 'Activate' }}
+                        {{ accountType.status === '1' ? 'Delete' : 'Activate' }}
                       </button>
 
                       <button
@@ -484,7 +484,7 @@ export default {
     },
     confirmDeleteAccountType(confirm, status) {
       if (confirm) {
-        const message = status === '1' ? 'Deleted' : 'Activated';
+        const message = status === '0' ? 'Deleted' : 'Activated';
         this.listAccountTypes(this.pagination.current_page);
         this.resetForm();
         this.showToast('success', `Account type was successfully ${message}`);

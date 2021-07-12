@@ -16,6 +16,5 @@ Route::group(['middleware' => ['auth', 'api']], function(){
     Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])
         ->name('getListUsersMembreship');
 });*/
-Route::apiResource('accountType',AccountTypeController::class);
 
 Route::get('/account-type/get-data-id/{id}', [AccountTypeController::class, 'getDataBytId']);

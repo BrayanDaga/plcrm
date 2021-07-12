@@ -7,7 +7,6 @@ const sleep = delay => {
 };
 
 axios.interceptors.response.use(async response => {
-  await sleep(1000);
   return response;
 });
 

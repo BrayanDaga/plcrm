@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\AdvertisementsController;
@@ -74,8 +75,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
         Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
-    
-        Route::view('/account-type', 'content.config.account-type');
         Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
     });
 
@@ -318,3 +317,10 @@ Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('ma
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
 
+//account types Routes
+Route::group(['prefix' => '/config/account-type'], function () {
+    //view
+    Route::view('/', 'content.config.account-type')->name('account-type');
+    //api
+    Route::apiResource('accountType',AccountTypeController::class);
+});
