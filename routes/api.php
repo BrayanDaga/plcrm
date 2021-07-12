@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\UserRequestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

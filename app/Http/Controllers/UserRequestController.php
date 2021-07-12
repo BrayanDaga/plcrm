@@ -13,14 +13,18 @@ class UserRequestController extends Controller
         /** @var User
          * Request = 1 reprenseta que el usuario esta en solicitud de ser aprovado
         */
-        $all_user_requesting = UserMembreship::where('request', 1)->get();
+        $all_user_requesting = UserMembreship::with('accountType')
+        ->where('request', 1)
+        ->get();
+
         return view('content.config.user_request',[
             'all_user_requesting' => $all_user_requesting
         ]);
     }
 
-    public function allUserFilterByRequest()
-    {
-
+    // get user by id
+    public function getUserById($id){
+        $data = UserMembreship::find($id);
+        return response()->json($data);
     }
 }

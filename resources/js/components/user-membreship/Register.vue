@@ -163,7 +163,27 @@ export default {
             })
             .catch(r => console.log(r));
         },
+        validateDate(){
+            const now = new Date();
+            const yearCurrent = now.getFullYear();
+            
+            const dateBirth = new Date(this.form.date_birth);
+            const yearBirth = dateBirth.getFullYear();
+
+            const yearsDiff = yearCurrent - yearBirth;
+            return yearsDiff;
+        },
         add(){
+            if(this.validateDate() <= 18){
+                alert("You need to be at least 18 years");
+                return false;    
+            }
+
+            if(this.form.id_payment_method == 0){
+                alert("Select a payment of type")
+                return false;
+            }
+            
             axios.post('/user-membreship/create', this.form)
         },
         changeTablePrice: function(e){

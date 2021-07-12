@@ -8,6 +8,7 @@ use App\Models\DocumentType;
 use App\Models\AccountType;
 use App\Models\Classified;
 use App\Models\Country;
+use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\UserMembreship;
 use Illuminate\Http\JsonResponse;
@@ -78,15 +79,6 @@ class UserMembreshipController extends Controller
 
     public function Create(Request $request)
     {
-        // Obtener datos de tipo de cuenta segun el id
-        $account_type = AccountType::find($request->id_account_type);
-        $price = $account_type->price;
-        $iva = $account_type->iva;
-        $total_price_iva = ($price  * $iva) + $price;
-
-        // Validacion de tipo de cuenta
-        
-
         $table = new UserMembreship();
         $table->user = $request->user;
         $table->password = Hash::make($request->password);
@@ -100,9 +92,25 @@ class UserMembreshipController extends Controller
         $table->id_document_type = $request->id_document_type;
         $table->id_account_type = $request->id_account_type;
         $table->nro_document = $request->nro_document;
+        $table->request = 1;
         
         if ($table->save()):
-            $json = ['status' => 200];
+            $id_user = $table->id; // Get ID of user
+
+            // Registro del pago
+            $table = new Payment(); // table payment
+            $table->id_user_membreship = $id_user;
+            $table->id_user_sponsor = $request->id_referrer_sponsor;
+            $table->description = 'membreship';
+            $table->amount = $request->total_cost_membreship;
+            $table->operation_number = 0;
+            $table->id_payment_method = $request->id_payment_method;
+            // $table->id_bank = 1; // Default Values
+
+            if ($table->save()):
+                $json = ['status' => 200];
+            endif;
+
             return json_encode($json);
         endif;
     }
