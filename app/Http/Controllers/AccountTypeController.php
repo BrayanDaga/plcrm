@@ -82,4 +82,9 @@ class AccountTypeController extends Controller
         $data = AccountType::find($id);
         return response()->json($data);
     }
+
+    public function retornarVista()
+    {
+        return view('content.config.account-type');
+    }
 }

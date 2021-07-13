@@ -67,6 +67,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
     });
 
+    //account types Routes
+    Route::group(['prefix' => '/account-type'], function () {
+        //view
+        Route::get('/', [AccountTypeController::class, 'retornarVista'])->name('account-type');
+        //api
+        Route::apiResource('accountType', AccountTypeController::class);
+    });
+
     // User Request
     Route::group(['prefix' => 'config/user-request'], function () {
         Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
@@ -315,12 +323,3 @@ Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('ma
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
-
-
-//account types Routes
-Route::group(['prefix' => '/config/account-type', 'middleware' => ['auth']], function () {
-    //view
-    Route::view('/', 'content.config.account-type')->name('account-type');
-    //api
-    Route::apiResource('accountType',AccountTypeController::class);
-});

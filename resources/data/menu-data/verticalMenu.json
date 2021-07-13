@@ -64,7 +64,7 @@
             "slug": "payment-method"
         },
         {
-            "url": "config/account-type",
+            "url": "account-type",
             "name": "Account Type",
             "icon": "circle",
             "slug": "account-type"
