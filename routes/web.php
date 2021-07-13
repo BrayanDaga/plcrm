@@ -86,8 +86,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
     });
 
-
-
+    Route::group(['prefix' => 'user-request'], function () {
+        Route::get('/get-user-by-id/{id}', [UserRequestController::class, 'getUserById']);
+    });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
