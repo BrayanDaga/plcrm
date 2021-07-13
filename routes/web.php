@@ -318,7 +318,7 @@ Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
 
 //account types Routes
-Route::group(['prefix' => '/config/account-type'], function () {
+Route::group(['prefix' => '/config/account-type', 'middleware' => ['auth']], function () {
     //view
     Route::view('/', 'content.config.account-type')->name('account-type');
     //api
