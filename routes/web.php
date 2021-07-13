@@ -65,7 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/create', [UserMembreshipController::class, 'create']);
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
     });
-    
+
     // User Request
     Route::group(['prefix' => 'config/user-request'], function () {
         Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
@@ -74,8 +74,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
         Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
+    
+        Route::view('/account-type', 'content.config.account-type');
         Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
     });
+
+
 
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -88,6 +92,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/usersMembreship/list', [UserMembreshipController::class, 'GetList'])
             ->name('GetList');
         /*End api user-membreship*/
+
+        /*Start api config messages*/
+        Route::get('/advertisements/{id}', [AdvertisementsController::class, 'Detail'])->name('Detail');
+        Route::get('/advertisements', [AdvertisementsController::class, 'List'])->name('List');
+        Route::post('/advertisements', [AdvertisementsController::class, 'Add'])->name('Add');
+        Route::put('/advertisements/{id}', [AdvertisementsController::class, 'Edit'])->name('Edit');
+        Route::delete('/advertisements/{id}', [AdvertisementsController::class, 'Delete'])->name('Delete');
+        /*End api config messages*/
 
         /*Start api config payment-method*/
         Route::get('/paymentMethod/{id}', [PaymentMethodController::class, 'Detail'])
@@ -304,3 +316,5 @@ Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('ma
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
+
+

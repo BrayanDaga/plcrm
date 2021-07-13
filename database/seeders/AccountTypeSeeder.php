@@ -15,6 +15,13 @@ class AccountTypeSeeder extends Seeder
             DB::table('account_type')->insert([
                 'account' => $account,
                 'status' => 1,
+                'price' => 15.36,
+                'commissionable' => 56.36,
+                'discount' => 0.0,
+                'profit' => 36.6,
+                'profit_2' => 36.6,
+                'percentage' => 0.6,
+                'court_pay_percentage' => 36.65,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
