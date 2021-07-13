@@ -17,7 +17,7 @@ class AccountTypeController extends Controller
      */
     public function index()
     {
-        $accountTypes  = AccountType::paginate();
+        $accountTypes  = AccountType::all();
         return AccountTypeResource::collection($accountTypes);
     }
 

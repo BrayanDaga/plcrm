@@ -21,7 +21,11 @@
 @section('vendor-script')
     <!-- vendor files -->
     <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
-@endsection
+    <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
+    <@endsection
 @section('page-script')
     <!-- Page js files -->
     <script src="{{ asset(mix('js/scripts/extensions/ext-component-toastr.js')) }}"></script>
