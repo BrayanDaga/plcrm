@@ -64,6 +64,12 @@
             "slug": "payment-method"
         },
         {
+            "url": "account-type",
+            "name": "Account Type",
+            "icon": "circle",
+            "slug": "account-type"
+        },
+        {
             "navheader": "Users",
             "slug": ""
         },
@@ -108,14 +114,7 @@
                     "name": "Payment Method",
                     "icon": "circle",
                     "slug": "payment-method"
-                },
-                {
-                    "url": "config/account-type",
-                    "name": "Account Type",
-                    "icon": "circle",
-                    "slug": "account-type"
                 }
-
             ]
         },
       {

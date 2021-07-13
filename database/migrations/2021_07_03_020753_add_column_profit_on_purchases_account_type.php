@@ -14,8 +14,7 @@ class AddColumnProfitOnPurchasesAccountType extends Migration
     public function up()
     {
         Schema::table('account_type', function (Blueprint $table) {
-            $table->unsignedInteger('profit_on_purchases',)->default(0);
-
+            $table->unsignedDouble('profit_on_purchases',10,2)->default(0);
         });
     }
 

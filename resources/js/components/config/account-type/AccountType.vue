@@ -218,37 +218,8 @@
             <div class="card-text">This table lists all the Promolider Account Types</div>
           </div>
 
-          <nav aria-label="Page navigation example">
-            <ul class="pagination mt-2">
-              <li class="page-item prev" v-if="pagination.current_page > 1">
-                <a
-                  class="page-link"
-                  href="#"
-                  @click.prevent="changePage(pagination.current_page - 1)"
-                ></a>
-              </li>
-
-              <li
-                class="page-item"
-                v-for="page in pagesNumber"
-                :key="page"
-                :class="pagination.current_page === page ? 'active' : ''"
-              >
-                <a class="page-link" href="#" @click.prevent="changePage(page)">{{ page }}</a>
-              </li>
-
-              <li class="page-item next" v-if="pagination.current_page < pagination.last_page">
-                <a
-                  class="page-link"
-                  href="#"
-                  @click.prevent="changePage(pagination.current_page + 1)"
-                ></a>
-              </li>
-            </ul>
-          </nav>
-
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="datatable">
               <thead>
                 <tr>
                   <th>Nro</th>
@@ -270,8 +241,8 @@
                   <td>{{ accountType.account }}</td>
                   <td>{{ accountType.price }}</td>
                   <td>
-                    <div :class="accountType.status === '1' ? 'text-danger' : 'text-success'">
-                      {{ accountType.status === '1' ? 'Deleted' : 'Activate' }}
+                    <div :class="accountType.status === '0' ? 'text-danger' : 'text-success'">
+                      {{ accountType.status === '0' ? 'Deleted' : 'Activate' }}
                     </div>
                   </td>
 
@@ -291,10 +262,10 @@
                         data-toggle="modal"
                         data-target="#delete-modal"
                         :class="
-                          accountType.status === '0' ? 'btn-outline-danger' : 'btn-outline-success'
+                          accountType.status === '1' ? 'btn-outline-danger' : 'btn-outline-success'
                         "
                       >
-                        {{ accountType.status === '0' ? 'Delete' : 'Activate' }}
+                        {{ accountType.status === '1' ? 'Delete' : 'Activate' }}
                       </button>
 
                       <button
@@ -320,11 +291,14 @@
 </template>
 
 <script>
+$(document).ready(function () {
+  $('#datatable').DataTable();
+});
+
 import apiAccountType from '../../../api/api.account-type';
 import CustomSpinner from '../../../common/custom-spinner/CustomSpinner';
 import CustomDeleteModal from './components/CustomDeleteModal';
 import CustomSuccessModal from './components/CustomSuccessModal';
-
 const formAccountType = {
   id: null,
   account: '',
@@ -337,6 +311,7 @@ const formAccountType = {
   comission: 0,
   state: '',
 };
+
 export default {
   components: { CustomSuccessModal, CustomDeleteModal, CustomSpinner },
   data() {
@@ -348,20 +323,17 @@ export default {
       accountTypes: [],
       editMode: false,
       errors: {},
-      pagination: {
-        total: 0,
-        current_page: 1,
-        per_page: 0,
-        last_page: 0,
-        from: 1,
-        to: 0,
-      },
     };
   },
-  created() {
-    this.listAccountTypes(this.pagination.current_page);
+  mounted: function () {
+    this.listAccountTypes();
   },
   methods: {
+    datatable() {
+      this.$nextTick(function () {
+        $('#datatable').DataTable();
+      });
+    },
     resetForm() {
       this.form = { ...formAccountType };
       this.editMode = false;
@@ -423,7 +395,9 @@ export default {
         apiAccountType
           .edit(accountType)
           .then((response) => {
-            this.successfully(response, true, this.pagination.current_page);
+            $('#datatable').DataTable().destroy();
+            this.listAccountTypes();
+            this.successfully(response, true);
             this.showToast(
               'success',
               `Account Type method ${response.data.name} was successfully Updated`
@@ -441,7 +415,9 @@ export default {
         apiAccountType
           .add(accountType)
           .then((response) => {
-            this.successfully(response, false, this.pagination.last_page);
+            $('#datatable').DataTable().destroy();
+            this.listAccountTypes();
+            this.successfully(response, false);
             this.showToast(
               'success',
               `Account type ${response.data.account} was successfully Added`
@@ -465,27 +441,19 @@ export default {
     deleteAccountType(id) {
       this.selectAccountType = this.accountTypes.find((AccountType) => AccountType.id === id);
     },
-    listAccountTypes(page) {
-      const params = {
-        page: page,
-      };
+    listAccountTypes() {
       this.initialLoading = true;
-      apiAccountType.list(params).then((response) => {
+      apiAccountType.list().then((response) => {
         this.initialLoading = false;
         this.accountTypes = response.data;
-
-        this.pagination.per_page = response.meta.per_page;
-        this.pagination.current_page = response.meta.current_page;
-        this.pagination.from = response.meta.from;
-        this.pagination.total = response.meta.total;
-        this.pagination.to = response.meta.to;
-        this.pagination.last_page = response.meta.last_page;
+        this.datatable();
       });
     },
     confirmDeleteAccountType(confirm, status) {
       if (confirm) {
-        const message = status === '1' ? 'Deleted' : 'Activated';
-        this.listAccountTypes(this.pagination.current_page);
+        const message = status === '0' ? 'Deleted' : 'Activated';
+        $('#datatable').DataTable().destroy();
+        this.listAccountTypes();
         this.resetForm();
         this.showToast('success', `Account type was successfully ${message}`);
       }
@@ -497,29 +465,15 @@ export default {
         tapToDismiss: false,
       });
     },
-    successfully(response, edit, page) {
+    successfully(response, edit) {
       this.selectAccountType = response.data;
       this.selectAccountType.isEdit = edit;
       this.loading = false;
-      this.listAccountTypes(page);
+      this.listAccountTypes();
       this.resetForm();
     },
-    changePage: function (page) {
-      this.pagination.current_page = page;
-      this.listAccountTypes(page);
-    },
-  },
-  computed: {
-    isActived: function () {
-      return this.pagination.current_page;
-    },
-    pagesNumber: function () {
-      // let from = parseInt(this.pagination.from);
-      let pagesArray = [];
-      for (let from = 1; from <= 5; from++) {
-        pagesArray.push(from);
-      }
-      return pagesArray;
+    changePage: function () {
+      this.listAccountTypes();
     },
   },
   name: 'AccountType',

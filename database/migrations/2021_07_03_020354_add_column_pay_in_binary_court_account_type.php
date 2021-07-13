@@ -14,7 +14,7 @@ class AddColumnPayInBinaryCourtAccountType extends Migration
     public function up()
     {
         Schema::table('account_type', function (Blueprint $table) {
-            $table->unsignedInteger('pay_in_binary',)->default(0);
+            $table->unsignedDouble('pay_in_binary',10,2)->default(0);
         });
     }
 

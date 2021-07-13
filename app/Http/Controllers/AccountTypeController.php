@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountType;
+use Illuminate\Http\Request;
 use App\Http\Requests\AccountTypeRequest;
 use App\Http\Resources\AccountTypeResource;
 
@@ -15,7 +17,7 @@ class AccountTypeController extends Controller
      */
     public function index()
     {
-        $accountTypes  = AccountType::paginate();
+        $accountTypes  = AccountType::all();
         return AccountTypeResource::collection($accountTypes);
     }
 
@@ -28,7 +30,6 @@ class AccountTypeController extends Controller
     public function store(AccountTypeRequest $request)
     {
         $accountType = new AccountType( $request->validated() );
-        $accountType->status = 0;
         $accountType->save();
         return response()->json(['data' => $accountType]);
     }
@@ -80,5 +81,10 @@ class AccountTypeController extends Controller
     {
         $data = AccountType::find($id);
         return response()->json($data);
+    }
+
+    public function retornarVista()
+    {
+        return view('content.config.account-type');
     }
 }

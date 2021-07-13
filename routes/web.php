@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\AdvertisementsController;
@@ -66,6 +67,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
     });
 
+    //account types Routes
+    Route::group(['prefix' => '/account-type'], function () {
+        //view
+        Route::get('/', [AccountTypeController::class, 'retornarVista'])->name('account-type');
+        //api
+        Route::apiResource('accountType', AccountTypeController::class);
+    });
+
     // User Request
     Route::group(['prefix' => 'config/user-request'], function () {
         Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
@@ -74,8 +83,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
         Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
-    
-        Route::view('/account-type', 'content.config.account-type');
         Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
     });
 
@@ -316,5 +323,3 @@ Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('ma
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
-
-
