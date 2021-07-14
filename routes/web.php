@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\AdvertisementsController;
@@ -66,6 +67,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
     });
 
+    //account types Routes
+    Route::group(['prefix' => '/account-type'], function () {
+        //view
+        Route::get('/', [AccountTypeController::class, 'retornarVista'])->name('account-type');
+        //api
+        Route::apiResource('accountType', AccountTypeController::class);
+    });
+
     // User Request
     Route::group(['prefix' => 'config/user-request'], function () {
         Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
@@ -77,6 +86,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
     });
 
+    Route::group(['prefix' => 'user-request'], function () {
+        Route::get('/get-user-by-id/{id}', [UserRequestController::class, 'getUserById']);
+    });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AccountType extends Model
+class Payment extends Model
 {
     use HasFactory;
-    protected $guarded = [];
-    protected $table = "account_type";
+    protected $table = 'payments';
 }

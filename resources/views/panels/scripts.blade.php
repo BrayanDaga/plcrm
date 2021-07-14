@@ -8,7 +8,7 @@
 @if($configData['blankPage'] === false)
 <script src="{{ asset(mix('js/scripts/customizer.js')) }}"></script>
 @endif
+<script src="{{ asset(mix('js/app.js')) }}"></script>
 {{-- page script --}}
 @yield('page-script')
-<script src="{{ asset(mix('js/app.js')) }}"></script>
 {{-- page script --}}

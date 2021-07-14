@@ -192,7 +192,8 @@ return [
     "Config" => "Config",
     "Bank" => "Bank",
     "Payment Method" => "Payment Method",
+    "Account Type" => "Account Type",
     "Advertisements" => "Advertisements",
     "User Request" => "User Request",
-    "User Request" => "User Request",
+    "User Request" => "User Request"
 ];
