@@ -1,3 +1,3 @@
 <x-bonus-component :title="$title">
-    <growth-bonus title="{{$title}}"></growth-bonus>
+    <bonus-component title="{{$title}}" url="/{{request()->path() }}/growthBonus"></bonus-component>
 </x-bonus-component>

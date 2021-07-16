@@ -12,7 +12,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="myModalLabel140">Growth Bonus</h5>
+            <h5 class="modal-title" id="myModalLabel140">{{ title }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -147,7 +147,7 @@
 </template>
 
 <script>
-import apiGrowthBonus from '../../../api/api.growth-bonus';
+import api from '../../api/api';
 
 const formBonus = {
   id: null,
@@ -156,13 +156,17 @@ const formBonus = {
 
 
 export default {
-  name: 'GrowthBonus',
+  name: 'StartingBonus',
 
     props: {
     title: {
       type: String,
       required: true,
     },
+    url:{
+      type: String,
+      required: true,
+    }
   },
   data() {
     return {
@@ -187,7 +191,7 @@ export default {
     },
     listBonus() {
       this.initialLoading = true;
-      apiGrowthBonus.list().then((response) => {
+      api.get(`${this.url}`).then((response) => {
         this.initialLoading = false;
         this.bonuses = response.data;
         this.datatable();
@@ -223,9 +227,13 @@ export default {
       }
     },
     deleteBonus() {
-      apiGrowthBonus.delete(this.selectBonus.id).then(() => {
+      api.delete(`${this.url}/${this.selectBonus.id}`).then(() => {
         $('#delete-modal').modal('hide');
           this.loading = false;
+            this.showToast(
+              'success',
+              `The bonus was successfully deleted`
+            );
           $('#datatable').DataTable().destroy();
         this.listBonus();
       });
@@ -239,9 +247,8 @@ export default {
         price: this.form.price,
       };
       
-        apiGrowthBonus
-          .add(bonus)
-          .then((response) => {
+      api.post(`${this.url}`, bonus)
+      .then((response) => {
             $('#datatable').DataTable().destroy();
             this.listBonus();
             this.successfully(response, false);
