@@ -291,10 +291,6 @@
 </template>
 
 <script>
-$(document).ready(function () {
-  // $('#datatable').DataTable();
-});
-
 import apiAccountType from '../../../api/api.account-type';
 import CustomSpinner from '../../../common/custom-spinner/CustomSpinner';
 import CustomDeleteModal from './components/CustomDeleteModal';

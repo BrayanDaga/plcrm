@@ -70,6 +70,18 @@
             "slug": "account-type"
         },
         {
+            "url": "starting-bonus",
+            "name": "Starting Bonus",
+            "icon": "circle",
+            "slug": "starting-bonus"
+        },
+        {
+            "url": "growth-bonus",
+            "name": "Growth Bonus",
+            "icon": "circle",
+            "slug": "growth-bonus"
+        },
+        {
             "navheader": "Users",
             "slug": ""
         },

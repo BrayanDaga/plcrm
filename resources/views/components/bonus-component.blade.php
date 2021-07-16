@@ -2,7 +2,7 @@
 @extends('layouts.contentLayoutMaster')
 
 <!-- Establecer el titulo del modulo (Importante) -->
-@section('title', 'Acccount Type')
+@section('title', $title)
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -19,7 +19,7 @@
 
 <!-- Codgio HTML del contenido (Importante) -->
 @section('content')
-    <account-type></account-type>
+{{ $slot }}
 @endsection
 
 @section('vendor-script')
