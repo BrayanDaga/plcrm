@@ -292,7 +292,7 @@
 
 <script>
 $(document).ready(function () {
-  $('#datatable').DataTable();
+  // $('#datatable').DataTable();
 });
 
 import apiAccountType from '../../../api/api.account-type';
@@ -331,7 +331,7 @@ export default {
   methods: {
     datatable() {
       this.$nextTick(function () {
-        $('#datatable').DataTable();
+        // $('#datatable').DataTable();
       });
     },
     resetForm() {
@@ -395,7 +395,7 @@ export default {
         apiAccountType
           .edit(accountType)
           .then((response) => {
-            $('#datatable').DataTable().destroy();
+            // $('#datatable').DataTable().destroy();
             this.listAccountTypes();
             this.successfully(response, true);
             this.showToast(
@@ -415,7 +415,7 @@ export default {
         apiAccountType
           .add(accountType)
           .then((response) => {
-            $('#datatable').DataTable().destroy();
+            // $('#datatable').DataTable().destroy();
             this.listAccountTypes();
             this.successfully(response, false);
             this.showToast(
@@ -446,13 +446,13 @@ export default {
       apiAccountType.list().then((response) => {
         this.initialLoading = false;
         this.accountTypes = response.data;
-        this.datatable();
+        // this.datatable();
       });
     },
     confirmDeleteAccountType(confirm, status) {
       if (confirm) {
         const message = status === '0' ? 'Deleted' : 'Activated';
-        $('#datatable').DataTable().destroy();
+        // $('#datatable').DataTable().destroy();
         this.listAccountTypes();
         this.resetForm();
         this.showToast('success', `Account type was successfully ${message}`);
