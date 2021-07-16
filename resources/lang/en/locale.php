@@ -195,5 +195,7 @@ return [
     "Account Type" => "Account Type",
     "Advertisements" => "Advertisements",
     "User Request" => "User Request",
-    "User Request" => "User Request"
+    "User Request" => "User Request",
+    "Starting Bonus" => "Starting Bonus",
+    "Growth Bonus" => "Growth Bonus"
 ];

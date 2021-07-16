@@ -24,6 +24,7 @@ Vue.component(
     require('./components/user-membreship/Register.vue').default
 );
 
+Vue.component('bonus-component', require('./components/config/BonusComponent.vue').default);
 Vue.component('account-type', require('./components/config/account-type/AccountType').default);
 Vue.component('user-request', require('./components/config/UserRequest.vue').default);
 /** End components Config */
