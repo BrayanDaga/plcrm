@@ -35,27 +35,36 @@ class UserMembreship extends Authenticatable
 
     public function country(): BelongsTo
     {
-        return $this->belongsTo(Country::class,'id_country');
+        return $this->belongsTo(Country::class, 'id_country');
+    }
+
+    public function sponsor(): BelongsTo
+    {
+        return $this->belongsTo(UserMembreship::class, 'id_referrer_sponsor');
+    }
+
+    public function payments(): HasOne
+    {
+        return $this->hasOne(Payment::class, 'id_user_membreship');
     }
 
     public function classified(): HasOne
     {
-        return $this->hasOne(Classified::class,'id_user_membreship');
+        return $this->hasOne(Classified::class, 'id_user_membreship');
     }
 
     public function accountType(): BelongsTo
     {
-        return $this->belongsTo(AccountType::class,'id_account_type');
+        return $this->belongsTo(AccountType::class, 'id_account_type');
     }
 
     public function documentType(): BelongsTo
     {
-        return $this->belongsTo(DocumentType::class,'id_document_type');
+        return $this->belongsTo(DocumentType::class, 'id_document_type');
     }
 
     public function classifiedJoin()
     {
         return $this->belongsTo('App\Models\Classified');
     }
-
 }

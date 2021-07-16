@@ -97,15 +97,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'config/user-request'], function () {
         Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
     });
-
+  
     Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
         Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
         Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
     });
-
-    Route::group(['prefix' => 'user-request'], function () {
+    
+    // User Request    
+    Route::group(['prefix' => 'config/user-request'], function () {
+        Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
         Route::get('/get-user-by-id/{id}', [UserRequestController::class, 'getUserById']);
+        Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

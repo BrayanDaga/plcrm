@@ -10,3 +10,7 @@
         :payment-methods="{{ $payment_methods }}"
     ></user-membreship-register>
 @endsection
+@section('page-script')
+  {{-- Page js files --}}
+  <script src="{{ asset(mix('js/api/alignetsac.js')) }}"></script>
+@endsection

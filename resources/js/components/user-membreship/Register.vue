@@ -2,8 +2,12 @@
     <div>
         <div class="row">
             <div class="col-lg-6">
-                <form @submit.prevent="add">
+                <form @submit.prevent="add" class="alignet-form-vpos2">
                     <input type="hidden" v-model="form.id_referrer_sponsor">
+                    <input type="hidden" name="acquirerId" v-model="form.acquirerId">
+                    <input type="hidden" name="idCommerce" v-model="form.idCommerce">
+                    <input type="hidden" name="purchaseOperationNumber" v-model="form.purchaseOperationNumber">
+                    <input type="hidden" name="purchaseAmount" v-model="form.purchaseAmount">
                     <h4>User</h4>
                     <hr>
                     <div class="d-flex flex-wrap">
@@ -101,7 +105,8 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Register</button>
+                    <!-- <button type="submit" class="btn btn-success">Register</button> -->
+                <button type="button" id="open_modal_alignet_vpos2" class="btn btn-">Comprar</button>
                 </form>
             </div>
         </div>
@@ -114,6 +119,10 @@ export default {
         return {
             form: {
                 id_referrer_sponsor:'',
+                acquirerId: '144',
+                idCommerce: '12721',
+                purchaseOperationNumber: '000001',
+                purchaseAmount: '',
                 user:'',
                 password:'',
                 repassword:'',
@@ -202,6 +211,7 @@ export default {
             const getIva = price * iva;
             const totalAmount = price + getIva;
             const total = totalAmount;
+            this.purchaseAmount = total;
             
             this.form.price = price.toFixed(2);
             this.form.iva = getIva.toFixed(2);
@@ -220,6 +230,14 @@ export default {
 
         const idPaymentMethod = document.getElementById('id_payment_method');
         idPaymentMethod.selectedIndex = 0;
+
+        /**
+         * integracion de payment alignet vpos2
+         */
+        const openModalAlignetVpos2 = document.getElementById('open_modal_alignet_vpos2');
+        openModalAlignetVpos2.addEventListener('click', () => {
+            AlignetVPOS2.openModal('https://integracion.alignetsac.com/','[2]');
+        });
     }
 }
 
