@@ -1,11 +1,12 @@
 import api from './api';
 
-const startingBonus = {
+const apiStartingBonus = {
   list: ()  => api.get(`/starting-bonus/startingBonus`),
-  add: startingBonus => api.post('/starting-bonus/startingBonus', startingBonus),
-//   detail: id => api.get(`/starting-bonus/startingBonus/${id}`),
-//   edit: startingBonus => api.put(`/starting-bonus/startingBonus/${startingBonus.id}`, startingBonus),
-  delete: (id, params) => api.deleteState(`/starting-bonus/startingBonus/${id}`, params)
+  add: apiStartingBonus => api.post('/starting-bonus/startingBonus', apiStartingBonus),
+   detail: id => api.get(`/starting-bonus/startingBonus/${id}`),
+  delete: id => api.delete(`/starting-bonus/startingBonus/${id}`)
+
+
 };
 
-export default startingBonus;
+export default apiStartingBonus;

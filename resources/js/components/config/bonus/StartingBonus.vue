@@ -12,7 +12,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="myModalLabel140">Growth Bonus</h5>
+            <h5 class="modal-title" id="myModalLabel140">Startingh Bonus</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -147,7 +147,7 @@
 </template>
 
 <script>
-import apiGrowthBonus from '../../../api/api.growth-bonus';
+import apiStartingBonus from '../../../api/api.starting-bonus';
 
 const formBonus = {
   id: null,
@@ -156,7 +156,7 @@ const formBonus = {
 
 
 export default {
-  name: 'GrowthBonus',
+  name: 'StartingBonus',
 
     props: {
     title: {
@@ -187,7 +187,7 @@ export default {
     },
     listBonus() {
       this.initialLoading = true;
-      apiGrowthBonus.list().then((response) => {
+      apiStartingBonus.list().then((response) => {
         this.initialLoading = false;
         this.bonuses = response.data;
         this.datatable();
@@ -223,7 +223,7 @@ export default {
       }
     },
     deleteBonus() {
-      apiGrowthBonus.delete(this.selectBonus.id).then(() => {
+      apiStartingBonus.delete(this.selectBonus.id).then(() => {
         $('#delete-modal').modal('hide');
           this.loading = false;
           $('#datatable').DataTable().destroy();
@@ -239,7 +239,7 @@ export default {
         price: this.form.price,
       };
       
-        apiGrowthBonus
+        apiStartingBonus
           .add(bonus)
           .then((response) => {
             $('#datatable').DataTable().destroy();

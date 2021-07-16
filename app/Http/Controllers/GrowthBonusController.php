@@ -38,8 +38,9 @@ class GrowthBonusController extends Controller
      * @param  \App\Models\GrowthBonus  $growthBonus
      * @return \Illuminate\Http\Response
      */
-    public function show(GrowthBonus $growthBonus)
+    public function show($id)
     {
+        $growthBonus = GrowthBonus::findOrFail($id);
         $growthBonus = new BonusResource($growthBonus);
         return $growthBonus;
     }
@@ -62,10 +63,11 @@ class GrowthBonusController extends Controller
      * @param  \App\Models\GrowthBonus  $growthBonus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GrowthBonus $growthBonus)
+    public function destroy($id)
     {
+        $growthBonus = GrowthBonus::findOrFail($id);
         $growthBonus->delete();
-        // return new BonusResource($growthBonus);
+        return new BonusResource($growthBonus);
     }
 
     public function retornarVista()

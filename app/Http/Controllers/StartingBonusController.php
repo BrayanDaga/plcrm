@@ -39,8 +39,9 @@ class StartingBonusController extends Controller
      * @param  \App\Models\StartingBonus  $startingBonus
      * @return \Illuminate\Http\Response
      */
-    public function show(StartingBonus $startingBonus)
+    public function show($id)
     {
+        $startingBonus = StartingBonus::findOrFail($id);
         $startingBonus = new BonusResource($startingBonus);
         return $startingBonus;
     }
@@ -63,8 +64,9 @@ class StartingBonusController extends Controller
      * @param  \App\Models\StartingBonus  $startingBonus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StartingBonus $startingBonus)
+    public function destroy($id)
     {
+        $startingBonus = StartingBonus::findOrFail($id);
         $startingBonus->delete();
         return new BonusResource($startingBonus);
     }
