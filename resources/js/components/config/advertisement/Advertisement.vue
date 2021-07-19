@@ -4,6 +4,7 @@
       @confirm-delete="confirmDeleteAdvertisement"
       :advertisement="selectAdvertisement"
     ></custom-delete-modal>
+
     <!-- Alert With Icon start -->
     <section v-if="totalMessages" id="alerts-with-icons">
       <div class="row">

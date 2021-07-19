@@ -140,6 +140,7 @@
     "/js/api/api.bank.js": "/js/api/api.bank.js",
     "/js/api/api.js": "/js/api/api.js",
     "/js/api/api.payment-method.js": "/js/api/api.payment-method.js",
+    "/js/api/api.payment.js": "/js/api/api.payment.js",
     "/js/api/api.user-membreship.js": "/js/api/api.user-membreship.js",
     "/js/api/api.user-request.js": "/js/api/api.user-request.js",
     "/vendors/js/blockui/blockui.min.js": "/vendors/js/blockui/blockui.min.js",

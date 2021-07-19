@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AccountTypeController;
-use App\Http\Controllers\MessagesController;
+
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserRequestController;
 
 use App\Http\Controllers\AdvertisementsController;
@@ -25,9 +26,6 @@ Route::get('/account-type/get-data-id/{id}', [AccountTypeController::class, 'get
 
 
 /*Start api config messages*/
-Route::get('/message/{id}', [MessagesController::class, 'Detail'])->name('Detail');
-Route::get('/message', [MessagesController::class, 'List'])->name('List');
-Route::post('/message', [MessagesController::class, 'Add'])->name('Add');
-Route::put('/message/{id}', [MessagesController::class, 'Edit'])->name('Edit');
-Route::delete('/message/{id}', [MessagesController::class, 'Delete'])->name('Delete');
+
+Route::get('/payment/list', [PaymentController::class, 'List'])->name('List');
 /*End api config messages*/

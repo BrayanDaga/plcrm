@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\UserMembreship;
-use Database\Factories\UserMembreshipFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BankSeeder::class);
         $this->call(PaymentMethodSeeder::class);
         UserMembreship::factory()->create(); // se reduce la cantida de datos de pruebas
+        $this->call(PaymentSeeder::class);
         /*$this->call(ClassifiedSeeder::class);*/
     }
 }

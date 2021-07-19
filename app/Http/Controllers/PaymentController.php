@@ -16,7 +16,7 @@ class PaymentController extends Controller
 
     public function List(Request $request): AnonymousResourceCollection
     {
-        $payments = Payment::paginate(10);
+        $payments = Payment::all();
         return PaymentResource::collection($payments);
     }
 }
