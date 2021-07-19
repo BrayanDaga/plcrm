@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\AdvertisementsController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'system'], function () {
         Route::get('binary-branch', [BinaryBranchController::class, 'binary_branch'])->name('binary-branch');
+    });
+
+    Route::group(['prefix' => 'payment'], function () {
+        Route::get('/view', [PaymentController::class, 'index'])->name('payment');
     });
 
     Route::group(['prefix' => 'user-membreship'], function () {

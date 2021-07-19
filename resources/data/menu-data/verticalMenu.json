@@ -94,9 +94,19 @@
             ]
         },
         {
-            "navheader": "Apps & Pages",
+            "navheader": "Payments",
             "slug": ""
         },
+        {
+            "url": "payment/view",
+            "name": "Payment",
+            "icon": "circle",
+            "slug": "payment"
+        },
+      {
+        "navheader": "Apps & Pages",
+        "slug": ""
+      },
         {
             "url": "app/email",
             "name": "Email",
