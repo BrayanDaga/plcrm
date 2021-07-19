@@ -2,12 +2,13 @@
     <div>
         <div class="row">
             <div class="col-lg-6">
-                <form @submit.prevent="add" class="alignet-form-vpos2">
+                <form name="f1" id="f1" @submit.prevent="add" class="alignet-form-vpos2" method="post">
                     <input type="hidden" v-model="form.id_referrer_sponsor">
                     <input type="hidden" name="acquirerId" v-model="form.acquirerId">
                     <input type="hidden" name="idCommerce" v-model="form.idCommerce">
                     <input type="hidden" name="purchaseOperationNumber" v-model="form.purchaseOperationNumber">
                     <input type="hidden" name="purchaseAmount" v-model="form.purchaseAmount">
+                    <input type="hidden" name="purchaseVerification" v-model="form.purchaseVerification">
                     <h4>User</h4>
                     <hr>
                     <div class="d-flex flex-wrap">
@@ -121,8 +122,9 @@ export default {
                 id_referrer_sponsor:'',
                 acquirerId: '144',
                 idCommerce: '12721',
-                purchaseOperationNumber: '000001',
-                purchaseAmount: '',
+                purchaseOperationNumber: '000003',
+                purchaseAmount: '150',
+                purchaseVerification: '4565951EEE31B8C62A7AF0504693069481AEAA607AFEF7C85CD8E23E98C88AD13FB563251065498DD5303A1EB65DC5644B572B1D162CA7F0B6E6F809E6B79667',
                 user:'',
                 password:'',
                 repassword:'',
@@ -193,6 +195,7 @@ export default {
                 return false;
             }
             
+            console.log(this.form);
             axios.post('/user-membreship/create', this.form)
         },
         changeTablePrice: function(e){
@@ -212,6 +215,7 @@ export default {
             const totalAmount = price + getIva;
             const total = totalAmount;
             this.purchaseAmount = total;
+            console.log(this.purchaseAmount);
             
             this.form.price = price.toFixed(2);
             this.form.iva = getIva.toFixed(2);
