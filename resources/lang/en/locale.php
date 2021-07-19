@@ -197,4 +197,7 @@ return [
     "User Request" => "User Request",
     "Payment" => "Payment",
     "Payments" => "Payments",
+    "User Request" => "User Request",
+    "Starting Bonus" => "Starting Bonus",
+    "Growth Bonus" => "Growth Bonus"
 ];
