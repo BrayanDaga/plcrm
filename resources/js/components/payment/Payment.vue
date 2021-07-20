@@ -64,7 +64,7 @@ export default {
     this.listPayments();
   },*/
   methods: {
-    datatable() {
+    loadDatatable() {
       this.$nextTick(function () {
         $('#data-table-list-payments').DataTable();
       });
@@ -74,7 +74,7 @@ export default {
       apiPayment.list().then((response) => {
         this.loading = false;
         this.payments = response.data;
-        this.datatable();
+        this.loadDatatable();
       });
     },
   },
