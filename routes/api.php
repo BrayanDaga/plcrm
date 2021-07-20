@@ -13,5 +13,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/account-type/get-data-id/{id}', [AccountTypeController::class, 'getDataBytId']);
-
-Route::get('/payment/list', [PaymentController::class, 'List'])->name('List');

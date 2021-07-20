@@ -64,7 +64,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'payment'], function () {
-        Route::get('/view', [PaymentController::class, 'index'])->name('payment');
+        Route::get('/', [PaymentController::class, 'index'])->name('payment');
+        Route::get('/list', [PaymentController::class, 'List'])->name('List');
     });
 
     Route::group(['prefix' => 'user-membreship'], function () {

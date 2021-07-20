@@ -110,7 +110,7 @@
             "slug": ""
         },
         {
-            "url": "payment/view",
+            "url": "payment",
             "name": "Payment",
             "icon": "circle",
             "slug": "payment"

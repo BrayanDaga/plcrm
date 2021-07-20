@@ -34,11 +34,15 @@
               </thead>
               <tbody>
                 <tr v-for="tempPayment in payments" :key="tempPayment.id">
-                  <td height="30px">{{ tempPayment.id_user_membreship }}</td>
-                  <td height="30px">{{ tempPayment.id_user_membreship }}</td>
+                  <td height="30px">
+                    {{
+                      tempPayment.user_membreship.name + ' ' + tempPayment.user_membreship.last_name
+                    }}
+                  </td>
+                  <td height="30px">{{ tempPayment.user_membreship.user }}</td>
                   <td height="30px">{{ tempPayment.description }}</td>
                   <td height="30px">{{ tempPayment.amount }}</td>
-                  <td height="30px">{{ tempPayment.id_payment_method }}</td>
+                  <td height="30px">{{ tempPayment.payment_method.name }}</td>
                   <td height="30px">{{ tempPayment.operation_number }}</td>
                   <td height="30px">{{ tempPayment.created_at | formatDate }}</td>
                 </tr>
