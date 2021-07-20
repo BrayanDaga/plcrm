@@ -89,18 +89,29 @@
       </div>
     </section>
 
-    <div class="row" id="basic-table">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">Advertisement</h4>
+    <section>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Advertisement</h4>
+            </div>
+            <div class="card-body">
+              <div class="demo-spacing-0">This table lists all the Promolider Advertisements</div>
+            </div>
           </div>
-          <div class="card-body">
-            <div class="card-text">This table lists all the Promolider Advertisements</div>
-          </div>
+        </div>
+      </div>
+    </section>
 
+    <section v-if="!initialLoading">
+      <div class="row">
+        <div class="col-12">
           <div class="table-responsive">
-            <table class="table">
+            <table
+              id="data-table-list-payments"
+              class="table table-hover-animation table-striped table-bordered"
+            >
               <thead>
                 <tr>
                   <th>Nro</th>
@@ -111,7 +122,7 @@
                   <th>Edit</th>
                 </tr>
               </thead>
-              <tbody v-if="!initialLoading">
+              <tbody>
                 <tr
                   v-for="(tempAdvertisement, index) in advertisements"
                   :key="tempAdvertisement.id"
@@ -125,22 +136,20 @@
                     </div>
                   </td>
                   <td>
-                    <div class="demo-inline-spacing">
-                      <button
-                        type="button"
-                        class="btn round"
-                        @click="deleteAdvertisement(tempAdvertisement.id)"
-                        data-toggle="modal"
-                        data-target="#delete-modal"
-                        :class="
-                          tempAdvertisement.status === '0'
-                            ? 'btn-outline-danger'
-                            : 'btn-outline-success'
-                        "
-                      >
-                        {{ tempAdvertisement.status === '0' ? 'Disable' : 'Activate' }}
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      class="btn round"
+                      @click="deleteAdvertisement(tempAdvertisement.id)"
+                      data-toggle="modal"
+                      data-target="#delete-modal"
+                      :class="
+                        tempAdvertisement.status === '0'
+                          ? 'btn-outline-danger'
+                          : 'btn-outline-success'
+                      "
+                    >
+                      {{ tempAdvertisement.status === '0' ? 'Disable' : 'Activate' }}
+                    </button>
                   </td>
                   <td>
                     <button
@@ -154,13 +163,12 @@
                 </tr>
               </tbody>
             </table>
-            <div class="m-10" v-if="initialLoading">
-              <custom-spinner></custom-spinner>
-            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+    <custom-spinner v-else></custom-spinner>
+
   </div>
 </template>
 
@@ -191,17 +199,14 @@ export default {
       initialLoading: false,
       loading: false,
       advertisements: [],
-      pagination: {
-        total: 0,
-        current_page: 0,
-        per_page: 0,
-        last_page: 0,
-        from: 0,
-        to: 0,
-      },
     };
   },
   methods: {
+    loadDataTable() {
+      this.$nextTick(function () {
+        $('#data-table-list-payments').DataTable();
+      });
+    },
     submit() {
       if (this.form.message === '') {
         this.rules = false;
@@ -260,11 +265,7 @@ export default {
         this.initialLoading = false;
         this.advertisements = response.data;
         this.totalMessages = this.advertisements.length;
-        console.log(this.totalMessages);
-        /*Agregando al date pagination*/
-        this.pagination = response.meta;
-        delete this.pagination.links;
-        delete this.pagination.path;
+        this.loadDataTable();
       });
     },
     successfully(response, edit) {

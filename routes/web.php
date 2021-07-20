@@ -106,7 +106,18 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
-        Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
+    });
+
+    Route::group(['prefix' => 'config/advertisements'], function () {
+        Route::get('/', [AdvertisementsController::class, 'index'])->name('advertisements');
+        /*Start api config messages*/
+        Route::get('/detail/{id}', [AdvertisementsController::class, 'Detail'])->name('Detail');
+        Route::get('/list', [AdvertisementsController::class, 'List'])->name('List');
+        Route::post('/add', [AdvertisementsController::class, 'Add'])->name('Add');
+        Route::put('/edit/{id}', [AdvertisementsController::class, 'Edit'])->name('Edit');
+        Route::delete('/delete/{id}', [AdvertisementsController::class, 'Delete'])->name('Delete');
+        /*End api config messages*/
+
     });
 
     Route::group(['prefix' => 'config/payment-method'], function () {
@@ -138,13 +149,6 @@ Route::group(['middleware' => ['auth']], function () {
             ->name('GetList');
         /*End api user-membreship*/
 
-        /*Start api config messages*/
-        Route::get('/advertisements/{id}', [AdvertisementsController::class, 'Detail'])->name('Detail');
-        Route::get('/advertisements', [AdvertisementsController::class, 'List'])->name('List');
-        Route::post('/advertisements', [AdvertisementsController::class, 'Add'])->name('Add');
-        Route::put('/advertisements/{id}', [AdvertisementsController::class, 'Edit'])->name('Edit');
-        Route::delete('/advertisements/{id}', [AdvertisementsController::class, 'Delete'])->name('Delete');
-        /*End api config messages*/
 
 
         /*Start api config bank*/
