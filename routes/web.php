@@ -104,8 +104,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
     });
 
-    Route::group(['prefix' => 'config'], function () {
-        Route::get('/bank', [BankController::class, 'index'])->name('bank');
+    Route::group(['prefix' => 'config/bank'], function () {
+        Route::get('/', [BankController::class, 'index'])->name('bank');
+        /*Start api config bank*/
+        Route::get('/detail/{id}', [BankController::class, 'Detail'])->name('Detail');
+        Route::get('/list', [BankController::class, 'List'])->name('List');
+        Route::post('/add', [BankController::class, 'Add'])->name('Add');
+        Route::put('/edit/{id}', [BankController::class, 'Edit'])->name('Edit');
+        Route::delete('/delete/{id}', [BankController::class, 'Delete'])->name('Delete');
+        /*End api config bank*/
     });
 
     Route::group(['prefix' => 'config/advertisements'], function () {
@@ -149,25 +156,6 @@ Route::group(['middleware' => ['auth']], function () {
             ->name('GetList');
         /*End api user-membreship*/
 
-
-
-        /*Start api config bank*/
-
-        Route::get('/bank/{id}', [BankController::class, 'Detail'])
-            ->name('Detail');
-
-        Route::get('/bank', [BankController::class, 'List'])
-            ->name('List');
-
-        Route::post('/bank', [BankController::class, 'Add'])
-            ->name('Add');
-
-        Route::put('/bank/{id}', [BankController::class, 'Edit'])
-            ->name('Edit');
-
-        Route::delete('/bank/{id}', [BankController::class, 'Delete'])
-            ->name('Delete');
-        /*End api config bank*/
     });
     /*End Route api*/
 });
