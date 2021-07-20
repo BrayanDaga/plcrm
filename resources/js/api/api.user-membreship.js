@@ -1,8 +1,8 @@
 import request from './api';
 
 const apiUserMembreship = {
-    listByUser: params => request.getPaginate(`/api/usersMembreship`, params),
-    listUserMembreship: params => request.getPaginate(`/api/usersMembreship/list`, params)
+  listByUser: () => request.get(`/user-membreship/api`),
+  listUserMembreship: () => request.get(`/user-membreship/api/list`),
 };
 
 export default apiUserMembreship;
