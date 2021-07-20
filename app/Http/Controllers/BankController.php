@@ -62,7 +62,7 @@ class BankController extends Controller
 
     public function List(Request $request): AnonymousResourceCollection
     {
-        $banks = Bank::paginate(10);
+        $banks = Bank::all();
         return BankResource::collection($banks);
     }
 

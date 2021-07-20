@@ -13,6 +13,11 @@ class Payment extends Model
 
     public function paymentMethod(): BelongsTo
     {
-        return $this->belongsTo(paymentMethod::class, 'id_payment_method');
+        return $this->belongsTo(PaymentMethod::class, 'id_payment_method');
+    }
+
+    public function userMembreship(): BelongsTo
+    {
+        return $this->belongsTo(UserMembreship::class, 'id_user_membreship');
     }
 }

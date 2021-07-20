@@ -16,7 +16,7 @@ class PaymentController extends Controller
 
     public function List(Request $request): AnonymousResourceCollection
     {
-        $payments = Payment::paginate(10);
+        $payments = Payment::query()->with(['paymentMethod','userMembreship'])->get();
         return PaymentResource::collection($payments);
     }
 }
