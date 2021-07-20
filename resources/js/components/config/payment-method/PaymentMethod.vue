@@ -70,7 +70,87 @@
         </div>
       </div>
     </section>
-    <div class="row" id="basic-table">
+    <section>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Payment Methods</h4>
+            </div>
+            <div class="card-body">
+              <div class="demo-spacing-0">This table lists all the Promolider Payment Methods</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section v-if="!initialLoading">
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table
+              id="data-table-list-payments"
+              class="table table-hover-animation table-striped table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>Nro</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(tempPaymentMethod, index) in paymentMethods"
+                  :key="tempPaymentMethod.id"
+                >
+                  <td>{{ index + 1 }}</td>
+                  <td style="width: 220px">{{ tempPaymentMethod.name }}</td>
+                  <td>
+                    <div :class="tempPaymentMethod.status === '1' ? 'text-danger' : 'text-success'">
+                      {{ tempPaymentMethod.status === '1' ? 'Delete' : 'Activate' }}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row">
+                      <div class="demo-inline-spacing">
+                        <button
+                          type="button"
+                          class="btn round"
+                          @click="deletePaymentMethod(tempPaymentMethod.id)"
+                          data-toggle="modal"
+                          data-target="#delete-modal"
+                          :class="
+                            tempPaymentMethod.status === '0'
+                              ? 'btn-outline-danger'
+                              : 'btn-outline-success'
+                          "
+                        >
+                          {{ tempPaymentMethod.status === '0' ? 'Delete' : 'Activate' }}
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary round"
+                          @click.prevent="editPaymentMethod(tempPaymentMethod.id)"
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <custom-spinner v-else></custom-spinner>
+
+    <!--    <div class="row" id="basic-table">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
@@ -137,7 +217,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -166,17 +246,14 @@ export default {
       paymentMethods: [],
       form: { ...formPaymentMethod },
       editMode: false,
-      pagination: {
-        total: 0,
-        current_page: 0,
-        per_page: 0,
-        last_page: 0,
-        from: 0,
-        to: 0,
-      },
     };
   },
   methods: {
+    loadDataTable() {
+      this.$nextTick(function () {
+        $('#data-table-list-payments').DataTable();
+      });
+    },
     resetForm() {
       this.form = { ...formPaymentMethod };
       this.editMode = false;
@@ -187,11 +264,7 @@ export default {
       apiPaymentMethod.list().then((response) => {
         this.initialLoading = false;
         this.paymentMethods = response.data;
-
-        /*Agregando al date pagination*/
-        this.pagination = response.meta;
-        delete this.pagination.links;
-        delete this.pagination.path;
+        this.loadDataTable();
       });
     },
     editPaymentMethod(id) {
@@ -207,17 +280,11 @@ export default {
     confirmDeletePaymentMethod(confirm, status) {
       if (confirm) {
         const message = status === '1' ? 'Deleted' : 'Activated';
-        this.listPaymentMethods();
         this.resetForm();
         this.showToast('success', `Payment method was successfully ${message}`);
+        this.listPaymentMethods();
       }
     },
-    /*    detailBank(id) {
-      /!*this.loading = true;*!/
-      /!*apiPaymentMethod.detail(id).then(response => {
-          this.loading = false;
-      });*!/
-    },*/
     submit() {
       if (this.form.name === '') {
         this.rules = false;
