@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(AccountTypeSeeder::class);
         $this->call(BankSeeder::class);
         $this->call(PaymentMethodSeeder::class);
-        UserMembreship::factory()->create(); // se reduce la cantida de datos de pruebas
+        // UserMembreship::factory()->create(); // se reduce la cantida de datos de pruebas
+        $this->call(UserMembreshipSeeder::class);
         $this->call(PaymentSeeder::class);
         $this->call(AdvertisementSeeder::class);
         /*$this->call(ClassifiedSeeder::class);*/

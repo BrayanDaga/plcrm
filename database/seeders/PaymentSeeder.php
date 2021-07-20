@@ -18,9 +18,10 @@ class PaymentSeeder extends Seeder
             $amount = rand(1500, 6868);
             $operations = rand(1500, 6868);
             $paymentMethod = rand(1, 3);
+            $id = rand(1, 4);
             DB::table('payments')->insert([
-                'id_user_membreship' => 1,
-                'id_user_sponsor' => 1,
+                'id_user_membreship' => $id,
+                'id_user_sponsor' => $id,
                 'description' => 'description',
                 'amount' => $amount,
                 'operation_number' => (string)$operations,
