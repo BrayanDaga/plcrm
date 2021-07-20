@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Helpers\UserMembershipParams;
+use App\Http\Resources\PaymentResource;
+use App\Http\Resources\UserMembreshipResource;
 use App\Models\DocumentType;
 use App\Models\AccountType;
 use App\Models\Classified;
@@ -13,6 +15,7 @@ use App\Models\PaymentMethod;
 use App\Models\UserMembreship;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Hash;
 
 class UserMembreshipController extends Controller
@@ -40,41 +43,14 @@ class UserMembreshipController extends Controller
         return view('content.user-membreship.list');
     }
 
-    public function GetList(Request $request): JsonResponse
+    public function GetList(Request $request): AnonymousResourceCollection
     {
-        $pagingParams = new UserMembershipParams();
-
-        if ($request->pageSize) {
-            $pagingParams->setPageSize($request->pageSize);
-        }
-        if ($request->order) {
-            $pagingParams->setOrderBy($request->order);
-        }
-        if ($request->search)
-        {
-            $pagingParams->setSearch($request->search);
-        }
-
         $list_user_membreship = UserMembreship::query()
-            ->orWhere('name', 'like', '%' . $request->search . '%')
             ->with(['country', 'accountType', 'documentType'])
             ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
-            ->orderBy('user_membreships.' . $pagingParams->OrderBy, 'asc')
-            ->paginate($pagingParams->PageSize);
+            ->get();
+        return UserMembreshipResource::collection($list_user_membreship);
 
-        $data_pagination = [
-            'pagination' => [
-                'total' => $list_user_membreship->total(),
-                'current_page' => $list_user_membreship->currentPage(),
-                'per_page' => $list_user_membreship->perPage(),
-                'last_page' => $list_user_membreship->lastPage(),
-                'from' => $list_user_membreship->firstItem(),
-                'to' => $list_user_membreship->lastPage(),
-            ],
-            'result' => $list_user_membreship
-        ];
-
-        return response()->json($data_pagination);
     }
 
     public function Create(Request $request)

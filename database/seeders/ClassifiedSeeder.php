@@ -19,8 +19,8 @@ class ClassifiedSeeder extends Seeder
          * se estan cambiando algunos valos con fines de generar menos datos de prueba
          */
 
-        for ($index = 0; $index < 5; $index++){
-            $id = rand(1, 4);
+        for ($index = 0; $index < 4; $index++){
+            $id = rand(2, 3);
             DB::table('classified')->insert([
                 'id_user_membreship' => $id,
                 'id_user_sponsor' => $id,

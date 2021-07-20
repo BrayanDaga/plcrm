@@ -73,6 +73,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/list', [UserMembreshipController::class, 'list'])->name('user-membreship-list');
         Route::post('/create', [UserMembreshipController::class, 'create']);
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
+        /*Start api user-membreship*/
+        Route::get('/api', [BinaryBranchController::class, 'getListUsersMembreship'])
+            ->name('getListUsersMembreship');
+        Route::get('/api/list', [UserMembreshipController::class, 'GetList'])
+            ->name('GetList');
+        /*End api user-membreship*/
     });
 
     //account types Routes
@@ -147,17 +153,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    /*Start Route api*/
-    Route::group(['prefix' => 'api'], function () {
-        /*Start api user-membreship*/
-        Route::get('/usersMembreship', [BinaryBranchController::class, 'getListUsersMembreship'])
-            ->name('getListUsersMembreship');
-        Route::get('/usersMembreship/list', [UserMembreshipController::class, 'GetList'])
-            ->name('GetList');
-        /*End api user-membreship*/
-
-    });
-    /*End Route api*/
 });
 /* Rutas Programada - fin */
 

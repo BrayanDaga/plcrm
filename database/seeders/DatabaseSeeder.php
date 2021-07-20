@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classified;
 use App\Models\UserMembreship;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserMembreshipSeeder::class);
         $this->call(PaymentSeeder::class);
         $this->call(AdvertisementSeeder::class);
+        $this->call(ClassifiedSeeder::class);
         /*$this->call(ClassifiedSeeder::class);*/
     }
 }
