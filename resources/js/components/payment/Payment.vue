@@ -17,7 +17,10 @@
       <div class="row">
         <div class="col-12">
           <div class="table-responsive">
-            <table id="data-table-list-payments" class="table table-hover-animation">
+            <table
+              id="data-table-list-payments"
+              class="table table-hover-animation table-striped table-bordered"
+            >
               <thead>
                 <tr>
                   <th>Name</th>
@@ -31,13 +34,13 @@
               </thead>
               <tbody>
                 <tr v-for="tempPayment in payments" :key="tempPayment.id">
-                  <td>{{ tempPayment.id_user_membreship }}</td>
-                  <td>{{ tempPayment.id_user_membreship }}</td>
-                  <td>{{ tempPayment.description }}</td>
-                  <td>{{ tempPayment.amount }}</td>
-                  <td>{{ tempPayment.id_payment_method }}</td>
-                  <td>{{ tempPayment.operation_number }}</td>
-                  <td>{{ tempPayment.created_at | formatDate }}</td>
+                  <td height="30px">{{ tempPayment.id_user_membreship }}</td>
+                  <td height="30px">{{ tempPayment.id_user_membreship }}</td>
+                  <td height="30px">{{ tempPayment.description }}</td>
+                  <td height="30px">{{ tempPayment.amount }}</td>
+                  <td height="30px">{{ tempPayment.id_payment_method }}</td>
+                  <td height="30px">{{ tempPayment.operation_number }}</td>
+                  <td height="30px">{{ tempPayment.created_at | formatDate }}</td>
                 </tr>
               </tbody>
             </table>
@@ -64,7 +67,7 @@ export default {
     this.listPayments();
   },*/
   methods: {
-    loadDatatable() {
+    loadDataTable() {
       this.$nextTick(function () {
         $('#data-table-list-payments').DataTable();
       });
@@ -74,7 +77,7 @@ export default {
       apiPayment.list().then((response) => {
         this.loading = false;
         this.payments = response.data;
-        this.loadDatatable();
+        this.loadDataTable();
       });
     },
   },
