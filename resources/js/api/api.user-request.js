@@ -1,2 +1,2 @@
-'use strict';
-$('#list-user-requests').DataTable();
+// 'use strict';
+// $('#list-user-requests').DataTable();

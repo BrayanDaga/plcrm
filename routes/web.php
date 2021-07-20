@@ -22,6 +22,8 @@ use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\BinaryBranchController;
+use App\Http\Controllers\GrowthBonusController;
+use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserMembreshipController;
 use App\Http\Controllers\UserRequestController;
 use Illuminate\Support\Facades\Auth;
@@ -80,19 +82,38 @@ Route::group(['middleware' => ['auth']], function () {
         Route::apiResource('accountType', AccountTypeController::class);
     });
 
+    //account types Routes
+    Route::group(['prefix' => '/starting-bonus'], function () {
+        //view
+        Route::get('/', [StartingBonusController::class, 'retornarVista'])->name('starting-bonus');
+        //api
+        Route::apiResource('startingBonus', StartingBonusController::class)->except(['update']);
+    });
+
+    //account types Routes
+    Route::group(['prefix' => '/growth-bonus'], function () {
+        //view
+        Route::get('/', [GrowthBonusController::class, 'retornarVista'])->name('growth-bonus');
+        //api
+        Route::apiResource('growthBonus', GrowthBonusController::class)->except(['update']);
+    });
+
     // User Request
     Route::group(['prefix' => 'config/user-request'], function () {
         Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
     });
-
+  
     Route::group(['prefix' => 'config'], function () {
         Route::get('/bank', [BankController::class, 'index'])->name('bank');
         Route::get('/payment-method', [PaymentMethodController::class, 'index'])->name('payment-method');
         Route::get('/advertisements', [AdvertisementsController::class, 'index'])->name('advertisements');
     });
-
-    Route::group(['prefix' => 'user-request'], function () {
+    
+    // User Request    
+    Route::group(['prefix' => 'config/user-request'], function () {
+        Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
         Route::get('/get-user-by-id/{id}', [UserRequestController::class, 'getUserById']);
+        Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
