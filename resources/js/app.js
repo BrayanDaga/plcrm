@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Vue from 'vue';
 
 require('./bootstrap');
 
@@ -36,6 +37,9 @@ Vue.component(
   'user-membreship-register',
   require('./components/user-membreship/Register.vue').default
 );
+
+Vue.component('user-funds', require('./components/reports/UserFunds.vue').default);
+
 
 const app = new Vue({
   el: '#app',

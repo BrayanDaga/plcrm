@@ -36,6 +36,17 @@
             ]
         },
         {
+            "navheader": "Reports",
+            "slug": ""
+        },
+        {
+            "url": "wallet",
+            "name": "User Funds",
+            "icon": "circle",
+            "slug": "wallet"
+        },
+
+        {
             "navheader": "Config",
             "slug": ""
         },
