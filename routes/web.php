@@ -26,7 +26,9 @@ use App\Http\Controllers\GrowthBonusController;
 use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserMembreshipController;
 use App\Http\Controllers\UserRequestController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Auth;
+use Whoops\Run;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+
+        
 Auth::routes(['verify' => true]);
 Route::post('login', [LoginController::class, 'login'])->name('login');
 
@@ -149,6 +153,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
         Route::get('/get-user-by-id/{id}', [UserRequestController::class, 'getUserById']);
         Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
+    });
+
+    //Ruta Billetera - Fondos de Usuario
+    Route::group(['prefix' => '/wallet'], function () {
+        Route::get('/', [WalletController::class,'retornarVista'])->name('wallet'); 
+        Route::apiResource('wallets', WalletController::class)->only('index');
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

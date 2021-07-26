@@ -199,5 +199,8 @@ return [
     "Payments" => "Payments",
     "User Request" => "User Request",
     "Starting Bonus" => "Starting Bonus",
-    "Growth Bonus" => "Growth Bonus"
+    "Growth Bonus" => "Growth Bonus",
+    "Reports" => "Reports",
+    "Wallet" => "Wallet",
+    "User Funds" => "User Funds",
 ];
