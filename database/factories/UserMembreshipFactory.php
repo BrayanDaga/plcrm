@@ -40,7 +40,7 @@ class UserMembreshipFactory extends Factory
             'phone' => '999999999',
             'date_birth' => '1990-05-01',
             'email' => 'admin@promolider.test',
-            'id_referrer_sponsor' => 0,
+            'id_referrer_sponsor' => 1,
             'id_country' => rand(1, 50),
             'id_document_type' => rand(1, 4),
             'nro_document' => '1111111111',

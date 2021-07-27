@@ -4,12 +4,13 @@
 namespace App\Models;
 
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Wallet;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class UserMembreship extends Authenticatable
 {
@@ -61,6 +62,11 @@ class UserMembreship extends Authenticatable
     public function documentType(): BelongsTo
     {
         return $this->belongsTo(DocumentType::class, 'id_document_type');
+    }
+
+    public function wallet(): HasOne
+    {
+        return $this->hasOne(Wallet::class,'id_user_membreship');
     }
 
     public function classifiedJoin()

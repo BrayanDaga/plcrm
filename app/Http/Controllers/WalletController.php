@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\WalletResource;
+use App\Models\UserMembreship;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,8 @@ class WalletController extends Controller
      */
     public function index()
     {
-        $wallets = Wallet::all();
+        $users = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->pluck('id');
+        $wallets = Wallet::whereIn('id_user_membreship',$users)->get();
         $wallets =  WalletResource::collection($wallets);
         return $wallets;
     }
