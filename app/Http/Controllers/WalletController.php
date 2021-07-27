@@ -16,8 +16,7 @@ class WalletController extends Controller
      */
     public function index()
     {
-        $users = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->pluck('id');
-        $wallets = Wallet::whereIn('id_user_membreship',$users)->get();
+        $wallets = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->with('wallet')->get()->pluck('wallet');
         $wallets =  WalletResource::collection($wallets);
         return $wallets;
     }
