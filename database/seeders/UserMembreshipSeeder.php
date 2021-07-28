@@ -79,5 +79,13 @@ class UserMembreshipSeeder extends Seeder
             'id_account_type' => rand(1, 4),
             'request' => 1
         ]);
+
+        \App\Models\UserMembreship::factory([
+            'user' => 'user-brayan',
+            'name' => 'Brayan',
+            'last_name' => 'Vilchez Daga',
+            'email' => 'brayan@gmail.com',
+            'id_referrer_sponsor' => 1,
+        ])->create();
     }
 }
