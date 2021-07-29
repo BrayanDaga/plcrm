@@ -157,8 +157,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Ruta Billetera - Fondos de Usuario
     Route::group(['prefix' => '/wallet'], function () {
-        Route::get('/', [WalletController::class,'retornarVista'])->name('wallet'); 
-        Route::apiResource('wallets', WalletController::class)->only('index');
+        // Route::get('/', [WalletController::class,'retornarVista'])->name('wallet'); 
+        Route::apiResource('/', WalletController::class)->only('index');
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
