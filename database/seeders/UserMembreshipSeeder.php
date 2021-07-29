@@ -79,5 +79,20 @@ class UserMembreshipSeeder extends Seeder
             'id_account_type' => rand(1, 4),
             'request' => 1
         ]);
+
+        \App\Models\UserMembreship::factory(['user' => 'user-brayan1',
+            'name' => 'Brayan',
+            'last_name' => 'Vilchez Daga',
+            'email' => 'bra1yan@gmail.com',
+            'id_referrer_sponsor' => 1,
+        ])->create();
+
+
+        //crear 15 usuarios con sus respectivas billeteras referidas al usuario 1
+        // \App\Models\UserMembreship::factory([
+        //     'id_referrer_sponsor' => 1,
+        // ])->has(\App\Models\Wallet::factory())->count(15)->create();
+
     }
 }
+
