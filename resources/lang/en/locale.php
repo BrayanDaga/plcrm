@@ -203,4 +203,7 @@ return [
     "Reports" => "Reports",
     "Wallet" => "Wallet",
     "User Funds" => "User Funds",
+    "Starting Bonus List" => "Starting Bonus List",
+    "Starting Bonus List" => "Starting Bonus List",
+    "Growth Bonus List" => "Growth Bonus List",
 ];

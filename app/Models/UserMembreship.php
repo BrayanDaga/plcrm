@@ -33,6 +33,10 @@ class UserMembreship extends Authenticatable
         'id_account_type'
     ];
 
+    public function fullName()
+    {
+        return $this->name . ' ' . $this->last_name;
+    }
 
     public function country(): BelongsTo
     {

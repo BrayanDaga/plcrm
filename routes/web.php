@@ -27,6 +27,7 @@ use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserMembreshipController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\ClassifiedController;
 use Illuminate\Support\Facades\Auth;
 use Whoops\Run;
 
@@ -155,11 +156,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });
 
-    //Ruta Billetera - Fondos de Usuario
-    Route::group(['prefix' => '/wallet'], function () {
-        Route::get('/', [WalletController::class,'retornarVista'])->name('wallet'); 
-        Route::apiResource('wallets', WalletController::class)->only('index');
+    
+    Route::group(['prefix' => '/reports'], function () {
+        Route::get('/growthBonus', [ClassifiedController::class,'growthBonus'])->name('report-growthBonus');
+        Route::get('/startingBonus', [ClassifiedController::class,'startingBonus'])->name('report-startingBonus');;
+        Route::get('/wallets', [WalletController::class,'index'])->name('report-wallets');;
     });
+
+    
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -346,3 +350,6 @@ Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('ma
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
+
+
+Route::view('myview', 'myview');
