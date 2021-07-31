@@ -2,29 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Classified extends Model
 {
+    use HasFactory;
     protected $table = 'classified';
     protected $primaryKey = 'id';
-    protected $fillabel = [
-        'id',
-        'id_user_membreship',
-        'id_user_sponsor',
-        'binary_sponsor',
-        'position',
-        'classification',
-        'status',
-        'authorized',
-        'status_position_left',
-        'status_position_right'
-    ];
+    protected $guarded = [];
 
-
-    public function userMembreshipJoin()
+    public function userMembreship(): BelongsTo
     {
-        return $this->hasOne('App\Models\UserMembreship', 'id', 'id_user_membreship');
+        return $this->belongsTo(UserMembreship::class, 'id_user_membreship');
     }
+
+    public function userMembreshipSponsor(): BelongsTo
+    {
+        return $this->belongsTo(UserMembreship::class, 'id_user_sponsor');
+    }
+
 }
