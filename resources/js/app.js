@@ -38,9 +38,6 @@ Vue.component(
   require('./components/user-membreship/Register.vue').default
 );
 
-Vue.component('user-funds', require('./components/reports/UserFunds.vue').default);
-
-
 const app = new Vue({
   el: '#app',
 });
