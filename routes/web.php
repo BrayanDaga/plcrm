@@ -155,11 +155,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });
 
-    //Ruta Billetera - Fondos de Usuario
-    Route::group(['prefix' => '/wallet'], function () {
-        // Route::get('/', [WalletController::class,'retornarVista'])->name('wallet'); 
-        Route::apiResource('/', WalletController::class)->only('index');
+    
+    Route::group(['prefix' => '/reports'], function () {
+        Route::get('/wallets', [WalletController::class,'index'])->name('report-wallets');;
     });
+
+    
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
