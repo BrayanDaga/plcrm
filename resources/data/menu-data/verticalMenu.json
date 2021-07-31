@@ -40,12 +40,23 @@
             "slug": ""
         },
         {
-            "url": "wallet",
+            "url": "reports/wallets",
             "name": "User Funds",
             "icon": "circle",
-            "slug": "wallet"
+            "slug": "report-wallets"
         },
-
+        {
+            "url": "reports/startingBonus",
+            "name": "Starting Bonus List",
+            "icon": "circle",
+            "slug": "report-startingBonus"
+        }, 
+        {
+            "url": "reports/growthBonus",
+            "name": "Growth Bonus List",
+            "icon": "circle",
+            "slug": "report-growthBonus"
+        },
         {
             "navheader": "Config",
             "slug": ""
