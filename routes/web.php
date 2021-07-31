@@ -27,6 +27,7 @@ use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserMembreshipController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\ClassifiedController;
 use Illuminate\Support\Facades\Auth;
 use Whoops\Run;
 
@@ -157,6 +158,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     
     Route::group(['prefix' => '/reports'], function () {
+        Route::get('/growthBonus', [ClassifiedController::class,'growthBonus'])->name('report-growthBonus');
+        Route::get('/startingBonus', [ClassifiedController::class,'startingBonus'])->name('report-startingBonus');;
         Route::get('/wallets', [WalletController::class,'index'])->name('report-wallets');;
     });
 
