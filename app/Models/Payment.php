@@ -20,4 +20,15 @@ class Payment extends Model
     {
         return $this->belongsTo(UserMembreship::class, 'id_user_membreship');
     }
+
+    public function scopeUnauthorized($query)
+    {
+        return $query->where('authorized', 0);
+    }
+
+    public function scopeAuthorized($query)
+    {
+        return $query->where('authorized', 1);
+    }
+
 }

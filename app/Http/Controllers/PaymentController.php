@@ -19,4 +19,11 @@ class PaymentController extends Controller
         $payments = Payment::query()->with(['paymentMethod','userMembreship'])->get();
         return PaymentResource::collection($payments);
     }
+
+    public function listPendingPayments()
+    {
+        $payments = Payment::unauthorized()->with(['paymentMethod','userMembreship'])->get();
+        return view('content.requests.payments',compact('payments'));
+        
+    }
 }

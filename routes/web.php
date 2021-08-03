@@ -163,7 +163,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/wallets', [WalletController::class,'index'])->name('report-wallets');;
     });
 
-    
+
+    Route::group(['prefix' => '/requests'], function () {
+        Route::get('/pendingPayments ', [PaymentController::class,'listPendingPayments'])->name('request-pendingPayments');
+       
+    });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -350,6 +354,3 @@ Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('ma
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
-
-
-Route::view('myview', 'myview');

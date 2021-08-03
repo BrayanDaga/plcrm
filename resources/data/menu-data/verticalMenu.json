@@ -36,6 +36,16 @@
             ]
         },
         {
+            "navheader": "Requests",
+            "slug": ""
+        },
+        {
+            "url": "requests/pendingPayments",
+            "name": "Pending Payments",
+            "icon": "circle",
+            "slug": "request-pendingPayments"
+        },
+        {
             "navheader": "Reports",
             "slug": ""
         },
