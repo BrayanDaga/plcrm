@@ -33,7 +33,7 @@ class UserMembreship extends Authenticatable
         'id_account_type'
     ];
 
-    protected $appends = ['fullNameAttribute'];
+    protected $appends = ['fullName'];
 
     public function getfullNameAttribute()
     {
