@@ -10,6 +10,7 @@ class Payment extends Model
 {
     use HasFactory;
     protected $table = 'payments';
+    protected $guarded = [];
 
     public function paymentMethod(): BelongsTo
     {
@@ -31,4 +32,8 @@ class Payment extends Model
         return $query->where('authorized', 1);
     }
 
+    public function scopePaymentAuthSponsor($query)
+    {
+        return $query->where('id_user_sponsor', auth()->user()->id );
+    }
 }

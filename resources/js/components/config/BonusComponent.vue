@@ -156,7 +156,7 @@ const formBonus = {
 
 
 export default {
-  name: 'StartingBonus',
+  name: 'Bonus',
 
     props: {
     title: {

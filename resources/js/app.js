@@ -37,6 +37,10 @@ Vue.component(
   'user-membreship-register',
   require('./components/user-membreship/Register.vue').default
 );
+Vue.component(
+  'payment-request',
+  require('./components/PaymentRequest.vue').default
+);
 
 const app = new Vue({
   el: '#app',

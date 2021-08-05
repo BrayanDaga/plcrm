@@ -84,7 +84,7 @@ class UserMembreshipSeeder extends Seeder
             'user' => 'user-brayan1',
             'name' => 'Brayan',
             'last_name' => 'Vilchez Daga',
-            'email' => 'bra1yan@gmail.com',
+            'email' => 'brayan@gmail.com',
             'id_referrer_sponsor' => 1,
         ])->create();
 

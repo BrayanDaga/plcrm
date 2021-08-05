@@ -165,7 +165,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::group(['prefix' => '/requests'], function () {
-        Route::get('/pendingPayments ', [PaymentController::class,'listPendingPayments'])->name('request-pendingPayments');
+        Route::get('/pendingPayments ', [PaymentController::class,'pendingPayments'])->name('request-pendingPayments');
+        Route::get('/listpendingPayments ', [PaymentController::class,'listPendingPayments']);
        
     });
 
