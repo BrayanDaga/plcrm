@@ -20,7 +20,7 @@
                 <x-slot name="tbodyRows">
                     @foreach ($qualifieds as $qualified )
                     <tr>
-                        <td>{{ $qualified->userMembreship->fullName() }}</td>
+                        <td>{{ $qualified->userMembreship->fullName }}</td>
                         <td> <span class="text-primary font-weight-bold">$ {{ $qualified->growth_bonus }}</span></td>
                         <td>{{ $qualified->created_at }}</td>
                     </tr>

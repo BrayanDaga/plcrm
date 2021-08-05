@@ -33,7 +33,9 @@ class UserMembreship extends Authenticatable
         'id_account_type'
     ];
 
-    public function fullName()
+    protected $appends = ['fullNameAttribute'];
+
+    public function getfullNameAttribute()
     {
         return $this->name . ' ' . $this->last_name;
     }

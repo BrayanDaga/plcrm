@@ -19,7 +19,7 @@
                 <x-slot name="tbodyRows">
                     @foreach ($wallets as $wallet )
                     <tr>
-                        <td>{{ $wallet->userMembreship->fullName() }}</td>
+                        <td>{{ $wallet->userMembreship->fullName }}</td>
                         <td> <span class="text-primary font-weight-bold">$ {{ $wallet->amount }}</span></td>
                     </tr>
                     @endforeach

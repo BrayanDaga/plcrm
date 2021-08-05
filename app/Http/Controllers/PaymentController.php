@@ -23,7 +23,11 @@ class PaymentController extends Controller
     public function listPendingPayments()
     {
         $payments = Payment::unauthorized()->with(['paymentMethod','userMembreship'])->get();
-        return view('content.requests.payments',compact('payments'));
-        
+        return PaymentResource::collection($payments);
+    }
+
+    public function pendingPayments()
+    {
+        return view('content.requests.payments',compact('payments'));  
     }
 }
