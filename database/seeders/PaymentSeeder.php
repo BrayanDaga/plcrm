@@ -16,11 +16,11 @@ class PaymentSeeder extends Seeder
      */
     public function run()
     {
-        //Crear 35 payments con relacionado con 1 a 3 productos (pivote)
+        //Crear 35 payments con relacionado con 3 productos (pivote) con cantidad 4
         Payment::factory()->times(35)
         ->hasAttached(
-            Product::factory()->count(mt_rand(1,3)),
-            ['quantity' => mt_rand(1,4)]
+            Product::factory()->count(3),
+            ['quantity' => 4]
         )
         ->create();    
     }

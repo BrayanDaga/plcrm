@@ -108,10 +108,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{{ paymentSelect.id }}</td>
-              <td>{{ paymentSelect.id }}</td>
-              <td>{{ paymentSelect.amount }}</td>
+          <tr v-for="product in paymentSelect.products" :key="product.id">
+              <td>{{ product.name }}</td>
+              <td>{{ product.pivot.quantity }}</td>
+              <td>{{ product.price }}</td>
             </tr>
           </tbody>
         </table>
