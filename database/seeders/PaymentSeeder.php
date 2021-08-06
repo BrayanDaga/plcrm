@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Payment;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,21 +16,12 @@ class PaymentSeeder extends Seeder
      */
     public function run()
     {
-        for ($index = 0; $index < 30; $index++){
-            $amount = rand(1500, 6868);
-            $operations = rand(1500, 6868);
-            $paymentMethod = rand(1, 3);
-            $id = rand(1, 4);
-            DB::table('payments')->insert([
-                'id_user_membreship' => $id,
-                'id_user_sponsor' => $id,
-                'description' => 'description',
-                'amount' => $amount,
-                'operation_number' => (string)$operations,
-                'id_payment_method' => $paymentMethod,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
+        //Crear 35 payments con relacionado con 1 a 3 productos (pivote)
+        Payment::factory()->times(35)
+        ->hasAttached(
+            Product::factory()->count(mt_rand(1,3)),
+            ['quantity' => mt_rand(1,4)]
+        )
+        ->create();    
     }
 }

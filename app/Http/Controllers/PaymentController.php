@@ -22,13 +22,13 @@ class PaymentController extends Controller
 
     public function listPendingPayments()
     {
-        $payments = Payment::unauthorized()->paymentAuthSponsor()->with(['paymentMethod','userMembreship'])->get();
+        $payments = Payment::standby()->paymentAuthSponsor()->with(['paymentMethod','userMembreship'])->get();
         return PaymentResource::collection($payments);
     }
    public function authorizePayment($id)
     {
         $payment = Payment::findOrFail($id);
-        $payment->authorized = true;
+        $payment->authorized = 'passed';
         $payment->save();
     }
 

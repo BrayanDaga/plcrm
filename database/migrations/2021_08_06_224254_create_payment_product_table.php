@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnAuthorizedToPaymentsTable extends Migration
+class CreatePaymentProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddColumnAuthorizedToPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->enum('authorized', ["standby","passed","rejected"])->default('standby');
-
+        Schema::create('payment_product', function (Blueprint $table) {
+            $table->foreignId('product_id')->constrained('product');
+            $table->foreignId('payment_id')->constrained('payments');
+            $table->unsignedInteger('quantity');
         });
     }
 
@@ -26,8 +27,6 @@ class AddColumnAuthorizedToPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->dropColumn('authorized');
-        });
+        Schema::dropIfExists('payment_product');
     }
 }

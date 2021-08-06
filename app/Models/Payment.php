@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Payment extends Model
 {
@@ -22,18 +23,28 @@ class Payment extends Model
         return $this->belongsTo(UserMembreship::class, 'id_user_membreship');
     }
 
-    public function scopeUnauthorized($query)
+    /**
+     * The products that belong to the Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function products(): BelongsToMany
     {
-        return $query->where('authorized', 0);
+        return $this->belongsToMany(Product::class)->withPivot('quantity');;
     }
 
-    public function scopeAuthorized($query)
+    public function scopeStandby($query)
     {
-        return $query->where('authorized', 1);
+        return $query->where('authorized', 'standby');
+    }
+
+    public function scopePassed($query)
+    {
+        return $query->where('authorized', 'passed');
     }
 
     public function scopePaymentAuthSponsor($query)
     {
-        return $query->where('id_user_sponsor', auth()->user()->id );
+        return $query->where('id_user_sponsor', auth()->user()->id);
     }
 }
