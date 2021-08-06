@@ -41,7 +41,7 @@
         },
         {
             "url": "requests/pendingPayments",
-            "name": "Pending Payments",
+            "name": "Pending Purchases",
             "icon": "circle",
             "slug": "request-pendingPayments"
         },

@@ -206,4 +206,5 @@ return [
     "Starting Bonus List" => "Starting Bonus List",
     "Starting Bonus List" => "Starting Bonus List",
     "Growth Bonus List" => "Growth Bonus List",
+    "Pending Purchases" => "Pending Purchases",
 ];
