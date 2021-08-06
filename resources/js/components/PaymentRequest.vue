@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="table-responsive">
+    <div class="table-responsive" v-if="!initialLoading">
       <table id="datatable" class="table table-hover table-striped table-bordered">
         <thead>
           <tr>
@@ -34,8 +34,8 @@
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="30"
+                  height="30"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -50,11 +50,16 @@
                   ></path>
                 </svg>
               </a>
-              <a href="#" title="Authorize" class="mr-1">
+              <a
+                href="#"
+                title="Authorize"
+                class="mr-1"
+                @click="openModal(payment, 'viewauthorize')"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="30"
+                  height="30"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -69,8 +74,8 @@
               <a href="#" title="Disavow" class="mr-1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
+                  width="30"
+                  height="30"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -89,6 +94,8 @@
         </tbody>
       </table>
     </div>
+    <custom-spinner v-else></custom-spinner>
+
     <custom-modal v-bind:id="'viewPurchase'">
       <template #title>Purchased Products</template>
       <div class="table-responsive">
@@ -112,7 +119,7 @@
     </custom-modal>
     <custom-modal v-bind:id="'viewUser'">
       <template #title>User</template>
-      <div class="table-responsive"  v-if="paymentSelect.hasOwnProperty('user_membreship')">
+      <div class="table-responsive" v-if="paymentSelect.hasOwnProperty('user_membreship')">
         <table class="table table-striped">
           <tbody>
             <tr>
@@ -130,10 +137,26 @@
             <tr>
               <th align="left">Phone</th>
               <th align="right">{{ paymentSelect.user_membreship.phone }}</th>
-            </tr>            
+            </tr>
           </tbody>
         </table>
       </div>
+    </custom-modal>
+    <custom-modal v-bind:id="'viewauthorize'">
+      <template #title>Authorize payment? </template>
+      <p>Do you want to authorize the payment?</p>
+      <template #footer>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" @click="authorizePayment(paymentSelect)">
+          <span
+            class="spinner-border spinner-border-sm text-danger"
+            role="status"
+            aria-hidden="true"
+            v-if="loading"
+          ></span>
+          <span class="ml-25 align-middle"> Accept </span>
+        </button>
+      </template>
     </custom-modal>
   </div>
 </template>
@@ -141,15 +164,19 @@
 <script>
 import api from '../api/api';
 import ModalComponent from './ModalComponent.vue';
+import CustomSpinner from '../common/custom-spinner/CustomSpinner';
 
 export default {
   name: 'PaymentRequest',
   components: {
     'custom-modal': ModalComponent,
+    CustomSpinner,
   },
   data: () => ({
     payments: [],
     paymentSelect: {},
+    initialLoading: true,
+    loading: false,
   }),
   mounted() {
     this.listPayments();
@@ -164,13 +191,23 @@ export default {
       });
     },
     listPayments() {
-      this.loading = true;
+      this.initialLoading = true;
       api.get(`/requests/listpendingPayments`).then((response) => {
-        this.loading = false;
+        this.initialLoading = false;
         this.payments = response.data;
+        $('#datatable').DataTable().destroy();
         this.loadDataTable();
       });
     },
+    authorizePayment(payment) {
+      this.loading = true;
+      api.put(`/requests/authorizePayment/${payment.id}`).then((response) => {
+        this.loading = false;
+        $('#viewauthorize').modal('hide');
+        this.listPayments();
+      });
+    },
+
     openModal(payment, idSelect) {
       this.paymentSelect = payment;
       $(`#${idSelect}`).modal('show');

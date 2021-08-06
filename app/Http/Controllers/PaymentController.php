@@ -25,6 +25,12 @@ class PaymentController extends Controller
         $payments = Payment::unauthorized()->paymentAuthSponsor()->with(['paymentMethod','userMembreship'])->get();
         return PaymentResource::collection($payments);
     }
+   public function authorizePayment($id)
+    {
+        $payment = Payment::findOrFail($id);
+        $payment->authorized = true;
+        $payment->save();
+    }
 
     public function pendingPayments()
     {

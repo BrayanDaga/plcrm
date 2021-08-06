@@ -19,7 +19,7 @@
               <slot><p>The body Component</p></slot>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
+            <slot name="footer">  <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>   </slot>
           </div>
         </div>
       </div>
