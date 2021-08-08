@@ -97,32 +97,10 @@
     <custom-spinner v-else></custom-spinner>
 
     <payment-request-modal-product :products="paymentSelect.products" v-if="paymentSelect.hasOwnProperty('products')">
-    </payment-request-modal-product>
-    <custom-modal v-bind:id="'viewUser'">
-      <template #title>User</template>
-      <div class="table-responsive" v-if="paymentSelect.hasOwnProperty('user_membreship')">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <th align="left">Name</th>
-              <th align="right">{{ paymentSelect.user_membreship.name }}</th>
-            </tr>
-            <tr>
-              <th align="left">Last Name</th>
-              <th align="right">{{ paymentSelect.user_membreship.name }}</th>
-            </tr>
-            <tr>
-              <th align="left">Email</th>
-              <th align="right">{{ paymentSelect.user_membreship.email }}</th>
-            </tr>
-            <tr>
-              <th align="left">Phone</th>
-              <th align="right">{{ paymentSelect.user_membreship.phone }}</th>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </custom-modal>
+    </payment-request-modal-product>   
+   <payment-request-modal-user :user="paymentSelect.user_membreship" v-if="paymentSelect.hasOwnProperty('user_membreship')">
+    </payment-request-modal-user>
+
     <custom-modal v-bind:id="'viewauthorize'" color="warning">
       <template #title>Authorize payment? </template>
       <p>Do you want to authorize the payment?</p>
@@ -147,12 +125,14 @@ import api from '../api/api';
 import ModalComponent from './ModalComponent.vue';
 import CustomSpinner from '../common/custom-spinner/CustomSpinner';
 import PaymentRequestModalProduct from './PaymentRequestModalProduct.vue';
+import PaymentRequestModalUser from './PaymentRequestModalUser.vue';
 
 export default {
   name: 'PaymentRequest',
   components: {
     'custom-modal': ModalComponent,CustomSpinner,
-    'payment-request-modal-product' : PaymentRequestModalProduct
+    'payment-request-modal-product' : PaymentRequestModalProduct,
+    'payment-request-modal-user' : PaymentRequestModalUser,
   },
   data: () => ({
     payments: [],
