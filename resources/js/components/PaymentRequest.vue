@@ -96,7 +96,7 @@
     </div>
     <custom-spinner v-else></custom-spinner>
 
-    <custom-modal v-bind:id="'viewPurchase'">
+    <payment-request-product :products="paymentSelect.products" v-if="paymentSelect.hasOwnProperty('products')">
       <template #title>Purchased Products</template>
       <div class="table-responsive">
         <table class="table">
@@ -105,6 +105,7 @@
               <th>Product</th>
               <th>Quantity</th>
               <th>Price</th>
+              <th>Monto</th>
             </tr>
           </thead>
           <tbody>
@@ -112,11 +113,16 @@
               <td>{{ product.name }}</td>
               <td>{{ product.pivot.quantity }}</td>
               <td>{{ product.price }}</td>
+              <td>{{ product.pivot.quantity * product.price }}</td>
             </tr>
           </tbody>
+          </tfoot>
+            <th colspan="2" class="text-center">asdsa</th>
+            <th>asdas</th>
+          </tfoot>
         </table>
       </div>
-    </custom-modal>
+    </payment-request-product>
     <custom-modal v-bind:id="'viewUser'">
       <template #title>User</template>
       <div class="table-responsive" v-if="paymentSelect.hasOwnProperty('user_membreship')">
@@ -142,12 +148,12 @@
         </table>
       </div>
     </custom-modal>
-    <custom-modal v-bind:id="'viewauthorize'">
+    <custom-modal v-bind:id="'viewauthorize'" color="warning">
       <template #title>Authorize payment? </template>
       <p>Do you want to authorize the payment?</p>
       <template #footer>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" @click="authorizePayment(paymentSelect)">
+        <button type="button" class="btn btn-warning" @click="authorizePayment(paymentSelect)">
           <span
             class="spinner-border spinner-border-sm text-danger"
             role="status"
@@ -165,12 +171,13 @@
 import api from '../api/api';
 import ModalComponent from './ModalComponent.vue';
 import CustomSpinner from '../common/custom-spinner/CustomSpinner';
+import PaymentRequestProduct from './PaymentRequestProduct.vue';
 
 export default {
   name: 'PaymentRequest',
   components: {
-    'custom-modal': ModalComponent,
-    CustomSpinner,
+    'custom-modal': ModalComponent,CustomSpinner,
+    'payment-request-product' : PaymentRequestProduct
   },
   data: () => ({
     payments: [],

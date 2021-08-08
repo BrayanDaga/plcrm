@@ -4,8 +4,9 @@
       tabindex="-1"
       role="dialog"
       aria-hidden="true"
+      :class="colorModal"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog modal-dialog-centered" :class="sizeModal" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" >
@@ -29,6 +30,38 @@
 <script>
 export default {
     name: 'ModalComponent',
+    props:{
+      color:{
+        type:String,
+        default:'primary'
+      },
+      size:{
+        type:String,
+        default:'default'
+      }
+    },
+    computed: {
+      colorModal(){
+          const COLORS_MODAL = {
+            primary: 'modal-primary',
+            success: 'modal-success',
+            info: 'modal-info',
+            warning: 'modal-warning',
+            danger: 'modal-danger'
+        };
+        return COLORS_MODAL[this.color]; 
+      },
+      sizeModal(){
+          const SIZES_MODAL = {
+            small: 'modal-sm',
+            medium: 'modal-md',
+            large: 'modal-lg',
+            default: 'modal-default',
+            extralarge: 'modal-xl',
+        };
+        return SIZES_MODAL[this.size];
+      }
+    },
 }
 </script>
 

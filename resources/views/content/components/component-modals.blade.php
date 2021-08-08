@@ -40,7 +40,7 @@
                       <h5>Check First Paragraph</h5>
                       <p>
                         Oat cake ice cream candy chocolate cake chocolate cake cotton candy dragée apple pie. Brownie
-                        carrot cake candy canes bonbon fruitcake topping halvah. Cake sweet roll cake cheesecake cookie
+                        carrot fan candy canes bonbon fruitcake topping halvah. Cake sweet roll cake cheesecake cookie
                         chocolate cake liquorice.
                       </p>
                     </div>
