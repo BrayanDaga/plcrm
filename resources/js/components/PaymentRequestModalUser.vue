@@ -28,6 +28,20 @@
                 <span v-else-if="user.status == '1'" class="label text-danger">Inactive</span>
               </th>
             </tr>
+            <tr>
+              <th align="left">Range</th>
+              <th align="right">
+                {{ user.position }}
+              </th>
+            </tr>
+            <tr>
+              <td>
+                V.L <span class="font-weight-bold">{{ user.LeftPoints }}</span>
+              </td>
+              <td>
+                V.L <span class="font-weight-bold">{{ user.RightPoints }}</span>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
