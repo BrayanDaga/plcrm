@@ -132,7 +132,9 @@ export default {
   data: () => ({
     payments: [],
     paymentSelect: {
-      user_membreship: {},
+      user_membreship: {
+        account_type:{}
+      },
       products: [],
     },
     initialLoading: true,

@@ -11,7 +11,7 @@
             </tr>
             <tr>
               <th align="left">Last Name</th>
-              <th align="right">{{ user.name }}</th>
+              <th align="right">{{ user.last_name }}</th>
             </tr>
             <tr>
               <th align="left">Email</th>
@@ -20,6 +20,14 @@
             <tr>
               <th align="left">Phone</th>
               <th align="right">{{ user.phone }}</th>
+            </tr>
+            <tr>
+              <th align="left">Birthday date</th>
+              <th align="right">{{ user.date_birth | formatDate  }}</th>
+            </tr>
+             <tr>
+              <th align="left">Category</th>
+              <th align="right">{{ user.account_type.account  }}</th>
             </tr>
             <tr>
               <th align="left">Status</th>

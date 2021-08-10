@@ -24,7 +24,7 @@ class PaymentController extends Controller
 
     public function listPendingPayments()
     {
-        $payments = Payment::standby()->paymentAuthSponsor()->with(['paymentMethod','userMembreship','products'])->get();
+        $payments = Payment::standby()->paymentAuthSponsor()->with(['paymentMethod','userMembreship.accountType','products'])->get();
         return PaymentResource::collection($payments);
     }
    public function authorizePayment($id)
