@@ -70,7 +70,7 @@ class PaymentMethodController extends Controller
 
     public function List(Request $request): AnonymousResourceCollection
     {
-        $paymentMethods = PaymentMethod::paginate(10);
+        $paymentMethods = PaymentMethod::all();
         return PaymentMethodResource::collection($paymentMethods);
     }
 

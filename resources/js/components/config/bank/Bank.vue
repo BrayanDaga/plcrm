@@ -62,7 +62,71 @@
         </div>
       </div>
     </section>
-    <div class="row" id="basic-table">
+
+    <section>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Bank</h4>
+            </div>
+            <div class="card-body">
+              <div class="demo-spacing-0">This table lists all the Promolider banks</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section v-if="!initialLoading">
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table
+              id="data-table-list-payments"
+              class="table table-hover-animation table-striped table-bordered"
+            >
+              <thead>
+                <tr>
+                  <th>Nro</th>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(tempBank, index) in banks" :key="tempBank.id">
+                  <td>{{ index + 1 }}</td>
+                  <td style="width: 220px">{{ tempBank.name }}</td>
+                  <td>
+                    <div class="row">
+                      <div class="demo-inline-spacing">
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary round"
+                          @click.prevent="editBank(tempBank.id)"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-danger round"
+                          @click="deleteBank(tempBank.id)"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+    <custom-spinner v-else></custom-spinner>
+
+<!--    <div class="row" id="basic-table">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
@@ -101,13 +165,13 @@
                       >
                         Delete
                       </button>
-                      <!--                      <button
+                      &lt;!&ndash;                      <button
                         type="button"
                         class="btn btn-outline-info round"
                         @click="detailBank(tempBank.id)"
                       >
                         Detail
-                      </button>-->
+                      </button>&ndash;&gt;
                     </div>
                   </td>
                 </tr>
@@ -119,7 +183,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -156,6 +220,11 @@ export default {
     };
   },
   methods: {
+    loadDataTable() {
+      this.$nextTick(function () {
+        $('#data-table-list-payments').DataTable();
+      });
+    },
     resetForm() {
       this.form = { ...formBank };
       this.editMode = false;
@@ -165,11 +234,7 @@ export default {
       apiBank.list().then((response) => {
         this.initialLoading = false;
         this.banks = response.data;
-
-        /*Agregando al date pagination*/
-        this.pagination = response.meta;
-        delete this.pagination.links;
-        delete this.pagination.path;
+        this.loadDataTable();
       });
     },
     editBank(id) {

@@ -10,7 +10,9 @@ class UserInterfaceController extends Controller
   public function typography()
   {
     $breadcrumbs = [
-      ['link' => "/", 'name' => "Home"], ['link' => "javascript:void(0)", 'name' => "UI"], ['name' => "Typography"]
+      ['link' => "/", 'name' => "Home"],
+        ['link' => "javascript:void(0)", 'name' => "UI"],
+        ['name' => "Typography"]
     ];
     return view('/content/ui-pages/ui-typography', [
       'breadcrumbs' => $breadcrumbs

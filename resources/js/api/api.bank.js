@@ -1,11 +1,11 @@
 import api from './api';
 
 const apiBank = {
-    list: () => api.get('/api/bank'),
-    add: bank => api.post('/api/bank', bank),
-    detail: id => api.get(`/api/bank/${id}`),
-    edit: (bank) => api.put(`/api/bank/${bank.id}`),
-    delete: id => api.delete(`/api/bank/${id}`)
+  list: () => api.get('/config/bank/list'),
+  add: (bank) => api.post('/config/bank/add', bank),
+  detail: (id) => api.get(`/config/bank/detail/${id}`),
+  edit: (bank) => api.put(`/config/bank/edit/${bank.id}`),
+  delete: (id) => api.delete(`/config/bank/delete/${id}`),
 };
 
 export default apiBank;

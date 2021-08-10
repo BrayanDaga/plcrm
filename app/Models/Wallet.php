@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Payment extends Model
+class Wallet extends Model
 {
     use HasFactory;
-    protected $table = 'payments';
+    protected $table = 'wallet';
 
-    public function paymentMethod(): BelongsTo
-    {
-        return $this->belongsTo(PaymentMethod::class, 'id_payment_method');
-    }
-
+    /**
+     * Get the user that owns the Wallet
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function userMembreship(): BelongsTo
     {
         return $this->belongsTo(UserMembreship::class, 'id_user_membreship');
