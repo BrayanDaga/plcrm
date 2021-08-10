@@ -9,6 +9,7 @@ Vue.filter('formatDate', function (value) {
   if (value) {
     return moment(String(value)).locale('es').format('D MMM YYYY');
   }
+
 });
 
 Vue.component('payment', require('./components/payment/Payment').default);
@@ -31,6 +32,7 @@ Vue.component('account-type', require('./components/config/account-type/AccountT
 Vue.component('user-request', require('./components/config/UserRequest.vue').default);
 /** End components Config */
 
+// User membreship
 Vue.component('binary-branch', require('./components/binary-branch/BinaryBranch').default);
 Vue.component('user-membreship-list', require('./components/user-membreship/List').default);
 Vue.component(
@@ -42,5 +44,5 @@ Vue.component('user-funds', require('./components/reports/UserFunds.vue').defaul
 
 
 const app = new Vue({
-  el: '#app',
+    el: '#app'
 });
