@@ -3,26 +3,26 @@
        <custom-modal v-bind:id="'viewPurchase'" size="large">
       <template #title>Purchased Products </template>
       <div class="table-responsive">
-        <table class="table">
+        <table class="table table-hover table-striped table-bordered">
           <thead>
             <tr>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Subtotal</th>
+              <th class="col" >Product</th>
+              <th class="col">Quantity</th>
+              <th class="col">Price</th>
+              <th class="col">Subtotal</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="product in products" v-bind:key="product.id">
                 <td>{{ product.name }}</td>
                 <td>{{ product.pivot.quantity }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.pivot.quantity * product.price }}</td>
+                <td class="text-right">{{ product.price.toFixed(2) }}</td>
+                <td class="text-right">{{ (product.pivot.quantity * product.price ).toFixed(2) }}</td>
             </tr> 
             </tbody>
           <tfoot>
-            <th colspan="3" class="text-center">Total</th>
-            <td class="font-weight-bold">{{ total }}</td>
+            <th colspan="2" class="text-center">Total</th>
+            <td colspan="2" class="font-weight-bold text-right">{{ total }}</td>
           </tfoot>
         </table>
       </div>
@@ -42,9 +42,9 @@ export default {
         total() {
             let total = 0;
             this.products.forEach(product => {
-                total += product.pivot.quantity * product.price;
+                total +=  product.pivot.quantity  *  product.price;
             });
-            return total;
+            return  total.toFixed(2) ;
         }
     },
 }

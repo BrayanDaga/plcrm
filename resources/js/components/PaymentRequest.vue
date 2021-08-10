@@ -71,7 +71,7 @@
                   <polygon id="Path-126" points="0 11 2 9 7 14 18 3 20 5 7 18"></polygon>
                 </svg>
               </a>
-              <a href="#" title="Disavow" class="mr-1">
+              <a href="#" title="Disavow" class="mr-1" @click="openModal(payment, 'viewDisavow')">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="30"
@@ -96,24 +96,36 @@
     </div>
     <custom-spinner v-else></custom-spinner>
 
-    <payment-request-modal-product :products="paymentSelect.products" v-if="paymentSelect.hasOwnProperty('products')">
-    </payment-request-modal-product>   
-   <payment-request-modal-user :user="paymentSelect.user_membreship" v-if="paymentSelect.hasOwnProperty('user_membreship')">
-    </payment-request-modal-user>
+    <payment-request-modal-product :products="paymentSelect.products">
+    </payment-request-modal-product>
+    <payment-request-modal-user :user="paymentSelect.user_membreship"> </payment-request-modal-user>
 
-    <custom-modal v-bind:id="'viewauthorize'" color="warning">
-      <template #title>Authorize payment? </template>
-      <p>Do you want to authorize the payment?</p>
+    <payment-request-modal-authorize
+      :payment="paymentSelect"
+      @payment-authorized="paymentAuthorized"
+    ></payment-request-modal-authorize>
+
+    <custom-modal v-bind:id="'viewDisavow'" color="danger" size="large">
+      <template #title>Deny purchase of {{ paymentSelect.user_membreship.fullName }} </template>
+      <p>Do you want to disavow the payment?</p>
+      <div class="form-group">
+        <textarea
+          name="mensaje"
+          required=""
+          class="form-control"
+          placeholder="Enter why the purchase is declined"
+        ></textarea>
+      </div>
       <template #footer>
         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-warning" @click="authorizePayment(paymentSelect)">
+        <button type="button" class="btn btn-danger"  @click="denyPayment(paymentSelect)">
           <span
             class="spinner-border spinner-border-sm text-danger"
             role="status"
             aria-hidden="true"
             v-if="loading"
           ></span>
-          <span class="ml-25 align-middle"> Accept </span>
+          <span class="ml-25 align-middle"> Deny purchase </span>
         </button>
       </template>
     </custom-modal>
@@ -126,17 +138,24 @@ import ModalComponent from './ModalComponent.vue';
 import CustomSpinner from '../common/custom-spinner/CustomSpinner';
 import PaymentRequestModalProduct from './PaymentRequestModalProduct.vue';
 import PaymentRequestModalUser from './PaymentRequestModalUser.vue';
+import PaymentRequestModalAuthorize from './PaymentRequestModalAuthorize.vue';
 
 export default {
   name: 'PaymentRequest',
   components: {
-    'custom-modal': ModalComponent,CustomSpinner,
-    'payment-request-modal-product' : PaymentRequestModalProduct,
-    'payment-request-modal-user' : PaymentRequestModalUser,
+    'custom-modal': ModalComponent,
+    CustomSpinner,
+    'payment-request-modal-product': PaymentRequestModalProduct,
+    'payment-request-modal-user': PaymentRequestModalUser,
+    'payment-request-modal-authorize': PaymentRequestModalAuthorize,
   },
   data: () => ({
     payments: [],
-    paymentSelect: {},
+    justification: '',
+    paymentSelect: {
+      user_membreship: {},
+      products: [],
+    },
     initialLoading: true,
     loading: false,
   }),
@@ -161,18 +180,33 @@ export default {
         this.loadDataTable();
       });
     },
-    authorizePayment(payment) {
+    paymentAuthorized() {
+      this.showToast('success', `Payment was successfully authorized`);
+      this.listPayments();
+    },
+    denyPayment(payment) {
+      // put 
       this.loading = true;
-      api.put(`/requests/authorizePayment/${payment.id}`).then((response) => {
+      //api put or patch  
+      api.put(`/requests/denypayment/${payment.id}`, {
+        justification: this.justification,
+      }).then((response) => {
         this.loading = false;
-        $('#viewauthorize').modal('hide');
+        $('#viewDisavow').modal('hide');
+        this.showToast('success', `Payment was successfully denied`);
         this.listPayments();
       });
     },
-
     openModal(payment, idSelect) {
       this.paymentSelect = payment;
       $(`#${idSelect}`).modal('show');
+    },
+    showToast(type, message) {
+      toastr[type](`${message}`, `${type}!`, {
+        positionClass: 'toast-top-center',
+        closeButton: true,
+        tapToDismiss: false,
+      });
     },
   },
 };
