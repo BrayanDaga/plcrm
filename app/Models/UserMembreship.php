@@ -3,7 +3,7 @@
 
 namespace App\Models;
 
-
+use App\Models\Traits\Pointable;
 use App\Models\Wallet;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class UserMembreship extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Pointable;
 
     protected $table = "user_membreships";
     protected $primaryKey = 'id';
@@ -33,7 +33,11 @@ class UserMembreship extends Authenticatable
         'id_account_type'
     ];
 
-    protected $appends = ['fullName'];
+    protected $appends = [
+        'fullName',
+        'LeftPoints',
+        'RightPoints',
+    ];
 
     public function getfullNameAttribute()
     {
@@ -79,4 +83,5 @@ class UserMembreship extends Authenticatable
     {
         return $this->belongsTo('App\Models\Classified');
     }
+   
 }
