@@ -24,7 +24,12 @@ class UserMembreshipController extends Controller
         $account_type = AccountType::select('id', 'account')->where('status', '1')->get();
         $country = Country::select('id', 'name')->get();
         $payment_methods = PaymentMethod::select('id', 'name')->get();
-        
+
+        $payment = Payment::all()->count();
+        $payment = $payment + 2;
+        // $purchase_operation_number = sprintf("%'.06d", $payment);
+        $purchase_operation_number = rand(600000,999999);;
+
         return view('content.user-membreship.register', [
             'document_type' => $document_type,
             'account_type' => $account_type,
@@ -32,6 +37,7 @@ class UserMembreshipController extends Controller
             'id_referrer_sponsor' => $sponsor->id,
             'sponsor_name' => $sponsor->name,
             'payment_methods' => $payment_methods,
+            'purchase_operation_number' => $purchase_operation_number
         ]);
     }
 
@@ -50,8 +56,7 @@ class UserMembreshipController extends Controller
         if ($request->order) {
             $pagingParams->setOrderBy($request->order);
         }
-        if ($request->search)
-        {
+        if ($request->search) {
             $pagingParams->setSearch($request->search);
         }
 
@@ -93,8 +98,8 @@ class UserMembreshipController extends Controller
         $table->id_account_type = $request->id_account_type;
         $table->nro_document = $request->nro_document;
         $table->request = 1;
-        
-        if ($table->save()):
+
+        if ($table->save()) :
             $id_user = $table->id; // Get ID of user
 
             // Registro del pago
@@ -107,7 +112,7 @@ class UserMembreshipController extends Controller
             $table->id_payment_method = $request->id_payment_method;
             // $table->id_bank = 1; // Default Values
 
-            if ($table->save()):
+            if ($table->save()) :
                 $json = ['status' => 200];
             endif;
 
@@ -119,5 +124,15 @@ class UserMembreshipController extends Controller
     {
         $data = UserMembreship::where('user', $user)->get();
         return response()->json($data, 200);
+    }
+
+    public function credentials($purchase_operation_number, $purchase_amount)
+    {
+        $acquirer_id = '144';
+        $id_commerce = '12721';
+        $purchase_password = 'NKKhyEfLeyWMThVgU=8989639657';
+        $purchase_currency_code = '604';
+        $purchase_verification = openssl_digest($acquirer_id . $id_commerce . $purchase_operation_number . $purchase_amount . $purchase_currency_code . $purchase_password, 'sha512');
+        return $purchase_verification;
     }
 }

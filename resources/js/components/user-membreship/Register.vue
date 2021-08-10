@@ -2,13 +2,25 @@
     <div>
         <div class="row">
             <div class="col-lg-6">
-                <form name="f1" id="f1" @submit.prevent="add" class="alignet-form-vpos2" method="post">
+                <form name="f1" id="f1" @submit.prevent="add" class="alignet-form-vpos2" method="POST">
                     <input type="hidden" v-model="form.id_referrer_sponsor">
-                    <input type="hidden" name="acquirerId" v-model="form.acquirerId">
-                    <input type="hidden" name="idCommerce" v-model="form.idCommerce">
-                    <input type="hidden" name="purchaseOperationNumber" v-model="form.purchaseOperationNumber">
-                    <input type="hidden" name="purchaseAmount" v-model="form.purchaseAmount">
-                    <input type="hidden" name="purchaseVerification" v-model="form.purchaseVerification">
+                    <input type="text" name="acquirerId" v-model="form.acquirerId">
+                    <input type="text" name="idCommerce" v-model="form.idCommerce">
+                    <input type="text" name="purchaseOperationNumber" v-model="form.purchaseOperationNumber">
+                    <input type="text" name="purchaseAmount" v-model="form.purchaseAmount">
+                    <input type="text" name="purchaseCurrencyCode" v-model="form.purchaseCurrencyCode">
+                    <input type="hidden" name="language" value="SP">
+                    <input type="text" name="shippingFirstName" v-model="form.name">
+                    <input type="text" name="shippingLastName" v-model="form.last_name">
+                    <input type="text" name="shippingEmail" v-model="form.email">
+                    <input type="hidden" name="shippingAddress" value="av.pruebas">
+                    <input type="hidden" name="shippingZIP" value="No ZIP">
+                    <input type="hidden" name="shippingCity" value="Lima">
+                    <input type="hidden" name="shippingState" value="Lima">
+                    <input type="hidden" name="shippingCountry" value="PE">
+                    <input type="text" name="descriptionProducts" v-model="form.descriptionProducts">
+                    <input type="hidden" name="programmingLanguage" value="PHP">
+                    <input type="text" name="purchaseVerification" v-model="form.purchaseVerification">
                     <h4>User</h4>
                     <hr>
                     <div class="d-flex flex-wrap">
@@ -106,8 +118,8 @@
                             </select>
                         </div>
                     </div>
-                    <!-- <button type="submit" class="btn btn-success">Register</button> -->
-                <button type="button" id="open_modal_alignet_vpos2" class="btn btn-">Comprar</button>
+                    <button type="submit" class="btn btn-success">Register</button>
+                    <!-- <button type="button" id="open_modal_alignet_vpos2" class="btn btn-success">Comprar</button> -->
                 </form>
             </div>
         </div>
@@ -115,16 +127,19 @@
 </template>
 <script>
 export default {
-    props: ['documentType', 'accountType', 'country', 'idReferrerSponsor', 'sponsorName', 'paymentMethods'],
+    props: ['documentType', 'accountType', 'country', 'idReferrerSponsor', 'sponsorName', 'paymentMethods', 'purchaseOperationNumber'],
     data(){
         return {
             form: {
                 id_referrer_sponsor:'',
                 acquirerId: '144',
                 idCommerce: '12721',
-                purchaseOperationNumber: '000003',
-                purchaseAmount: '150',
-                purchaseVerification: '4565951EEE31B8C62A7AF0504693069481AEAA607AFEF7C85CD8E23E98C88AD13FB563251065498DD5303A1EB65DC5644B572B1D162CA7F0B6E6F809E6B79667',
+                purchaseOperationNumber: this.purchaseOperationNumber,
+                purchaseAmount: '',
+                purchaseCurrencyCode: '604',
+                purchasePassword: 'NKKhyEfLeyWMThVgU=8989639657',
+                descriptionProducts: '',
+                purchaseVerification: '',
                 user:'',
                 password:'',
                 repassword:'',
@@ -195,14 +210,18 @@ export default {
                 return false;
             }
             
-            console.log(this.form);
-            axios.post('/user-membreship/create', this.form)
+            AlignetVPOS2.openModal('https://integracion.alignetsac.com/','1');
+            // axios.post('/user-membreship/create', this.form)
+
         },
         changeTablePrice: function(e){
             const id = parseInt(e.target.value);
             this.tablePrice = id ? true : false;
             axios.get(`/api/account-type/get-data-id/${id}`)
-            .then (r => this.outputPriceAccountType(r.data))
+            .then (r => {
+                this.form.descriptionProducts = r.data.account
+                this.outputPriceAccountType(r.data)
+            });
         },
         outputPriceAccountType: function(d){
             /**
@@ -213,13 +232,22 @@ export default {
 
             const getIva = price * iva;
             const totalAmount = price + getIva;
-            const total = totalAmount;
-            this.purchaseAmount = total;
-            console.log(this.purchaseAmount);
+            let total = totalAmount;
             
             this.form.price = price.toFixed(2);
             this.form.iva = getIva.toFixed(2);
             this.form.total_cost_membreship = total.toFixed(2);
+            
+            total = total.toString();
+            total = total.split('.')[0]+total.split('.')[1];
+            total = parseInt(total);
+            this.form.purchaseAmount = total;
+            this.shaPurchaseVerification(this.form.purchaseAmount)
+        },
+        shaPurchaseVerification(valueAmount = 0) {
+            //get crypto sh512 from axios
+            axios.get(`/user-membreship/sha/${this.form.purchaseOperationNumber}/${valueAmount}`)
+            .then(r => this.form.purchaseVerification = r.data)
         }
     },
     mounted() {
@@ -238,10 +266,12 @@ export default {
         /**
          * integracion de payment alignet vpos2
          */
-        const openModalAlignetVpos2 = document.getElementById('open_modal_alignet_vpos2');
-        openModalAlignetVpos2.addEventListener('click', () => {
-            AlignetVPOS2.openModal('https://integracion.alignetsac.com/','[2]');
-        });
+        // const openModalAlignetVpos2 = document.getElementById('open_modal_alignet_vpos2');
+        // openModalAlignetVpos2.addEventListener('click', () => {
+        //     AlignetVPOS2.openModal('https://integracion.alignetsac.com/','1');
+        // });
+
+        this.shaPurchaseVerification()
     }
 }
 
