@@ -165,10 +165,12 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::group(['prefix' => '/requests'], function () {
+        /*Pending Paymentes */
         Route::get('/pendingPayments ', [PaymentController::class,'pendingPayments'])->name('request-pendingPayments');
         Route::get('/listpendingPayments ', [PaymentController::class,'listPendingPayments']);
         Route::match(['put', 'patch'], '/authorizePayment/{payment}', [PaymentController::class,'authorizePayment']);
-       
+        Route::match(['put', 'patch'],'denypayment/{payment}', [PaymentController::class,'denyPayment']);
+        /***/
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\CancelledPayment;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -24,6 +26,15 @@ class Payment extends Model
     }
 
     /**
+     * Get the CancelledPayment associated with the Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function cancelledpayment(): HasOne
+    {
+        return $this->hasOne(CancelledPayment::class);
+    }
+    /**
      * The products that belong to the Payment
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -32,6 +43,7 @@ class Payment extends Model
     {
         return $this->belongsToMany(Product::class)->withPivot('quantity');;
     }
+
 
     public function scopeStandby($query)
     {
