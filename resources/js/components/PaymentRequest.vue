@@ -105,59 +105,37 @@
       @payment-authorized="paymentAuthorized"
     ></payment-request-modal-authorize>
 
-    <custom-modal v-bind:id="'viewDisavow'" color="danger" size="large">
-      <template #title>Deny purchase of {{ paymentSelect.user_membreship.fullName }} </template>
-      <p>Do you want to disavow the payment?</p>
-      <div class="form-group">
-        <textarea
-          name="mensaje"
-          required=""
-          class="form-control"
-          placeholder="Enter why the purchase is declined"
-        ></textarea>
-      </div>
-      <template #footer>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger"  @click="denyPayment(paymentSelect)">
-          <span
-            class="spinner-border spinner-border-sm text-danger"
-            role="status"
-            aria-hidden="true"
-            v-if="loading"
-          ></span>
-          <span class="ml-25 align-middle"> Deny purchase </span>
-        </button>
-      </template>
-    </custom-modal>
+    <payment-request-modal-disavow
+      :payment="paymentSelect"
+      @payment-denied="paymentDenied"
+    ></payment-request-modal-disavow>
   </div>
 </template>
 
 <script>
 import api from '../api/api';
-import ModalComponent from './ModalComponent.vue';
 import CustomSpinner from '../common/custom-spinner/CustomSpinner';
 import PaymentRequestModalProduct from './PaymentRequestModalProduct.vue';
 import PaymentRequestModalUser from './PaymentRequestModalUser.vue';
 import PaymentRequestModalAuthorize from './PaymentRequestModalAuthorize.vue';
+import PaymentRequestModalDisavow from './PaymentRequestModalDisavow.vue';
 
 export default {
   name: 'PaymentRequest',
   components: {
-    'custom-modal': ModalComponent,
     CustomSpinner,
     'payment-request-modal-product': PaymentRequestModalProduct,
     'payment-request-modal-user': PaymentRequestModalUser,
     'payment-request-modal-authorize': PaymentRequestModalAuthorize,
+    'payment-request-modal-disavow': PaymentRequestModalDisavow,
   },
   data: () => ({
     payments: [],
-    justification: '',
     paymentSelect: {
       user_membreship: {},
       products: [],
     },
     initialLoading: true,
-    loading: false,
   }),
   mounted() {
     this.listPayments();
@@ -184,18 +162,9 @@ export default {
       this.showToast('success', `Payment was successfully authorized`);
       this.listPayments();
     },
-    denyPayment(payment) {
-      // put 
-      this.loading = true;
-      //api put or patch  
-      api.put(`/requests/denypayment/${payment.id}`, {
-        justification: this.justification,
-      }).then((response) => {
-        this.loading = false;
-        $('#viewDisavow').modal('hide');
-        this.showToast('success', `Payment was successfully denied`);
-        this.listPayments();
-      });
+    paymentDenied() {
+      this.showToast('success', `Payment was successfully denied`);
+      this.listPayments();
     },
     openModal(payment, idSelect) {
       this.paymentSelect = payment;
