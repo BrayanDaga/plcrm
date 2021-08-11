@@ -48,7 +48,7 @@
                 V.L <span class="font-weight-bold">{{ user.LeftPoints }}</span>
               </td>
               <td>
-                V.L <span class="font-weight-bold">{{ user.RightPoints }}</span>
+                V.R <span class="font-weight-bold">{{ user.RightPoints }}</span>
               </td>
             </tr>
           </tbody>
