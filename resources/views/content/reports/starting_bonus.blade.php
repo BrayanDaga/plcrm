@@ -22,7 +22,7 @@
                     <tr>
                         <td>{{ $qualified->userMembreship->fullName }}</td>
                         <td> <span class="text-primary font-weight-bold">$ {{ $qualified->starting_bonus }}</span></td>
-                        <td>{{ $qualified->created_at }}</td>
+                        <td>{{ $qualified->created_at->toFormattedDateString() }}</td>
                     </tr>
                     @endforeach
                 </x-slot>
