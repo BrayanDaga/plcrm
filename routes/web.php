@@ -166,12 +166,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => '/requests'], function () {
         /*Pending Paymentes */
-        Route::get('/pendingPayments ', [PaymentController::class,'pendingPayments'])->name('request-pendingPayments');
+        // Route::get('/pendingPayments ', [PaymentController::class,'pendingPayments'])->name('request-pendingPayments');
         // Route::get('/listpendingPayments ', [PaymentController::class,'listUserPendingPayments']);
-        Route::get('/listPayments ', [PaymentController::class,'listUserPayments']);
-        Route::match(['put', 'patch'], '/authorizePayment/{payment}', [PaymentController::class,'authorizePayment']);
-        Route::match(['put', 'patch'],'denypayment/{payment}', [PaymentController::class,'denyPayment']);
-        /***/
+        Route::get('/listUserPayments ', [PaymentController::class,'listUserPayments']);
+        Route::get('/listMyPayments ', [PaymentController::class,'listMyPayments'])->name('request-listMyPayments');
+        // Route::match(['put', 'patch'], '/authorizePayment/{payment}', [PaymentController::class,'authorizePayment']);
+        // Route::match(['put', 'patch'],'denypayment/{payment}', [PaymentController::class,'denyPayment']);
+        // /***/
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

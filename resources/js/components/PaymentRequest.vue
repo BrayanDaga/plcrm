@@ -159,7 +159,7 @@ export default {
     },
     listPayments() {
       this.initialLoading = true;
-      api.get(`/requests/listPayments`).then((response) => {
+      api.get(`/requests/listUserPayments`).then((response) => {
         this.initialLoading = false;
         this.payments = response.data;
         $('#datatable').DataTable().destroy();

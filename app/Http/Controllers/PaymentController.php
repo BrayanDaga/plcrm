@@ -54,7 +54,7 @@ class PaymentController extends Controller
     //     }, 5);
     // }
 
-    public function pendingPayments()
+    public function listMyPayments()
     {
         return view('content.requests.payments');
     }

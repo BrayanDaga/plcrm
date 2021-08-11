@@ -40,10 +40,10 @@
             "slug": ""
         },
         {
-            "url": "requests/pendingPayments",
-            "name": "Pending Purchases",
+            "url": "requests/listMyPayments",
+            "name": "List Payments",
             "icon": "circle",
-            "slug": "request-pendingPayments"
+            "slug": "request-listMyPayments"
         },
         {
             "navheader": "Reports",
