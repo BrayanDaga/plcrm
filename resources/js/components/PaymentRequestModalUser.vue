@@ -36,12 +36,13 @@
                 <span v-else-if="user.status == '1'" class="label text-danger">Inactive</span>
               </th>
             </tr>
-            <tr>
+            <!-- <tr>
               <th align="left">Range</th>
               <th align="right">
                 {{ user.position }}
+                En la pagina todos tienen posicion Medalla de Oro
               </th>
-            </tr>
+            </tr>  -->
             <tr>
               <td>
                 V.L <span class="font-weight-bold">{{ user.LeftPoints }}</span>
