@@ -8,7 +8,7 @@
             <th>Client</th>
             <th>Description</th>
             <th>Amount</th>
-            <th>Payment Method</th>
+            <!-- <th>Payment Method</th> -->
             <th>Operation Number</th>
             <th>Actions</th>
           </tr>
@@ -23,7 +23,7 @@
             </td>
             <td>{{ payment.description }}</td>
             <td>{{ payment.amount }}</td>
-            <td>{{ payment.payment_method.name }}</td>
+            <!-- <td>{{ payment.payment_method.name }}</td> -->
             <td>{{ payment.operation_number }}</td>
             <td>
               <a
@@ -50,7 +50,8 @@
                   ></path>
                 </svg>
               </a>
-              <a
+              <!--  Autorizar payment-->
+              <!-- <a
                 href="#"
                 title="Authorize"
                 class="mr-1"
@@ -70,8 +71,9 @@
                 >
                   <polygon id="Path-126" points="0 11 2 9 7 14 18 3 20 5 7 18"></polygon>
                 </svg>
-              </a>
-              <a href="#" title="Disavow" class="mr-1" @click="openModal(payment, 'viewDisavow')">
+              </a> -->
+              <!-- Denegar payment -->
+              <!-- <a href="#" title="Disavow" class="mr-1" @click="openModal(payment, 'viewDisavow')">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="30"
@@ -88,7 +90,7 @@
                     d="M0 10a10 10 0 1 1 20 0 10 10 0 0 1-20 0zm16.32-4.9L5.09 16.31A8 8 0 0 0 16.32 5.09zm-1.41-1.42A8 8 0 0 0 3.68 14.91L14.91 3.68z"
                   ></path>
                 </svg>
-              </a>
+              </a> -->
             </td>
           </tr>
         </tbody>
@@ -100,15 +102,19 @@
     </payment-request-modal-product>
     <payment-request-modal-user :user="paymentSelect.user_membreship"> </payment-request-modal-user>
 
-    <payment-request-modal-authorize
+    <!-- Modal para autorizar Payment -->
+    <!-- <payment-request-modal-authorize
       :payment="paymentSelect"
       @payment-authorized="paymentAuthorized"
-    ></payment-request-modal-authorize>
+    ></payment-request-modal-authorize> -->
+    <!-- End Modal -->
 
-    <payment-request-modal-disavow
+    <!-- Modal para denegar Payment -->
+    <!-- <payment-request-modal-disavow
       :payment="paymentSelect"
       @payment-denied="paymentDenied"
-    ></payment-request-modal-disavow>
+    ></payment-request-modal-disavow> -->
+    <!-- End Modal -->
   </div>
 </template>
 
@@ -117,8 +123,8 @@ import api from '../api/api';
 import CustomSpinner from '../common/custom-spinner/CustomSpinner';
 import PaymentRequestModalProduct from './PaymentRequestModalProduct.vue';
 import PaymentRequestModalUser from './PaymentRequestModalUser.vue';
-import PaymentRequestModalAuthorize from './PaymentRequestModalAuthorize.vue';
-import PaymentRequestModalDisavow from './PaymentRequestModalDisavow.vue';
+// import PaymentRequestModalAuthorize from './PaymentRequestModalAuthorize.vue';
+// import PaymentRequestModalDisavow from './PaymentRequestModalDisavow.vue';
 
 export default {
   name: 'PaymentRequest',
@@ -126,8 +132,8 @@ export default {
     CustomSpinner,
     'payment-request-modal-product': PaymentRequestModalProduct,
     'payment-request-modal-user': PaymentRequestModalUser,
-    'payment-request-modal-authorize': PaymentRequestModalAuthorize,
-    'payment-request-modal-disavow': PaymentRequestModalDisavow,
+    // 'payment-request-modal-authorize': PaymentRequestModalAuthorize,
+    // 'payment-request-modal-disavow': PaymentRequestModalDisavow,
   },
   data: () => ({
     payments: [],
@@ -153,32 +159,32 @@ export default {
     },
     listPayments() {
       this.initialLoading = true;
-      api.get(`/requests/listpendingPayments`).then((response) => {
+      api.get(`/requests/listPayments`).then((response) => {
         this.initialLoading = false;
         this.payments = response.data;
         $('#datatable').DataTable().destroy();
         this.loadDataTable();
       });
     },
-    paymentAuthorized() {
-      this.showToast('success', `Payment was successfully authorized`);
-      this.listPayments();
-    },
-    paymentDenied() {
-      this.showToast('success', `Payment was successfully denied`);
-      this.listPayments();
-    },
+    // paymentAuthorized() {
+    //   this.showToast('success', `Payment was successfully authorized`);
+    //   this.listPayments();
+    // },
+    // paymentDenied() {
+    //   this.showToast('success', `Payment was successfully denied`);
+    //   this.listPayments();
+    // },
     openModal(payment, idSelect) {
       this.paymentSelect = payment;
       $(`#${idSelect}`).modal('show');
     },
-    showToast(type, message) {
-      toastr[type](`${message}`, `${type}!`, {
-        positionClass: 'toast-top-center',
-        closeButton: true,
-        tapToDismiss: false,
-      });
-    },
+    // showToast(type, message) {
+    //   toastr[type](`${message}`, `${type}!`, {
+    //     positionClass: 'toast-top-center',
+    //     closeButton: true,
+    //     tapToDismiss: false,
+    //   });
+    // },
   },
 };
 </script>

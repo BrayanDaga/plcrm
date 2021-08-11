@@ -44,17 +44,23 @@ class Payment extends Model
         return $this->belongsToMany(Product::class)->withPivot('quantity');;
     }
 
+    /**Scopes  Para comprotbar stado del pago autorizado standby o passed  o rejected **/
+    // public function scopeStandby($query)
+    // {
+    //     return $query->where('authorized', 'standby');
+    // }
 
-    public function scopeStandby($query)
-    {
-        return $query->where('authorized', 'standby');
-    }
+    // public function scopePassed($query)
+    // {
+    //     return $query->where('authorized', 'passed');
+    // } 
+    // public function scopeRejected($query)
+    // {
+    //     return $query->where('authorized', 'rejected');
+    // }
+    /**end Socpes autorizado */
 
-    public function scopePassed($query)
-    {
-        return $query->where('authorized', 'passed');
-    }
-
+    // Scope  payments where Auth::user
     public function scopePaymentAuthSponsor($query)
     {
         return $query->where('id_user_sponsor', auth()->user()->id);

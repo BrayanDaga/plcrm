@@ -18,34 +18,44 @@ class PaymentController extends Controller
 
     public function List(Request $request): AnonymousResourceCollection
     {
-        $payments = Payment::query()->with(['paymentMethod','userMembreship'])->get();
+        $payments = Payment::query()->with(['paymentMethod', 'userMembreship'])->get();
         return PaymentResource::collection($payments);
     }
 
-    public function listPendingPayments()
+    // list pending Payments of User 
+    // public function listUserPendingPayments()
+    // {
+    //     $payments = Payment::standby()->paymentAuthSponsor()->with(['paymentMethod', 'userMembreship.accountType', 'products'])->get();
+    //     return PaymentResource::collection($payments);
+    // }
+
+    public function listUserPayments()
     {
-        $payments = Payment::standby()->paymentAuthSponsor()->with(['paymentMethod','userMembreship.accountType','products'])->get();
+        $payments = Payment::paymentAuthSponsor()->with(['userMembreship.accountType', 'products'])->get();
         return PaymentResource::collection($payments);
     }
-   public function authorizePayment($id)
-    {
-        $payment = Payment::findOrFail($id);
-        $payment->authorized = 'passed';
-        $payment->save();
-    }
 
-    public function denyPayment($id, Request $request)
-    {
-        $payment = Payment::findOrFail($id);
-        return DB::transaction(function () use($payment, $request) {            
-            $payment->authorized = 'rejected';
-            $payment->save();
-            $payment->cancelledpayment()->create(['justification' => $request->justification]);
-        }, 5);
-    }
+    // Autorize Payment
+    // public function authorizePayment($id)
+    // {
+    //     $payment = Payment::findOrFail($id);
+    //     $payment->authorized = 'passed';
+    //     $payment->save();
+    // }
+
+    // Deny Payment
+    // public function denyPayment($id, Request $request)
+    // {
+    //     $payment = Payment::findOrFail($id);
+    //     return DB::transaction(function () use ($payment, $request) {
+    //         $payment->authorized = 'rejected';
+    //         $payment->save();
+    //         $payment->cancelledpayment()->create(['justification' => $request->justification]);
+    //     }, 5);
+    // }
 
     public function pendingPayments()
     {
-        return view('content.requests.payments');  
+        return view('content.requests.payments');
     }
 }

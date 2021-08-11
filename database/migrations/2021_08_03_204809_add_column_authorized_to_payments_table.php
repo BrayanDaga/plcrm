@@ -14,7 +14,8 @@ class AddColumnAuthorizedToPaymentsTable extends Migration
     public function up()
     {
         Schema::table('payments', function (Blueprint $table) {
-            $table->enum('authorized', ["standby","passed","rejected"])->default('standby');
+            // $table->enum('authorized', ["standby","passed","rejected"])->default('standby');
+            // Se quito el campo autorizado 
 
         });
     }
