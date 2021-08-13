@@ -4,23 +4,23 @@
             <div class="col-lg-6">
                 <form name="f1" id="f1" @submit.prevent="add" class="alignet-form-vpos2" method="POST">
                     <input type="hidden" v-model="form.id_referrer_sponsor">
-                    <input type="text" name="acquirerId" v-model="form.acquirerId">
-                    <input type="text" name="idCommerce" v-model="form.idCommerce">
-                    <input type="text" name="purchaseOperationNumber" v-model="form.purchaseOperationNumber">
-                    <input type="text" name="purchaseAmount" v-model="form.purchaseAmount">
-                    <input type="text" name="purchaseCurrencyCode" v-model="form.purchaseCurrencyCode">
+                    <input type="hidden" name="acquirerId" v-model="form.acquirerId">
+                    <input type="hidden" name="idCommerce" v-model="form.idCommerce">
+                    <input type="hidden" name="purchaseOperationNumber" v-model="form.purchaseOperationNumber">
+                    <input type="hidden" name="purchaseAmount" v-model="form.purchaseAmount">
+                    <input type="hidden" name="purchaseCurrencyCode" v-model="form.purchaseCurrencyCode">
                     <input type="hidden" name="language" value="SP">
-                    <input type="text" name="shippingFirstName" v-model="form.name">
-                    <input type="text" name="shippingLastName" v-model="form.last_name">
-                    <input type="text" name="shippingEmail" v-model="form.email">
+                    <input type="hidden" name="shippingFirstName" v-model="form.name">
+                    <input type="hidden" name="shippingLastName" v-model="form.last_name">
+                    <input type="hidden" name="shippingEmail" v-model="form.email">
                     <input type="hidden" name="shippingAddress" value="av.pruebas">
                     <input type="hidden" name="shippingZIP" value="No ZIP">
                     <input type="hidden" name="shippingCity" value="Lima">
                     <input type="hidden" name="shippingState" value="Lima">
                     <input type="hidden" name="shippingCountry" value="PE">
-                    <input type="text" name="descriptionProducts" v-model="form.descriptionProducts">
+                    <input type="hidden" name="descriptionProducts" v-model="form.descriptionProducts">
                     <input type="hidden" name="programmingLanguage" value="PHP">
-                    <input type="text" name="purchaseVerification" v-model="form.purchaseVerification">
+                    <input type="hidden" name="purchaseVerification" v-model="form.purchaseVerification">
                     <h4>User</h4>
                     <hr>
                     <div class="d-flex flex-wrap">
@@ -127,17 +127,17 @@
 </template>
 <script>
 export default {
-    props: ['documentType', 'accountType', 'country', 'idReferrerSponsor', 'sponsorName', 'paymentMethods', 'purchaseOperationNumber'],
+    props: ['documentType', 'accountType', 'country', 'idReferrerSponsor', 'sponsorName', 'paymentMethods', 'purchaseOperationNumber', 'acquirerId', 'idCommerce', 'purchaseCurrencyCode', 'purchasePassword'],
     data(){
         return {
             form: {
                 id_referrer_sponsor:'',
-                acquirerId: '144',
-                idCommerce: '12721',
+                acquirerId: this.acquirerId,
+                idCommerce: this.idCommerce,
                 purchaseOperationNumber: this.purchaseOperationNumber,
                 purchaseAmount: '',
-                purchaseCurrencyCode: '604',
-                purchasePassword: 'NKKhyEfLeyWMThVgU=8989639657',
+                purchaseCurrencyCode: this.purchaseCurrencyCode,
+                purchasePassword: this.purchasePassword,
                 descriptionProducts: '',
                 purchaseVerification: '',
                 user:'',

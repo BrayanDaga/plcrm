@@ -1,13 +1,12 @@
 @extends('layouts/contentLayoutMaster')
 @section('title', 'User Membreship - Register')
 @section('page-style')
-    <script src="https://integracion.alignetsac.com/VPOS2/js/modalcomercio.js"></script>
-    <script src="https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script> --}}
+<script src="https://integracion.alignetsac.com/VPOS2/js/modalcomercio.js"></script>
+<script src="https://integracion.alignetsac.com/WALLETWS/services/WalletCommerce?wsdl"></script>
 @endsection
 
 @section('content')
-    <user-membreship-register
+{{-- <user-membreship-register
         :document-type="{{ $document_type }}"
         :account-type="{{ $account_type }}"
         :country="{{ $country }}"
@@ -15,9 +14,147 @@
         :sponsor-name="'{{ $sponsor_name }}'"
         :payment-methods="{{ $payment_methods }}"
         :purchase-operation-number="'{{ $purchase_operation_number }}'"
-    ></user-membreship-register>
+        :acquirer-id="{{ env('ACQUIRER_ID') }}"
+        :id-commerce="{{ env('ID_COMMERCE') }}"
+        :purchase-currency-code="{{ env('PURCHASE_CURRENCY_CODE') }}"
+        :purchase-password="'{{ env('PURCHASE_PASSWORD') }}'"
+    ></user-membreship-register> --}}
+<div class="row">
+    <div class="col-lg-6">
+        <form name="f1" id="f1" action="/user-membreship/create" method="post"class="alignet-form-vpos2">
+            @csrf
+            <input type="hidden" name="id_referrer_sponsor" value="{{ $id_referrer_sponsor }}">
+            <input type="hidden" name="acquirerId" value="{{ env('ACQUIRER_ID') }}">
+            <input type="hidden" name="idCommerce" value="{{ env('ID_COMMERCE') }}">
+            <input type="hidden" name="purchaseOperationNumber" value="'{{ $purchase_operation_number }}'">
+            <input type="hidden" name="purchaseAmount">
+            <input type="hidden" name="purchaseCurrencyCode" value="{{ env('PURCHASE_CURRENCY_CODE') }}">
+            <input type="hidden" name="language" value="SP">
+            <input type="hidden" name="shippingFirstName">
+            <input type="hidden" name="shippingLastName">
+            <input type="hidden" name="shippingEmail">
+            <input type="hidden" name="shippingAddress" value="av.pruebas">
+            <input type="hidden" name="shippingZIP" value="No ZIP">
+            <input type="hidden" name="shippingCity" value="Lima">
+            <input type="hidden" name="shippingState" value="Lima">
+            <input type="hidden" name="shippingCountry" value="PE">
+            <input type="hidden" name="descriptionProducts">
+            <input type="hidden" name="programmingLanguage" value="PHP">
+            <input type="hidden" name="purchaseVerification" value="{{ $purchase_verification }}">
+            <h4>User</h4>
+            <hr>
+            <div class="d-flex flex-wrap">
+                <div class="form-group pr-1">
+                    <label for="user">User</label>
+                    {{-- <input type="text" id="user" class="form-control" name="user" onkeyup="validateUser"> --}}
+                    <input type="text" id="user" class="form-control" name="user">
+                </div>
+                <div class="form-group pr-1">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" name="password">
+                </div>
+                <div class="form-group pr-1">
+                    <label for="repassword">Re-Password</label>
+                    <input type="password" id="repassword" class="form-control" name="repassword">
+                </div>
+                <div class="form-group pr-1">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" name="email">
+                </div>
+            </div>
+            <h4>Personal Information</h4>
+            <hr>
+            <div class="d-flex flex-wrap">
+                <div class="form-group pr-1">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" name="name">
+                </div>
+                <div class="form-group pr-1">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" class="form-control" name="last_name">
+                </div>
+                <div class="form-group pr-1">
+                    <label for="phone">Phones</label>
+                    <input type="tel" id="phone" class="form-control" name="phone" maxlength="10">
+                </div>
+                <div class="form-group pr-1">
+                    <label for="date_birth">Date Birth</label>
+                    <input type="date" id="date_birth" class="form-control" name="date_birth">
+                </div>
+                <div class="form-group pr-1">
+                    <label for="id_document_type">Document Type</label>
+                    <select id="id_document_type" class="form-control" name="id_document_type">
+                        <option value="0">--------------------</option>
+                        @foreach ($document_type as $dt)
+                            <option value="{{ $dt->id }}">{{ $dt->document}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group pr-1">
+                    <label for="nro_document">Nro. Document</label>
+                    <input type="number" id="nro_document" class="form-control" name="nro_document" maxlength="12">
+                </div>
+                <div class="form-group pr-1">
+                    <label for="id_country">Country</label>
+                    <select id="id_country" class="form-control" name="id_country">
+                        <option value="0">--------------------</option>
+                        @foreach ($country as $c)
+                            <option value="{{ $c->id }}">{{ $c->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <h4>Direct Sponsor</h4>
+            <hr>
+            <div class="d-flex flex-wrap">
+                <div class="form-group">
+                    <label for="referrer_sponsor">Referrer/Sponsor</label>
+                    <input type="text" id="referrer_sponsor" class="form-control" name="referrer_sponsor" disabled>
+                </div>
+            </div>
+            <h4>Membreship Data</h4>
+            <hr>
+            <div class="d-flex flex-wrap">
+                <div class="form-group pr-1">
+                    <label for="id_account_type">Account Type</label>
+                    {{-- <select id="id_account_type" class="form-control" onchange="changeTablePrice($event)" name="id_account_type"> --}}
+                    <select id="id_account_type" class="form-control" name="id_account_type">
+                        <option value="0">--------------------</option>
+                        @foreach ($account_type as $ct)
+                            <option value="{{ $ct->id }}">{{ $ct->account}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group pr-1">
+                    <label for="price">Price</label>
+                    <input type="text" id="account_type-price" class="form-control" name="price" disabled>
+                </div>
+                <div class="form-group pr-1">
+                    <label for="iva">IVA</label>
+                    <input type="text" id="account_type-iva" class="form-control" name="iva" disabled>
+                </div>
+                <div class="form-group pr-1">
+                    <label for="total_cost_membreship">Total cost of Membreship</label>
+                    <input type="text" id="account_type-total_cost_membreship" class="form-control" name="total_cost_membreship" disabled>
+                </div>
+            </div>
+            <h4>Payment Methods</h4>
+            <div class="d-flex flex-wrap">
+                <div class="form-group pr-1">
+                    <label for="id_payment_method">Select Type of Payment</label>
+                    <select id="id_payment_method" class="form-control" name="id_payment_method">
+                        <option value="0">--------------------</option>
+                        @foreach ($payment_methods as $pm)
+                            <option value="{{ $pm->id }}">{{ $pm->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <button type="button" onclick="AlignetVPOS2.openModal('https://integracion.alignetsac.com/','1')" class="btn btn-success">Comprar</button>
+        </form>
+    </div>
+</div>
 @endsection
 @section('page-script')
-
-{{-- <script src="{{asset('js/api/user-membreship-register.js')}}"></script> --}}
+<script src="{{asset('js/api/user-membreship-register.js')}}"></script>
 @endsection

@@ -13,19 +13,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr v-for="row in allUserRequesting" v-bind:key="row.id">
-                    <td>{{ row.id }}</td>
-                    <td>{{ row.user }}</td>
-                    <td>{{ row.name }}</td>
-                    <td>{{ row.created_at | formatDate }}</td>
-                    <td>
-                        <span v-bind:class="[row.request == 1 ? 'badge badge-success' : [row.request == 2 ? 'badge badge-danger' : 'badge badge-warning']]" v-text="row.request == 1 ? 'Approved' : row.request == 2 ? 'Denied' : 'Pending'"></span>
-                    </td>
-                    <td>{{ row.account_type.account }}</td>
-                    <td>
-                        <button class="btn btn-info" @click="modalUser(row.id)">Request</button>
-                    </td>
-                </tr> -->
             </tbody>
         </table>
 
@@ -81,9 +68,7 @@ export default {
         }
     },
     mounted() {
-        $('#list-user-requests').DataTable({
-            ajax: this.allUserRequesting
-        });
+        this.loadDataTable();
     },
     methods: {
         modalUser(id) {
@@ -111,6 +96,49 @@ export default {
                     alert("Rejected request!")
                 }
             })
+        },
+        loadDataTable(){
+             $('#list-user-requests').DataTable({
+                destroy: true,
+                select: false,
+                data: this.allUserRequesting,
+                columns: [
+                    {data: 'id'},
+                    {data: 'user'},
+                    {data: 'name'},
+                    {data: 'created_at'},
+                    {data: 'account_type.account'},
+                    {
+                        orderable: false,
+                        render: (d, t, f, m) => this.statusRequest(f.request)
+                    },
+                    {
+                        orderable: false,
+                        render: (d, t, f, m) => this.btnModalDetails(m.row)
+                    }
+                ],
+                rowCallback: (r, d, i) => {
+                    setTimeout(() => {
+                        let rowUser = document.getElementById(`user-${i}`);
+                        rowUser.addEventListener('click', () => this.modalUser(d.id))
+                    }, 100)
+                }
+            });
+        },
+        statusRequest(s){
+            let r = '<span class="badge badge-danger">Error Data</span>';
+            if(s == 1){
+                r = `<span class="badge badge-warning">Pending</span>`;
+            }else if(s == 2){
+                r = `<span class="badge badge-success">Accepted</span>`;
+            }else if(s == 3){
+                r = `<span class="badge badge-danger">Rejected</span>`;
+            }
+            return r;
+        },
+        btnModalDetails(r){
+            const btn = `<button id="user-${r}" class="btn btn-info">Ver Detalles</button>`;
+            return btn;
         }
     }
 }
