@@ -31,7 +31,9 @@ class UserMembreshipController extends Controller
         $payment = Payment::all()->count();
         $payment = $payment + 2;
         // $purchase_operation_number = sprintf("%'.06d", $payment);
-        $purchase_operation_number = rand(600000,999999);;
+        $purchase_operation_number = rand(600000,999999);
+
+        $purchase_verification = $this->credentials($purchase_operation_number);
 
         return view('content.user-membreship.register', [
             'document_type' => $document_type,
@@ -40,7 +42,8 @@ class UserMembreshipController extends Controller
             'id_referrer_sponsor' => $sponsor->id,
             'sponsor_name' => $sponsor->name,
             'payment_methods' => $payment_methods,
-            'purchase_operation_number' => $purchase_operation_number
+            'purchase_operation_number' => $purchase_operation_number,
+            'purchase_verification' => $purchase_verification
         ]);
     }
 
@@ -103,12 +106,12 @@ class UserMembreshipController extends Controller
         return response()->json($data, 200);
     }
 
-    public function credentials($purchase_operation_number, $purchase_amount)
+    public function credentials($purchase_operation_number, $purchase_amount = 0)
     {
-        $acquirer_id = '144';
-        $id_commerce = '12721';
-        $purchase_password = 'NKKhyEfLeyWMThVgU=8989639657';
-        $purchase_currency_code = '604';
+        $acquirer_id = env('ACQUIRER_ID');
+        $id_commerce = env('ID_COMMERCE');
+        $purchase_password = env('PURCHASE_PASSWORD');
+        $purchase_currency_code = env('PURCHASE_CURRENCY_CODE');
         $purchase_verification = openssl_digest($acquirer_id . $id_commerce . $purchase_operation_number . $purchase_amount . $purchase_currency_code . $purchase_password, 'sha512');
         return $purchase_verification;
     }

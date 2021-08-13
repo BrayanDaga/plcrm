@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/base/plugins/forms/pickers/form-flat-pickr.css')}}">
 @endsection
 @section('content')
-    <user-request :all-user-requesting="{{ $all_user_requesting }}"></user-request>
+    <user-request :all-user-requesting="{{ json_encode($all_user_requesting) }}"></user-request>
 @endsection
 @section('vendor-script')
 {{-- vendor files --}}

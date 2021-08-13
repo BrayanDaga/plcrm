@@ -16,7 +16,7 @@ class UserRequestController extends Controller
         $all_user_requesting = UserMembreship::with('accountType')
             ->where('request', '<>', 0)
             ->get();
-
+        
         return view('content.config.user_request', [
             'all_user_requesting' => $all_user_requesting
         ]);
