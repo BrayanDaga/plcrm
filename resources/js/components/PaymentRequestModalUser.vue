@@ -32,8 +32,8 @@
             <tr>
               <th align="left">Status</th>
               <th align="right">
-                <span v-if="user.status == '0'" class="label text-success">Active</span>
-                <span v-else-if="user.status == '1'" class="label text-danger">Inactive</span>
+                <span v-if="user.active == true" class="label text-success">Active</span>
+                <span v-else-if="user.active == false" class="label text-danger">Inactive</span>
               </th>
             </tr>
             <!-- <tr>

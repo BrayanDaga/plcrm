@@ -35,17 +35,18 @@ class UserMembreshipFactory extends Factory
         return [
             'user' => 'admin',
             'password' => $password ?: $password = bcrypt('admin'),
-            'name' => 'Administrator',
-            'last_name' => 'Promolider',
+            'name' => $this->faker->name(),
+            'last_name' => $this->faker->lastName(),
             'phone' => '999999999',
             'date_birth' => '1990-05-01',
-            'email' => 'admin@promolider.test',
+            'email' => $this->faker->email(),
             'id_referrer_sponsor' => 0,
             'id_country' => rand(1, 50),
             'id_document_type' => rand(1, 4),
             'nro_document' => '1111111111',
             'id_account_type' => rand(1, 4),
-            'request' => 1
+            'request' => 1,
+            'expiration_date' => $this->faker->dateTimeBetween('now', '+30 days')
         ];
     }
 }

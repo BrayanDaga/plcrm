@@ -37,11 +37,26 @@ class UserMembreship extends Authenticatable
         'fullName',
         'LeftPoints',
         'RightPoints',
+        'active',
+    ];
+
+    protected $casts = [
+        'expiration_date' => 'datetime',
     ];
 
     public function getfullNameAttribute()
     {
         return $this->name . ' ' . $this->last_name;
+    }
+
+    public function getActiveAttribute()
+    {
+       return  $this->isActive();
+    }
+
+    public function ScopeisActive()
+    {
+        return $this->expiration_date > now() ? true : false; 
     }
 
     public function country(): BelongsTo
