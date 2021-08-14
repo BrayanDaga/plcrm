@@ -100,7 +100,7 @@
 
     <payment-request-modal-product :products="paymentSelect.products">
     </payment-request-modal-product>
-    <payment-request-modal-user :user="paymentSelect.user_membreship"> </payment-request-modal-user>
+    <modal-user :user="paymentSelect.user_membreship"> </modal-user>
 
     <!-- Modal para autorizar Payment -->
     <!-- <payment-request-modal-authorize
@@ -122,7 +122,7 @@
 import api from '../api/api';
 import CustomSpinner from '../common/custom-spinner/CustomSpinner';
 import PaymentRequestModalProduct from './PaymentRequestModalProduct.vue';
-import PaymentRequestModalUser from './PaymentRequestModalUser.vue';
+import ModalUser from './ModalUser.vue';
 // import PaymentRequestModalAuthorize from './PaymentRequestModalAuthorize.vue';
 // import PaymentRequestModalDisavow from './PaymentRequestModalDisavow.vue';
 
@@ -131,7 +131,7 @@ export default {
   components: {
     CustomSpinner,
     'payment-request-modal-product': PaymentRequestModalProduct,
-    'payment-request-modal-user': PaymentRequestModalUser,
+    'modal-user': ModalUser,
     // 'payment-request-modal-authorize': PaymentRequestModalAuthorize,
     // 'payment-request-modal-disavow': PaymentRequestModalDisavow,
   },
