@@ -1,8 +1,11 @@
 /**
  * Collection Name Payment
  */
-const descriptionProducts = document.getElementsByName('descriptionProducts')[0];
+const shippingFirstName = document.getElementsByName('shippingFirstName')[0];
+const shippingLastName = document.getElementsByName('shippingLastName')[0];
+const shippingEmail = document.getElementsByName('shippingEmail')[0];
 const purchaseAmount = document.getElementsByName('purchaseAmount')[0];
+const descriptionProducts = document.getElementsByName('descriptionProducts')[0];
 const purchaseOperationNumber = document.getElementsByName('purchaseOperationNumber')[0];
 const purchaseVerification = document.getElementsByName('purchaseVerification')[0];
 
@@ -10,7 +13,7 @@ const purchaseVerification = document.getElementsByName('purchaseVerification')[
 /**
  * Collection IDs
  */
-// const openModalAlignetVpos2 = document.getElementById('open_modal_alignet_vpos2');
+const openModalAlignetVpos2 = document.getElementById('open_modal_alignet_vpos2');
 const accountTypes = document.getElementById('id_account_type');
 const accountTypesPrice = document.getElementById('account_type-price');
 const accountTypesIva = document.getElementById('account_type-iva');
@@ -67,14 +70,15 @@ const shaPurchaseVerification = (valueAmount = 0) => {
 
 accountTypes.addEventListener('change', (event) => accountTypesChanged(event));
 
-const eventKeyInput = (e) => console.dir(e.target.value);
+const eventKeyInput = (e, elHidden) => setTimeout(() => elHidden.value = e.target.value, 100);
 
-let eventInputForm = (el) => el.addEventListener('keydown', (event) => eventKeyInput(event), false);
+let eventInputForm = (el, elHidden) => el.addEventListener('keydown', (event) => eventKeyInput(event, elHidden), false);
 
-eventInputForm(email);
-eventInputForm(firstName);
-eventInputForm(lastName);
+eventInputForm(email, shippingEmail);
+eventInputForm(firstName, shippingFirstName);
+eventInputForm(lastName, shippingLastName);
 
-// openModalAlignetVpos2.addEventListener('click', () => {
-//     AlignetVPOS2.openModal('https://integracion.alignetsac.com/', '1');
-// });
+openModalAlignetVpos2.addEventListener('click', () => {
+    const a = AlignetVPOS2.openModal('https://integracion.alignetsac.com/', '1');
+    console.log(a);
+});
