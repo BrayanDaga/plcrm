@@ -21,7 +21,7 @@
     ></user-membreship-register> --}}
 <div class="row">
     <div class="col-lg-6">
-        <form name="f1" id="f1" action="/user-membreship/create" method="post" class="alignet-form-vpos2">
+        <form name="f1" id="f1" action="{{ route('user-membreship-create') }}" method="post" class="alignet-form-vpos2">
             @csrf
             <input type="hidden" name="id_referrer_sponsor" value="{{ $id_referrer_sponsor }}">
             <input type="hidden" name="acquirerId" value="{{ env('ACQUIRER_ID') }}">
@@ -47,15 +47,15 @@
                 <div class="form-group pr-1">
                     <label for="user">User</label>
                     {{-- <input type="text" id="user" class="form-control" name="user" onkeyup="validateUser"> --}}
-                    <input type="text" id="user" class="form-control" name="user" value="allison">
+                    <input type="text" id="user" class="form-control" name="reserved1" value="allison">
                 </div>
                 <div class="form-group pr-1">
                     <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" name="password" value="allison">
+                    <input type="password" id="password" class="form-control" name="reserved2" value="allison123">
                 </div>
                 <div class="form-group pr-1">
                     <label for="repassword">Re-Password</label>
-                    <input type="password" id="repassword" class="form-control" name="repassword" value="allison">
+                    <input type="password" id="repassword" class="form-control" name="reserved3" value="allison123">
                 </div>
                 <div class="form-group pr-1">
                     <label for="email">Email</label>
@@ -75,15 +75,15 @@
                 </div>
                 <div class="form-group pr-1">
                     <label for="phone">Phones</label>
-                    <input type="tel" id="phone" class="form-control" name="phone" maxlength="10" value="5845854525">
+                    <input type="tel" id="phone" class="form-control" name="reserved4" maxlength="10" value="5845854525">
                 </div>
                 <div class="form-group pr-1">
                     <label for="date_birth">Date Birth</label>
-                    <input type="date" id="date_birth" class="form-control" name="date_birth" value="1991-08-16">
+                    <input type="date" id="date_birth" class="form-control" name="reserved5" value="1991-08-16">
                 </div>
                 <div class="form-group pr-1">
                     <label for="id_document_type">Document Type</label>
-                    <select id="id_document_type" class="form-control" name="id_document_type">
+                    <select id="id_document_type" class="form-control" name="reserved6">
                         <option value="0">--------------------</option>
                         @foreach ($document_type as $dt)
                             <option value="{{ $dt->id }}">{{ $dt->document}}</option>
@@ -92,11 +92,11 @@
                 </div>
                 <div class="form-group pr-1">
                     <label for="nro_document">Nro. Document</label>
-                    <input type="number" id="nro_document" class="form-control" name="nro_document" maxlength="12" value="45859652">
+                    <input type="number" id="nro_document" class="form-control" name="reserved7" maxlength="12" value="45859652">
                 </div>
                 <div class="form-group pr-1">
                     <label for="id_country">Country</label>
-                    <select id="id_country" class="form-control" name="id_country">
+                    <select id="id_country" class="form-control" name="reserved8">
                         <option value="0">--------------------</option>
                         @foreach ($country as $c)
                             <option value="{{ $c->id }}" {{ ($c->name == 'Perú' ? 'selected' : '') }}>{{ $c->name}}</option>
@@ -109,7 +109,7 @@
             <div class="d-flex flex-wrap">
                 <div class="form-group">
                     <label for="referrer_sponsor">Referrer/Sponsor</label>
-                    <input type="text" id="referrer_sponsor" class="form-control" name="referrer_sponsor" disabled value="{{ $sponsor_name}}">
+                    <input type="text" id="referrer_sponsor" class="form-control" name="reserved9" disabled value="{{ $sponsor_name}}">
                 </div>
             </div>
             <h4>Membreship Data</h4>
@@ -118,7 +118,7 @@
                 <div class="form-group pr-1">
                     <label for="id_account_type">Account Type</label>
                     {{-- <select id="id_account_type" class="form-control" onchange="changeTablePrice($event)" name="id_account_type"> --}}
-                    <select id="id_account_type" class="form-control" name="id_account_type">
+                    <select id="id_account_type" class="form-control" name="reserved10">
                         <option value="0">--------------------</option>
                         @foreach ($account_type as $ct)
                             <option value="{{ $ct->id }}">{{ $ct->account}}</option>
@@ -126,23 +126,23 @@
                     </select>
                 </div>
                 <div class="form-group pr-1">
-                    <label for="price">Price</label>
-                    <input type="text" id="account_type-price" class="form-control" name="price" disabled>
+                    <label for="account_type-price">Price</label>
+                    <input type="text" id="account_type-price" class="form-control" name="reserved11" disabled>
                 </div>
                 <div class="form-group pr-1">
-                    <label for="iva">IVA</label>
-                    <input type="text" id="account_type-iva" class="form-control" name="iva" disabled>
+                    <label for="account_type-iva">IVA</label>
+                    <input type="text" id="account_type-iva" class="form-control" name="reserved12" disabled>
                 </div>
                 <div class="form-group pr-1">
-                    <label for="total_cost_membreship">Total cost of Membreship</label>
-                    <input type="text" id="account_type-total_cost_membreship" class="form-control" name="total_cost_membreship" disabled>
+                    <label for="account_type-total_cost_membreship">Total cost of Membreship</label>
+                    <input type="text" id="account_type-total_cost_membreship" class="form-control" name="reserved13" disabled>
                 </div>
             </div>
             <h4>Payment Methods</h4>
             <div class="d-flex flex-wrap">
                 <div class="form-group pr-1">
                     <label for="id_payment_method">Select Type of Payment</label>
-                    <select id="id_payment_method" class="form-control" name="id_payment_method">
+                    <select id="id_payment_method" class="form-control" name="reserved14">
                         <option value="0">--------------------</option>
                         @foreach ($payment_methods as $pm)
                             <option value="{{ $pm->id }}">{{ $pm->name}}</option>
@@ -151,6 +151,7 @@
                 </div>
             </div>
             <button type="button" class="btn btn-success" id="open_modal_alignet_vpos2">Comprar</button>
+            {{-- <button type="submit" class="btn btn-success">Comprar</button> --}}
         </form>
     </div>
 </div>

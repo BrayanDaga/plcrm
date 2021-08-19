@@ -64,41 +64,40 @@ class UserMembreshipController extends Controller
 
     public function Create(Request $request)
     {
-        dd($request->all());
-        // $table = new UserMembreship();
-        // $table->user = $request->user;
-        // $table->password = Hash::make($request->password);
-        // $table->name = $request->name;
-        // $table->last_name = $request->last_name;
-        // $table->phone = $request->phone;
-        // $table->date_birth = $request->date_birth;
-        // $table->email = $request->email;
-        // $table->id_referrer_sponsor = $request->id_referrer_sponsor;
-        // $table->id_country = $request->id_country;
-        // $table->id_document_type = $request->id_document_type;
-        // $table->id_account_type = $request->id_account_type;
-        // $table->nro_document = $request->nro_document;
-        // $table->request = 1;
+        $table = new UserMembreship();
+        $table->user = $request->reserved1;
+        $table->password = Hash::make($request->reserved2);
+        $table->name = $request->shippingFirstName;
+        $table->last_name = $request->shippingLastName;
+        $table->phone = $request->reserved4;
+        $table->date_birth = $request->reserved5;
+        $table->email = $request->shippingEmail;
+        $table->id_referrer_sponsor = $request->reserved9;
+        $table->id_country = $request->reserved8;
+        $table->id_document_type = $request->reserved6;
+        $table->id_account_type = $request->reserved10;
+        $table->nro_document = $request->reserved7;
+        $table->request = 1;
 
-        // if ($table->save()) :
-        //     $id_user = $table->id; // Get ID of user
+        if ($table->save()) :
+            $id_user = $table->id; // Get ID of user
 
-        //     // Registro del pago
-        //     $table = new Payment(); // table payment
-        //     $table->id_user_membreship = $id_user;
-        //     $table->id_user_sponsor = $request->id_referrer_sponsor;
-        //     $table->description = 'membreship';
-        //     $table->amount = $request->total_cost_membreship;
-        //     $table->operation_number = 0;
-        //     $table->id_payment_method = $request->id_payment_method;
-        //     // $table->id_bank = 1; // Default Values
+            // Registro del pago
+            $table = new Payment(); // table payment
+            $table->id_user_membreship = $id_user;
+            $table->id_user_sponsor = $request->reserved9;
+            $table->description = 'membreship';
+            $table->amount = $request->reserved13;
+            $table->operation_number = 0;
+            $table->id_payment_method = $request->reserved14;
+            // $table->id_bank = 1; // Default Values
 
-        //     if ($table->save()) :
-        //         $json = ['status' => 200];
-        //     endif;
+            if ($table->save()) :
+                $json = ['status' => 200];
+            endif;
 
-        //     return json_encode($json);
-        // endif;
+            return json_encode($json);
+        endif;
     }
 
     public function getDataUser($user)
