@@ -47,6 +47,10 @@ Vue.component(
   require('./components/ModalUser.vue').default
 );
 
+Vue.component(
+  'tree-component',
+  require('./components/TreeComponent.vue').default
+);
 const app = new Vue({
   el: '#app',
 });

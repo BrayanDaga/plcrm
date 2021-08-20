@@ -805,9 +805,11 @@
         </div>
       </div>
     </div>
-  
-    <x-tree-component></x-tree-component>  
-  
+    {{-- Usando Componente Blade --}}
+    {{-- <x-tree-component></x-tree-component>   --}}
+
+    {{-- Usando Componente Vue --}}
+    <tree-component></tree-component>
   </div>
   </div>
 </section>
@@ -818,9 +820,8 @@
   {{-- vendor files --}}
   <script src="{{ asset(mix('vendors/js/charts/apexcharts.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
-  {{-- <script src="{{ asset(mix('vendors/js/orgChart/orgchart.js')) }}"></script> --}}
-
-
+  <script src="{{ asset(mix('vendors/js/orgChart/orgchart.js')) }}"></script>
+  {{-- Si se usa componente blade se quita el script de arriba OrgChart --}}
 @endsection
 @section('page-script')
   {{-- Page js files --}}

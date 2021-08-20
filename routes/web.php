@@ -28,6 +28,7 @@ use App\Http\Controllers\UserMembreshipController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ClassifiedController;
+use App\Http\Controllers\RamaBinariaController;
 use Illuminate\Support\Facades\Auth;
 use Whoops\Run;
 
@@ -52,6 +53,7 @@ Route::post('login', [LoginController::class, 'login'])->name('login');
  * Todas las rutas establecidas deben de estar dentro de "Middleware Auth"
  */
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('viewTree',[RamaBinariaController::class,'viewTree']);
     // Main Page Route
     // Route::get('/', [DashboardController::class,'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
     Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
