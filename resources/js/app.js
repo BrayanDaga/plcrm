@@ -42,6 +42,11 @@ Vue.component(
   require('./components/PaymentRequest.vue').default
 );
 
+Vue.component(
+  'modal-user',
+  require('./components/ModalUser.vue').default
+);
+
 const app = new Vue({
   el: '#app',
 });

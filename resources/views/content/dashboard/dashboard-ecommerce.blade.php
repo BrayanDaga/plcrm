@@ -805,7 +805,10 @@
         </div>
       </div>
     </div>
-    <!--/ Transaction Card -->
+  
+    <x-tree-component></x-tree-component>  
+  
+  </div>
   </div>
 </section>
 <!-- Dashboard Ecommerce ends -->
@@ -815,6 +818,9 @@
   {{-- vendor files --}}
   <script src="{{ asset(mix('vendors/js/charts/apexcharts.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
+  {{-- <script src="{{ asset(mix('vendors/js/orgChart/orgchart.js')) }}"></script> --}}
+
+
 @endsection
 @section('page-script')
   {{-- Page js files --}}

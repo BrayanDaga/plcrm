@@ -458,6 +458,7 @@
     "/vendors/js/jquery/jquery.min.js": "/vendors/js/jquery/jquery.min.js",
     "/vendors/js/maps/leaflet.min.js": "/vendors/js/maps/leaflet.min.js",
     "/vendors/js/miscellaneous/countdown.min.js": "/vendors/js/miscellaneous/countdown.min.js",
+    "/vendors/js/orgChart/orgchart.js": "/vendors/js/orgChart/orgchart.js",
     "/vendors/js/pace/pace.min.js": "/vendors/js/pace/pace.min.js",
     "/vendors/js/pagination/jquery.bootpag.min.js": "/vendors/js/pagination/jquery.bootpag.min.js",
     "/vendors/js/pagination/jquery.twbsPagination.min.js": "/vendors/js/pagination/jquery.twbsPagination.min.js",

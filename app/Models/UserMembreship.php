@@ -8,6 +8,7 @@ use App\Models\Wallet;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,14 +52,17 @@ class UserMembreship extends Authenticatable
 
     public function getActiveAttribute()
     {
-       return  $this->isActive();
-    }
-
-    public function ScopeisActive()
-    {
         return $this->expiration_date > now() ? true : false; 
     }
 
+
+
+    public function scopeIsActive($query)
+    {
+        return $query->where('expiration_date', '>' , now());
+    }
+
+  
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'id_country');
@@ -74,9 +78,9 @@ class UserMembreship extends Authenticatable
         return $this->hasOne(Payment::class, 'id_user_membreship');
     }
 
-    public function classified(): HasOne
+    public function classified(): HasMany
     {
-        return $this->hasOne(Classified::class, 'id_user_membreship');
+        return $this->hasMany(Classified::class, 'id_user_membreship');
     }
 
     public function accountType(): BelongsTo

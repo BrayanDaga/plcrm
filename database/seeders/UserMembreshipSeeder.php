@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classified;
 use App\Models\UserMembreship;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -25,16 +26,6 @@ class UserMembreshipSeeder extends Seeder
             'id_referrer_sponsor' => 0,
             'request' => 1
         ]);
-
-        UserMembreship::factory()->create([
-            'user' => 'admin',
-            'name' => 'Administrator',
-            'last_name' => 'Promolider',
-            'email' => 'admin@promolider.test',
-            'id_referrer_sponsor' => 0,
-            'request' => 1
-        ]);
-
         UserMembreship::factory()->create([
             'user' => 'admin-wiliam',
             'name' => 'Wiliam',
@@ -72,10 +63,18 @@ class UserMembreshipSeeder extends Seeder
         ]);
 
 
-        //crear 15 usuarios con sus respectivas billeteras referidas al usuario 1
-        // \App\Models\UserMembreship::factory([
-        //     'id_referrer_sponsor' => 1,
-        // ])->has(\App\Models\Wallet::factory())->count(15)->create();
 
+        for ($i = 0; $i < 2; $i++) {
+            //No activos por fecha de expiracion
+            UserMembreship::factory([
+                'id_referrer_sponsor' => 1,
+                'expiration_date' => now()
+            ])->has(Classified::factory(['id_user_sponsor' => 1]))->create();
+
+            //Activo por fecha de expiracion
+            UserMembreship::factory([
+                'id_referrer_sponsor' => 1,
+            ])->has(Classified::factory(['id_user_sponsor' => 1]))->create();
+        }
     }
 }

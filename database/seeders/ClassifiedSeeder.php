@@ -16,17 +16,12 @@ class ClassifiedSeeder extends Seeder
      */
     public function run()
     {
-        // $count = UserMembreship::all()->count();
-        // for ($i=1; $i <= $count; $i++) { 
-        //     Classified::factory()->count(2)->create([
-        //         'id_user_sponsor' => $i
-        // ]);
-
+        $i = 1; $j=1;
         for ($index = 0; $index < 4; $index++){
-            $id = rand(2, 3);
+            $id = rand(2, 4);
             DB::table('classified')->insert([
                 'id_user_membreship' => $id,
-                'id_user_sponsor' => $id,
+                'id_user_sponsor' => $i,
                 'binary_sponsor' => 'test',
                 'position' => '1',
                 'classification' => 16,
@@ -39,7 +34,7 @@ class ClassifiedSeeder extends Seeder
             ]);
             DB::table('classified')->insert([
                 'id_user_membreship' => $id + 1,
-                'id_user_sponsor' => $id + 1,
+                'id_user_sponsor' => $i,
                 'binary_sponsor' => 'test 1',
                 'position' => '2',
                 'classification' => 26,
@@ -50,6 +45,8 @@ class ClassifiedSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
+            $i++;
         }
     }
 }

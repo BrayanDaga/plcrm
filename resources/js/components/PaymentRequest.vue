@@ -122,7 +122,6 @@
 import api from '../api/api';
 import CustomSpinner from '../common/custom-spinner/CustomSpinner';
 import PaymentRequestModalProduct from './PaymentRequestModalProduct.vue';
-import ModalUser from './ModalUser.vue';
 // import PaymentRequestModalAuthorize from './PaymentRequestModalAuthorize.vue';
 // import PaymentRequestModalDisavow from './PaymentRequestModalDisavow.vue';
 
@@ -131,7 +130,6 @@ export default {
   components: {
     CustomSpinner,
     'payment-request-modal-product': PaymentRequestModalProduct,
-    'modal-user': ModalUser,
     // 'payment-request-modal-authorize': PaymentRequestModalAuthorize,
     // 'payment-request-modal-disavow': PaymentRequestModalDisavow,
   },
