@@ -20,9 +20,12 @@ export default {
     loadTree() {
       this.$nextTick(function () {
         var chart = new OrgChart(document.getElementById('tree'), {
-          mouseScrool: OrgChart.action.none,
+          mouseScrool: OrgChart.action.scroll,
+          template: 'ula',
+
           nodeBinding: {
             field_0: 'name',
+            img_0: 'Photo',
           },
           nodes: this.users,
         });
@@ -39,4 +42,8 @@ export default {
 </script>
 
 <style>
+#tree {
+  width: 100%;
+  height: 100%;
+}
 </style>

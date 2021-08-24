@@ -39,12 +39,17 @@ class UserMembreship extends Authenticatable
         'LeftPoints',
         'RightPoints',
         'active',
+        'Photo',
     ];
 
     protected $casts = [
         'expiration_date' => 'datetime',
     ];
 
+    public function  getPhotoAttribute()
+    {
+        return 'https://iconape.com/wp-content/png_logo_vector/user-tie.png';
+    }
     public function getfullNameAttribute()
     {
         return $this->name . ' ' . $this->last_name;
