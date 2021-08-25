@@ -13,6 +13,8 @@ use App\Models\Country;
 use App\Models\Payment;
 use App\Models\PaymentMethod;
 use App\Models\UserMembreship;
+use App\Models\UserMembreshipPayment;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -20,6 +22,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserMembreshipController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function Register($id_referrer_sponsor)
     {
         $sponsor = UserMembreship::find($id_referrer_sponsor);
@@ -31,7 +37,7 @@ class UserMembreshipController extends Controller
         $payment = Payment::all()->count();
         $payment = $payment + 2;
         // $purchase_operation_number = sprintf("%'.06d", $payment);
-        $purchase_operation_number = rand(600000,999999);
+        $purchase_operation_number = rand(600000, 999999);
 
         $purchase_verification = $this->credentials($purchase_operation_number);
 
@@ -59,45 +65,90 @@ class UserMembreshipController extends Controller
             ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
             ->get();
         return UserMembreshipResource::collection($list_user_membreship);
-
     }
 
     public function Create(Request $request)
     {
-        $table = new UserMembreship();
-        $table->user = $request->reserved1;
-        $table->password = Hash::make($request->reserved2);
-        $table->name = $request->shippingFirstName;
-        $table->last_name = $request->shippingLastName;
-        $table->phone = $request->reserved4;
-        $table->date_birth = $request->reserved5;
-        $table->email = $request->shippingEmail;
-        $table->id_referrer_sponsor = $request->reserved9;
-        $table->id_country = $request->reserved8;
-        $table->id_document_type = $request->reserved6;
-        $table->id_account_type = $request->reserved10;
-        $table->nro_document = $request->reserved7;
-        $table->request = 1;
+        $msg = '';
+        // try {
+            // if ((int)$request->errorCode == 0) :
+                $table = new UserMembreship();
+                $table->user = $request->reserved1;
+                $table->password = Hash::make($request->reserved2);
+                $table->name = $request->shippingFirstName;
+                $table->last_name = $request->shippingLastName;
+                $table->phone = $request->reserved4;
+                $table->date_birth = $request->reserved5;
+                $table->email = $request->shippingEmail;
+                $table->id_referrer_sponsor = $request->reserved9;
+                $table->id_country = $request->reserved8;
+                $table->id_document_type = $request->reserved6;
+                $table->id_account_type = $request->reserved10;
+                $table->nro_document = $request->reserved7;
+                $table->request = 1;
 
-        if ($table->save()) :
-            $id_user = $table->id; // Get ID of user
+                $table->save();
+                $id_user = $table->id; // Get ID of user
 
-            // Registro del pago
-            $table = new Payment(); // table payment
-            $table->id_user_membreship = $id_user;
-            $table->id_user_sponsor = $request->reserved9;
-            $table->description = 'membreship';
-            $table->amount = $request->reserved13;
-            $table->operation_number = 0;
-            $table->id_payment_method = $request->reserved14;
-            // $table->id_bank = 1; // Default Values
+                /**
+                 * store payment
+                 */
 
-            if ($table->save()) :
-                $json = ['status' => 200];
-            endif;
+                $table = new Payment(); // table payment
+                $table->id_user_membreship = $id_user;
+                $table->id_user_sponsor = $request->reserved9;
+                $table->amount = $request->reserved13;
+                $table->operation_number = 0;
+                $table->id_payment_method = $request->reserved14;
+                $table->save();
+                $id_payment = $table->id;
 
-            return json_encode($json);
-        endif;
+                /**
+                 * store user_membreships_payment
+                 */
+                $table = new UserMembreshipPayment();
+                $table->id_user_membreship = $id_user;
+                $table->id_payment = $id_payment;
+                $table->authorizationCode = $request->authorizationCode;
+                $table->errorCode = $request->errorCode;
+                $table->idCommerce = $request->idCommerce;
+                $table->shippingCity = $request->shippingCity;
+                $table->txDateTime = $request->txDateTime;
+                $table->purchaseOperationNumber = $request->purchaseOperationNumber;
+                $table->shippingAddress = $request->shippingAddress;
+                $table->card_account_type = $request->card_account_type;
+                $table->answerMessage = $request->answerMessage;
+                $table->bank_description = $request->bank_description;
+                $table->cuota = $request->cuota;
+                $table->paymentReferenceCode = $request->paymentReferenceCode;
+                $table->brand = $request->brand;
+                $table->purchaseVerification = $request->purchaseVerification;
+                $table->IDTransaction = $request->IDTransaction;
+                $table->errorMessage = $request->errorMessage;
+                $table->authorizationResult = $request->authorizationResult;
+                $table->save();
+
+                $msg = 'Cliente Registrado satisfactoriamente';
+            // else :
+            //     $msg = 'Error en el registro de datos (' . $request->errorCode . ')';
+            // endif;
+        // } catch (Exception $e) {
+            // return [
+            //     'status' => false,
+            //     'message' => $e->getMessage(),
+            // ];
+            // return redirect()
+            //     ->route('user-membreship-register', [$request->reserved9])
+            //     ->with('error', $e->getMessage());
+        // }
+        return [
+            'status' => true,
+            'message' => $msg
+        ];
+
+        // return redirect()
+        //     ->route('user-membreship-register', [$request->reserved9])
+        //     ->with('success', $msg);
     }
 
     public function getDataUser($user)

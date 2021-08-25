@@ -18,13 +18,13 @@ class CreateUserMembreshipPayment extends Migration
             $table->bigInteger('id_user_membreship')->unsigned();
             $table->foreign('id_user_membreship')->references('id')->on('user_membreships');
             $table->bigInteger('id_payment')->unsigned();
-            $table->foreign('id_payment')->references('id')->on('user_membreships');
+            $table->foreign('id_payment')->references('id')->on('payments');
             $table->string('authorizationCode', 6);
             $table->string('errorCode', 4);
-            $table->integer('idCommerce', 4);
+            $table->integer('idCommerce');
             $table->string('shippingCity', 50);
             $table->string('txDateTime', 20);
-            $table->integer('purchaseOperationNumber', 6);
+            $table->integer('purchaseOperationNumber');
             $table->string('shippingAddress', 50);
             $table->string('card_account_type', 30);
             $table->string('answerMessage');
