@@ -43,9 +43,9 @@ Route::post('login', [LoginController::class, 'login'])->name('login');
  * Todas las rutas establecidas deben de estar dentro de "Middleware Auth"
  */
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('viewTree',[RamaBinariaController::class,'viewTree']);
+    Route::get('viewTree', [RamaBinariaController::class, 'viewTree']);
     // Main Page Route
-    // Route::get('/', [DashboardController::class,'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
+    // Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
     Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
 
 
@@ -148,27 +148,28 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });
 
-    
+
     Route::group(['prefix' => '/reports'], function () {
-        Route::get('/growthBonus', [ClassifiedController::class,'growthBonus'])->name('report-growthBonus');
-        Route::get('/startingBonus', [ClassifiedController::class,'startingBonus'])->name('report-startingBonus');;
-        Route::get('/wallets', [WalletController::class,'index'])->name('report-wallets');;
+        Route::get('/growthBonus', [ClassifiedController::class, 'growthBonus'])->name('report-growthBonus');
+        Route::get('/startingBonus', [ClassifiedController::class, 'startingBonus'])->name('report-startingBonus');;
+        Route::get('/wallets', [WalletController::class, 'index'])->name('report-wallets');;
     });
 
 
     Route::group(['prefix' => '/requests'], function () {
-        /*Pending Paymentes */
-        // Route::get('/pendingPayments ', [PaymentController::class,'pendingPayments'])->name('request-pendingPayments');
-        // Route::get('/listpendingPayments ', [PaymentController::class,'listUserPendingPayments']);
-        Route::get('/listUserPayments ', [PaymentController::class,'listUserPayments']);
-        Route::get('/listMyPayments ', [PaymentController::class,'listMyPayments'])->name('request-listMyPayments');
-        // Route::match(['put', 'patch'], '/authorizePayment/{payment}', [PaymentController::class,'authorizePayment']);
-        // Route::match(['put', 'patch'],'denypayment/{payment}', [PaymentController::class,'denyPayment']);
-        // /***/
-    //Ruta Billetera - Fondos de Usuario
-    Route::group(['prefix' => '/wallet'], function () {
-        Route::get('/', [WalletController::class, 'retornarVista'])->name('wallet');
-        Route::apiResource('wallets', WalletController::class)->only('index');
+        //     /*Pending Paymentes */
+        //     // Route::get('/pendingPayments ', [PaymentController::class,'pendingPayments'])->name('request-pendingPayments');
+        //     // Route::get('/listpendingPayments ', [PaymentController::class,'listUserPendingPayments']);
+        Route::get('/listUserPayments ', [PaymentController::class, 'listUserPayments']);
+        Route::get('/listMyPayments ', [PaymentController::class, 'listMyPayments'])->name('request-listMyPayments');
+        //     // Route::match(['put', 'patch'], '/authorizePayment/{payment}', [PaymentController::class,'authorizePayment']);
+        //     // Route::match(['put', 'patch'],'denypayment/{payment}', [PaymentController::class,'denyPayment']);
+        //     // /***/
+        // //Ruta Billetera - Fondos de Usuario
+        Route::group(['prefix' => '/wallet'], function () {
+            Route::get('/', [WalletController::class, 'retornarVista'])->name('wallet');
+            Route::apiResource('wallets', WalletController::class)->only('index');
+        });
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -176,7 +177,7 @@ Route::group(['middleware' => ['auth']], function () {
 /* Rutas Programada - fin */
 
 Route::post('/user-membreship/create', [UserMembreshipController::class, 'create'])
-->name('user-membreship-create');
+    ->name('user-membreship-create');
 
 /* Route Pages */
 Route::group(['prefix' => 'page'], function () {

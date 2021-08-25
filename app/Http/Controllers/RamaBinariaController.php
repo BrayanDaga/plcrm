@@ -71,7 +71,7 @@ class RamaBinariaController extends Controller
         // $nivel1 = $tmpUsers->merge($currentUser);
         // $users = $nivel1->merge($hijos);
 
-        $users = $tmpUsers->merge($currentUser);
+         $users = $tmpUsers->merge($currentUser);
 
         return response()->json(['data'=>$users]);
     }
