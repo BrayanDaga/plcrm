@@ -56,18 +56,23 @@ class RamaBinariaController extends Controller
     {
         $currentUser =  UserMembreship::where('id', auth()->user()->id)->select('id', 'name', 'last_name', 'expiration_date')->get();
 
-        $tmpUsers = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
+        $tmpUsers = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->isActive()->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
 
-        $hijos=[];
-        foreach ($tmpUsers as $item) {
-            $tmUser =  UserMembreship::where('id_referrer_sponsor', $item->id)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
-            if ($tmUser->isNotEmpty()) {
-                $hijos = $tmUser;
-            }
-        }
 
-        $nivel1 = $tmpUsers->merge($currentUser);
-        $users = $nivel1->merge($hijos);
+        // evitando hacer doble consulta
+        // $hijos=[];
+        // foreach ($tmpUsers as $item) {
+        //     $tmUser =  UserMembreship::where('id_referrer_sponsor', $item->id)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
+        //     if ($tmUser->isNotEmpty()) {
+        //         $hijos = $tmUser;
+        //     }
+        // }
+
+        // $nivel1 = $tmpUsers->merge($currentUser);
+        // $users = $nivel1->merge($hijos);
+
+        $users = $tmpUsers->merge($currentUser);
+
         return response()->json(['data'=>$users]);
     }
 }
