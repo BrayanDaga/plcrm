@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
         $this->call(CountrySeeder::class);
         $this->call(DocumentTypeSeeder::class);
         $this->call(AccountTypeSeeder::class);
-        $this->call(BankSeeder::class);
         $this->call(PaymentMethodSeeder::class);
+        // $this->call(BankSeeder::class);
         // UserMembreship::factory()->create(); // se reduce la cantida de datos de pruebas
-        $this->call(UserMembreshipSeeder::class);
-        $this->call(PaymentSeeder::class);
-        $this->call(AdvertisementSeeder::class);
-        $this->call(ClassifiedSeeder::class);
-        $this->call(WalletSeeder::class);
+        // $this->call(UserMembreshipSeeder::class);
+        // $this->call(PaymentSeeder::class);
+        // $this->call(AdvertisementSeeder::class);
+        // $this->call(ClassifiedSeeder::class);
+        // $this->call(WalletSeeder::class);
         /*$this->call(ClassifiedSeeder::class);*/
     }
 }

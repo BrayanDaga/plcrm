@@ -4,10 +4,8 @@
     {{-- vendor css files --}}
 @endsection
 @section('content')
-<user-funds></user-founds>
+<user-funds></user-founds>we
 @endsection
 @section('vendor-script')
     {{-- vendor files --}} 
 @endsection
-
-

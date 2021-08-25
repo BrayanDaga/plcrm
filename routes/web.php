@@ -32,7 +32,7 @@ use Whoops\Run;
 */
 
 
-        
+
 Auth::routes(['verify' => true]);
 Route::post('login', [LoginController::class, 'login'])->name('login');
 
@@ -125,7 +125,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/edit/{id}', [AdvertisementsController::class, 'Edit'])->name('Edit');
         Route::delete('/delete/{id}', [AdvertisementsController::class, 'Delete'])->name('Delete');
         /*End api config messages*/
-
     });
 
     Route::group(['prefix' => 'config/payment-method'], function () {
@@ -148,16 +147,16 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Ruta Billetera - Fondos de Usuario
     Route::group(['prefix' => '/wallet'], function () {
-        Route::get('/', [WalletController::class,'retornarVista'])->name('wallet'); 
+        Route::get('/', [WalletController::class, 'retornarVista'])->name('wallet');
         Route::apiResource('wallets', WalletController::class)->only('index');
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
 });
 /* Rutas Programada - fin */
 
-Route::post('/user-membreship/create', [UserMembreshipController::class, 'create'])->name('user-membreship-create');
+Route::post('/user-membreship/create', [UserMembreshipController::class, 'create'])
+->name('user-membreship-create');
 
 /* Route Pages */
 Route::group(['prefix' => 'page'], function () {

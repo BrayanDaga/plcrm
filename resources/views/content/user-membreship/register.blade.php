@@ -23,7 +23,7 @@
     <div class="col-lg-6">
         <form name="f1" id="f1" action="{{ route('user-membreship-create') }}" method="post" class="alignet-form-vpos2">
             @csrf
-            <input type="hidden" name="id_referrer_sponsor" value="{{ $id_referrer_sponsor }}">
+            <input type="hidden" name="reserved9" value="{{ $id_referrer_sponsor }}">
             <input type="hidden" name="acquirerId" value="{{ env('ACQUIRER_ID') }}">
             <input type="hidden" name="idCommerce" value="{{ env('ID_COMMERCE') }}">
             <input type="hidden" name="purchaseOperationNumber" value="{{ $purchase_operation_number }}">
@@ -109,7 +109,7 @@
             <div class="d-flex flex-wrap">
                 <div class="form-group">
                     <label for="referrer_sponsor">Referrer/Sponsor</label>
-                    <input type="text" id="referrer_sponsor" class="form-control" name="reserved9" disabled value="{{ $sponsor_name}}">
+                    <input type="text" id="referrer_sponsor" class="form-control" disabled value="{{ $sponsor_name}}">
                 </div>
             </div>
             <h4>Membreship Data</h4>
@@ -127,15 +127,16 @@
                 </div>
                 <div class="form-group pr-1">
                     <label for="account_type-price">Price</label>
-                    <input type="text" id="account_type-price" class="form-control" name="reserved11" disabled>
+                    <input type="text" id="account_type-price" class="form-control" disabled>
                 </div>
                 <div class="form-group pr-1">
                     <label for="account_type-iva">IVA</label>
-                    <input type="text" id="account_type-iva" class="form-control" name="reserved12" disabled>
+                    <input type="text" id="account_type-iva" class="form-control" disabled>
                 </div>
                 <div class="form-group pr-1">
                     <label for="account_type-total_cost_membreship">Total cost of Membreship</label>
-                    <input type="text" id="account_type-total_cost_membreship" class="form-control" name="reserved13" disabled>
+                    <input type="text" id="account_type-total_cost_membreship" class="form-control" disabled>
+                    <input type="hidden" name="reserved13">
                 </div>
             </div>
             <h4>Payment Methods</h4>
