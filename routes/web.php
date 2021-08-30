@@ -157,14 +157,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::group(['prefix' => '/requests'], function () {
-        /*Pending Paymentes */
-        // Route::get('/pendingPayments ', [PaymentController::class,'pendingPayments'])->name('request-pendingPayments');
-        // Route::get('/listpendingPayments ', [PaymentController::class,'listUserPendingPayments']);
         Route::get('/listUserPayments ', [PaymentController::class,'listUserPayments']);
         Route::get('/listMyPayments ', [PaymentController::class,'listMyPayments'])->name('request-listMyPayments');
-        // Route::match(['put', 'patch'], '/authorizePayment/{payment}', [PaymentController::class,'authorizePayment']);
-        // Route::match(['put', 'patch'],'denypayment/{payment}', [PaymentController::class,'denyPayment']);
-        // /***/
+    });
+
     //Ruta Billetera - Fondos de Usuario
     Route::group(['prefix' => '/wallet'], function () {
         Route::get('/', [WalletController::class, 'retornarVista'])->name('wallet');
@@ -185,6 +181,7 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('not-authorized', [MiscellaneousController::class, 'not_authorized'])->name('misc-not-authorized');
     Route::get('maintenance', [MiscellaneousController::class, 'maintenance'])->name('misc-maintenance');
 });
+
 /* Route Pages */
 Route::get('/error', [MiscellaneousController::class, 'error'])->name('error');
 
