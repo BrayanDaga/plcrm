@@ -186,6 +186,7 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('not-authorized', [MiscellaneousController::class, 'not_authorized'])->name('misc-not-authorized');
     Route::get('maintenance', [MiscellaneousController::class, 'maintenance'])->name('misc-maintenance');
 });
+
 /* Route Pages */
 Route::get('/error', [MiscellaneousController::class, 'error'])->name('error');
 
