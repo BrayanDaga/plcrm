@@ -13,3 +13,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('/account-type/get-data-id/{id}', [AccountTypeController::class, 'getDataBytId']);
+
+Route::post('/user-membreship/create', [UserMembreshipController::class, 'create']);
