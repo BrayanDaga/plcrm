@@ -56,7 +56,7 @@ class RamaBinariaController extends Controller
     {
         $currentUser =  UserMembreship::where('id', auth()->user()->id)->select('id', 'name', 'last_name', 'expiration_date')->get();
 
-        $tmpUsers = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->isActive()->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
+        $tmpUsers = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->where('request',2)->isActive()->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
 
 
         // evitando hacer doble consulta
