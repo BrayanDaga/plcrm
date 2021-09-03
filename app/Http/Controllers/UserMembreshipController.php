@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Helpers\Helper;
-use App\Helpers\UserMembershipParams;
-use App\Http\Resources\PaymentResource;
-use App\Http\Resources\UserMembreshipResource;
-use App\Models\DocumentType;
-use App\Models\AccountType;
-use App\Models\Classified;
 use App\Models\Country;
 use App\Models\Payment;
+use App\Models\Classified;
+use App\Models\AccountType;
+use App\Models\DocumentType;
+use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\UserMembreship;
-use App\Models\UserMembreshipPayment;
-use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\UserMembershipParams;
+use App\Models\UserMembreshipPayment;
+use App\Http\Resources\PaymentResource;
+use App\Http\Resources\UserMembreshipResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class UserMembreshipController extends Controller
 {
@@ -73,6 +74,8 @@ class UserMembreshipController extends Controller
     {
         $msg = '';
         try {
+            DB::transaction(function () use($request, &$msg) {
+
             // if ((int)$request->errorCode == 0) :
                 $table = new UserMembreship();
                 $table->user = $request->reserved1;
@@ -95,7 +98,7 @@ class UserMembreshipController extends Controller
                 /**
                  * store payment
                  */
-
+                
                 $table = new Payment(); // table payment
                 $table->id_user_membreship = $id_user;
                 $table->id_user_sponsor = $request->reserved9;
@@ -104,6 +107,7 @@ class UserMembreshipController extends Controller
                 $table->id_payment_method = $request->reserved14;
                 $table->save();
                 $id_payment = $table->id;
+                
 
                 /**
                  * store user_membreships_payment
@@ -131,6 +135,8 @@ class UserMembreshipController extends Controller
                 $table->save();
 
                 $msg = 'Cliente Registrado satisfactoriamente';
+            }, 5);
+
             // else :
             //     $msg = 'Error en el registro de datos (' . $request->errorCode . ')';
             // endif;

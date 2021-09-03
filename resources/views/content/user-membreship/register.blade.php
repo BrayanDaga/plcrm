@@ -151,8 +151,8 @@
                     </select>
                 </div>
             </div>
-            <button type="button" class="btn btn-success" id="open_modal_alignet_vpos2">Comprar</button>
-            {{-- <button type="submit" class="btn btn-success">Comprar</button> --}}
+            {{-- <button type="button" class="btn btn-success" id="open_modal_alignet_vpos2">Comprar</button> --}}
+            <button type="submit" class="btn btn-success">Comprar</button>
         </form>
     </div>
 </div>

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Classified;
+use App\Models\Payment;
 use App\Models\UserMembreship;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -26,55 +27,57 @@ class UserMembreshipSeeder extends Seeder
             'id_referrer_sponsor' => 0,
             'request' => 1
         ]);
-        UserMembreship::factory()->create([
+
+        //Los siguientes usuarios tienen un pago
+        UserMembreship::factory([
             'user' => 'admin-wiliam',
             'name' => 'Wiliam',
             'last_name' => 'Ramirez',
             'email' => 'wiliam@gmail.com',
-            'id_referrer_sponsor' => 0,
+            'id_referrer_sponsor' => 1,
             'request' => 1
-        ]);
+        ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
-        UserMembreship::factory()->create([
+        UserMembreship::factory([
             'user' => 'user-jesus',
             'name' => 'Jesus',
             'last_name' => 'Paredes',
             'email' => 'admin@promolider.test',
-            'id_referrer_sponsor' => 0,
+            'id_referrer_sponsor' => 1,
             'request' => 1
-        ]);
+        ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
-        UserMembreship::factory()->create([
+        UserMembreship::factory([
             'user' => 'user-miguel',
             'name' => 'Miguel',
             'last_name' => 'Garcia',
             'email' => 'admin@promolider.test',
-            'id_referrer_sponsor' => 0,
+            'id_referrer_sponsor' => 1,
             'request' => 1
-        ]);
+        ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
-        UserMembreship::factory()->create([
+        UserMembreship::factory([
             'user' => 'user-brayan1',
             'name' => 'Brayan',
             'last_name' => 'Vilchez Daga',
             'email' => 'brayan@gmail.com',
             'id_referrer_sponsor' => 1,
             'request' => 1
-        ]);
+        ])->has(Payment::factory([ 'id_user_sponsor' => 1]))->create();
 
 
 
-        for ($i = 0; $i < 2; $i++) {
-            //No activos por fecha de expiracion
-            UserMembreship::factory([
-                'id_referrer_sponsor' => 1,
-                'expiration_date' => now()
-            ])->has(Classified::factory(['id_user_sponsor' => 1]))->create();
+        // for ($i = 0; $i < 2; $i++) {
+        //     //No activos por fecha de expiracion
+        //     UserMembreship::factory([
+        //         'id_referrer_sponsor' => 1,
+        //         'expiration_date' => now()
+        //     ])->has(Classified::factory(['id_user_sponsor' => 1]))->create();
 
-            //Activo por fecha de expiracion
-            UserMembreship::factory([
-                'id_referrer_sponsor' => 1,
-            ])->has(Classified::factory(['id_user_sponsor' => 1]))->create();
-        }
+        //     //Activo por fecha de expiracion
+        //     UserMembreship::factory([
+        //         'id_referrer_sponsor' => 1,
+        //     ])->has(Classified::factory(['id_user_sponsor' => 1]))->create();
+        // }
     }
 }

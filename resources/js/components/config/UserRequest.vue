@@ -61,7 +61,7 @@ export default {
     data() {
         return {
             dataUser: [],
-            sponsor: [],
+            sponsor: Object,
             payments: [],
             typeDocuments: [],
             paymentMethod: []

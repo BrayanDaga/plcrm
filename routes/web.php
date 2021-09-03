@@ -68,7 +68,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'user-membreship'], function () {
         Route::get('/register', [UserMembreshipController::class, 'register'])->name('user-membreship-register');
         Route::get('/list', [UserMembreshipController::class, 'list'])->name('user-membreship-list');
-        // Route::post('/create', [UserMembreshipController::class, 'create'])->name('user-membreship-create');
+        Route::post('/create', [UserMembreshipController::class, 'create'])->name('user-membreship-create');
         Route::get('/sha/{purchase_operation_number}/{purchase_amount}', [UserMembreshipController::class, 'credentials']);
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
         /*Start api user-membreship*/
@@ -187,7 +187,7 @@ Route::group(['prefix' => 'page'], function () {
 Route::get('/error', [MiscellaneousController::class, 'error'])->name('error');
 
 // map leaflet
-Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('map-leaflet');
+// Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('map-leaflet');
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);

@@ -13,7 +13,7 @@ class UserRequestController extends Controller
         /** @var User
          * Request = 1 reprenseta que el usuario esta en solicitud de ser aprovado
          */
-        $all_user_requesting = UserMembreship::with('accountType')
+        $all_user_requesting = UserMembreship::where('id','<>', 1)->with('accountType')
             ->where('request', '<>', 0)
             ->get();
         
