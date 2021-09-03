@@ -21,7 +21,7 @@
     ></user-membreship-register> --}}
 <div class="row">
     <div class="col-lg-6">
-        <form name="f1" id="f1" action="{{ route('user-membreship-create') }}" method="post" class="alignet-form-vpos2">
+        <form name="f1" id="f1" action="{{ url('/api/user-membreship/create') }}" method="post" class="alignet-form-vpos2">
             @csrf
             <input type="hidden" name="reserved9" value="{{ $id_referrer_sponsor }}">
             <input type="hidden" name="acquirerId" value="{{ env('ACQUIRER_ID') }}">
@@ -47,19 +47,19 @@
                 <div class="form-group pr-1">
                     <label for="user">User</label>
                     {{-- <input type="text" id="user" class="form-control" name="user" onkeyup="validateUser"> --}}
-                    <input type="text" id="user" class="form-control" name="reserved1" value="allison">
+                    <input type="text" id="user" class="form-control" name="reserved1">
                 </div>
                 <div class="form-group pr-1">
                     <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" name="reserved2" value="allison123">
+                    <input type="password" id="password" class="form-control" name="reserved2">
                 </div>
                 <div class="form-group pr-1">
                     <label for="repassword">Re-Password</label>
-                    <input type="password" id="repassword" class="form-control" name="reserved3" value="allison123">
+                    <input type="password" id="repassword" class="form-control" name="reserved3">
                 </div>
                 <div class="form-group pr-1">
                     <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" name="email" value="allison@promolider.test">
+                    <input type="email" id="email" class="form-control" name="email">
                 </div>
             </div>
             <h4>Personal Information</h4>
@@ -67,19 +67,19 @@
             <div class="d-flex flex-wrap">
                 <div class="form-group pr-1">
                     <label for="name">Name</label>
-                    <input type="text" id="name" class="form-control" name="name" value="allison">
+                    <input type="text" id="name" class="form-control" name="name">
                 </div>
                 <div class="form-group pr-1">
                     <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" class="form-control" name="last_name" value="conyas">
+                    <input type="text" id="last_name" class="form-control" name="last_name">
                 </div>
                 <div class="form-group pr-1">
                     <label for="phone">Phones</label>
-                    <input type="tel" id="phone" class="form-control" name="reserved4" maxlength="10" value="5845854525">
+                    <input type="tel" id="phone" class="form-control" name="reserved4" maxlength="10">
                 </div>
                 <div class="form-group pr-1">
                     <label for="date_birth">Date Birth</label>
-                    <input type="date" id="date_birth" class="form-control" name="reserved5" value="1991-08-16">
+                    <input type="date" id="date_birth" class="form-control" name="reserved5">
                 </div>
                 <div class="form-group pr-1">
                     <label for="id_document_type">Document Type</label>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-group pr-1">
                     <label for="nro_document">Nro. Document</label>
-                    <input type="number" id="nro_document" class="form-control" name="reserved7" maxlength="12" value="45859652">
+                    <input type="number" id="nro_document" class="form-control" name="reserved7" maxlength="12">
                 </div>
                 <div class="form-group pr-1">
                     <label for="id_country">Country</label>

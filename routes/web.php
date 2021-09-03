@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'user-membreship'], function () {
-        Route::get('/register/{id_referrer_sponsor}', [UserMembreshipController::class, 'register'])->name('user-membreship-register');
+        Route::get('/register', [UserMembreshipController::class, 'register'])->name('user-membreship-register');
         Route::get('/list', [UserMembreshipController::class, 'list'])->name('user-membreship-list');
         // Route::post('/create', [UserMembreshipController::class, 'create'])->name('user-membreship-create');
         Route::get('/sha/{purchase_operation_number}/{purchase_amount}', [UserMembreshipController::class, 'credentials']);
@@ -170,9 +170,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 /* Rutas Programada - fin */
-
-Route::post('/user-membreship/create', [UserMembreshipController::class, 'create'])
-->name('user-membreship-create');
 
 /* Route Pages */
 Route::group(['prefix' => 'page'], function () {

@@ -18,6 +18,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserMembreshipController extends Controller
@@ -26,9 +27,10 @@ class UserMembreshipController extends Controller
     {
         $this->middleware('auth');
     }
-    public function Register($id_referrer_sponsor)
+
+    public function Register()
     {
-        $sponsor = UserMembreship::find($id_referrer_sponsor);
+        $auth = Auth::user();
         $document_type = DocumentType::select('id', 'document')->get();
         $account_type = AccountType::select('id', 'account')->where('status', '1')->get();
         $country = Country::select('id', 'name')->get();
@@ -45,8 +47,8 @@ class UserMembreshipController extends Controller
             'document_type' => $document_type,
             'account_type' => $account_type,
             'country' => $country,
-            'id_referrer_sponsor' => $sponsor->id,
-            'sponsor_name' => $sponsor->name,
+            'id_referrer_sponsor' => $auth->id,
+            'sponsor_name' => $auth->name,
             'payment_methods' => $payment_methods,
             'purchase_operation_number' => $purchase_operation_number,
             'purchase_verification' => $purchase_verification
@@ -70,7 +72,7 @@ class UserMembreshipController extends Controller
     public function Create(Request $request)
     {
         $msg = '';
-        // try {
+        try {
             // if ((int)$request->errorCode == 0) :
                 $table = new UserMembreship();
                 $table->user = $request->reserved1;
@@ -132,23 +134,23 @@ class UserMembreshipController extends Controller
             // else :
             //     $msg = 'Error en el registro de datos (' . $request->errorCode . ')';
             // endif;
-        // } catch (Exception $e) {
+        } catch (Exception $e) {
             // return [
             //     'status' => false,
             //     'message' => $e->getMessage(),
             // ];
-            // return redirect()
-            //     ->route('user-membreship-register', [$request->reserved9])
-            //     ->with('error', $e->getMessage());
-        // }
-        return [
-            'status' => true,
-            'message' => $msg
-        ];
+            return redirect()
+                ->route('user-membreship-register')
+                ->with('error', $e->getMessage());
+        }
+        // return [
+        //     'status' => true,
+        //     'message' => $msg
+        // ];
 
-        // return redirect()
-        //     ->route('user-membreship-register', [$request->reserved9])
-        //     ->with('success', $msg);
+        return redirect()
+            ->route('user-membreship-register')
+            ->with('success', $msg);
     }
 
     public function getDataUser($user)
