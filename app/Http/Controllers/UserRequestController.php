@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserMembreshipResource;
 use App\Models\UserMembreship;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,7 @@ class UserRequestController extends Controller
             ->where('request', '<>', 0)
             ->get();
         
-        return view('content.config.user_request', [
-            'all_user_requesting' => $all_user_requesting
-        ]);
+        return UserMembreshipResource::collection($all_user_requesting);
     }
 
     // get user by id

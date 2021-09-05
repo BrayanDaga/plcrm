@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table id="list-user-requests" class="table">
+    <table id="datatable" class="table">
       <thead>
         <tr>
           <th>#</th>
@@ -12,7 +12,29 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+        <tr v-for="user in dataUsers" :key="user.id">
+          <td>{{ user.id }}</td>
+          <td>{{ user.user }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.created_at | formatDate }}</td>
+          <td>{{ user.account_type.account }}</td>
+          <td>
+            <span
+              class="badge"
+              :class="
+                user.request == 1
+                  ? 'bagde-warning '
+                  : user.request == 2
+                  ? 'badge-success'
+                  : 'badge-danger'
+              "
+              v-text="user.request == 1 ? 'Pending ' : user.request == 2 ? 'Accepted' : 'Rejected'"
+            ></span>
+          </td>
+          <td><button class="btn btn-info" @click="modalUser(user.id)">Ver Detalles</button></td>
+        </tr>
+      </tbody>
     </table>
 
     <!-- Modal View Request -->
@@ -59,10 +81,12 @@
   </div>
 </template>
 <script>
+import api from '../../api/api';
 export default {
-  props: ['allUserRequesting'],
   data() {
     return {
+      initialLoading: true,
+      dataUsers: [],
       dataUser: [],
       sponsor: Object,
       payments: [],
@@ -71,7 +95,7 @@ export default {
     };
   },
   mounted() {
-    this.loadDataTable();
+    this.listUsers();
   },
   methods: {
     modalUser(id) {
@@ -94,54 +118,34 @@ export default {
         if (r.data.response == 200) {
           alert('Request accepted!');
           $('#modalViewRequest').modal('hide');
+          this.initialLoading = false;
+          this.listUsers();
         } else {
           alert('Rejected request!');
           $('#modalViewRequest').modal('hide');
+          this.initialLoading = false;
+          this.listUsers();
         }
       });
     },
     loadDataTable() {
-      $('#list-user-requests').DataTable({
-        destroy: true,
-        select: false,
-        data: this.allUserRequesting,
-        columns: [
-          { data: 'id' },
-          { data: 'user' },
-          { data: 'name' },
-          { data: 'created_at' },
-          { data: 'account_type.account' },
-          {
-            orderable: false,
-            render: (d, t, f, m) => this.statusRequest(f.request),
-          },
-          {
-            orderable: false,
-            render: (d, t, f, m) => this.btnModalDetails(m.row),
-          },
-        ],
-        rowCallback: (r, d, i) => {
-          setTimeout(() => {
-            let rowUser = document.getElementById(`user-${i}`);
-            rowUser.addEventListener('click', () => this.modalUser(d.id));
-          }, 100);
-        },
+      this.$nextTick(function () {
+        $('#datatable').DataTable({
+          responsive: true,
+          processing: true,
+          destroy: true,
+          select: false,
+        });
       });
     },
-    statusRequest(s) {
-      let r = '<span class="badge badge-danger">Error Data</span>';
-      if (s == 1) {
-        r = `<span class="badge badge-warning">Pending</span>`;
-      } else if (s == 2) {
-        r = `<span class="badge badge-success">Accepted</span>`;
-      } else if (s == 3) {
-        r = `<span class="badge badge-danger">Rejected</span>`;
-      }
-      return r;
-    },
-    btnModalDetails(r) {
-      const btn = `<button id="user-${r}" class="btn btn-info">Ver Detalles</button>`;
-      return btn;
+    listUsers() {
+      this.initialLoading = true;
+      api.get(`user-request/list`).then((response) => {
+        this.initialLoading = false;
+        this.dataUsers = response.data;
+        $('#datatable').DataTable().destroy();
+        this.loadDataTable();
+      });
     },
   },
 };

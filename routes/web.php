@@ -103,10 +103,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::apiResource('growthBonus', GrowthBonusController::class)->except(['update']);
     });
 
-    // User Request
-    Route::group(['prefix' => 'config/user-request'], function () {
-        Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
-    });
 
     Route::group(['prefix' => 'config/bank'], function () {
         Route::get('/', [BankController::class, 'index'])->name('bank');
@@ -143,7 +139,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // User Request    
     Route::group(['prefix' => 'config/user-request'], function () {
-        Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
+        Route::view('/', 'content.config.user_request')->name('user-request');
+        Route::get('/list', [UserRequestController::class, 'index']);
         Route::get('/get-user-by-id/{id}', [UserRequestController::class, 'getUserById']);
         Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });

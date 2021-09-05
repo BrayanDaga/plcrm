@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/base/plugins/forms/pickers/form-flat-pickr.css')}}">
 @endsection
 @section('content')
-    <user-request :all-user-requesting="{{ json_encode($all_user_requesting) }}"></user-request>
+    <user-request></user-request>
 @endsection
 @section('vendor-script')
 {{-- vendor files --}}
@@ -18,9 +18,4 @@
   <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
-@endsection
-
-@section('page-script')
-  {{-- Page js files --}}
-  <script src="{{ asset(mix('js/api/api.user-request.js')) }}"></script>
 @endsection
