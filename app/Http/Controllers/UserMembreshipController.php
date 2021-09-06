@@ -74,7 +74,6 @@ class UserMembreshipController extends Controller
     {
         $msg = '';
         try {
-            DB::transaction(function () use($request, &$msg) {
 
             // if ((int)$request->errorCode == 0) :
                 $table = new UserMembreship();
@@ -135,7 +134,6 @@ class UserMembreshipController extends Controller
                 $table->save();
 
                 $msg = 'Cliente Registrado satisfactoriamente';
-            }, 5);
 
             // else :
             //     $msg = 'Error en el registro de datos (' . $request->errorCode . ')';

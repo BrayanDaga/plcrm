@@ -21,7 +21,7 @@
     ></user-membreship-register> --}}
 <div class="row">
     <div class="col-lg-6">
-        <form name="f1" id="f1" action="{{ url('/api/user-membreship/create') }}" method="post" class="alignet-form-vpos2">
+        <form name="f1" id="f1" action="{{ url('/user-membreship/create') }}" method="post" class="alignet-form-vpos2">
             @csrf
             <input type="hidden" name="reserved9" value="{{ $id_referrer_sponsor }}">
             <input type="hidden" name="acquirerId" value="{{ env('ACQUIRER_ID') }}">
