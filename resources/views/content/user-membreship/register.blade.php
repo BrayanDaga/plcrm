@@ -135,7 +135,7 @@
                 </div>
                 <div class="form-group pr-1">
                     <label for="account_type-total_cost_membreship">Total cost of Membreship</label>
-                    <input type="text" id="account_type-total_cost_membreship" class="form-control" disabled>
+                    <input type="text" id="account_type-total_cost_membreship" class="form-control" name="amount" readonly>
                     <input type="hidden" name="reserved13">
                 </div>
             </div>
