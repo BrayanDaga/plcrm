@@ -72,8 +72,11 @@ class UserMembreshipController extends Controller
 
     public function Create(Request $request)
     {
+        // return $request->all();
+
         $msg = '';
         try {
+            
 
             // if ((int)$request->errorCode == 0) :
                 $table = new UserMembreship();
@@ -99,15 +102,15 @@ class UserMembreshipController extends Controller
                  */
                 $table = new Payment(); // table payment
                 $table->id_user_membreship = $id_user;
-                // $table->id_user_sponsor = $request->reserved9;
-                $table->id_user_sponsor = auth()->user()->id;
-                // $table->amount = $request->reserved13;
+                $table->id_user_sponsor = $request->reserved9;
+                $table->amount = $request->reserved13;
                 $table->amount = $request->amount;
                 $table->operation_number = 0;
                 $table->id_payment_method = $request->reserved14;;
                 $table->save();
                 $id_payment = $table->id;                
                 
+
                 /**
                  * store user_membreships_payment
                  */
