@@ -23,10 +23,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserMembreshipController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function Register()
     {
@@ -72,39 +72,37 @@ class UserMembreshipController extends Controller
     public function Create(Request $request)
     {
         $msg = '';
-        try {
-            // if ((int)$request->errorCode == 0) :
-                $table = new UserMembreship();
-                $table->user = $request->reserved1;
-                $table->password = Hash::make($request->reserved2);
-                $table->name = $request->shippingFirstName;
-                $table->last_name = $request->shippingLastName;
-                $table->phone = $request->reserved4;
-                $table->date_birth = $request->reserved5;
-                $table->email = $request->shippingEmail;
-                $table->id_referrer_sponsor = $request->reserved9;
-                $table->id_country = $request->reserved8;
-                $table->id_document_type = $request->reserved6;
-                $table->id_account_type = $request->reserved10;
-                $table->nro_document = $request->reserved7;
-                $table->request = 1;
+        // if ((int)$request->errorCode == 0) :
+        $table = new UserMembreship();
+        $table->user = $request->reserved1;
+        $table->password = Hash::make($request->reserved2);
+        $table->name = $request->shippingFirstName;
+        $table->last_name = $request->shippingLastName;
+        $table->phone = $request->reserved4;
+        $table->date_birth = $request->reserved5;
+        $table->email = $request->shippingEmail;
+        $table->id_referrer_sponsor = $request->reserved9;
+        $table->id_country = $request->reserved8;
+        $table->id_document_type = $request->reserved6;
+        $table->id_account_type = $request->reserved10;
+        $table->nro_document = $request->reserved7;
+        $table->request = 1;
 
-                $table->save();
-                $id_user = $table->id; // Get ID of user
+        if ($table->save()) :
+            $id_user = $table->id; // Get ID of user
 
-                /**
-                 * store payment
-                 */
+            /**
+             * store payment
+             */
 
-                $table = new Payment(); // table payment
-                $table->id_user_membreship = $id_user;
-                $table->id_user_sponsor = $request->reserved9;
-                $table->amount = $request->reserved13;
-                $table->operation_number = 0;
-                $table->id_payment_method = $request->reserved14;
-                $table->save();
+            $table = new Payment(); // table payment
+            $table->id_user_sponsor = $request->reserved9;
+            $table->amount = $request->reserved13;
+            $table->operation_number = 0;
+            $table->id_payment_method = $request->reserved14;
+            if ($table->save()) :
                 $id_payment = $table->id;
-
+    
                 /**
                  * store user_membreships_payment
                  */
@@ -128,29 +126,22 @@ class UserMembreshipController extends Controller
                 $table->IDTransaction = $request->IDTransaction;
                 $table->errorMessage = $request->errorMessage;
                 $table->authorizationResult = $request->authorizationResult;
-                $table->save();
+                if ($table->save()) :
+                    $msg = 'Cliente Registrado satisfactoriamente';
+                else:
+                    return redirect()->back()->withErrors(['errors' => 'Error en el registro del pago por usuario']);
+                endif;
+            else:
+                return redirect()->back()->withErrors(['errors' => 'Error en el registro del pago']);
+            endif;
+        else :
+            return redirect()->back()->withErrors(['errors' => 'Error en el regitro de usuario']);
+        endif;
+        // else :
+        //     $msg = 'Error en el registro de datos (' . $request->errorCode . ')';
+        // endif;
 
-                $msg = 'Cliente Registrado satisfactoriamente';
-            // else :
-            //     $msg = 'Error en el registro de datos (' . $request->errorCode . ')';
-            // endif;
-        } catch (Exception $e) {
-            // return [
-            //     'status' => false,
-            //     'message' => $e->getMessage(),
-            // ];
-            return redirect()
-                ->route('user-membreship-register')
-                ->with('error', $e->getMessage());
-        }
-        // return [
-        //     'status' => true,
-        //     'message' => $msg
-        // ];
-
-        return redirect()
-            ->route('user-membreship-register')
-            ->with('success', $msg);
+        return redirect()->route('user-membreship-register')->with('success', 'Cliente Registrado satisfactoriamente');
     }
 
     public function getDataUser($user)

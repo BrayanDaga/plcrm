@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\PaymentController;
-
+use App\Http\Controllers\UserMembreshipController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
