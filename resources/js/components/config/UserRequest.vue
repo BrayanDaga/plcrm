@@ -24,7 +24,7 @@
               class="badge"
               :class="
                 user.request == 1
-                  ? 'bagde-warning '
+                  ? 'badge-warning'
                   : user.request == 2
                   ? 'badge-success'
                   : 'badge-danger'
