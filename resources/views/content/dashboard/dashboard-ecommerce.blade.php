@@ -820,8 +820,6 @@
   {{-- vendor files --}}
   <script src="{{ asset(mix('vendors/js/charts/apexcharts.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
-  <script src="{{ asset(mix('vendors/js/orgChart/orgchart.js')) }}"></script>
-  {{-- Si se usa componente blade se quita el script de arriba OrgChart --}}
 @endsection
 @section('page-script')
   {{-- Page js files --}}

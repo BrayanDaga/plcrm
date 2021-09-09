@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  import OrgChart from '@balkangraph/orgchart.js';
 import api from '../api/api';
 export default {
   name: 'TreeComponent',
