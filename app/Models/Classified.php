@@ -23,4 +23,11 @@ class Classified extends Model
         return $this->belongsTo(UserMembreship::class, 'id_user_sponsor');
     }
 
+    public function scopeIsLeft($query){
+        return $query->where('status_position_left', 1);
+    }
+    public function scopeIsRigth($query){
+        return $query->where('status_position_right', 1);
+    }
+
 }

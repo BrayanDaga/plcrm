@@ -78,6 +78,11 @@ class UserMembreship extends Authenticatable
         return $this->belongsTo(UserMembreship::class, 'id_referrer_sponsor');
     }
 
+    public function clients(): HasMany
+    {
+        return $this->hasMany(UserMembreship::class, 'id_referrer_sponsor');
+    }
+
     public function payments(): HasOne
     {
         return $this->hasOne(Payment::class, 'id_user_membreship');
