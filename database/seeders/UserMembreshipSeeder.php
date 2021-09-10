@@ -25,7 +25,8 @@ class UserMembreshipSeeder extends Seeder
             'last_name' => 'Promolider',
             'email' => 'admin@promolider.test',
             'id_referrer_sponsor' => 0,
-            'request' => 1
+            'request' => 2,
+            'expiration_date' => strtotime('+10 years'),
         ]);
 
         //Los siguientes usuarios tienen un pago
@@ -57,7 +58,7 @@ class UserMembreshipSeeder extends Seeder
         ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
         UserMembreship::factory([
-            'user' => 'user-brayan1',
+            'user' => 'user-brayan',
             'name' => 'Brayan',
             'last_name' => 'Vilchez Daga',
             'email' => 'brayan@gmail.com',
