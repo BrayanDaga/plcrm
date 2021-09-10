@@ -58,7 +58,7 @@ class UserRequestController extends Controller
                     // $countDe = Classified::where('id_user_sponsor', auth()->user()->id)->where('position',1)->count();
 
                     $countIz = Classified::where('id_user_sponsor', auth()->user()->id)->isLeft()->count();
-                    $countDe = Classified::where('id_user_sponsor', auth()->user()->id)->isRigth()->count();
+                    $countDe = Classified::where('id_user_sponsor', auth()->user()->id)->isRight()->count();
 
                     // $cls  = Classified::where('id_user_sponsor', auth()->user()->id)->get()->last();
                     // $ultimaPosicion = $cls->position;
