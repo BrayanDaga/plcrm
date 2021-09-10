@@ -68,14 +68,12 @@
             </div>
           </div>
           <div class="modal-footer">
-            <div v-if="dataUser.request == 1 ">
-              <button type="button" class="btn btn-danger" @click="approveDeny(dataUser.id, 3)">
+              <button v-if="dataUser.request != 3" type="button" class="btn btn-danger"   @click="approveDeny(dataUser.id, 3)">
                 Deny
               </button>
-              <button type="button" class="btn btn-primary" @click="approveDeny(dataUser.id, 2)">
+              <button v-if="dataUser.request != 2" type="button" class="btn btn-primary" @click="approveDeny(dataUser.id, 2)">
                 Approve
               </button>
-            </div>
           </div>
         </div>
       </div>

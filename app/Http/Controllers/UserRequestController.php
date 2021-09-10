@@ -103,6 +103,13 @@ class UserRequestController extends Controller
     
                 }
              } 
+             if($request->status == 3){
+                $exists =  Classified::where('id_user_sponsor', auth()->user()->id)->where('id_user_membreship',$request->id)->exists();
+                if($exists){
+                    Classified::where('id_user_sponsor', auth()->user()->id)->where('id_user_membreship',$request->id)->delete();
+                }
+                
+            }
 
         });
     }
