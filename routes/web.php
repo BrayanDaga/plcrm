@@ -188,3 +188,5 @@ Route::get('/error', [MiscellaneousController::class, 'error'])->name('error');
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
+
+Route::view('/virtualclassroom', 'newPage')->name('virtualclass');

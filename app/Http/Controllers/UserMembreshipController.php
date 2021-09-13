@@ -77,6 +77,7 @@ class UserMembreshipController extends Controller
         $msg = '';
         try {
             
+            $tbRequest = $request->reserved10 == 5 ? 2 : 1;
 
             // if ((int)$request->errorCode == 0) :
                 $table = new UserMembreship();
@@ -92,8 +93,7 @@ class UserMembreshipController extends Controller
                 $table->id_document_type = $request->reserved6;
                 $table->id_account_type = $request->reserved10;
                 $table->nro_document = $request->reserved7;
-                $table->request = 1;
-
+                $table->request = $tbRequest;
                 $table->save();
                 $id_user = $table->id; // Get ID of user
 
@@ -146,18 +146,24 @@ class UserMembreshipController extends Controller
             //     'status' => false,
             //     'message' => $e->getMessage(),
             // ];
-            return redirect()
-                ->route('user-membreship-register')
-                ->with('error', $e->getMessage());
+             return redirect()
+                 ->route('user-membreship-register')
+                 ->with('error', $e->getMessage());
+
         }
         // return [
         //     'status' => true,
         //     'message' => $msg
         // ];
 
-        return redirect()
+        if($tbRequest == 2) {
+            return redirect()->route('virtualclass');
+        }else{
+            return redirect()
             ->route('user-membreship-register')
-            ->with('success', $msg);
+             ->with('success', $msg);
+        }
+     
     }
 
     public function getDataUser($user)
