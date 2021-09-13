@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CountrySeeder::class);
         $this->call(DocumentTypeSeeder::class);
         $this->call(AccountTypeSeeder::class);
+        $this->call(AccountTypePoinstMoneySeeder::class);
         $this->call(PaymentMethodSeeder::class);
         $this->call(BankSeeder::class);
         // UserMembreship::factory()->create(); // se reduce la cantida de datos de pruebas
