@@ -71,6 +71,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/create', [UserMembreshipController::class, 'create'])->name('user-membreship-create');
         Route::get('/sha/{purchase_operation_number}/{purchase_amount}', [UserMembreshipController::class, 'credentials']);
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
+        Route::get('/get-data-currentuser', [UserMembreshipController::class, 'getDataCurrentUser']);
+        Route::post('/change-position-currentuser', [UserMembreshipController::class, 'changePositionCurrentUser']);
         /*Start api user-membreship*/
         Route::get('/api', [BinaryBranchController::class, 'getListUsersMembreship'])
             ->name('getListUsersMembreship');

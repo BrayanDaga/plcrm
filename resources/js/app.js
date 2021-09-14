@@ -53,6 +53,11 @@ Vue.component(
   'tree-component',
   require('./components/TreeComponent.vue').default
 );
+
+Vue.component(
+  'adjust-leg',
+  require('./components/AdjustLeg.vue').default
+);
 const app = new Vue({
     el: '#app'
 });

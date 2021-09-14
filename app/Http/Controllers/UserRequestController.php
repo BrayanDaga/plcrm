@@ -52,18 +52,8 @@ class UserRequestController extends Controller
              $table->request = $request->status;
              $table->save();
              if($request->status == 2){
-                $exists =  Classified::where('id_user_sponsor', auth()->user()->id)->exists();
-                if($exists){
-                    // $countIz = Classified::where('id_user_sponsor', auth()->user()->id)->where('position',0)->count();
-                    // $countDe = Classified::where('id_user_sponsor', auth()->user()->id)->where('position',1)->count();
-
-                    $countIz = Classified::where('id_user_sponsor', auth()->user()->id)->isLeft()->count();
-                    $countDe = Classified::where('id_user_sponsor', auth()->user()->id)->isRight()->count();
-
-                    // $cls  = Classified::where('id_user_sponsor', auth()->user()->id)->get()->last();
                     // $ultimaPosicion = $cls->position;
-
-                    if($countIz > $countDe){
+                    if(auth()->user()->position == 1){
                         Classified::create([
                             'id_user_membreship' => $table->id,
                             'id_user_sponsor' => auth()->user()->id,
@@ -88,20 +78,7 @@ class UserRequestController extends Controller
                             'status_position_right' => '0',
                         ]);
                     }
-                }else{
-                    Classified::create([
-                        'id_user_membreship' => $table->id,
-                        'id_user_sponsor' => auth()->user()->id,
-                        'binary_sponsor' => 'test',
-                        'position' => '0',
-                        'classification' => 16,
-                        'status' => '0',
-                        'authorized' => '1',
-                        'status_position_left' => '1',
-                        'status_position_right' => '0',
-                    ]);
-    
-                }
+                                   
              } 
              if($request->status == 3){
                 $exists =  Classified::where('id_user_sponsor', auth()->user()->id)->where('id_user_membreship',$request->id)->exists();

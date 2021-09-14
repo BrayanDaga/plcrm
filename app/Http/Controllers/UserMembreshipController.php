@@ -172,6 +172,20 @@ class UserMembreshipController extends Controller
         return response()->json($data, 200);
     }
 
+    public function getDataCurrentUser()
+    {
+        $data = UserMembreship::find(auth()->user()->id);
+        return response()->json($data, 200);
+    }
+
+    public function changePositionCurrentUser(Request $request)
+    {
+        $user = UserMembreship::find(auth()->user()->id);
+        $user->position = $request->position;
+        $user->update();
+        return response()->json($user, 200);
+    }
+
     public function credentials($purchase_operation_number, $purchase_amount = 0)
     {
         $acquirer_id = env('ACQUIRER_ID');
