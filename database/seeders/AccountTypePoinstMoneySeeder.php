@@ -15,7 +15,7 @@ class AccountTypePoinstMoneySeeder extends Seeder
     public function run()
     {
         $valIni = 10;
-        for ($i=1; $i < 4 ; $i++) { 
+        for ($i=1; $i < 5 ; $i++) { 
             AccountTypePointsMoney::create([
                 'account_type_id' => $i,
                 'points' => $valIni,
