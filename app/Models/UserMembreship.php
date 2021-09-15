@@ -58,8 +58,15 @@ class UserMembreship extends Authenticatable
 
     public function getActiveAttribute()
     {
-        return $this->expiration_date > now() ? true : false; 
+        //Si la fecha de expiracion es mayor a la fecha actual
+        // return $this->expiration_date > now() ? true : false; 
+        
+        //Si el usuario lleva mas de 30 dias creado es activo
+        $resto=$this->created_at->diffInDays(now());
+        return $resto >= 30 ? true : false;
     }
+    
+
     public function getQualifiedAttribute() : bool
     {
         $qualified = false;
