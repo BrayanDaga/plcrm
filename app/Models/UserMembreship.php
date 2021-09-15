@@ -40,6 +40,7 @@ class UserMembreship extends Authenticatable
         'RightPoints',
         'active',
         'Photo',
+        'qualified',
     ];
 
     protected $casts = [
@@ -59,13 +60,25 @@ class UserMembreship extends Authenticatable
     {
         return $this->expiration_date > now() ? true : false; 
     }
-
+    public function getQualifiedAttribute() : bool
+    {
+        $qualified = false;
+        $left =  $this->classified()->where('status_position_left',1)->exists();
+        $rigth = $this->classified()->where('status_position_right',1)->exists();
+        if($left && $rigth){
+          $qualified = true;
+        }
+        return $qualified; 
+    }
 
 
     public function scopeIsActive($query)
     {
         return $query->where('expiration_date', '>' , now());
     }
+
+    
+
 
   
     public function country(): BelongsTo
@@ -103,7 +116,7 @@ class UserMembreship extends Authenticatable
 
     public function classified(): HasMany
     {
-        return $this->hasMany(Classified::class, 'id_user_membreship');
+          return $this->hasMany(Classified::class, 'id_user_sponsor','id');
     }
     
     public function scopeMyClients($query)

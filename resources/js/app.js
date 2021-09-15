@@ -58,6 +58,10 @@ Vue.component(
   'adjust-leg',
   require('./components/AdjustLeg.vue').default
 );
+Vue.component(
+  'user-status',
+  require('./components/UserStatus.vue').default
+);
 const app = new Vue({
     el: '#app'
 });

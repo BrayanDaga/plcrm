@@ -808,7 +808,10 @@
 
 
   </div>
-  <adjust-leg></adjust-leg>
+  <div class="row">
+    <adjust-leg></adjust-leg>
+    <user-status></user-status>
+  </div>
 
       {{-- Usando Componente Blade --}}
     {{-- <x-tree-component></x-tree-component>   --}}
