@@ -43,7 +43,6 @@ class UserRequestController extends Controller
 
     public function updateRequest(Request $request)
     {
-
         // if($table->save()):
         //     $json = ['response' => 200];
         // else:
@@ -55,17 +54,20 @@ class UserRequestController extends Controller
             $table->request = $request->status;
             $table->save();
             if ($request->status == 2) {
-    //  $account = AccountType::find($table->id_account_type);
+        //  $account = AccountType::find($table->id_account_type);
                 // if (auth()->user()->qualified && auh()->user()->active) {
-                    $atm =  AccountTypePointsMoney::where('account_type_id',$table->id_account_type)->first();
-            
-                    UserMembreshipsPoints::create([
-                        'id_user_membreship' => $table->id,
-                        'id_user_sponsor' => auth()->user()->id,
-                        'points' => $atm->points ,
-                    ]);
+                    
+                    // if (auth()->user()->qualified == 1 ) {
+                    if (auth()->user()->qualified == 1  && auth()->user()->active == 1) {
+                        $atm =  AccountTypePointsMoney::where('account_type_id',$table->id_account_type)->first();
+
+                        UserMembreshipsPoints::create([
+                            'id_user_membreship' => $table->id,
+                            'id_user_sponsor' => auth()->user()->id,
+                            'points' => $atm->points ,
+                        ]);
+                    }
                 // }
-    
 
                 // $ultimaPosicion = $cls->position;
                 if (auth()->user()->position == 1) {
