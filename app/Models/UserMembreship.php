@@ -3,8 +3,9 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Pointable;
+use Carbon\Carbon;
 use App\Models\Wallet;
+use App\Models\Traits\Pointable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -62,7 +63,11 @@ class UserMembreship extends Authenticatable
         // return $this->expiration_date > now() ? true : false; 
         
         //Si el usuario lleva mas de 30 dias creado es activo
-        $resto=$this->created_at->diffInDays(now());
+
+  
+        $now = Carbon::parse(now());
+        $f2 = Carbon::parse($this->created_at);
+        $resto=$f2->diffInDays($now);
         return $resto >= 30 ? true : false;
     }
     

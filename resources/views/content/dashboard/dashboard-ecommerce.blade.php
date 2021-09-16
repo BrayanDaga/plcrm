@@ -812,11 +812,11 @@
     <adjust-leg></adjust-leg>
     <user-status></user-status>
   </div>
-
+  
+  <tree-component></tree-component>
       {{-- Usando Componente Blade --}}
     {{-- <x-tree-component></x-tree-component>   --}}
     {{-- Usando Componente Vue --}}
-    <tree-component></tree-component>
   </div>
 </section>
 <!-- Dashboard Ecommerce ends -->
