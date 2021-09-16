@@ -84,10 +84,10 @@ class UserMembreship extends Authenticatable
     }
 
 
-    public function scopeIsActive($query)
-    {
-        return $query->where('expiration_date', '>' , now());
-    }
+    // public function scopeIsActive($query)
+    // {
+    //     return $query->where('expiration_date', '>' , now());
+    // }
 
     
 
