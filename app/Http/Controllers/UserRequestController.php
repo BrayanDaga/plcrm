@@ -54,21 +54,8 @@ class UserRequestController extends Controller
             $table->request = $request->status;
             $table->save();
             if ($request->status == 2) {
-        //  $account = AccountType::find($table->id_account_type);
-                // if (auth()->user()->qualified && auh()->user()->active) {
                     
-                    // if (auth()->user()->qualified == 1 ) {
-                    if (auth()->user()->qualified == 1  && auth()->user()->active == 1) {
-                        $atm =  AccountTypePointsMoney::where('account_type_id',$table->id_account_type)->first();
-
-                        UserMembreshipsPoints::create([
-                            'id_user_membreship' => $table->id,
-                            'id_user_sponsor' => auth()->user()->id,
-                            'points' => $atm->points ,
-                        ]);
-                    }
-                // }
-
+                $position = 0;
                 // $ultimaPosicion = $cls->position;
                 if (auth()->user()->position == 1) {
                     Classified::create([
@@ -82,6 +69,7 @@ class UserRequestController extends Controller
                         'status_position_left' => '0',
                         'status_position_right' => '1',
                     ]);
+                    $position = 1;
                 } else {
                     Classified::create([
                         'id_user_membreship' => $table->id,
@@ -94,17 +82,25 @@ class UserRequestController extends Controller
                         'status_position_left' => '1',
                         'status_position_right' => '0',
                     ]); 
+                    $position = 0;
                 }
-                // $account = AccountType::find($table->id_account_type);
-                // $atm =  AccountTypePointsMoney::where('account_type_id',$account->id)->get();
+
+
+                    // if (auth()->user()->qualified == 1 ) {
+                        if (auth()->user()->qualified == 1  && auth()->user()->active == 1) {
+                            $atm =  AccountTypePointsMoney::where('account_type_id',$table->id_account_type)->first();
+    
+                            UserMembreshipsPoints::create([
+                                'id_user_membreship' => $table->id,
+                                'id_user_sponsor' => auth()->user()->id,
+                                'points' => $atm->points ,
+                                'side' => $position
+                            ]);
+                        }
+    
+
+            }
             
-            }
-            if ($request->status == 3) {
-                $exists =  Classified::where('id_user_sponsor', auth()->user()->id)->where('id_user_membreship', $request->id)->exists();
-                if ($exists) {
-                    Classified::where('id_user_sponsor', auth()->user()->id)->where('id_user_membreship', $request->id)->delete();
-                }
-            }
         });
     }
 }

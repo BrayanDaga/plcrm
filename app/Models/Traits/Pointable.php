@@ -1,7 +1,8 @@
 <?php
 namespace App\Models\Traits;
 
-use App\Models\Point;
+use App\Models\UserMembreship;
+use App\Models\UserMembreshipsPoints;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait Pointable
@@ -13,16 +14,34 @@ trait Pointable
      */
     public function points(): HasMany
     {
-        return $this->hasMany(Point::class);
+        return $this->hasMany(UserMembreshipsPoints::class,'id_user_sponsor','id');
+    
+
     }
     
     public function getLeftPointsAttribute()
     {
-        return $this->points()->where('leg','left')->sum('user_points') ;
+        $id = $this->id;
+ 
+        $consulta = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->with(['points' => function($q){
+            $q->where('side',0);
+       }])->get()->pluck('points')->collapse()->unique('id')->values();
+
+       $points = $consulta->sum('points');
+
+       return $points;
     }
 
     public function getRightPointsAttribute()
     {
-        return $this->points()->where('leg','right')->sum('user_points') ;
+        $id = $this->id;
+ 
+        $consulta = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->with(['points' => function($q){
+            $q->where('side',1);
+       }])->get()->pluck('points')->collapse()->unique('id')->values();
+
+       $points = $consulta->sum('points');
+
+       return $points; 
     }
 }

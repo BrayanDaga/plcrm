@@ -20,6 +20,7 @@ class CreateUserMembreshipsPointsTable extends Migration
             $table->bigInteger('id_user_sponsor')->unsigned();
             $table->foreign('id_user_sponsor')->references('id')->on('user_membreships');
             $table->unsignedDouble('points',10,2)->default(0.0);
+            $table->boolean('side');
             $table->timestamps();
         });
     }

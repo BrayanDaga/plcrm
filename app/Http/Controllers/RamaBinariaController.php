@@ -81,8 +81,10 @@ class RamaBinariaController extends Controller
             //return $claveColeccion->qualified === true;
             return $claveColeccion->qualified === true && $claveColeccion->active === true;
         });
+        
 
-        return response()->json(['data' => $users]);
+        return UserMembreshipResource::collection($users);
+
    /*La siguiente linea esta comentada ya que en el registro de usuarios no se especifica la fecha de expiracion
         y por ende los nuevos registros no saldran activo y no los mostrara en el arbol de rama binaria  */
         //  $users = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->isActive()->where('request',2)->select('id','id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();  

@@ -37,8 +37,8 @@ class UserMembreship extends Authenticatable
 
     protected $appends = [
         'fullName',
-        'LeftPoints',
-        'RightPoints',
+         'LeftPoints',
+         'RightPoints',
         'active',
         'Photo',
         'qualified',

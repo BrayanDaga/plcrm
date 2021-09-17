@@ -33,7 +33,7 @@ class UserMembreshipFactory extends Factory
          * los metodos "rand" se cambian los valores
          */
         return [
-            'user' => 'admin',
+            'user' => $this->faker->username,
             'password' => $password ?: $password = bcrypt('admin'),
             'name' => $this->faker->name(),
             'last_name' => $this->faker->lastName(),

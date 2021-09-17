@@ -27,6 +27,7 @@ class UserMembreshipSeeder extends Seeder
             'id_referrer_sponsor' => 0,
             'request' => 2,
             'expiration_date' => strtotime('+10 years'),
+            'id_account_type' => 1,
             'created_at' => strtotime('-1 years'),
         ]);
 
@@ -39,6 +40,7 @@ class UserMembreshipSeeder extends Seeder
             'id_referrer_sponsor' => 1,
             'request' => 1,
             'created_at' => strtotime('-1 years'),
+            'id_account_type' => 2,
         ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
         UserMembreship::factory([
@@ -49,6 +51,7 @@ class UserMembreshipSeeder extends Seeder
             'id_referrer_sponsor' => 1,
             'request' => 1,
             'created_at' => strtotime('-1 years'),
+            'id_account_type' => 3,
         ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
         UserMembreship::factory([
@@ -59,6 +62,7 @@ class UserMembreshipSeeder extends Seeder
             'id_referrer_sponsor' => 1,
             'request' => 1,
             'created_at' => strtotime('-1 years'),
+            'id_account_type' => 4,
         ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
         UserMembreship::factory([
@@ -69,9 +73,31 @@ class UserMembreshipSeeder extends Seeder
             'id_referrer_sponsor' => 1,
             'request' => 1,
             'created_at' => strtotime('-1 years'),
+            'id_account_type' => 2,
         ])->has(Payment::factory([ 'id_user_sponsor' => 1]))->create();
 
 
+        UserMembreship::factory([
+            'id_referrer_sponsor' => 1,
+            'request' => 1,
+            'created_at' => strtotime('-1 years'),
+            'id_account_type' => 2,
+        ])->count(4)->has(Payment::factory([ 'id_user_sponsor' => 1]))->create();
+
+        UserMembreship::factory([
+            'id_referrer_sponsor' => 5,
+            'request' => 1,
+            'created_at' => strtotime('-1 years'),
+            'id_account_type' => 2,
+        ])->count(8)->has(Payment::factory([ 'id_user_sponsor' => 5]))->create();
+
+
+        UserMembreship::factory([
+            'id_referrer_sponsor' => 2,
+            'request' => 1,
+            'created_at' => strtotime('-1 years'),
+            'id_account_type' => 2,
+        ])->count(8)->has(Payment::factory([ 'id_user_sponsor' => 2]))->create();
 
         // for ($i = 0; $i < 2; $i++) {
         //     //No activos por fecha de expiracion
