@@ -28,7 +28,7 @@ class UserMembreshipSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+10 years'),
             'id_account_type' => 1,
-            'created_at' => strtotime('-1 years'),
+            // 'created_at' => strtotime('-1 years'),
         ]);
 
         //Los siguientes usuarios tienen un pago
@@ -39,7 +39,8 @@ class UserMembreshipSeeder extends Seeder
             'email' => 'wiliam@gmail.com',
             'id_referrer_sponsor' => 1,
             'request' => 1,
-            'created_at' => strtotime('-1 years'),
+            // 'created_at' => strtotime('-1 years'),
+            'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
         ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
@@ -50,7 +51,8 @@ class UserMembreshipSeeder extends Seeder
             'email' => 'admin@promolider.test',
             'id_referrer_sponsor' => 1,
             'request' => 1,
-            'created_at' => strtotime('-1 years'),
+            // 'created_at' => strtotime('-1 years'),
+            'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 3,
         ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
@@ -61,7 +63,8 @@ class UserMembreshipSeeder extends Seeder
             'email' => 'admin@promolider.test',
             'id_referrer_sponsor' => 1,
             'request' => 1,
-            'created_at' => strtotime('-1 years'),
+            // 'created_at' => strtotime('-1 years'),
+            'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 4,
         ])->has(Payment::factory(['id_user_sponsor' => 1]))->create();
 
@@ -72,7 +75,8 @@ class UserMembreshipSeeder extends Seeder
             'email' => 'brayan@gmail.com',
             'id_referrer_sponsor' => 1,
             'request' => 1,
-            'created_at' => strtotime('-1 years'),
+            // 'created_at' => strtotime('-1 years'),
+            'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
         ])->has(Payment::factory([ 'id_user_sponsor' => 1]))->create();
 
@@ -80,24 +84,36 @@ class UserMembreshipSeeder extends Seeder
         UserMembreship::factory([
             'id_referrer_sponsor' => 1,
             'request' => 1,
-            'created_at' => strtotime('-1 years'),
+            // 'created_at' => strtotime('-1 years'),
+            'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
         ])->count(4)->has(Payment::factory([ 'id_user_sponsor' => 1]))->create();
+
+   
+        UserMembreship::factory([
+            'id_referrer_sponsor' => 2,
+            'request' => 1,
+            // 'created_at' => strtotime('-1 years'),
+            'expiration_date' => strtotime('+30 days'),
+            'id_account_type' => 2,
+        ])->count(4)->has(Payment::factory([ 'id_user_sponsor' => 2]))->create();
+
 
         UserMembreship::factory([
             'id_referrer_sponsor' => 5,
             'request' => 1,
-            'created_at' => strtotime('-1 years'),
+            // 'created_at' => strtotime('-1 years'),
+            'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
-        ])->count(8)->has(Payment::factory([ 'id_user_sponsor' => 5]))->create();
-
+        ])->count(4)->has(Payment::factory([ 'id_user_sponsor' => 5]))->create();
 
         UserMembreship::factory([
-            'id_referrer_sponsor' => 2,
+            'id_referrer_sponsor' => 6,
             'request' => 1,
-            'created_at' => strtotime('-1 years'),
+            // 'created_at' => strtotime('-1 years'),
+            'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
-        ])->count(8)->has(Payment::factory([ 'id_user_sponsor' => 2]))->create();
+        ])->count(4)->has(Payment::factory([ 'id_user_sponsor' => 6]))->create();
 
         // for ($i = 0; $i < 2; $i++) {
         //     //No activos por fecha de expiracion

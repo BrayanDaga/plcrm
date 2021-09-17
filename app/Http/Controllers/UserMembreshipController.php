@@ -94,6 +94,7 @@ class UserMembreshipController extends Controller
                 $table->id_account_type = $request->reserved10;
                 $table->nro_document = $request->reserved7;
                 $table->request = $tbRequest;
+                $table->expiration_date =  strtotime('+30 days');
                 $table->save();
                 $id_user = $table->id; // Get ID of user
 
@@ -134,6 +135,7 @@ class UserMembreshipController extends Controller
                 $table->IDTransaction = $request->IDTransaction;
                 $table->errorMessage = $request->errorMessage;
                 $table->authorizationResult = $request->authorizationResult;
+                
                 $table->save();
 
                 $msg = 'Cliente Registrado satisfactoriamente';

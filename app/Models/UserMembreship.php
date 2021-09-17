@@ -60,15 +60,13 @@ class UserMembreship extends Authenticatable
     public function getActiveAttribute()
     {
         //Si la fecha de expiracion es mayor a la fecha actual
-        // return $this->expiration_date > now() ? true : false; 
+        return $this->expiration_date > now() ? true : false; 
         
-        //Si el usuario lleva mas de 30 dias creado es activo
-
-  
-        $now = Carbon::parse(now());
-        $f2 = Carbon::parse($this->created_at);
-        $resto=$f2->diffInDays($now);
-        return $resto >= 30 ? true : false;
+        //Si el usuario lleva mas de 30 dias creado es activo  
+        // $now = Carbon::parse(now());
+        // $f2 = Carbon::parse($this->created_at);
+        // $resto=$f2->diffInDays($now);
+        // return $resto >= 30 ? true : false;
     }
     
 
@@ -84,10 +82,10 @@ class UserMembreship extends Authenticatable
     }
 
 
-    // public function scopeIsActive($query)
-    // {
-    //     return $query->where('expiration_date', '>' , now());
-    // }
+     public function scopeIsActive($query)
+     {
+         return $query->where('expiration_date', '>' , now());
+     }
 
     
 
