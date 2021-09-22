@@ -77,10 +77,12 @@ class RamaBinariaController extends Controller
 
 
         //usando la funcion creada desde el seeder
-        $users = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->where('request', 2)->where('id_account_type','!=',5)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date','created_at')->get()->filter(function($claveColeccion) {
-            //return $claveColeccion->qualified === true;
-            return $claveColeccion->qualified === true && $claveColeccion->active === true;
-        });
+        $users = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->where('request', 2)->where('id_account_type','!=',5)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date','created_at')->get();
+
+        // (function($claveColeccion) {
+        //     //return $claveColeccion->qualified === true;
+        //     return $claveColeccion->qualified === true && $claveColeccion->active === true;
+        // });
         
 
         return UserMembreshipResource::collection($users);
