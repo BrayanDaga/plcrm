@@ -66,26 +66,43 @@ class RamaBinariaController extends Controller
 
         $data[] = $currentUser;
         //1ra Generacion 
-        $primeraGeneracion = $this->findTwoChild($currentUser);
         // return $primeraGeneracion[1];
-        $data = array_merge($data,$primeraGeneracion);
+        $primeraGeneracion = $this->findTwoChild($currentUser);
 
         //Segunda Generacion
-        // $segundaGen1  = $this->findTwoChild($primeraGeneracion[0]);
+        if(!empty($primeraGeneracion)  && count($primeraGeneracion) > 0){
+            $data = array_merge($data,$primeraGeneracion);
+            if(!empty($primeraGeneracion[0]) ){
+                $segundaGen1  = $this->findTwoChild($primeraGeneracion[0]->UserMembreship);
+                $data = array_merge($data,$segundaGen1);
+            }
+            if(!empty($primeraGeneracion[1])){
+                $segundaGen2  = $this->findTwoChild($primeraGeneracion[1]->UserMembreship);
+                $data = array_merge($data,$segundaGen2);
+
+            }
+            // $segundaGeneracion = [$segundaGen1,$segundaGen2];
+             
+
+        }
         // $segundaGen2= $this->findTwoChild($primeraGeneracion[1]);
 
-        // $segundaGeneracion = [$segundaGen1,$segundaGen2];
-        // $data = array_merge($data,$segundaGeneracion);
-        // return $userMembreships;
-
+     
+        
         return JsonResource::collection($data);
     }
 
-    private function findTwoChild(UserMembreship $user) : array
+    private function findTwoChild( $user) : array
     {
-        $hijos[]  = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_left',1)->first();
-        $hijos[]  = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_right',1)->first();
+       $hijos = [];
+        if( Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_left',1)->orWhere('status_position_right',1)->exists()){
+            $hijos[]  = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_left',1)->first();
+        
+
+            $hijos[]  = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_right',1)->first();
+        }
         return   $hijos;
+
     }
 
     public function viewTree()

@@ -21,6 +21,7 @@ class UserRequestController extends Controller
          * Request = 1 reprenseta que el usuario esta en solicitud de ser aprovado
          */
         $all_user_requesting = UserMembreship::with('accountType')
+        ->where('id_referrer_sponsor', auth()->user()->id)
             ->where('request', 1)
             ->get();
 
