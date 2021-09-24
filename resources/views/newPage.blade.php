@@ -1,1 +1,2 @@
-<h1>Aula Virtual</h1>
+<h1>Aula Virtual</  <tree-component></tree-component>
+    h1>

@@ -62,6 +62,10 @@ Vue.component(
   'user-status',
   require('./components/UserStatus.vue').default
 );
+Vue.component(
+  'binary-tree',
+  require('./components/BinaryTree.vue').default
+);
 const app = new Vue({
     el: '#app'
 });

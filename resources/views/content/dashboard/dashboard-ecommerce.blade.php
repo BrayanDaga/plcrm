@@ -812,11 +812,12 @@
     <adjust-leg></adjust-leg>
     <user-status></user-status>
   </div>
-  
-  <tree-component></tree-component>
+  <a href="{{ route('uninivel') }}" class="h4">Arbol uninivel</a>
       {{-- Usando Componente Blade --}}
     {{-- <x-tree-component></x-tree-component>   --}}
     {{-- Usando Componente Vue --}}
+    {{-- <x-binary-component></x-binary-component> --}}
+    <binary-tree></binary-tree>
   </div>
 </section>
 <!-- Dashboard Ecommerce ends -->

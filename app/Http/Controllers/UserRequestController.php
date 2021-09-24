@@ -20,8 +20,8 @@ class UserRequestController extends Controller
         /** @var User
          * Request = 1 reprenseta que el usuario esta en solicitud de ser aprovado
          */
-        $all_user_requesting = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->with('accountType')
-            ->where('request', '<>', 0)
+        $all_user_requesting = UserMembreship::with('accountType')
+            ->where('request', 1)
             ->get();
 
         return UserMembreshipResource::collection($all_user_requesting);
@@ -85,7 +85,6 @@ class UserRequestController extends Controller
                     $position = 0;
                 }
 
-
                     // if (auth()->user()->qualified == 1 ) {
                         if (auth()->user()->qualified == 1  && auth()->user()->active == 1) {
                             $atm =  AccountTypePointsMoney::where('account_type_id',$table->id_account_type)->first();
@@ -98,7 +97,6 @@ class UserRequestController extends Controller
                             ]);
                         }
     
-
             }
             
         });

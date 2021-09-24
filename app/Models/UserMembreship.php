@@ -60,7 +60,10 @@ class UserMembreship extends Authenticatable
     public function getActiveAttribute()
     {
         //Si la fecha de expiracion es mayor a la fecha actual
-        return $this->expiration_date > now() ? true : false; 
+        $expiro = $this->expiration_date > now() ? true : false; 
+        $aceptado = $this->request == 2 ? true : false; 
+        
+        return ($expiro && $aceptado) ? true : false;
         
         //Si el usuario lleva mas de 30 dias creado es activo  
         // $now = Carbon::parse(now());
@@ -73,8 +76,8 @@ class UserMembreship extends Authenticatable
     public function getQualifiedAttribute() : bool
     {
         $qualified = false;
-        $left =  $this->classified()->where('status_position_left',1)->exists();
-        $rigth = $this->classified()->where('status_position_right',1)->exists();
+        $left =  $this->classifiedSponsor()->where('status_position_left',1)->exists();
+        $rigth = $this->classifiedSponsor()->where('status_position_right',1)->exists();
         if($left && $rigth){
           $qualified = true;
         }
@@ -84,13 +87,10 @@ class UserMembreship extends Authenticatable
 
      public function scopeIsActive($query)
      {
-         return $query->where('expiration_date', '>' , now());
+         return $query->where('expiration_date', '>' , now())->where('request',2);
      }
 
     
-
-
-  
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'id_country');
@@ -124,9 +124,14 @@ class UserMembreship extends Authenticatable
     }
 
 
-    public function classified(): HasMany
+    public function classifiedSponsor(): HasMany
     {
           return $this->hasMany(Classified::class, 'id_user_sponsor','id');
+    }
+
+    public function classifiedClients(): HasMany
+    {
+          return $this->hasMany(Classified::class, 'id_user_membreship','id');
     }
     
     public function scopeMyClients($query)

@@ -44,6 +44,8 @@ Route::post('login', [LoginController::class, 'login'])->name('login');
  */
 Route::group(['middleware' => ['auth']], function () {
     Route::get('viewTree', [RamaBinariaController::class, 'viewTree']);
+    Route::view('uninivel', 'uninivel')->name('uninivel');
+    Route::get('listbinary', [RamaBinariaController::class, 'listbinary']);
     // Main Page Route
     // Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
     Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
