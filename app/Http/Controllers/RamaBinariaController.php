@@ -64,14 +64,8 @@ class RamaBinariaController extends Controller
         $B = $this->findChildRight($currentUser); //Primer hijo derecho llamado B
         if (!empty($A)) {
             $data['a'] = $A;
-        }
-        if (!empty($B)) {
-            $data['b'] = $B;
-        }
-
-        $Aa = $this->findChildLeft($A->userMembreship); //Hijo izquierdo de A llamado Aa
-        $Ab = $this->findChildRight($A->userMembreship); //Hijo derecho de A llamado Ab
-
+            $Aa = $this->findChildLeft($A->userMembreship); //Hijo izquierdo de A llamado Aa
+            $Ab = $this->findChildRight($A->userMembreship); //Hijo derecho de A llamado Ab
 
         if (!empty($Aa)) {
             $data['aa'] = $Aa;
@@ -80,15 +74,24 @@ class RamaBinariaController extends Controller
             $data['ab'] = $Ab;
         }
 
-        $Ba = $this->findChildLeft($B->userMembreship); //Hijo izquierdo de B llamado Ba
-        $Bb = $this->findChildRight($B->userMembreship); //Hijo derecho de B llamada Bb
+        }
+        if (!empty($B)) {
+            $data['b'] = $B;
+            $Ba = $this->findChildLeft($B->userMembreship); //Hijo izquierdo de B llamado Ba
+            $Bb = $this->findChildRight($B->userMembreship); //Hijo derecho de B llamada Bb
+    
+            if (!empty($Ba)) {
+                $data['ba'] = $Ba;
+            }
+            if (!empty($Bb)) {
+                $data['bb'] = $Bb;
+            }
+        }
 
-        if (!empty($Ba)) {
-            $data['ba'] = $Ba;
-        }
-        if (!empty($Bb)) {
-            $data['bb'] = $Bb;
-        }
+
+
+
+       
 
         return JsonResource::collection($data);
     }
