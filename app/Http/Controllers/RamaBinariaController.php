@@ -52,57 +52,69 @@ class RamaBinariaController extends Controller
         return response()->json($userValidates);
     }
 
+
     public function listbinary()
     {
         $data = [];
-        $currentUser = auth()->user(); //Obtengo el usuario actual
+        $currentUser =   UserMembreship::find(auth()->user()->id); //Obtengo el usuario actual
 
-        // $userMembreships = UserMembreship::where('id_referrer_sponsor', $currentUser->id)->with(["classified" => function ($q) {
-        //     $q->where('classified.status_position_left', '=', 1);
-        // }])->get()->filter(function($key){
-        //   return $key->qualified == true ?? false;
-        // })->first(); 
-        // return $userMembreships;
+        $data['c'] = $currentUser;  //Agregamos el usuario actual
 
-        $data[] = $currentUser;
-        //1ra Generacion 
-        // return $primeraGeneracion[1];
-        $primeraGeneracion = $this->findTwoChild($currentUser);
-
-        //Segunda Generacion
-        if(!empty($primeraGeneracion)  && count($primeraGeneracion) > 0){
-            $data = array_merge($data,$primeraGeneracion);
-            if(!empty($primeraGeneracion[0]) ){
-                $segundaGen1  = $this->findTwoChild($primeraGeneracion[0]->UserMembreship);
-                $data = array_merge($data,$segundaGen1);
-            }
-            if(!empty($primeraGeneracion[1])){
-                $segundaGen2  = $this->findTwoChild($primeraGeneracion[1]->UserMembreship);
-                $data = array_merge($data,$segundaGen2);
-
-            }
-            // $segundaGeneracion = [$segundaGen1,$segundaGen2];
-             
-
+        $A = $this->findChildLeft($currentUser); //Primer hijo izquierdo llamado A
+        $B = $this->findChildRight($currentUser); //Primer hijo derecho llamado B
+        if (!empty($A)) {
+            $data['a'] = $A;
         }
-        // $segundaGen2= $this->findTwoChild($primeraGeneracion[1]);
+        if (!empty($B)) {
+            $data['b'] = $B;
+        }
 
-     
-        
+        $Aa = $this->findChildLeft($A->userMembreship); //Hijo izquierdo de A llamado Aa
+        $Ab = $this->findChildRight($A->userMembreship); //Hijo derecho de A llamado Ab
+
+
+        if (!empty($Aa)) {
+            $data['aa'] = $Aa;
+        }
+        if (!empty($Ab)) {
+            $data['ab'] = $Ab;
+        }
+
+        $Ba = $this->findChildLeft($B->userMembreship); //Hijo izquierdo de B llamado Ba
+        $Bb = $this->findChildRight($B->userMembreship); //Hijo derecho de B llamada Bb
+
+        if (!empty($Ba)) {
+            $data['ba'] = $Ba;
+        }
+        if (!empty($Bb)) {
+            $data['bb'] = $Bb;
+        }
+
         return JsonResource::collection($data);
     }
 
-    private function findTwoChild( $user) : array
+    private function findTwoChild($user): array
     {
-       $hijos = [];
-        if( Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_left',1)->orWhere('status_position_right',1)->exists()){
-            $hijos[]  = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_left',1)->first();
-        
+        $hijos = [];
+        if (Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_left', 1)->orWhere('status_position_right', 1)->exists()) {
+            $hijos[]  = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_left', 1)->first();
 
-            $hijos[]  = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_right',1)->first();
+
+            $hijos[]  = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_right', 1)->first();
         }
         return   $hijos;
+    }
 
+    private function findChildLeft($user)
+    {
+        $hijo = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_left', 1)->first();
+        return  $hijo;
+    }
+
+    private function findChildRight($user)
+    {
+        $hijo = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_right', 1)->first();
+        return  $hijo;
     }
 
     public function viewTree()
@@ -130,7 +142,7 @@ class RamaBinariaController extends Controller
 
 
         //usando la funcion creada desde el seeder
-        $users = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->where('request', 2)->where('id_account_type', '!=', 5)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date', 'created_at')->get();
+        $users = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->where('request', 2)->where('id_account_type', '!=', 5)->select('id', 'id_referrer_sponsor AS pid', 'name', 'email', 'last_name', 'expiration_date', 'created_at')->get();
 
         // (function($claveColeccion) {
         //     //return $claveColeccion->qualified === true;

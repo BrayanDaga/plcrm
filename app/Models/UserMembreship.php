@@ -50,7 +50,7 @@ class UserMembreship extends Authenticatable
 
     public function  getPhotoAttribute()
     {
-        return 'https://iconape.com/wp-content/png_logo_vector/user-tie.png';
+        return 'https://i.pravatar.cc/150?u='. $this->email;
     }
     public function getfullNameAttribute()
     {

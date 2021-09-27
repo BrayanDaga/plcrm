@@ -26,7 +26,6 @@ trait Pointable
         $consulta = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->with(['points' => function($q){
             $q->where('side',0);
        }])->get()->pluck('points')->collapse()->unique('id')->values();
-
        $points = $consulta->sum('points');
 
        return $points;
