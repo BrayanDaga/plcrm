@@ -134,12 +134,12 @@
           class="img-circle"
           alt="User Image"
           style="max-width: 80px; height: 80px; flex: 1"
-          data-original-title="Una Prueba Una Prueba"
+          :data-original-title="binary.aa.user_membreship.fullName"
         />
       </a>
 
       <section style="max-width: 40px; display: inline-block; flex: 1"></section>
-      <section style="max-width: 80px; display: inline-block; flex: 1">&nbsp;</section>
+      <section style="max-width: 80px; display: inline-block; flex: 1"></section>
       <a href="#" onclick="ver_user_arbol('prueba');">
         <img
           v-if="binary.hasOwnProperty('ab')"
@@ -150,7 +150,7 @@
           class="img-circle"
           alt="User Image"
           style="max-width: 80px; height: 80px; flex: 1"
-          data-original-title="Una Prueba Una Prueba"
+          :data-original-title="binary.ab.user_membreship.fullName"
         />
       </a>
       &nbsp;
@@ -165,7 +165,7 @@
           class="img-circle"
           alt="User Image"
           style="max-width: 80px; height: 80px; flex: 1"
-          data-original-title="Alba Alba"
+          :data-original-title="binary.ba.user_membreship.fullName"
         />
       </a>
       <section style="max-width: 80px; display: inline-block; flex: 1">&nbsp;</section>
@@ -180,7 +180,7 @@
           class="img-circle"
           alt="User Image"
           style="max-width: 80px; height: 80px; flex: 1"
-          data-original-title="Alba Alba"
+          :data-original-title="binary.bb.user_membreship.fullName"
         />
       </a>
     </div>
