@@ -57,7 +57,6 @@ class UserRequestController extends Controller
             if ($request->status == 2) {
                     
                 $position = 0;
-                // $ultimaPosicion = $cls->position;
                 if (auth()->user()->position == 1) {
                     Classified::create([
                         'id_user_membreship' => $table->id,
