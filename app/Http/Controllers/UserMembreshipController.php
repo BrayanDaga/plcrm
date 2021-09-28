@@ -80,36 +80,64 @@ class UserMembreshipController extends Controller
             $tbRequest = $request->reserved10 == 5 ? 2 : 1;
 
             // if ((int)$request->errorCode == 0) :
-                $table = new UserMembreship();
-                $table->user = $request->reserved1;
-                $table->password = Hash::make($request->reserved2);
-                $table->name = $request->shippingFirstName;
-                $table->last_name = $request->shippingLastName;
-                $table->phone = $request->reserved4;
-                $table->date_birth = $request->reserved5;
-                $table->email = $request->shippingEmail;
-                $table->id_referrer_sponsor = $request->reserved9;
-                $table->id_country = $request->reserved8;
-                $table->id_document_type = $request->reserved6;
-                $table->id_account_type = $request->reserved10;
-                $table->nro_document = $request->reserved7;
-                $table->request = $tbRequest;
-                $table->expiration_date =  strtotime('+30 days');
-                $table->save();
-                $id_user = $table->id; // Get ID of user
+                $user = new UserMembreship();
+                $user->user = $request->reserved1;
+                $user->password = Hash::make($request->reserved2);
+                $user->name = $request->shippingFirstName;
+                $user->last_name = $request->shippingLastName;
+                $user->phone = $request->reserved4;
+                $user->date_birth = $request->reserved5;
+                $user->email = $request->shippingEmail;
+                $user->id_referrer_sponsor = $request->reserved9;
+                $user->id_country = $request->reserved8;
+                $user->id_document_type = $request->reserved6;
+                $user->id_account_type = $request->reserved10;
+                $user->nro_document = $request->reserved7;
+                $user->request = $tbRequest;
+                $user->expiration_date =  strtotime('+30 days');
+                $user->save();
+                $id_user = $user->id; // Get ID of user
 
                 /**
                  * store payment
                  */
-                $table = new Payment(); // table payment
-                $table->id_user_membreship = $id_user;
-                $table->id_user_sponsor = $request->reserved9;
-                $table->amount = $request->reserved13;
-                $table->amount = $request->amount;
-                $table->operation_number = 0;
-                $table->id_payment_method = $request->reserved14;;
-                $table->save();
-                $id_payment = $table->id;                
+                $payment = new Payment(); // payment payment
+                $payment->id_user_membreship = $id_user;
+                $payment->id_user_sponsor = $request->reserved9;
+                $payment->amount = $request->reserved13;
+                $payment->amount = $request->amount;
+                $payment->operation_number = 0;
+                $payment->id_payment_method = $request->reserved14;;
+                $payment->save();
+                $id_payment = $payment->id;                
+                
+
+                if (auth()->user()->position == 1) {
+                    Classified::create([
+                        'id_user_membreship' => $id_user,
+                        'id_user_sponsor' => auth()->user()->id,
+                        'binary_sponsor' => 'test',
+                        'position' => '0',
+                        'classification' => 16,
+                        'status' => '0',
+                        'authorized' => '1',
+                        'status_position_left' => '0',
+                        'status_position_right' => '1',
+                    ]);
+                } else {
+                    Classified::create([
+                        'id_user_membreship' => $id_user,
+                        'id_user_sponsor' => auth()->user()->id,
+                        'binary_sponsor' => 'test',
+                        'position' => '0',
+                        'classification' => 16,
+                        'status' => '0',
+                        'authorized' => '1',
+                        'status_position_left' => '1',
+                        'status_position_right' => '0',
+                    ]); 
+                }
+
                 
 
                 /**
