@@ -37,7 +37,7 @@ class UserMembreshipSeeder extends Seeder
             'last_name' => 'Vilchez Daga',
             'email' => 'bryan@gmail.com',
             'id_referrer_sponsor' => $user1->id,
-            'request' => 1,
+            'request' => 2,
             // 'created_at' => strtotime('-1 years'),
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
@@ -50,7 +50,7 @@ class UserMembreshipSeeder extends Seeder
             'last_name' => 'Ramirez',
             'email' => 'wiliam@gmail.com',
             'id_referrer_sponsor' => $user1->id,
-            'request' => 1,
+            'request' => 2,
             // 'created_at' => strtotime('-1 years'),
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
@@ -62,7 +62,7 @@ class UserMembreshipSeeder extends Seeder
             'last_name' => 'Paredes',
             'email' => 'admin@promolider.test',
             'id_referrer_sponsor' => $user1->id,
-            'request' => 1,
+            'request' => 2,
             // 'created_at' => strtotime('-1 years'),
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 3,
@@ -74,7 +74,7 @@ class UserMembreshipSeeder extends Seeder
             'last_name' => 'Garcia',
             'email' => 'admin@promolider.test',
             'id_referrer_sponsor' => $user1->id,
-            'request' => 1,
+            'request' => 2,
             // 'created_at' => strtotime('-1 years'),
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 4,
@@ -85,7 +85,7 @@ class UserMembreshipSeeder extends Seeder
 
         $user6 = UserMembreship::factory([
             'id_referrer_sponsor' => $user1->id,
-            'request' => 1,
+            'request' => 2,
             // 'created_at' => strtotime('-1 years'),
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
@@ -93,7 +93,7 @@ class UserMembreshipSeeder extends Seeder
 
         UserMembreship::factory([
             'id_referrer_sponsor' => $user3->id,
-            'request' => 1,
+            'request' => 2,
             // 'created_at' => strtotime('-1 years'),
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
@@ -102,7 +102,7 @@ class UserMembreshipSeeder extends Seeder
 
         UserMembreship::factory([
             'id_referrer_sponsor' => $user2->id,
-            'request' => 1,
+            'request' => 2,
             // 'created_at' => strtotime('-1 years'),
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
@@ -110,7 +110,7 @@ class UserMembreshipSeeder extends Seeder
 
         UserMembreship::factory([
             'id_referrer_sponsor' => $user6->id,
-            'request' => 1,
+            'request' => 2,
             // 'created_at' => strtotime('-1 years'),
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,

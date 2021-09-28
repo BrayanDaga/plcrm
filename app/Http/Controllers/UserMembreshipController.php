@@ -111,32 +111,34 @@ class UserMembreshipController extends Controller
                 $payment->save();
                 $id_payment = $payment->id;                
                 
-
-                if (auth()->user()->position == 1) {
-                    Classified::create([
-                        'id_user_membreship' => $id_user,
-                        'id_user_sponsor' => auth()->user()->id,
-                        'binary_sponsor' => 'test',
-                        'position' => '0',
-                        'classification' => 16,
-                        'status' => '0',
-                        'authorized' => '1',
-                        'status_position_left' => '0',
-                        'status_position_right' => '1',
-                    ]);
-                } else {
-                    Classified::create([
-                        'id_user_membreship' => $id_user,
-                        'id_user_sponsor' => auth()->user()->id,
-                        'binary_sponsor' => 'test',
-                        'position' => '0',
-                        'classification' => 16,
-                        'status' => '0',
-                        'authorized' => '1',
-                        'status_position_left' => '1',
-                        'status_position_right' => '0',
-                    ]); 
+                if($user->id_account_type != 5) {
+                    if (auth()->user()->position == 1) {
+                        Classified::create([
+                            'id_user_membreship' => $id_user,
+                            'id_user_sponsor' => auth()->user()->id,
+                            'binary_sponsor' => 'test',
+                            'position' => '0',
+                            'classification' => 16,
+                            'status' => '0',
+                            'authorized' => '1',
+                            'status_position_left' => '0',
+                            'status_position_right' => '1',
+                        ]);
+                    } else {
+                        Classified::create([
+                            'id_user_membreship' => $id_user,
+                            'id_user_sponsor' => auth()->user()->id,
+                            'binary_sponsor' => 'test',
+                            'position' => '0',
+                            'classification' => 16,
+                            'status' => '0',
+                            'authorized' => '1',
+                            'status_position_left' => '1',
+                            'status_position_right' => '0',
+                        ]); 
+                    }
                 }
+             
 
                 
 
