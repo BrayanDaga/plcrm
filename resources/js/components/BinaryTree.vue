@@ -1,6 +1,7 @@
 <template>
   <div class="">
-    <div style="flex-wrap: wrap; display: flex; justify-content: center">
+    <section v-if="!loading">
+        <div style="flex-wrap: wrap; display: flex; justify-content: center">
       <section
         style="
           top: 110px;
@@ -184,15 +185,20 @@
         />
       </a>
     </div>
+    </section>
+      <custom-spinner v-else></custom-spinner>
   </div>
 </template>
 
 <script>
 import api from '../api/api';
-
+import CustomSpinner from '../common/custom-spinner/CustomSpinner.vue';
 export default {
+    components: { CustomSpinner },
+
   data() {
     return {
+      loading: false,
       binary: [],
       currentUser: {},
     };
@@ -205,8 +211,10 @@ export default {
 
   methods: {
     get_binary_tree() {
+      this.loading = true;
       api.get(`/listbinary`).then((response) => {
         this.binary = response.data;
+        this.loading = false;
       });
     },
   },
