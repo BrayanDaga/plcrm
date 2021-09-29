@@ -21,26 +21,11 @@ trait Pointable
     
     public function getLeftPointsAttribute()
     {
-        $id = $this->id;
- 
-        $consulta = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->with(['points' => function($q){
-            $q->where('side',0);
-       }])->get()->pluck('points')->collapse()->unique('id')->values();
-       $points = $consulta->sum('points');
-
-       return $points;
+        return $this->points()->where('side',0)->sum('points');
     }
 
     public function getRightPointsAttribute()
     {
-        $id = $this->id;
- 
-        $consulta = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->with(['points' => function($q){
-            $q->where('side',1);
-       }])->get()->pluck('points')->collapse()->unique('id')->values();
-
-       $points = $consulta->sum('points');
-
-       return $points; 
+        return $this->points()->where('side',1)->sum('points');
     }
 }

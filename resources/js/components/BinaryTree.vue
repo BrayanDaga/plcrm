@@ -20,7 +20,7 @@
         data-placement="bottom"
         title=""
         class="img-circle"
-        alt="binary[0].fullName "
+        alt="binary.c.fullName "
         style="max-width: 120px; height: 120px; flex: 1"
         :data-original-title="binary.c.fullName"
       />

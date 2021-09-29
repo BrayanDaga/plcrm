@@ -67,6 +67,7 @@ class UserRequestController extends Controller
             $parents = Classified::whereRaw("FIND_IN_SET(id_user_membreship, GET_PARENTCLASSIFIED_NODE(${id}))")->get(); ///Obtengo los padres del usuario
             $atm =  AccountTypePointsMoney::where('account_type_id',$user->id_account_type)->first(); //Obtengo los puntos de determiando tipo de cuenta
             foreach ($parents as $parent) {
+                
                  if($user->id_referrer_sponsor == $parent->id_user_sponsor){ //Registrando sin excepciones si es su padre
                     $left =$parent->status_position_left;
                     $right =$parent->status_position_right;
@@ -77,7 +78,19 @@ class UserRequestController extends Controller
                         'points' => $atm->points ,
                         'side' => $position,
                      ]);
-                }else{
+                }elseif($user->id_referrer_sponsor != $parent->id_user_sponsor){
+                    $userTmp = UserMembreship::find($parent->id_user_membreship);
+                    if($userTmp->active && $userTmp->qualified){
+                        $left =$parent->status_position_left;
+                        $right =$parent->status_position_right;
+                        $position = $left > $right ? 0 : 1;
+                        UserMembreshipsPoints::create([
+                            'id_user_membreship' => $parent->id_user_membreship,
+                            'id_user_sponsor' => $parent->id_user_sponsor,
+                            'points' => $atm->points ,
+                            'side' => $position,
+                         ]);
+                    }
                    
                 }
             }
