@@ -21,6 +21,7 @@ use App\Models\UserMembreshipPayment;
 use App\Http\Resources\PaymentResource;
 use App\Http\Resources\UserMembreshipResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserMembreshipController extends Controller
 {
@@ -200,9 +201,9 @@ class UserMembreshipController extends Controller
 
     public function getDataUser($user)
     {
-        $data = UserMembreship::where('user', $user)->get();
+        $data = UserMembreship::where('user', $user)->with('accountType')->first();
         return response()->json($data, 200);
-    }
+        }
 
     public function getDataCurrentUser()
     {
