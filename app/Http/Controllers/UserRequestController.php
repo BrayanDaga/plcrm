@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserMembreshipResource;
-use App\Models\AccountType;
-use App\Models\AccountTypePointsMoney;
 use App\Models\Classified;
-use App\Models\UserMembreship;
-use App\Models\UserMembreshipsPoints;
+use App\Models\AccountType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use PhpParser\Builder\Class_;
+use App\Models\UserMembreship;
+use Illuminate\Support\Facades\DB;
+use App\Models\UserMembreshipsPoints;
+use App\Models\AccountTypePointsMoney;
+use App\Http\Resources\UserMembreshipResource;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserRequestController extends Controller
 {
@@ -20,12 +21,22 @@ class UserRequestController extends Controller
         /** @var User
          * Request = 1 reprenseta que el usuario esta en solicitud de ser aprovado
          */
+        $this->isAdmin(auth()->user());
+
         $all_user_requesting = UserMembreship::with('accountType')
-        ->where('id_referrer_sponsor', auth()->user()->id)
             ->where('request', 1)
             ->get();
 
+        
+
         return UserMembreshipResource::collection($all_user_requesting);
+    }
+
+    protected function isAdmin(UserMembreship $user)
+    {
+        if ($user->id != 1) {
+            throw new HttpException(422, 'Este usuario no es el administrador');
+        }
     }
 
     // get user by id
@@ -44,32 +55,33 @@ class UserRequestController extends Controller
 
     public function updateRequest(Request $request)
     {
-        // if($table->save()):
-        //     $json = ['response' => 200];
-        // else:
-        //     $json = ['response' => 500];
-        // endif;
-        // return response()->json($json);        
+        $this->isAdmin(auth()->user());
+ 
         DB::transaction(function ()  use ($request) {
-            $table = UserMembreship::find($request->id);
-            $table->request = $request->status;
-            $table->save();
-            if ($request->status == 2) {
-                    
-                
-                    // if (auth()->user()->qualified == 1 ) {
-                        if (auth()->user()->qualified == 1  && auth()->user()->active == 1) {
-                            $atm =  AccountTypePointsMoney::where('account_type_id',$table->id_account_type)->first();
-    
-                            // UserMembreshipsPoints::create([
-                            //     'id_user_membreship' => $table->id,
-                            //     'id_user_sponsor' => auth()->user()->id,
-                            //     'points' => $atm->points ,
-                            //     'side' => $position
-                            // ]);
-                        }
-    
+            $user = UserMembreship::find($request->id);
+            $user->request = $request->status;
+            $user->save();
+
+            $id = $user->id;
+            
+            $parents = Classified::whereRaw("FIND_IN_SET(id_user_membreship, GET_PARENTCLASSIFIED_NODE(${id}))")->get(); ///Obtengo los padres del usuario
+            $atm =  AccountTypePointsMoney::where('account_type_id',$user->id_account_type)->first(); //Obtengo los puntos de determiando tipo de cuenta
+            foreach ($parents as $parent) {
+                 if($user->id_referrer_sponsor == $parent->id_user_sponsor){ //Registrando sin excepciones si es su padre
+                    $left =$parent->status_position_left;
+                    $right =$parent->status_position_right;
+                    $position = $left > $right ? 0 : 1;
+                    UserMembreshipsPoints::create([
+                        'id_user_membreship' => $user->id,
+                        'id_user_sponsor' => $parent->id_user_sponsor,
+                        'points' => $atm->points ,
+                        'side' => $position,
+                     ]);
+                }else{
+                   
+                }
             }
+
             
         });
     }
