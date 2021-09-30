@@ -66,6 +66,10 @@ Vue.component(
   'binary-tree',
   require('./components/BinaryTree.vue').default
 );
+Vue.component(
+  'points-buttons',
+  require('./components/PointsButtons.vue').default
+);
 const app = new Vue({
     el: '#app'
 });

@@ -80,7 +80,7 @@ class UserMembreship extends Authenticatable
         $left = $this->classifiedSponsor()->where('status_position_left',1)->with('userMembreship')->get()->filter(function($key){  return $key->userMembreship->active  == true;  })->count();
         $right = $this->classifiedSponsor()->where('status_position_right',1)->with('userMembreship')->get()->filter(function($key){  return $key->userMembreship->active  == true;  })->count();
 
-        if($left >= 0 && $right >= 0){
+        if($left > 0 && $right > 0){
             $qualified = true;
         }        
         return $qualified; 

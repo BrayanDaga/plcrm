@@ -818,6 +818,7 @@
     {{-- Usando Componente Vue --}}
     {{-- <x-binary-component></x-binary-component> --}}
     <binary-tree></binary-tree>
+    <points-buttons></points-buttons>
   </div>
 </section>
 <!-- Dashboard Ecommerce ends -->

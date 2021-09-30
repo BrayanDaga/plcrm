@@ -18,6 +18,7 @@ use App\Http\Controllers\UserMembreshipController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ClassifiedController;
+use App\Http\Controllers\PointController;
 use App\Http\Controllers\RamaBinariaController;
 use Illuminate\Support\Facades\Auth;
 use Whoops\Run;
@@ -46,6 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('viewTree', [RamaBinariaController::class, 'viewTree']);
     Route::view('uninivel', 'uninivel')->name('uninivel');
     Route::get('listbinary', [RamaBinariaController::class, 'listbinary']);
+
+    Route::get('mypointslog',[PointController::class,'getPointsForUser'])->name('mypointslog');
     // Main Page Route
     // Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
     Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
