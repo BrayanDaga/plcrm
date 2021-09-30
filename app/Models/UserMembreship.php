@@ -76,11 +76,13 @@ class UserMembreship extends Authenticatable
     public function getQualifiedAttribute() : bool
     {
         $qualified = false;
-        $left =  $this->classifiedSponsor()->where('status_position_left',1)->exists();
-        $rigth = $this->classifiedSponsor()->where('status_position_right',1)->exists();
-        if($left && $rigth){
-          $qualified = true;
-        }
+        
+        $left = $this->classifiedSponsor()->where('status_position_left',1)->with('userMembreship')->get()->filter(function($key){  return $key->userMembreship->active  == true;  })->count();
+        $right = $this->classifiedSponsor()->where('status_position_right',1)->with('userMembreship')->get()->filter(function($key){  return $key->userMembreship->active  == true;  })->count();
+
+        if($left >= 0 && $right >= 0){
+            $qualified = true;
+        }        
         return $qualified; 
     }
 
