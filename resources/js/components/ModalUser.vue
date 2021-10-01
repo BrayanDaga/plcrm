@@ -36,6 +36,14 @@
                 <span v-else-if="user.active == false" class="label text-danger">Inactive</span>
               </th>
             </tr>
+
+             <tr>
+              <th align="left">qualified</th>
+              <th align="right">
+                <span v-if="user.qualified == true" class="label text-success">qualified</span>
+                <span v-else-if="user.qualified == false" class="label text-danger">qualified not</span>
+              </th>
+            </tr>
             <!-- <tr>
               <th align="left">Range</th>
               <th align="right">
