@@ -20,7 +20,7 @@
 <section id="dashboard-ecommerce">
   <div class="row match-height">
     <!-- Medal Card -->
-    <div class="col-xl-4 col-md-6 col-12">
+    <div class="col-xl-4 col-md-6 col-12"  style="display:none;">
       <div class="card card-congratulation-medal">
         <div class="card-body">
           <h5>Congratulations 🎉 John!</h5>
@@ -36,8 +36,8 @@
     <!--/ Medal Card -->
 
     <!-- Statistics Card -->
-    <div class="col-xl-8 col-md-6 col-12">
-      <div class="card card-statistics">
+    <div class="col-xl-8 col-md-6 col-12" style="display:none;">
+      <div class="card card-statistics" >
         <div class="card-header">
           <h4 class="card-title">Statistics</h4>
           <div class="d-flex align-items-center">
@@ -105,7 +105,7 @@
     <!--/ Statistics Card -->
   </div>
 
-  <div class="row match-height">
+  <div class="row match-height"  style="display:none;">
     <div class="col-lg-4 col-12">
       <div class="row match-height">
         <!-- Bar Chart - Orders -->
@@ -121,7 +121,7 @@
         <!--/ Bar Chart - Orders -->
 
         <!-- Line Chart - Profit -->
-        <div class="col-lg-6 col-md-3 col-6">
+        <div class="col-lg-6 col-md-3 col-6" style="display:none;">
           <div class="card card-tiny-line-stats">
             <div class="card-body pb-50">
               <h6>Profit</h6>
@@ -133,7 +133,7 @@
         <!--/ Line Chart - Profit -->
 
         <!-- Earnings Card -->
-        <div class="col-lg-12 col-md-6 col-12">
+        <div class="col-lg-12 col-md-6 col-12"  style="display:none;">
           <div class="card earnings-card">
             <div class="card-body">
               <div class="row">
@@ -157,7 +157,7 @@
     </div>
 
     <!-- Revenue Report Card -->
-    <div class="col-lg-8 col-12">
+    <div class="col-lg-8 col-12"  style="display:none;">
       <div class="card card-revenue-budget">
         <div class="row mx-0">
           <div class="col-md-8 col-12 revenue-report-wrapper">
@@ -207,7 +207,7 @@
     <!--/ Revenue Report Card -->
   </div>
 
-  <div class="row match-height">
+  <div class="row match-height"  style="display:none;">
     <!-- Company Table Card -->
     <div class="col-lg-8 col-12">
       <div class="card card-company-table">
@@ -499,7 +499,7 @@
     <!--/ Company Table Card -->
 
     <!-- Developer Meetup Card -->
-    <div class="col-lg-4 col-md-6 col-12">
+    <div class="col-lg-4 col-md-6 col-12"  style="display:none;">
       <div class="card card-developer-meetup">
         <div class="meetup-img-wrapper rounded-top text-center">
           <img src="{{asset('images/illustration/email.svg')}}" alt="Meeting Pic" height="170" />
@@ -601,7 +601,7 @@
     <!--/ Developer Meetup Card -->
 
     <!-- Browser States Card -->
-    <div class="col-lg-4 col-md-6 col-12">
+    <div class="col-lg-4 col-md-6 col-12"  style="display:none;">
       <div class="card card-browser-states">
         <div class="card-header">
           <div>
@@ -694,7 +694,7 @@
     <!--/ Browser States Card -->
 
     <!-- Goal Overview Card -->
-    <div class="col-lg-4 col-md-6 col-12">
+    <div class="col-lg-4 col-md-6 col-12"  style="display:none;">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <h4 class="card-title">Goal Overview</h4>
@@ -718,7 +718,7 @@
     <!--/ Goal Overview Card -->
 
     <!-- Transaction Card -->
-    <div class="col-lg-4 col-md-6 col-12">
+    <div class="col-lg-4 col-md-6 col-12"  style="display:none;">
       <div class="card card-transaction">
         <div class="card-header">
           <h4 class="card-title">Transactions</h4>
@@ -805,12 +805,20 @@
         </div>
       </div>
     </div>
-    {{-- Usando Componente Blade --}}
-    {{-- <x-tree-component></x-tree-component>   --}}
 
-    {{-- Usando Componente Vue --}}
-    <tree-component></tree-component>
+
   </div>
+  <div class="row">
+    <adjust-leg></adjust-leg>
+    <user-status></user-status>
+  </div>
+  <a href="{{ route('uninivel') }}" class="h4">Arbol uninivel</a>
+      {{-- Usando Componente Blade --}}
+    {{-- <x-tree-component></x-tree-component>   --}}
+    {{-- Usando Componente Vue --}}
+    {{-- <x-binary-component></x-binary-component> --}}
+    <binary-tree></binary-tree>
+    <points-buttons></points-buttons>
   </div>
 </section>
 <!-- Dashboard Ecommerce ends -->
@@ -820,8 +828,6 @@
   {{-- vendor files --}}
   <script src="{{ asset(mix('vendors/js/charts/apexcharts.min.js')) }}"></script>
   <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
-  <script src="{{ asset(mix('vendors/js/orgChart/orgchart.js')) }}"></script>
-  {{-- Si se usa componente blade se quita el script de arriba OrgChart --}}
 @endsection
 @section('page-script')
   {{-- Page js files --}}

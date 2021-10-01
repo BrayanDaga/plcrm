@@ -16,37 +16,16 @@ class ClassifiedSeeder extends Seeder
      */
     public function run()
     {
-        $i = 1; $j=1;
-        for ($index = 0; $index < 4; $index++){
-            $id = rand(2, 4);
-            DB::table('classified')->insert([
-                'id_user_membreship' => $id,
-                'id_user_sponsor' => $i,
-                'binary_sponsor' => 'test',
-                'position' => '1',
-                'classification' => 16,
-                'status' => '0',
-                'authorized' => '1',
-                'status_position_left' => '1',
-                'status_position_right' => '0',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-            DB::table('classified')->insert([
-                'id_user_membreship' => $id + 1,
-                'id_user_sponsor' => $i,
-                'binary_sponsor' => 'test 1',
-                'position' => '2',
-                'classification' => 26,
-                'status' => '1',
-                'authorized' => '0',
-                'status_position_left' => '0',
-                'status_position_right' => '1',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            $i++;
+        $cantUsers = UserMembreship::all()->count();
+        for ($i = 2; $i <= $cantUsers; $i++){
+            $user = UserMembreship::find($i);
+            $position = (bool)random_int(0, 1);
+            Classified::factory([
+                'id_user_membreship' => $user->id,
+                'id_user_sponsor' => $user->id_referrer_sponsor,
+                'status_position_left' => $position,
+                'status_position_right' => !$position,
+            ])->create();
         }
     }
 }

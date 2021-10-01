@@ -14,8 +14,8 @@ class AlterRemoveColumnsPayment extends Migration
     public function up()
     {
         Schema::table('payments', function($table) {
-            $table->dropForeign(['id_user_membreship']);
-            $table->dropColumn('id_user_membreship');
+            // $table->dropForeign(['id_user_membreship']);
+            // $table->dropColumn('id_user_membreship');
             $table->dropColumn('description');
         });
     }

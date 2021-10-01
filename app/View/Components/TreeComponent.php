@@ -27,8 +27,11 @@ class TreeComponent extends Component
             }
         }
 
+        
         $nivel1 = $tmpUsers->merge($currentUser);
         $this->users = $nivel1->merge($hijos);
+
+
     }
 
     /**

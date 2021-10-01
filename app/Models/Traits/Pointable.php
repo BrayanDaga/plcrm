@@ -1,7 +1,8 @@
 <?php
 namespace App\Models\Traits;
 
-use App\Models\Point;
+use App\Models\UserMembreship;
+use App\Models\UserMembreshipsPoints;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait Pointable
@@ -13,16 +14,18 @@ trait Pointable
      */
     public function points(): HasMany
     {
-        return $this->hasMany(Point::class);
+        return $this->hasMany(UserMembreshipsPoints::class,'id_user_sponsor','id');
+    
+
     }
     
     public function getLeftPointsAttribute()
     {
-        return $this->points()->where('leg','left')->sum('user_points') ;
+        return $this->points()->where('side',0)->sum('points');
     }
 
     public function getRightPointsAttribute()
     {
-        return $this->points()->where('leg','right')->sum('user_points') ;
+        return $this->points()->where('side',1)->sum('points');
     }
 }

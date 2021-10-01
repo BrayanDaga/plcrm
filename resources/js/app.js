@@ -53,6 +53,23 @@ Vue.component(
   'tree-component',
   require('./components/TreeComponent.vue').default
 );
+
+Vue.component(
+  'adjust-leg',
+  require('./components/AdjustLeg.vue').default
+);
+Vue.component(
+  'user-status',
+  require('./components/UserStatus.vue').default
+);
+Vue.component(
+  'binary-tree',
+  require('./components/BinaryTree.vue').default
+);
+Vue.component(
+  'points-buttons',
+  require('./components/PointsButtons.vue').default
+);
 const app = new Vue({
     el: '#app'
 });

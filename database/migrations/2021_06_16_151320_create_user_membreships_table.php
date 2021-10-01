@@ -15,13 +15,13 @@ class CreateUserMembreshipsTable extends Migration
     {
         Schema::create('user_membreships', function (Blueprint $table) {
             $table->id();
-            $table->string('user', 20);
+            $table->string('user', 20)->unique();
             $table->string('password');
             $table->string('name', 30);
             $table->string('last_name', 50);
             $table->string('phone', 12);
             $table->date('date_birth');
-            $table->string('email', 50);
+            $table->string('email', 50)->unique();
             $table->integer('id_referrer_sponsor');
             $table->bigInteger('id_country')->unsigned();
             $table->foreign('id_country')->references('id')->on('country');

@@ -18,6 +18,7 @@ use App\Http\Controllers\UserMembreshipController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ClassifiedController;
+use App\Http\Controllers\PointController;
 use App\Http\Controllers\RamaBinariaController;
 use Illuminate\Support\Facades\Auth;
 use Whoops\Run;
@@ -43,9 +44,13 @@ Route::post('login', [LoginController::class, 'login'])->name('login');
  * Todas las rutas establecidas deben de estar dentro de "Middleware Auth"
  */
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('viewTree',[RamaBinariaController::class,'viewTree']);
+    Route::get('viewTree', [RamaBinariaController::class, 'viewTree']);
+    Route::view('uninivel', 'uninivel')->name('uninivel');
+    Route::get('listbinary', [RamaBinariaController::class, 'listbinary']);
+
+    Route::get('mypointslog',[PointController::class,'getPointsForUser'])->name('mypointslog');
     // Main Page Route
-    // Route::get('/', [DashboardController::class,'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
+    // Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
     Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
 
 
@@ -68,9 +73,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'user-membreship'], function () {
         Route::get('/register', [UserMembreshipController::class, 'register'])->name('user-membreship-register');
         Route::get('/list', [UserMembreshipController::class, 'list'])->name('user-membreship-list');
-        // Route::post('/create', [UserMembreshipController::class, 'create'])->name('user-membreship-create');
+        Route::post('/create', [UserMembreshipController::class, 'create'])->name('user-membreship-create');
         Route::get('/sha/{purchase_operation_number}/{purchase_amount}', [UserMembreshipController::class, 'credentials']);
         Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
+        Route::get('/get-data-currentuser', [UserMembreshipController::class, 'getDataCurrentUser']);
+        Route::post('/change-position-currentuser', [UserMembreshipController::class, 'changePositionCurrentUser']);
         /*Start api user-membreship*/
         Route::get('/api', [BinaryBranchController::class, 'getListUsersMembreship'])
             ->name('getListUsersMembreship');
@@ -103,10 +110,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::apiResource('growthBonus', GrowthBonusController::class)->except(['update']);
     });
 
-    // User Request
-    Route::group(['prefix' => 'config/user-request'], function () {
-        Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
-    });
 
     Route::group(['prefix' => 'config/bank'], function () {
         Route::get('/', [BankController::class, 'index'])->name('bank');
@@ -143,35 +146,40 @@ Route::group(['middleware' => ['auth']], function () {
 
     // User Request    
     Route::group(['prefix' => 'config/user-request'], function () {
-        Route::get('/', [UserRequestController::class, 'index'])->name('user-request');
+        Route::view('/', 'content.config.user_request')->name('user-request');
+        Route::get('/list', [UserRequestController::class, 'index']);
         Route::get('/get-user-by-id/{id}', [UserRequestController::class, 'getUserById']);
         Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });
 
-    
+
     Route::group(['prefix' => '/reports'], function () {
-        Route::get('/growthBonus', [ClassifiedController::class,'growthBonus'])->name('report-growthBonus');
-        Route::get('/startingBonus', [ClassifiedController::class,'startingBonus'])->name('report-startingBonus');;
-        Route::get('/wallets', [WalletController::class,'index'])->name('report-wallets');;
+        Route::get('/growthBonus', [ClassifiedController::class, 'growthBonus'])->name('report-growthBonus');
+        Route::get('/startingBonus', [ClassifiedController::class, 'startingBonus'])->name('report-startingBonus');;
+        Route::get('/wallets', [WalletController::class, 'index'])->name('report-wallets');;
     });
 
 
     Route::group(['prefix' => '/requests'], function () {
-        Route::get('/listUserPayments ', [PaymentController::class,'listUserPayments']);
-        Route::get('/listMyPayments ', [PaymentController::class,'listMyPayments'])->name('request-listMyPayments');
-    });
-
-    //Ruta Billetera - Fondos de Usuario
-    Route::group(['prefix' => '/wallet'], function () {
-        Route::get('/', [WalletController::class, 'retornarVista'])->name('wallet');
-        Route::apiResource('wallets', WalletController::class)->only('index');
+        //     /*Pending Paymentes */
+        //     // Route::get('/pendingPayments ', [PaymentController::class,'pendingPayments'])->name('request-pendingPayments');
+        //     // Route::get('/listpendingPayments ', [PaymentController::class,'listUserPendingPayments']);
+        Route::get('/listUserPayments ', [PaymentController::class, 'listUserPayments']);
+        Route::get('/listMyPayments ', [PaymentController::class, 'listMyPayments'])->name('request-listMyPayments');
+        //     // Route::match(['put', 'patch'], '/authorizePayment/{payment}', [PaymentController::class,'authorizePayment']);
+        //     // Route::match(['put', 'patch'],'denypayment/{payment}', [PaymentController::class,'denyPayment']);
+        //     // /***/
+        // //Ruta Billetera - Fondos de Usuario
+        Route::group(['prefix' => '/wallet'], function () {
+            Route::get('/', [WalletController::class, 'retornarVista'])->name('wallet');
+            Route::apiResource('wallets', WalletController::class)->only('index');
+        });
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 /* Rutas Programada - fin */
 
-/* Route Pages */
 Route::group(['prefix' => 'page'], function () {
     // Miscellaneous Pages With Page Prefix
     Route::get('coming-soon', [MiscellaneousController::class, 'coming_soon'])->name('misc-coming-soon');
@@ -183,7 +191,9 @@ Route::group(['prefix' => 'page'], function () {
 Route::get('/error', [MiscellaneousController::class, 'error'])->name('error');
 
 // map leaflet
-Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('map-leaflet');
+// Route::get('/maps/leaflet', [ChartsController::class, 'maps_leaflet'])->name('map-leaflet');
 
 // locale Route
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
+
+Route::view('/virtualclassroom', 'newPage')->name('virtualclass');

@@ -21,7 +21,7 @@
     ></user-membreship-register> --}}
 <div class="row">
     <div class="col-lg-6">
-        <form name="f1" id="f1" action="{{ url('/api/user-membreship/create') }}" method="post" class="alignet-form-vpos2">
+        <form name="f1" id="f1" action="{{ url('/user-membreship/create') }}" method="post" class="alignet-form-vpos2">
             @csrf
             <input type="hidden" name="reserved9" value="{{ $id_referrer_sponsor }}">
             <input type="hidden" name="acquirerId" value="{{ env('ACQUIRER_ID') }}">
@@ -135,7 +135,7 @@
                 </div>
                 <div class="form-group pr-1">
                     <label for="account_type-total_cost_membreship">Total cost of Membreship</label>
-                    <input type="text" id="account_type-total_cost_membreship" class="form-control" disabled>
+                    <input type="text" id="account_type-total_cost_membreship" class="form-control" name="amount" readonly>
                     <input type="hidden" name="reserved13">
                 </div>
             </div>
@@ -151,8 +151,8 @@
                     </select>
                 </div>
             </div>
-            <button type="button" class="btn btn-success" id="open_modal_alignet_vpos2">Comprar</button>
-            {{-- <button type="submit" class="btn btn-success">Comprar</button> --}}
+            {{-- <button type="button" class="btn btn-success" id="open_modal_alignet_vpos2">Comprar</button> --}}
+            <button type="submit" class="btn btn-success">Comprar</button>
         </form>
     </div>
 </div>

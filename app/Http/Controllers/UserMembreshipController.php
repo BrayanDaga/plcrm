@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Helpers\Helper;
-use App\Helpers\UserMembershipParams;
-use App\Http\Resources\PaymentResource;
-use App\Http\Resources\UserMembreshipResource;
-use App\Models\DocumentType;
-use App\Models\AccountType;
-use App\Models\Classified;
 use App\Models\Country;
 use App\Models\Payment;
+use App\Models\Classified;
+use App\Models\AccountType;
+use App\Models\DocumentType;
+use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\UserMembreship;
-use App\Models\UserMembreshipPayment;
-use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\UserMembershipParams;
+use App\Models\UserMembreshipPayment;
+use App\Http\Resources\PaymentResource;
+use App\Http\Resources\UserMembreshipResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserMembreshipController extends Controller
 {
@@ -71,39 +73,75 @@ class UserMembreshipController extends Controller
 
     public function Create(Request $request)
     {
+        // return $request->all();
+
         $msg = '';
         try {
-            // if ((int)$request->errorCode == 0) :
-                $table = new UserMembreship();
-                $table->user = $request->reserved1;
-                $table->password = Hash::make($request->reserved2);
-                $table->name = $request->shippingFirstName;
-                $table->last_name = $request->shippingLastName;
-                $table->phone = $request->reserved4;
-                $table->date_birth = $request->reserved5;
-                $table->email = $request->shippingEmail;
-                $table->id_referrer_sponsor = $request->reserved9;
-                $table->id_country = $request->reserved8;
-                $table->id_document_type = $request->reserved6;
-                $table->id_account_type = $request->reserved10;
-                $table->nro_document = $request->reserved7;
-                $table->request = 1;
+            
+            $tbRequest = $request->reserved10 == 5 ? 2 : 1;
 
-                $table->save();
-                $id_user = $table->id; // Get ID of user
+            // if ((int)$request->errorCode == 0) :
+                $user = new UserMembreship();
+                $user->user = $request->reserved1;
+                $user->password = Hash::make($request->reserved2);
+                $user->name = $request->shippingFirstName;
+                $user->last_name = $request->shippingLastName;
+                $user->phone = $request->reserved4;
+                $user->date_birth = $request->reserved5;
+                $user->email = $request->shippingEmail;
+                $user->id_referrer_sponsor = $request->reserved9;
+                $user->id_country = $request->reserved8;
+                $user->id_document_type = $request->reserved6;
+                $user->id_account_type = $request->reserved10;
+                $user->nro_document = $request->reserved7;
+                $user->request = $tbRequest;
+                $user->expiration_date =  strtotime('+30 days');
+                $user->save();
+                $id_user = $user->id; // Get ID of user
 
                 /**
                  * store payment
                  */
+                $payment = new Payment(); // payment payment
+                $payment->id_user_membreship = $id_user;
+                $payment->id_user_sponsor = $request->reserved9;
+                $payment->amount = $request->reserved13;
+                $payment->amount = $request->amount;
+                $payment->operation_number = 0;
+                $payment->id_payment_method = $request->reserved14;;
+                $payment->save();
+                $id_payment = $payment->id;                
+                
+                if($user->id_account_type != 5) {
+                    if (auth()->user()->position == 1) {
+                        Classified::create([
+                            'id_user_membreship' => $id_user,
+                            'id_user_sponsor' => auth()->user()->id,
+                            'binary_sponsor' => 'test',
+                            'position' => '0',
+                            'classification' => 16,
+                            'status' => '0',
+                            'authorized' => '1',
+                            'status_position_left' => '0',
+                            'status_position_right' => '1',
+                        ]);
+                    } else {
+                        Classified::create([
+                            'id_user_membreship' => $id_user,
+                            'id_user_sponsor' => auth()->user()->id,
+                            'binary_sponsor' => 'test',
+                            'position' => '0',
+                            'classification' => 16,
+                            'status' => '0',
+                            'authorized' => '1',
+                            'status_position_left' => '1',
+                            'status_position_right' => '0',
+                        ]); 
+                    }
+                }
+             
 
-                $table = new Payment(); // table payment
-                $table->id_user_membreship = $id_user;
-                $table->id_user_sponsor = $request->reserved9;
-                $table->amount = $request->reserved13;
-                $table->operation_number = 0;
-                $table->id_payment_method = $request->reserved14;
-                $table->save();
-                $id_payment = $table->id;
+                
 
                 /**
                  * store user_membreships_payment
@@ -128,9 +166,11 @@ class UserMembreshipController extends Controller
                 $table->IDTransaction = $request->IDTransaction;
                 $table->errorMessage = $request->errorMessage;
                 $table->authorizationResult = $request->authorizationResult;
+                
                 $table->save();
 
                 $msg = 'Cliente Registrado satisfactoriamente';
+
             // else :
             //     $msg = 'Error en el registro de datos (' . $request->errorCode . ')';
             // endif;
@@ -139,24 +179,44 @@ class UserMembreshipController extends Controller
             //     'status' => false,
             //     'message' => $e->getMessage(),
             // ];
-            return redirect()
-                ->route('user-membreship-register')
-                ->with('error', $e->getMessage());
+             return redirect()
+                 ->route('user-membreship-register')
+                 ->with('error', $e->getMessage());
+
         }
         // return [
         //     'status' => true,
         //     'message' => $msg
         // ];
 
-        return redirect()
+        if($tbRequest == 2) {
+            return redirect()->route('virtualclass');
+        }else{
+            return redirect()
             ->route('user-membreship-register')
-            ->with('success', $msg);
+             ->with('success', $msg);
+        }
+     
     }
 
     public function getDataUser($user)
     {
-        $data = UserMembreship::where('user', $user)->get();
+        $data = UserMembreship::where('user', $user)->with('accountType')->first();
         return response()->json($data, 200);
+        }
+
+    public function getDataCurrentUser()
+    {
+        $data = UserMembreship::find(auth()->user()->id);
+        return response()->json($data, 200);
+    }
+
+    public function changePositionCurrentUser(Request $request)
+    {
+        $user = UserMembreship::find(auth()->user()->id);
+        $user->position = $request->position;
+        $user->update();
+        return response()->json($user, 200);
     }
 
     public function credentials($purchase_operation_number, $purchase_amount = 0)
