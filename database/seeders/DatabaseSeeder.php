@@ -6,7 +6,18 @@ use App\FunctionsSeeder;
 use App\Models\Classified;
 use App\Models\UserMembreship;
 use Illuminate\Database\Seeder;
+use Database\Seeders\BankSeeder;
+use Database\Seeders\WalletSeeder;
 use Illuminate\Support\Facades\DB;
+use Database\Seeders\CountrySeeder;
+use Database\Seeders\PaymentSeeder;
+use Database\Seeders\ClassifiedSeeder;
+use Database\Seeders\AccountTypeSeeder;
+use Database\Seeders\DocumentTypeSeeder;
+use Database\Seeders\AdvertisementSeeder;
+use Database\Seeders\PaymentMethodSeeder;
+use Database\Seeders\UserMembreshipSeeder;
+use Database\Seeders\AccountTypePoinstMoneySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentMethodSeeder::class);
         $this->call(BankSeeder::class);
         // UserMembreship::factory()->create(); // se reduce la cantida de datos de pruebas
-         $this->call(UserMembreshipSeeder::class);
+        $this->call(UserMembreshipSeeder::class);
         // $this->call(PaymentSeeder::class);
         $this->call(AdvertisementSeeder::class);
         $this->call(ClassifiedSeeder::class);
@@ -76,5 +87,27 @@ class DatabaseSeeder extends Seeder
         DB::unprepared("DROP FUNCTION IF EXISTS GET_PARENT_NODE"); //borrando la funcion si existe
         DB::unprepared($getParentNodeFunction); //creando la funcion
 
+
+        $getParentClassifiedNodeFunction = "
+        CREATE FUNCTION `GET_PARENTCLASSIFIED_NODE`(rootId varchar(100))   
+            RETURNS varchar(1000)   
+            BEGIN   
+            DECLARE fid varchar(100) default '';   
+            DECLARE str varchar(1000) default rootId;   
+            
+            WHILE rootId is not null do   
+                SET fid =(SELECT id_user_sponsor FROM classified WHERE id_user_membreship = rootId);   
+                IF fid is not null THEN   
+                    SET str = concat(str, ',', fid);   
+                    SET rootId = fid;   
+                ELSE   
+                    SET rootId = fid;   
+                END IF;   
+            END WHILE;   
+            return str;  
+            END";
+
+            DB::unprepared("DROP FUNCTION IF EXISTS GET_PARENTCLASSIFIED_NODE"); //borrando la funcion si existe
+            DB::unprepared($getParentClassifiedNodeFunction); //creando la funcion
     }
 }
