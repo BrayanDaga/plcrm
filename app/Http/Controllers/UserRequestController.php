@@ -81,13 +81,13 @@ class UserRequestController extends Controller
                         'reason' => "Binary Team Points, ${fullName} Affiliation"
                      ]);
                 }elseif($user->id_referrer_sponsor != $parent->id_user_sponsor){
-                    $userTmp = UserMembreship::find($parent->id_user_membreship);
+                    $userTmp = UserMembreship::find($parent->id_user_sponsor);
                     if($userTmp->active && $userTmp->qualified){
                         $left =$parent->status_position_left;
                         $right =$parent->status_position_right;
                         $position = $left > $right ? 0 : 1;
                         UserMembreshipsPoints::create([
-                            'id_user_membreship' => $parent->id_user_membreship,
+                            'id_user_membreship' => $user->id,
                             'id_user_sponsor' => $parent->id_user_sponsor,
                             'points' => $atm->points ,
                             'side' => $position,
