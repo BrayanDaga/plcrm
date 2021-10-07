@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\BinaryBranchController;
+use App\Http\Controllers\BinaryCutController;
 use App\Http\Controllers\GrowthBonusController;
 use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserMembreshipController;
@@ -174,6 +175,10 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/', [WalletController::class, 'retornarVista'])->name('wallet');
             Route::apiResource('wallets', WalletController::class)->only('index');
         });
+    });
+
+    Route::group(['prefix' => '/binarycut'], function () {
+       Route::get('/',[BinaryCutController::class ,'index']);
     });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
