@@ -177,9 +177,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
     });
 
-    Route::group(['prefix' => '/binarycut'], function () {
-       Route::get('/',[BinaryCutController::class ,'index']);
-    });
+    Route::resource('/binarycut', BinaryCutController::class)->only(['index','store']);
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

@@ -21,11 +21,11 @@ trait Pointable
     
     public function getLeftPointsAttribute()
     {
-        return $this->points()->where('side',0)->sum('points');
+        return $this->points()->where('side',0)->where('status',1)->sum('points');
     }
 
     public function getRightPointsAttribute()
     {
-        return $this->points()->where('side',1)->sum('points');
+        return $this->points()->where('side',1)->where('status',1)->sum('points');
     }
 }
