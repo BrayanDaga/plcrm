@@ -120,9 +120,9 @@ class UserMembreship extends Authenticatable
         return $this->belongsTo(DocumentType::class, 'id_document_type');
     }
 
-    public function wallet(): HasOne
+    public function wallet(): HasMany
     {
-        return $this->hasOne(Wallet::class,'id_user_membreship');
+        return $this->hasMany(Wallet::class,'id_user_membreship');
     }
 
 

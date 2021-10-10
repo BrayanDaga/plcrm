@@ -19,8 +19,8 @@
                 <x-slot name="tbodyRows">
                   @forelse ($wallets as $wallet)
                   <tr>
-                    <td>{{ $wallet->id }}</td>
-                    <td> <span class="text-primary font-weight-bold">$ {{ $wallet->amount }}</span></td>
+                    <td>{{ $wallet->userMembreship->fullName }}</td>
+                    <td> <span class="text-primary font-weight-bold">$ {{ $wallet->sum }}</span></td>
                 </tr>
                   @empty
                       <tr>
