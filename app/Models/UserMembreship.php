@@ -64,12 +64,6 @@ class UserMembreship extends Authenticatable
         $aceptado = $this->request == 2 ? true : false; 
         
         return ($expiro && $aceptado) ? true : false;
-        
-        //Si el usuario lleva mas de 30 dias creado es activo  
-        // $now = Carbon::parse(now());
-        // $f2 = Carbon::parse($this->created_at);
-        // $resto=$f2->diffInDays($now);
-        // return $resto >= 30 ? true : false;
     }
     
 
@@ -120,7 +114,7 @@ class UserMembreship extends Authenticatable
         return $this->belongsTo(DocumentType::class, 'id_document_type');
     }
 
-    public function wallet(): HasMany
+    public function wallets(): HasMany
     {
         return $this->hasMany(Wallet::class,'id_user_membreship');
     }

@@ -52,6 +52,12 @@
             "slug": "report-wallets"
         },
         {
+            "url": "reports/mywallet",
+            "name": "My Wallet",
+            "icon": "circle",
+            "slug": "report-nmywallet"
+        },
+        {
             "url": "reports/startingBonus",
             "name": "Starting Bonus List",
             "icon": "circle",

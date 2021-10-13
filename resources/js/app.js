@@ -70,6 +70,14 @@ Vue.component(
   'points-buttons',
   require('./components/PointsButtons.vue').default
 );
+Vue.component(
+  'wallet-history-user',
+  require('./components/WalletHistoryUser.vue').default
+);
+Vue.component(
+  'users-funds',
+  require('./components/UsersFunds.vue').default
+);
 const app = new Vue({
     el: '#app'
 });

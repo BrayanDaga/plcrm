@@ -157,7 +157,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => '/reports'], function () {
         Route::get('/growthBonus', [ClassifiedController::class, 'growthBonus'])->name('report-growthBonus');
         Route::get('/startingBonus', [ClassifiedController::class, 'startingBonus'])->name('report-startingBonus');;
-        Route::get('/wallets', [WalletController::class, 'index'])->name('report-wallets');;
+        Route::get('/mywalletinfo/{username}', [WalletController::class, 'getWalletForUser'])->name('report-mywalletinfo');;
+        Route::view('/wallets', 'content.reports.wallet')->name('report-wallets');
+        Route::get('/walletslist', [WalletController::class, 'getTotalWalletUsers']);
+        Route::view('/mywallet', 'content.reports.mywallet')->name('report-mywallet');
+        
     });
 
 
