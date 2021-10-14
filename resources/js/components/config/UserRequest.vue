@@ -115,9 +115,9 @@ export default {
       axios.get(`user-request/get-user-by-id/${id}`).then((r) => {
         this.dataUser = r.data;
         this.sponsor = this.dataUser.sponsor;
-        this.payments = this.dataUser.payments;
+        this.payments = this.dataUser.payments_client;
         this.typeDocuments = this.dataUser.document_type;
-        this.paymentMethod = this.dataUser.payments.payment_method;
+        this.paymentMethod = this.dataUser.payments_client.payment_method;
       });
     },
     approveDeny(id, status) {

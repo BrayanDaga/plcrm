@@ -25,6 +25,7 @@ class WalletFactory extends Factory
         return [
             // 'id_user_membreship' => UserMembreship::inRandomOrder()->id,
             'amount' => $this->faker->randomFloat(2, 10, 1000),
+            'status' => 1
         ]; 
     }
 }

@@ -98,9 +98,14 @@ class UserMembreship extends Authenticatable
     }
 
 
-    public function payments(): HasOne
+    public function paymentsClient(): HasOne
     {
         return $this->hasOne(Payment::class, 'id_user_membreship');
+    }
+
+    public function paymentsSponsor(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'id_user_sponsor');
     }
 
 

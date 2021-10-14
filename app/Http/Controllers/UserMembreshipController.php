@@ -20,6 +20,7 @@ use App\Helpers\UserMembershipParams;
 use App\Models\UserMembreshipPayment;
 use App\Http\Resources\PaymentResource;
 use App\Http\Resources\UserMembreshipResource;
+use App\Models\Wallet;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -77,10 +78,11 @@ class UserMembreshipController extends Controller
 
         $msg = '';
         try {
-            
             $tbRequest = $request->reserved10 == 5 ? 2 : 1;
 
-            // if ((int)$request->errorCode == 0) :
+            DB::transaction(function () use ($request, $tbRequest) {
+
+                // if ((int)$request->errorCode == 0) :
                 $user = new UserMembreship();
                 $user->user = $request->reserved1;
                 $user->password = Hash::make($request->reserved2);
@@ -110,9 +112,9 @@ class UserMembreshipController extends Controller
                 $payment->operation_number = 0;
                 $payment->id_payment_method = $request->reserved14;;
                 $payment->save();
-                $id_payment = $payment->id;                
-                
-                if($user->id_account_type != 5) {
+                $id_payment = $payment->id;
+
+                if ($user->id_account_type != 5) {
                     if (auth()->user()->position == 1) {
                         Classified::create([
                             'id_user_membreship' => $id_user,
@@ -136,40 +138,49 @@ class UserMembreshipController extends Controller
                             'authorized' => '1',
                             'status_position_left' => '1',
                             'status_position_right' => '0',
-                        ]); 
+                        ]);
                     }
                 }
-             
 
-                
+                $fullName = $request->name . ' ' . $request->last_name;
+                Wallet::create([
+                    'amount' => $request->purchaseAmount,
+                    'reason' =>  "Affiliation ${fullName}",
+                    'id_user_membreship' => auth()->user()->id,
+                    'status' => 0,
+                    'payment_id' => $id_payment
+                ]);
 
                 /**
                  * store user_membreships_payment
                  */
-                $table = new UserMembreshipPayment();
-                $table->id_user_membreship = $id_user;
-                $table->id_payment = $id_payment;
-                $table->authorizationCode = $request->authorizationCode;
-                $table->errorCode = $request->errorCode;
-                $table->idCommerce = $request->idCommerce;
-                $table->shippingCity = $request->shippingCity;
-                $table->txDateTime = $request->txDateTime;
-                $table->purchaseOperationNumber = $request->purchaseOperationNumber;
-                $table->shippingAddress = $request->shippingAddress;
-                $table->card_account_type = $request->card_account_type;
-                $table->answerMessage = $request->answerMessage;
-                $table->bank_description = $request->bank_description;
-                $table->cuota = $request->cuota;
-                $table->paymentReferenceCode = $request->paymentReferenceCode;
-                $table->brand = $request->brand;
-                $table->purchaseVerification = $request->purchaseVerification;
-                $table->IDTransaction = $request->IDTransaction;
-                $table->errorMessage = $request->errorMessage;
-                $table->authorizationResult = $request->authorizationResult;
-                
-                $table->save();
+                // $table = new UserMembreshipPayment();
+                // $table->id_user_membreship = $id_user;
+                // $table->id_payment = $id_payment;
+                // $table->authorizationCode = $request->authorizationCode;
+                // $table->errorCode = $request->errorCode;
+                // $table->idCommerce = $request->idCommerce;
+                // $table->shippingCity = $request->shippingCity;
+                // $table->txDateTime = $request->txDateTime;
+                // $table->purchaseOperationNumber = $request->purchaseOperationNumber;
+                // $table->shippingAddress = $request->shippingAddress;
+                // $table->card_account_type = $request->card_account_type;
+                // $table->answerMessage = $request->answerMessage;
+                // $table->bank_description = $request->bank_description;
+                // $table->cuota = $request->cuota;
+                // $table->paymentReferenceCode = $request->paymentReferenceCode;
+                // $table->brand = $request->brand;
+                // $table->purchaseVerification = $request->purchaseVerification;
+                // $table->IDTransaction = $request->IDTransaction;
+                // $table->errorMessage = $request->errorMessage;
+                // $table->authorizationResult = $request->authorizationResult;
+
+                // $table->save();
 
                 $msg = 'Cliente Registrado satisfactoriamente';
+            }, 5);
+
+
 
             // else :
             //     $msg = 'Error en el registro de datos (' . $request->errorCode . ')';
@@ -179,31 +190,29 @@ class UserMembreshipController extends Controller
             //     'status' => false,
             //     'message' => $e->getMessage(),
             // ];
-             return redirect()
-                 ->route('user-membreship-register')
-                 ->with('error', $e->getMessage());
-
+            return redirect()
+                ->route('user-membreship-register')
+                ->with('error', $e->getMessage());
         }
         // return [
         //     'status' => true,
         //     'message' => $msg
         // ];
 
-        if($tbRequest == 2) {
+        if ($tbRequest == 2) {
             return redirect()->route('virtualclass');
-        }else{
+        } else {
             return redirect()
-            ->route('user-membreship-register')
-             ->with('success', $msg);
+                ->route('user-membreship-register')
+                ->with('success', $msg);
         }
-     
     }
 
     public function getDataUser($user)
     {
         $data = UserMembreship::where('user', $user)->with('accountType')->first();
         return response()->json($data, 200);
-        }
+    }
 
     public function getDataCurrentUser()
     {
