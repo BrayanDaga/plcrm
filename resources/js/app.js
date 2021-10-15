@@ -7,7 +7,9 @@ window.Vue = require('vue').default;
 
 Vue.filter('formatDate', function (value) {
   if (value) {
-    return moment(String(value)).locale('es').format('D MMM YYYY');
+    return moment(value).add(1, 'day').format('LLL')
+
+    // return moment(String(value)).locale('es').format('D MMM YYYY');
   }
 
 });

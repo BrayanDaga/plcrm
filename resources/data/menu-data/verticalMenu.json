@@ -80,6 +80,12 @@
             "slug": "user-request"
         },
         {
+            "url": "config/binarycut",
+            "name": "Binary Cut",
+            "icon": "circle",
+            "slug": "binarycut.index"
+        },
+        {
             "url": "config/advertisements",
             "name": "Advertisements",
             "icon": "circle",

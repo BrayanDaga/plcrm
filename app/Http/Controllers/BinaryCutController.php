@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserMembreshipResource;
 use Illuminate\Http\Request;
 use App\Models\UserMembreship;
 
@@ -9,13 +10,14 @@ class BinaryCutController extends Controller
 {
     public function index()
     {
-        $users = $this->qualifiedsAndActive();
+        $users = UserMembreship::qualifiedsAndActive();
+        // return $users;
         return view('content.binarycut.index',compact('users'));
     }
 
     public function store()
     {
-        $users = $this->qualifiedsAndActive();
+        $users = UserMembreship::qualifiedsAndActive();
         foreach ($users as $user) {
 
             $maxPoints = 0;
@@ -36,14 +38,14 @@ class BinaryCutController extends Controller
                     'side' => $sideMax,
                     'reason' => "Binary cut "
             ]);
+            $valorDePunto = 1;
+            $user->wallets()->create([
+                'amount' => $minPoints * $user->accountType->pay_in_binary / 100  * $valorDePunto ,
+                'reason' => 'Pay Binary Cut',
+                'status' => 1
+            ]);
         }
         return redirect()->route('binarycut.index')->withSuccess('Binary cut successfully'); 
     }
 
-    private function qualifiedsAndActive()
-    {
-        return UserMembreship::where('id_account_type','!=', 5)->get()->filter(function ($key) {
-            return $key->qualified == true && $key->active == true;
-        });
-    }
 }

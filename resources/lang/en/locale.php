@@ -210,4 +210,5 @@ return [
     "Requests" => "Requests",
     "List Payments" => "List Payments",
     "My Wallet" => "My Wallet",
+    "Binary Cut" => "Binary Cut",
 ];

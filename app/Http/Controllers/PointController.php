@@ -12,9 +12,9 @@ class PointController extends Controller
     {
         $user =  UserMembreship::find( auth()->user()->id ); 
         if($request->side != null){
-            $points = $user->points()->where('side',$request->side)->get();
+            $points = $user->points()->where('side',$request->side)->where('status',1)->get();
         }else{
-            $points = $user->points()->get();
+            $points = $user->points()->where('status',1)->get();
         }
         return JsonResource::collection($points);
     }

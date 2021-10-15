@@ -5,7 +5,7 @@
 
 <form action="{{ route('binarycut.store') }}" method="post">
     @csrf
-    <input type="submit" value="Reset" class="btn btn-primary">
+    <input type="submit" value="Cut apply?" class="btn btn-danger">
 </form>
 
 @if (session('success'))
@@ -32,7 +32,12 @@
                     <td> {{ $user->fullName }} </td>
                     <td> {{ $user->LeftPoints }} </td>
                     <td> {{ $user->RightPoints }} </td>
-                    <td> {{ $user->LeftPoints < $user->RightPoints ? $user->LeftPoints * 0.5 : $user->RightPoints * 0.5 }}
+                    <td> 
+                     @if ($user->LeftPoints < $user->RightPoints )
+                        {{  $user->LeftPoints *  $user->accountType->pay_in_binary / 100  }}
+                     @else
+                     {{  $user->RightPoints *  $user->accountType->pay_in_binary / 100  }}
+                     @endif
                     </td>
                 </tr>
             @endforeach

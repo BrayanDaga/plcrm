@@ -111,6 +111,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::apiResource('growthBonus', GrowthBonusController::class)->except(['update']);
     });
 
+    Route::group(['prefix' => 'config'], function () {
+        Route::resource('binarycut', BinaryCutController::class)->only(['index','store']);
+    });
+
+
 
     Route::group(['prefix' => 'config/bank'], function () {
         Route::get('/', [BankController::class, 'index'])->name('bank');
@@ -181,7 +186,6 @@ Route::group(['middleware' => ['auth']], function () {
         });
     });
 
-    Route::resource('/binarycut', BinaryCutController::class)->only(['index','store']);
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

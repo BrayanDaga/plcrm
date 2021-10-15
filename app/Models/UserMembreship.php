@@ -141,5 +141,11 @@ class UserMembreship extends Authenticatable
     }
 
 
+    public function scopeQualifiedsAndActive($query)
+    {
+        return $query->with('accountType')->where('id_account_type','!=', 5)->get()->filter(function ($key) {
+            return $key->qualified == true && $key->active == true;
+        });
+    }
 
 }
