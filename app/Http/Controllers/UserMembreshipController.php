@@ -76,135 +76,114 @@ class UserMembreshipController extends Controller
     {
         // return $request->all();
 
-        $msg = '';
-        try {
-            $tbRequest = $request->reserved10 == 5 ? 2 : 1;
+        $tbRequest = $request->reserved10 == 5 ? 2 : 1;
 
-            DB::transaction(function () use ($request, $tbRequest) {
+        DB::transaction(function () use ($request, $tbRequest) {
 
-                // if ((int)$request->errorCode == 0) :
-                $user = new UserMembreship();
-                $user->user = $request->reserved1;
-                $user->password = Hash::make($request->reserved2);
-                $user->name = $request->shippingFirstName;
-                $user->last_name = $request->shippingLastName;
-                $user->phone = $request->reserved4;
-                $user->date_birth = $request->reserved5;
-                $user->email = $request->shippingEmail;
-                $user->id_referrer_sponsor = $request->reserved9;
-                $user->id_country = $request->reserved8;
-                $user->id_document_type = $request->reserved6;
-                $user->id_account_type = $request->reserved10;
-                $user->nro_document = $request->reserved7;
-                $user->request = $tbRequest;
-                $user->expiration_date =  strtotime('+30 days');
-                $user->save();
-                $id_user = $user->id; // Get ID of user
+            // if ((int)$request->errorCode == 0) :
+            $user = new UserMembreship();
+            $user->user = $request->reserved1;
+            $user->password = Hash::make($request->reserved2);
+            $user->name = $request->shippingFirstName;
+            $user->last_name = $request->shippingLastName;
+            $user->phone = $request->reserved4;
+            $user->date_birth = $request->reserved5;
+            $user->email = $request->shippingEmail;
+            $user->id_referrer_sponsor = $request->reserved9;
+            $user->id_country = $request->reserved8;
+            $user->id_document_type = $request->reserved6;
+            $user->id_account_type = $request->reserved10;
+            $user->nro_document = $request->reserved7;
+            $user->request = $tbRequest;
+            $user->expiration_date =  strtotime('+30 days');
+            $user->save();
+            $id_user = $user->id; // Get ID of user
 
-                /**
-                 * store payment
-                 */
-                $payment = new Payment(); // payment payment
-                $payment->id_user_membreship = $id_user;
-                $payment->id_user_sponsor = $request->reserved9;
-                $payment->amount = $request->reserved13;
-                $payment->amount = $request->amount;
-                $payment->operation_number = 0;
-                $payment->id_payment_method = $request->reserved14;;
-                $payment->save();
-                $id_payment = $payment->id;
+            /**
+             * store payment
+             */
+            $payment = new Payment(); // payment payment
+            $payment->id_user_membreship = $id_user;
+            $payment->id_user_sponsor = $request->reserved9;
+            $payment->amount = $request->reserved13;
+            $payment->amount = $request->amount;
+            $payment->operation_number = 0;
+            $payment->id_payment_method = $request->reserved14;;
+            $payment->save();
+            $id_payment = $payment->id;
 
-                if ($user->id_account_type != 5) {
-                    if (auth()->user()->position == 1) {
-                        Classified::create([
-                            'id_user_membreship' => $id_user,
-                            'id_user_sponsor' => auth()->user()->id,
-                            'binary_sponsor' => 'test',
-                            'position' => '0',
-                            'classification' => 16,
-                            'status' => '0',
-                            'authorized' => '1',
-                            'status_position_left' => '0',
-                            'status_position_right' => '1',
-                        ]);
-                    } else {
-                        Classified::create([
-                            'id_user_membreship' => $id_user,
-                            'id_user_sponsor' => auth()->user()->id,
-                            'binary_sponsor' => 'test',
-                            'position' => '0',
-                            'classification' => 16,
-                            'status' => '0',
-                            'authorized' => '1',
-                            'status_position_left' => '1',
-                            'status_position_right' => '0',
-                        ]);
-                    }
+            if ($user->id_account_type != 5) {
+                if (auth()->user()->position == 1) {
+                    Classified::create([
+                        'id_user_membreship' => $id_user,
+                        'id_user_sponsor' => auth()->user()->id,
+                        'binary_sponsor' => 'test',
+                        'position' => '0',
+                        'classification' => 16,
+                        'status' => '0',
+                        'authorized' => '1',
+                        'status_position_left' => '0',
+                        'status_position_right' => '1',
+                    ]);
+                } else {
+                    Classified::create([
+                        'id_user_membreship' => $id_user,
+                        'id_user_sponsor' => auth()->user()->id,
+                        'binary_sponsor' => 'test',
+                        'position' => '0',
+                        'classification' => 16,
+                        'status' => '0',
+                        'authorized' => '1',
+                        'status_position_left' => '1',
+                        'status_position_right' => '0',
+                    ]);
                 }
+            }
 
-                $fullName = $request->name . ' ' . $request->last_name;
-                Wallet::create([
-                    'amount' => $request->purchaseAmount,
-                    'reason' =>  "Affiliation ${fullName}",
-                    'id_user_membreship' => auth()->user()->id,
-                    'status' => 0,
-                    'payment_id' => $id_payment
-                ]);
+            $fullName = $request->name . ' ' . $request->last_name;
+            Wallet::create([
+                'amount' => $request->purchaseAmount,
+                'reason' =>  "Affiliation ${fullName}",
+                'id_user_membreship' => auth()->user()->id,
+                'status' => 0,
+                'payment_id' => $id_payment
+            ]);
 
-                /**
-                 * store user_membreships_payment
-                 */
-                // $table = new UserMembreshipPayment();
-                // $table->id_user_membreship = $id_user;
-                // $table->id_payment = $id_payment;
-                // $table->authorizationCode = $request->authorizationCode;
-                // $table->errorCode = $request->errorCode;
-                // $table->idCommerce = $request->idCommerce;
-                // $table->shippingCity = $request->shippingCity;
-                // $table->txDateTime = $request->txDateTime;
-                // $table->purchaseOperationNumber = $request->purchaseOperationNumber;
-                // $table->shippingAddress = $request->shippingAddress;
-                // $table->card_account_type = $request->card_account_type;
-                // $table->answerMessage = $request->answerMessage;
-                // $table->bank_description = $request->bank_description;
-                // $table->cuota = $request->cuota;
-                // $table->paymentReferenceCode = $request->paymentReferenceCode;
-                // $table->brand = $request->brand;
-                // $table->purchaseVerification = $request->purchaseVerification;
-                // $table->IDTransaction = $request->IDTransaction;
-                // $table->errorMessage = $request->errorMessage;
-                // $table->authorizationResult = $request->authorizationResult;
+            /**
+             * store user_membreships_payment
+             */
+            // $table = new UserMembreshipPayment();
+            // $table->id_user_membreship = $id_user;
+            // $table->id_payment = $id_payment;
+            // $table->authorizationCode = $request->authorizationCode;
+            // $table->errorCode = $request->errorCode;
+            // $table->idCommerce = $request->idCommerce;
+            // $table->shippingCity = $request->shippingCity;
+            // $table->txDateTime = $request->txDateTime;
+            // $table->purchaseOperationNumber = $request->purchaseOperationNumber;
+            // $table->shippingAddress = $request->shippingAddress;
+            // $table->card_account_type = $request->card_account_type;
+            // $table->answerMessage = $request->answerMessage;
+            // $table->bank_description = $request->bank_description;
+            // $table->cuota = $request->cuota;
+            // $table->paymentReferenceCode = $request->paymentReferenceCode;
+            // $table->brand = $request->brand;
+            // $table->purchaseVerification = $request->purchaseVerification;
+            // $table->IDTransaction = $request->IDTransaction;
+            // $table->errorMessage = $request->errorMessage;
+            // $table->authorizationResult = $request->authorizationResult;
 
-                // $table->save();
+            // $table->save();
 
-                $msg = 'Cliente Registrado satisfactoriamente';
-            }, 5);
+        }, 5);
 
-
-
-            // else :
-            //     $msg = 'Error en el registro de datos (' . $request->errorCode . ')';
-            // endif;
-        } catch (Exception $e) {
-            // return [
-            //     'status' => false,
-            //     'message' => $e->getMessage(),
-            // ];
-            return redirect()
-                ->route('user-membreship-register')
-                ->with('error', $e->getMessage());
-        }
-        // return [
-        //     'status' => true,
-        //     'message' => $msg
-        // ];
-
+        $msg = 'Cliente Registrado satisfactoriamente';
         if ($tbRequest == 2) {
-            return redirect()->route('virtualclass');
+            return redirect()->route('virtualclass')->withSuccess($msg);
         } else {
             return redirect()
                 ->route('user-membreship-register')
-                ->with('success', $msg);
+                ->withSuccess($msg);
         }
     }
 

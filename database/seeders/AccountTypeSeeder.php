@@ -17,7 +17,7 @@ class AccountTypeSeeder extends Seeder
                 'account' => $account,
                 'price' => 100.00,
                 'status' => 1,
-                'iva'=>50.00,
+                'iva'=>0.50,
                 'disc_purchases'=>50.00,
                 'pay_in_binary'=>50.00,
                 'profit_on_purchases'=>50.00,
