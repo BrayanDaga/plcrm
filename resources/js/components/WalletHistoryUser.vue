@@ -8,14 +8,15 @@
         <table class="table table-bordered" id="example">
           <thead>
             <tr>
+              <td>Date</td>
               <td>Amount</td>
               <td>reason</td>
-              <td>Date</td>
             </tr>
           </thead>
 
           <tbody>
             <tr v-for="wallet in wallets" :key="wallet.id">
+              <td>{{ wallet.created_at | formatDate }}</td>
               <td>
                 <span
                   class="font-weight-bolder"
@@ -25,7 +26,6 @@
                 </span>
               </td>
               <td>{{ wallet.reason }}</td>
-              <td>{{ wallet.created_at | formatDate }}</td>
             </tr>
           </tbody>
         </table>
@@ -85,6 +85,7 @@ export default {
         $('#example').DataTable({
           responsive: true,
           processing: true,
+        "order": [[ 0, "desc" ]]
         });
       });
     },

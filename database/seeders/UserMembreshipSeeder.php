@@ -40,7 +40,7 @@ class UserMembreshipSeeder extends Seeder
               'request' => 2,
              'expiration_date' => strtotime('+30 days'),
               'id_account_type' => 2,
-          ])->has(Payment::factory([ 'id_user_sponsor' => $user1->id]))
+          ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user1->id]))
           ->has(Wallet::factory())
           ->create();
 
@@ -53,7 +53,7 @@ class UserMembreshipSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
-        ])->has(Payment::factory(['id_user_sponsor' => $user1->id]))
+        ])->hasPaymentsClient(Payment::factory(['id_user_sponsor' => $user1->id]))
         ->has(Wallet::factory())
         ->create();
 
@@ -65,9 +65,10 @@ class UserMembreshipSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 3,
-        ])->has(Payment::factory(['id_user_sponsor' => $user1->id]))
+        ])->hasPaymentsClient(Payment::factory(['id_user_sponsor' => $user1->id]))
         ->has(Wallet::factory())
         ->create();
+
 
         $user4 = UserMembreship::factory([
             'user' => 'user-miguel',
@@ -77,7 +78,7 @@ class UserMembreshipSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 4,
-        ])->has(Payment::factory(['id_user_sponsor' => $user1->id]))
+        ])->hasPaymentsClient(Payment::factory(['id_user_sponsor' => $user1->id]))
         ->has(Wallet::factory())
         ->create();
 
@@ -86,7 +87,7 @@ class UserMembreshipSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
-        ])->has(Payment::factory([ 'id_user_sponsor' => $user1->id]))
+        ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user1->id]))
         ->has(Wallet::factory())
         ->create();
 
@@ -95,7 +96,7 @@ class UserMembreshipSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
-        ])->has(Payment::factory([ 'id_user_sponsor' => $user3->id]))
+        ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user3->id]))
         ->has(Wallet::factory())
         ->create();
 
@@ -105,7 +106,7 @@ class UserMembreshipSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
-        ])->has(Payment::factory([ 'id_user_sponsor' => $user2->id]))
+        ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user2->id]))
         ->has(Wallet::factory())
         ->create();
 
@@ -114,7 +115,7 @@ class UserMembreshipSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
-        ])->has(Payment::factory([ 'id_user_sponsor' => $user4->id]))
+        ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user4->id]))
         ->create();
 
         
