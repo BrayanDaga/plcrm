@@ -13,11 +13,14 @@
 
 <!-- Codgio HTML del contenido (Importante) -->
 @section('content')
-<div class="row">
-  <div class="col-12">
-      <users-funds></users-funds>
-  </div>
-</div>@endsection
+    @can('is-admin')
+        <div class="row">
+            <div class="col-12">
+                <users-funds></users-funds>
+            </div>
+        </div>
+    @endcan
+@endsection
 
 @section('vendor-script')
     <!-- vendor files -->
@@ -26,4 +29,4 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
-    @endsection
+@endsection

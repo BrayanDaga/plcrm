@@ -3,6 +3,7 @@
 
 @section('content')
 
+@can('is-admin')
 <form action="{{ route('binarycut.store') }}" method="post">
     @csrf
     <input type="submit" value="Cut apply?" class="btn btn-danger">
@@ -43,4 +44,6 @@
             @endforeach
         </x-slot>
     </x-table-component>
+@endcan
+
 @endsection
