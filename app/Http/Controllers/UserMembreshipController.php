@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\UserMembershipParams;
+use App\Http\Requests\UserMembreshipRequest;
 use App\Models\UserMembreshipPayment;
 use App\Http\Resources\PaymentResource;
 use App\Http\Resources\UserMembreshipResource;
@@ -72,28 +73,28 @@ class UserMembreshipController extends Controller
         return UserMembreshipResource::collection($list_user_membreship);
     }
 
-    public function Create(Request $request)
+    public function Create(UserMembreshipRequest $request)
     {
         // return $request->all();
 
-        $tbRequest = $request->reserved10 == 5 ? 2 : 1;
+        $tbRequest = $request->id_account_type == 5 ? 2 : 1;
 
         DB::transaction(function () use ($request, $tbRequest) {
 
             // if ((int)$request->errorCode == 0) :
             $user = new UserMembreship();
-            $user->user = $request->reserved1;
-            $user->password = Hash::make($request->reserved2);
-            $user->name = $request->shippingFirstName;
-            $user->last_name = $request->shippingLastName;
-            $user->phone = $request->reserved4;
-            $user->date_birth = $request->reserved5;
-            $user->email = $request->shippingEmail;
-            $user->id_referrer_sponsor = $request->reserved9;
-            $user->id_country = $request->reserved8;
-            $user->id_document_type = $request->reserved6;
-            $user->id_account_type = $request->reserved10;
-            $user->nro_document = $request->reserved7;
+            $user->user = $request->user;
+            $user->password = Hash::make($request->password);
+            $user->name = $request->name;
+            $user->last_name = $request->last_name;
+            $user->phone = $request->phone;
+            $user->date_birth = $request->date_birth;
+            $user->email = $request->email;
+            $user->id_referrer_sponsor = $request->id_referrer_sponsor;
+            $user->id_country = $request->id_country;
+            $user->id_document_type = $request->id_document_type;
+            $user->id_account_type = $request->id_account_type;
+            $user->nro_document = $request->nro_document;
             $user->request = $tbRequest;
             $user->expiration_date =  strtotime('+30 days');
             $user->save();
@@ -104,7 +105,7 @@ class UserMembreshipController extends Controller
              */
             $payment = new Payment(); // payment payment
             $payment->id_user_membreship = $id_user;
-            $payment->id_user_sponsor = $request->reserved9;
+            $payment->id_user_sponsor = $request->id_referrer_sponsor;
             $payment->amount = $request->reserved13;
             $payment->amount = $request->amount;
             $payment->operation_number = 0;

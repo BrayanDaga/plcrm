@@ -24,20 +24,20 @@ class UserMembreshipRequest extends FormRequest
     public function rules()
     {
         return [
-            'user' => ['required','unique:userMembreships'],
+            'user' => ['required','unique:user_membreships'],
             'password' => ['required','min:5','confirmed'],
-            'name' => ['required'],
-            'last_name' => ['required'],
-            'phone' => ['required'],
-            'date_birth' => ['required'],
-            'email' => ['required','email','unique:userMembreships'],
-            'id_referrer_sponsor' => ['required'],
+            'name' => ['required','min:2'],
+            'last_name' => ['required','min:2'],
+            'phone' => ['required','integer'],
+            'date_birth' => ['required','date '],
+            'email' => ['required','email','unique:user_membreships'],
+            'id_referrer_sponsor' => ['required','exists:account_type,id'],
             'id_country' => ['required','exists:country,id'],
-            'id_document_type' => ['required'],
-            'id_account_type' => ['required','exists:account_type,id'],
+            'id_document_type' => ['required','exists:document_type,id'],
+            'id_account_type' => ['required','numeric','min:1','not_in:1','exists:account_type,id'],
             'nro_document' => ['required','integer'],
-            'request' => ['required'],
-            'expiration_date' =>  ['required'],
+            // 'request' => ['required','integer'],
+            // 'expiration_date' =>  ['required','date'],
         ];
     }
 }
