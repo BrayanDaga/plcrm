@@ -51,24 +51,24 @@
         <div class="col-lg-6">
             <form name="f1" id="f1" action="{{ url('/user-membreship/create') }}" method="post" class="alignet-form-vpos2">
                 @csrf
-                <input type="text" name="id_referrer_sponsor" value="{{ $id_referrer_sponsor }}">
-                <input type="text" name="acquirerId" value="{{ env('ACQUIRER_ID') }}">
-                <input type="text" name="idCommerce" value="{{ env('ID_COMMERCE') }}">
-                <input type="text" name="purchaseOperationNumber" value="{{ $purchase_operation_number }}">
-                <input type="text" name="purchaseAmount">
-                <input type="text" name="purchaseCurrencyCode" value="{{ env('PURCHASE_CURRENCY_CODE') }}">
-                <input type="text" name="language" value="SP">
-                <input type="text" name="shippingFirstName">
-                <input type="text" name="shippingLastName">
-                <input type="text" name="shippingEmail">
-                <input type="text" name="shippingAddress" value="av.pruebas">
-                <input type="text" name="shippingZIP" value="No ZIP">
-                <input type="text" name="shippingCity" value="Lima">
-                <input type="text" name="shippingState" value="Lima">
-                <input type="text" name="shippingCountry" value="PE">
-                <input type="text" name="descriptionProducts">
-                <input type="text" name="programmingLanguage" value="PHP">
-                <input type="text" name="purchaseVerification" value="{{ $purchase_verification }}">
+                <input type="hidden" name="id_referrer_sponsor" value="{{ $id_referrer_sponsor }}">
+                <input type="hidden" name="acquirerId" value="{{ env('ACQUIRER_ID') }}">
+                <input type="hidden" name="idCommerce" value="{{ env('ID_COMMERCE') }}">
+                <input type="hidden" name="purchaseOperationNumber" value="{{ $purchase_operation_number }}">
+                <input type="hidden" name="purchaseAmount">
+                <input type="hidden" name="purchaseCurrencyCode" value="{{ env('PURCHASE_CURRENCY_CODE') }}">
+                <input type="hidden" name="language" value="SP">
+                <input type="hidden" name="shippingFirstName">
+                <input type="hidden" name="shippingLastName">
+                <input type="hidden" name="shippingEmail">
+                <input type="hidden" name="shippingAddress" value="av.pruebas">
+                <input type="hidden" name="shippingZIP" value="No ZIP">
+                <input type="hidden" name="shippingCity" value="Lima">
+                <input type="hidden" name="shippingState" value="Lima">
+                <input type="hidden" name="shippingCountry" value="PE">
+                <input type="hidden" name="descriptionProducts">
+                <input type="hidden" name="programmingLanguage" value="PHP">
+                <input type="hidden" name="purchaseVerification" value="{{ $purchase_verification }}">
                 <h4>User</h4>
                 <hr>
                 <div class="d-flex flex-wrap">
