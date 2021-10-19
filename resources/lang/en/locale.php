@@ -4,7 +4,6 @@ return [
     "Apps & Pages" => "Apps & Pages",
     "User Interface" => "User Interface",
     "Dashboards" => "Dashboards",
-    "Analytics" => "Analytics",
     "eCommerce" => "eCommerce",
     "Apps" => "Apps",
     "UI Elements" => "UI Elements",
