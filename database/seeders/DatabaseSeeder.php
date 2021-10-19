@@ -34,7 +34,8 @@ class DatabaseSeeder extends Seeder
          $this->call(AccountTypePoinstMoneySeeder::class);
          $this->call(PaymentMethodSeeder::class);
          $this->call(BankSeeder::class);
-          $this->call(UserMembreshipSeeder::class);
+         $this->call(UserMembreshipSeeder::class);
+      
         // $this->call(PaymentSeeder::class);
         // $this->call(AdvertisementSeeder::class);
            $this->call(ClassifiedSeeder::class);

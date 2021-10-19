@@ -21,3 +21,4 @@ supervisord.log
 supervisord.pid
 error.log
 access.log
+/.idea

@@ -27,10 +27,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserMembreshipController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function Register()
     {
@@ -75,8 +75,6 @@ class UserMembreshipController extends Controller
 
     public function Create(UserMembreshipRequest $request)
     {
-        // return $request->all();
-
         $tbRequest = $request->id_account_type == 5 ? 2 : 1;
 
         DB::transaction(function () use ($request, $tbRequest) {
@@ -95,6 +93,7 @@ class UserMembreshipController extends Controller
             $user->id_document_type = $request->id_document_type;
             $user->id_account_type = $request->id_account_type;
             $user->nro_document = $request->nro_document;
+
             $user->request = $tbRequest;
             $user->expiration_date =  strtotime('+30 days');
             $user->save();
@@ -105,7 +104,7 @@ class UserMembreshipController extends Controller
              */
             $payment = new Payment(); // payment payment
             $payment->id_user_membreship = $id_user;
-            $payment->id_user_sponsor = $request->id_referrer_sponsor;
+            $payment->id_user_sponsor = $request->reserved9;
             $payment->amount = $request->reserved13;
             $payment->amount = $request->amount;
             $payment->operation_number = 0;
@@ -113,9 +112,11 @@ class UserMembreshipController extends Controller
             $payment->save();
             $id_payment = $payment->id;
 
+            $classified = '';
+            $id_classified = '';
             if ($user->id_account_type != 5) {
                 if (auth()->user()->position == 1) {
-                    Classified::create([
+                    $classified = Classified::create([
                         'id_user_membreship' => $id_user,
                         'id_user_sponsor' => auth()->user()->id,
                         'binary_sponsor' => 'test',
@@ -126,8 +127,9 @@ class UserMembreshipController extends Controller
                         'status_position_left' => '0',
                         'status_position_right' => '1',
                     ]);
+                    $id_classified = $classified->id;
                 } else {
-                    Classified::create([
+                    $classified = Classified::create([
                         'id_user_membreship' => $id_user,
                         'id_user_sponsor' => auth()->user()->id,
                         'binary_sponsor' => 'test',
@@ -138,53 +140,54 @@ class UserMembreshipController extends Controller
                         'status_position_left' => '1',
                         'status_position_right' => '0',
                     ]);
+                    $id_classified = $classified->id;
                 }
             }
-
-            $fullName = $request->name . ' ' . $request->last_name;
-            Wallet::create([
-                'amount' => $request->purchaseAmount,
-                'reason' =>  "Affiliation ${fullName}",
-                'id_user_membreship' => auth()->user()->id,
-                'status' => 0,
-                'payment_id' => $id_payment
-            ]);
 
             /**
              * store user_membreships_payment
              */
-            // $table = new UserMembreshipPayment();
-            // $table->id_user_membreship = $id_user;
-            // $table->id_payment = $id_payment;
-            // $table->authorizationCode = $request->authorizationCode;
-            // $table->errorCode = $request->errorCode;
-            // $table->idCommerce = $request->idCommerce;
-            // $table->shippingCity = $request->shippingCity;
-            // $table->txDateTime = $request->txDateTime;
-            // $table->purchaseOperationNumber = $request->purchaseOperationNumber;
-            // $table->shippingAddress = $request->shippingAddress;
-            // $table->card_account_type = $request->card_account_type;
-            // $table->answerMessage = $request->answerMessage;
-            // $table->bank_description = $request->bank_description;
-            // $table->cuota = $request->cuota;
-            // $table->paymentReferenceCode = $request->paymentReferenceCode;
-            // $table->brand = $request->brand;
-            // $table->purchaseVerification = $request->purchaseVerification;
-            // $table->IDTransaction = $request->IDTransaction;
-            // $table->errorMessage = $request->errorMessage;
-            // $table->authorizationResult = $request->authorizationResult;
+            $table = new UserMembreshipPayment();
+            $table->id_user_membreship = $id_user;
+            $table->id_payment = $id_payment;
+            $table->authorizationCode = $request->authorizationCode ? $request->authorizationCode : '';
+            $table->errorCode = $request->errorCode ? $table->errorCode : '';
+            $table->idCommerce = $request->idCommerce ? $request->idCommerce : 0;
+            $table->shippingCity = $request->shippingCity;
+            $table->txDateTime = $request->txDateTime ? $request->txDateTime : '';
+            $table->purchaseOperationNumber = $request->purchaseOperationNumber ? $request->purchaseOperationNumber : 0;
+            $table->shippingAddress = $request->shippingAddress ? $request->shippingAddress : '';
+            $table->card_account_type = $request->card_account_type ? $request->card_account_type : '';
+            $table->answerMessage = $request->answerMessage ? $request->answerMessage : '';
+            $table->bank_description = $request->bank_description ? $request->bank_description : '';
+            $table->cuota = $request->cuota ? $request->cuota : '';
+            $table->paymentReferenceCode = $request->paymentReferenceCode ? $request->paymentReferenceCode : '';
+            $table->brand = $request->brand ? $request->brand : '';
+            $table->purchaseVerification = $request->purchaseVerification ? $request->purchaseVerification : '';
+            $table->IDTransaction = $request->IDTransaction ? $request->IDTransaction : '';
+            $table->errorMessage = $request->errorMessage ? $request->errorMessage : '';
+            $table->authorizationResult = $request->authorizationResult ? $request->authorizationResult : '';
 
-            // $table->save();
+            $table->save();
 
-        }, 5);
+            if ($tbRequest == 2) {
+                return redirect()->route('virtualclass');
+            } else {
+                return redirect()
+                    ->route('user-request');
+            }
+        } catch (Exception $e) {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+            DB::table('user_membreships')->where('id', '=', $id_user)->delete();
+            DB::table('payments')->where('id', '=', $id_payment)->delete();
+            DB::table('classified')->where('id', '=', $id_classified)->delete();
+            DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
-        $msg = 'Cliente Registrado satisfactoriamente';
-        if ($tbRequest == 2) {
-            return redirect()->route('virtualclass')->withSuccess($msg);
-        } else {
-            return redirect()
-                ->route('user-membreship-register')
-                ->withSuccess($msg);
+            $response_error = [
+                "id_user" => $id_user,
+                "error" => $e->getMessage()
+            ];
+            return response()->json($response_error, 500);
         }
     }
 

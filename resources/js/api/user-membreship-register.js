@@ -5,6 +5,7 @@ const shippingFirstName = document.getElementsByName('shippingFirstName')[0];
 const shippingLastName = document.getElementsByName('shippingLastName')[0];
 const shippingEmail = document.getElementsByName('shippingEmail')[0];
 const purchaseAmount = document.getElementsByName('purchaseAmount')[0];
+const reserved13 = document.getElementsByName('reserved13')[0];
 const descriptionProducts = document.getElementsByName('descriptionProducts')[0];
 const purchaseOperationNumber = document.getElementsByName('purchaseOperationNumber')[0];
 const purchaseVerification = document.getElementsByName('purchaseVerification')[0];
@@ -34,6 +35,7 @@ const accountTypesChanged = (e) => {
         accountTypesIva.value = '';
         accountTypesTotalCostMembreship.value = '';
         purchaseAmount.value = '';
+        reserved13.value = '';
         return false;
     }
 
@@ -56,6 +58,7 @@ const outputPriceAccountType = (d) => {
     accountTypesIva.value = getIva.toFixed(2);
     accountTypesTotalCostMembreship.value = total.toFixed(2);
 
+    reserved13.value = total;
     total = total.toString();
     total = total.split('.')[0] + total.split('.')[1];
     total = parseInt(total);
