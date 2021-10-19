@@ -7,7 +7,9 @@ window.Vue = require('vue').default;
 
 Vue.filter('formatDate', function (value) {
   if (value) {
-    return moment(String(value)).locale('es').format('D MMM YYYY');
+    return moment(value).add(1, 'day').format('LLL')
+
+    // return moment(String(value)).locale('es').format('D MMM YYYY');
   }
 
 });
@@ -69,6 +71,14 @@ Vue.component(
 Vue.component(
   'points-buttons',
   require('./components/PointsButtons.vue').default
+);
+Vue.component(
+  'wallet-history-user',
+  require('./components/WalletHistoryUser.vue').default
+);
+Vue.component(
+  'users-funds',
+  require('./components/UsersFunds.vue').default
 );
 const app = new Vue({
     el: '#app'

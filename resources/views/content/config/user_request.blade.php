@@ -10,7 +10,9 @@
 <link rel="stylesheet" type="text/css" href="{{asset('css/base/plugins/forms/pickers/form-flat-pickr.css')}}">
 @endsection
 @section('content')
-    <user-request></user-request>
+@can('is-admin')
+<user-request></user-request>
+@endcan
 @endsection
 @section('vendor-script')
 {{-- vendor files --}}
