@@ -5,12 +5,7 @@
             "badgeClass": "badge badge-light-warning badge-pill ml-auto mr-1",
             "icon": "home",
             "slug": "",
-            "submenu": [{
-                    "url": "dashboard/analytics",
-                    "name": "Analytics",
-                    "icon": "circle",
-                    "slug": "dashboard-analytics"
-                },
+            "submenu": [
                 {
                     "url": "/",
                     "name": "eCommerce",

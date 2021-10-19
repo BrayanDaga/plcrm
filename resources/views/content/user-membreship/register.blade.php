@@ -6,19 +6,6 @@
 @endsection
 
 @section('content')
-{{-- <user-membreship-register
-        :document-type="{{ $document_type }}"
-        :account-type="{{ $account_type }}"
-        :country="{{ $country }}"
-        :id-referrer-sponsor="{{ $id_referrer_sponsor }}"
-        :sponsor-name="'{{ $sponsor_name }}'"
-        :payment-methods="{{ $payment_methods }}"
-        :purchase-operation-number="'{{ $purchase_operation_number }}'"
-        :acquirer-id="{{ env('ACQUIRER_ID') }}"
-        :id-commerce="{{ env('ID_COMMERCE') }}"
-        :purchase-currency-code="{{ env('PURCHASE_CURRENCY_CODE') }}"
-        :purchase-password="'{{ env('PURCHASE_PASSWORD') }}'"
-    ></user-membreship-register> --}}
 <div class="row">
     <div class="col-lg-6">
         <form name="f1" id="f1" action="{{ url('/user-membreship/create') }}" method="post" class="alignet-form-vpos2">
@@ -46,7 +33,6 @@
             <div class="d-flex flex-wrap">
                 <div class="form-group pr-1">
                     <label for="user">User</label>
-                    {{-- <input type="text" id="user" class="form-control" name="user" onkeyup="validateUser"> --}}
                     <input type="text" id="user" class="form-control" name="reserved1">
                 </div>
                 <div class="form-group pr-1">
@@ -117,7 +103,6 @@
             <div class="d-flex flex-wrap">
                 <div class="form-group pr-1">
                     <label for="id_account_type">Account Type</label>
-                    {{-- <select id="id_account_type" class="form-control" onchange="changeTablePrice($event)" name="id_account_type"> --}}
                     <select id="id_account_type" class="form-control" name="reserved10">
                         <option value="0">--------------------</option>
                         @foreach ($account_type as $ct)
