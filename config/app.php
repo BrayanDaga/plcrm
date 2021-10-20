@@ -230,5 +230,6 @@ return [
         // custom theme helper
         'Helper' => App\Helpers\Helper::class,
     ],
-
+    //config api router
+    'is_api' => env('IS_API'),
 ];
