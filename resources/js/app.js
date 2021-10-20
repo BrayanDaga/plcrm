@@ -24,10 +24,6 @@ Vue.component(
   require('./components/config/payment-method/PaymentMethod').default
 );
 Vue.component('user-membreship-list', require('./components/user-membreship/List').default);
-Vue.component(
-  'user-membreship-register',
-  require('./components/user-membreship/Register.vue').default
-);
 
 Vue.component('bonus-component', require('./components/config/BonusComponent.vue').default);
 Vue.component('account-type', require('./components/config/account-type/AccountType').default);

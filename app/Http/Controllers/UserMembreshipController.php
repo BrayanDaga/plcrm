@@ -79,7 +79,6 @@ class UserMembreshipController extends Controller
 
         DB::transaction(function () use ($request, $tbRequest) {
 
-            // if ((int)$request->errorCode == 0) :
             $user = new UserMembreship();
             $user->user = $request->user;
             $user->password = Hash::make($request->password);
@@ -93,18 +92,16 @@ class UserMembreshipController extends Controller
             $user->id_document_type = $request->id_document_type;
             $user->id_account_type = $request->id_account_type;
             $user->nro_document = $request->nro_document;
-
             $user->request = $tbRequest;
             $user->expiration_date =  strtotime('+30 days');
             $user->save();
             $id_user = $user->id; // Get ID of user
-
             /**
              * store payment
              */
             $payment = new Payment(); // payment payment
             $payment->id_user_membreship = $id_user;
-            $payment->id_user_sponsor = $request->reserved9;
+            $payment->id_user_sponsor = $request->id_referrer_sponsor;
             $payment->amount = $request->reserved13;
             $payment->amount = $request->amount;
             $payment->operation_number = 0;
@@ -112,34 +109,34 @@ class UserMembreshipController extends Controller
             $payment->save();
             $id_payment = $payment->id;
 
+
             $classified = '';
             $id_classified = '';
             if ($user->id_account_type != 5) {
+                $fieldsClassifieds  = [
+                    'id_user_membreship' => $id_user,
+                    'id_user_sponsor' => auth()->user()->id,
+                    'binary_sponsor' => 'test',
+                    'position' => '0',
+                    'classification' => 16,
+                    'status' => '0',
+                    'authorized' => '0',
+                    'status_position_left' => '0',
+                    'status_position_right' => '0',
+                ];
+                
                 if (auth()->user()->position == 1) {
-                    $classified = Classified::create([
-                        'id_user_membreship' => $id_user,
-                        'id_user_sponsor' => auth()->user()->id,
-                        'binary_sponsor' => 'test',
-                        'position' => '0',
-                        'classification' => 16,
-                        'status' => '0',
-                        'authorized' => '1',
-                        'status_position_left' => '0',
-                        'status_position_right' => '1',
-                    ]);
+                    $fieldsClassifieds['authorized'] = 1;
+                    $fieldsClassifieds['status_position_left'] = 0;
+                    $fieldsClassifieds['status_position_right'] = 1;
+
+                    $classified = Classified::create($fieldsClassifieds);
                     $id_classified = $classified->id;
                 } else {
-                    $classified = Classified::create([
-                        'id_user_membreship' => $id_user,
-                        'id_user_sponsor' => auth()->user()->id,
-                        'binary_sponsor' => 'test',
-                        'position' => '0',
-                        'classification' => 16,
-                        'status' => '0',
-                        'authorized' => '1',
-                        'status_position_left' => '1',
-                        'status_position_right' => '0',
-                    ]);
+                    $fieldsClassifieds['authorized'] = 1;
+                    $fieldsClassifieds['status_position_left'] = 1;
+                    $fieldsClassifieds['status_position_right'] = 0;
+                    $classified = Classified::create($fieldsClassifieds);
                     $id_classified = $classified->id;
                 }
             }
@@ -169,25 +166,15 @@ class UserMembreshipController extends Controller
             $table->authorizationResult = $request->authorizationResult ? $request->authorizationResult : '';
 
             $table->save();
+        }, 5);
 
-            if ($tbRequest == 2) {
-                return redirect()->route('virtualclass');
-            } else {
-                return redirect()
-                    ->route('user-request');
-            }
-        } catch (Exception $e) {
-            DB::statement('SET FOREIGN_KEY_CHECKS=0');
-            DB::table('user_membreships')->where('id', '=', $id_user)->delete();
-            DB::table('payments')->where('id', '=', $id_payment)->delete();
-            DB::table('classified')->where('id', '=', $id_classified)->delete();
-            DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
-            $response_error = [
-                "id_user" => $id_user,
-                "error" => $e->getMessage()
-            ];
-            return response()->json($response_error, 500);
+        $msg = 'Cliente Registrado satisfactoriamente';
+        if ($tbRequest == 2) {
+            return redirect()->route('virtualclass')->withSuccess($msg);
+        } else {
+            return redirect()
+                ->route('user-membreship-register')
+                ->withSuccess($msg);
         }
     }
 
