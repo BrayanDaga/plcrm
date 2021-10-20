@@ -33,10 +33,7 @@ Vue.component('user-request', require('./components/config/UserRequest.vue').def
 // User membreship
 Vue.component('binary-branch', require('./components/binary-branch/BinaryBranch').default);
 Vue.component('user-membreship-list', require('./components/user-membreship/List').default);
-Vue.component(
-  'user-membreship-register',
-  require('./components/user-membreship/Register.vue').default
-);
+
 Vue.component(
   'payment-request',
   require('./components/PaymentRequest.vue').default
