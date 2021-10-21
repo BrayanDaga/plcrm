@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
@@ -13,7 +12,7 @@ class UserFactory extends Factory
      *
      * @var string
      */
-    protected $model = UserMembreship::class;
+    protected $model = User::class;
 
     /**
      * Define the model's default state.
@@ -22,16 +21,23 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        static $password;
-        return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
-            'password' => $password ?: $password = bcrypt('secret'),
-            'remember_token' => Str::random(10),
-        ];
+     
+     static $password;
+     return [
+        'username' => $this->faker->unique()->username(),
+        'password' => $password ?: $password = bcrypt('admin'),
+        'email' => $this->faker->unique()->email(),
+        'name' => $this->faker->name(),
+        'last_name' => $this->faker->lastName(),
+        'date_birth' => '1990-05-01',
+        'phone' => $this->faker->unique()->tollFreePhoneNumber(),
+        'id_country' => rand(1, 50),
+        'id_document_type' => rand(1, 4),
+        'nro_document' => $this->faker->unique()->bankAccountNumber(),
+        'id_account_type' => rand(1, 4),
+        'request' => 1,
+        'id_referrer_sponsor' => 0,
+        'position' => "0"
+     ];
     }
-
-
-
 }

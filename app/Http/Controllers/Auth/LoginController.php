@@ -14,43 +14,14 @@ class LoginController extends Controller
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
 
-    public function showLoginForm(){
-      $pageConfigs = [
-          'bodyClass' => "bg-full-screen-image",
-          'blankPage' => true
-      ];
-
-      return view('/auth/login', [
-          'pageConfigs' => $pageConfigs
-      ]);
-    }
-
-    public function Login()
+    public function username()
     {
-        $credentials = $this->validate(request(), [
-            'user' => 'required|string',
-            'password' => 'required|string'
-        ]);
-        
-        if(Auth::attempt($credentials)):
-            return redirect()->route('dashboard-ecommerce');
-        endif;
-
-        return back()
-                ->withErrors(['user' => trans('auth.failed')])
-                ->withInput(request(['user']));
-    }
-
-    public function Logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/');
+        return 'username';
     }
 }
