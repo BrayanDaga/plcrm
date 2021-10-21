@@ -1,8 +1,7 @@
 <?php
 namespace App\Models\Traits;
 
-use App\Models\UserMembreship;
-use App\Models\UserMembreshipsPoints;
+use App\Models\Point;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait Pointable
@@ -14,7 +13,7 @@ trait Pointable
      */
     public function points(): HasMany
     {
-        return $this->hasMany(UserMembreshipsPoints::class,'id_user_sponsor','id');
+        return $this->hasMany(Point::class,'sponsor_id','id');
     
 
     }

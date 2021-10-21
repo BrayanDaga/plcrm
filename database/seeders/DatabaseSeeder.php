@@ -41,17 +41,6 @@ class DatabaseSeeder extends Seeder
         //    $this->call(ClassifiedSeeder::class);
         // $this->call(WalletSeeder::class);
 
-        // UserMembreship::factory()->create([
-        //     'user' => 'admin',
-        //     'name' => 'Administrator',
-        //     'last_name' => 'Promolider',
-        //     'email' => 'admin@promolider.test',
-        //     'id_referrer_sponsor' => 0,
-        //     'request' => 3,
-        //     'expiration_date' => strtotime('+10 years'),
-        //     'id_account_type' => 1,
-        //      'created_at' => strtotime('-1 years'),
-        // ]);
 
         /*creando function mysql para Obtener todos los nodos secundarios de un nodo
         mas info: https://programmerclick.com/article/13791419702/   */
@@ -65,7 +54,7 @@ class DatabaseSeeder extends Seeder
         SET cid = rootId;   
         WHILE cid is not null DO   
             SET str = concat(str, ',', cid);   
-            SELECT group_concat(id) INTO cid FROM user_membreships where FIND_IN_SET(id_referrer_sponsor, cid);   
+            SELECT group_concat(id) INTO cid FROM users where FIND_IN_SET(id_referrer_sponsor, cid);   
         END WHILE;   
         RETURN str;   
         END
@@ -83,7 +72,7 @@ class DatabaseSeeder extends Seeder
         DECLARE str varchar(1000) default rootId;   
           
         WHILE rootId is not null do   
-            SET fid =(SELECT id_referrer_sponsor FROM user_membreships WHERE id = rootId);   
+            SET fid =(SELECT id_referrer_sponsor FROM users WHERE id = rootId);   
             IF fid is not null THEN   
                 SET str = concat(str, ',', fid);   
                 SET rootId = fid;   

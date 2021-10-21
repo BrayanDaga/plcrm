@@ -13,14 +13,14 @@ class Classified extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
 
-    public function userMembreship(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(UserMembreship::class, 'id_user_membreship');
+        return $this->belongsTo(User::class, 'id_user_membreship');
     }
 
-    public function userMembreshipSponsor(): BelongsTo
+    public function userSponsor(): BelongsTo
     {
-        return $this->belongsTo(UserMembreship::class, 'id_user_sponsor');
+        return $this->belongsTo(User::class, 'id_user_sponsor');
     }
 
     public function scopeIsLeft($query){

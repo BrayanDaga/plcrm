@@ -25,7 +25,7 @@ class UserFactory extends Factory
      static $password;
      return [
         'username' => $this->faker->unique()->username(),
-        'password' => $password ?: $password = bcrypt('admin'),
+        'password' => $password ?: $password = bcrypt('secret'),
         'email' => $this->faker->unique()->email(),
         'name' => $this->faker->name(),
         'last_name' => $this->faker->lastName(),
