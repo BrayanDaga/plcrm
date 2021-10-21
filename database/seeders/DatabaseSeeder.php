@@ -40,20 +40,20 @@ class DatabaseSeeder extends Seeder
         //   $this->call(ClassifiedSeeder::class);
         // $this->call(WalletSeeder::class);
         /*$this->call(ClassifiedSeeder::class);*/
-        UserMembreship::factory()->create([
-            'user' => 'admin',
-            'name' => 'Administrator',
-            'last_name' => 'Promolider',
-            'email' => 'admin@promolider.test',
-            'id_referrer_sponsor' => 0,
-            'request' => 3,
-            'expiration_date' => strtotime('+10 years'),
-            'id_account_type' => 1,
-             'created_at' => strtotime('-1 years'),
-        ]);
+        // UserMembreship::factory()->create([
+        //     'user' => 'admin',
+        //     'name' => 'Administrator',
+        //     'last_name' => 'Promolider',
+        //     'email' => 'admin@promolider.test',
+        //     'id_referrer_sponsor' => 0,
+        //     'request' => 3,
+        //     'expiration_date' => strtotime('+10 years'),
+        //     'id_account_type' => 1,
+        //      'created_at' => strtotime('-1 years'),
+        // ]);
         /*creando function mysql para Obtener todos los nodos secundarios de un nodo
         mas info: https://programmerclick.com/article/13791419702/   */
-        $getChildNodeFunction = "
+        /* $getChildNodeFunction = "
         CREATE FUNCTION `GET_CHILD_NODE`(rootId varchar(100))   
         RETURNS varchar(2000)  
         BEGIN   
@@ -117,6 +117,6 @@ class DatabaseSeeder extends Seeder
             END";
 
             DB::unprepared("DROP FUNCTION IF EXISTS GET_PARENTCLASSIFIED_NODE"); //borrando la funcion si existe
-            DB::unprepared($getParentClassifiedNodeFunction); //creando la funcion
+            DB::unprepared($getParentClassifiedNodeFunction); //creando la funcion */
     }
 }

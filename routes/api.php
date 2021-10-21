@@ -4,6 +4,13 @@ use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
+//Post Store User
+Route::group(['prefix' => '/v1'], function(){
+    Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
+        Route::post('/register', [AuthController::class, 'store']);
+    });
+});
+
 Route::group(['prefix' => '/v1'], function(){
     if(config('app.is_api')){
         Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){

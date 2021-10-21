@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserMembreshipPayment extends Migration
+class CreateUserPaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserMembreshipPayment extends Migration
      */
     public function up()
     {
-        Schema::create('user_membreship_payment', function (Blueprint $table) {
+        Schema::create('user_payments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('id_payment')->unsigned();
@@ -48,6 +48,6 @@ class CreateUserMembreshipPayment extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_membreship_payment');
+        Schema::dropIfExists('user_payments');
     }
 }
