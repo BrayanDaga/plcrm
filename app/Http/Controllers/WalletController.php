@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserMembreship;
 use Illuminate\Http\Request;
+use App\Models\UserMembreship;
+use App\Models\Wallet;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class WalletController extends Controller
 {
@@ -12,9 +15,17 @@ class WalletController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getTotalWalletUsers()
     {
-        $wallets = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->with('wallet')->get()->pluck('wallet');
-        return view('content.reports.wallet',compact('wallets'));
+        $wallets = Wallet::groupBy('id_user_membreship')
+        ->selectRaw('sum(AMOUNT) as available, id_user_membreship')->where('status',1)->with('userMembreship')->get();
+        return JsonResource::collection($wallets);
+    }
+
+    public function getWalletForUser($username)
+    {
+        $user = UserMembreship::where('user',$username)->first();
+        $wallets = $user->wallets->where('status',1);
+        return JsonResource::collection($wallets);
     }
 }

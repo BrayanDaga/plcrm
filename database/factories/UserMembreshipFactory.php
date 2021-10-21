@@ -4,7 +4,6 @@
 namespace Database\Factories;
 
 
-use App\Models\User;
 use App\Models\UserMembreship;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Auth;
@@ -33,13 +32,13 @@ class UserMembreshipFactory extends Factory
          * los metodos "rand" se cambian los valores
          */
         return [
-            'user' => $this->faker->username,
+            'user' => $this->faker->unique()->username(),
             'password' => $password ?: $password = bcrypt('admin'),
             'name' => $this->faker->name(),
             'last_name' => $this->faker->lastName(),
             'phone' => '999999999',
             'date_birth' => '1990-05-01',
-            'email' => $this->faker->email(),
+            'email' => $this->faker->unique()->email(),
             'id_referrer_sponsor' => 0,
             'id_country' => rand(1, 50),
             'id_document_type' => rand(1, 4),

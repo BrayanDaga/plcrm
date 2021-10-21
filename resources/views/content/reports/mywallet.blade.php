@@ -1,5 +1,8 @@
+<!-- Incluyendo el layouts (Importante) -->
 @extends('layouts.contentLayoutMaster')
-@section('title', "$ Users' Wallet Funds")
+
+<!-- Establecer el titulo del modulo (Importante) -->
+@section('title', 'My Wallet')
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -13,13 +16,7 @@
 
 <!-- Codgio HTML del contenido (Importante) -->
 @section('content')
-    @can('is-admin')
-        <div class="row">
-            <div class="col-12">
-                <users-funds></users-funds>
-            </div>
-        </div>
-    @endcan
+<wallet-history-user username="{{ auth()->user()->user }}" ></wallet-history-user>
 @endsection
 
 @section('vendor-script')
@@ -29,4 +26,4 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
-@endsection
+    @endsection

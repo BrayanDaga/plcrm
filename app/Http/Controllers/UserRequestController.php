@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Wallet;
 use App\Models\Classified;
 use App\Models\AccountType;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class UserRequestController extends Controller
     public function getUserById($id)
     {
         $data = UserMembreship::with('sponsor')
-            ->with('payments', function ($q) {
+            ->with('paymentsClient', function ($q) {
                 $q->with('paymentMethod');
             })
             ->with('documentType')
@@ -67,6 +68,12 @@ class UserRequestController extends Controller
             
             $parents = Classified::whereRaw("FIND_IN_SET(id_user_membreship, GET_PARENTCLASSIFIED_NODE(${id}))")->get(); ///Obtengo los padres del usuario
             $atm =  AccountTypePointsMoney::where('account_type_id',$user->id_account_type)->first(); //Obtengo los puntos de determiando tipo de cuenta
+           
+            $payment = $user->paymentsClient;
+            $wallet = Wallet::where('payment_id',$payment->id)->first();            
+            $wallet->status = '1';
+            $wallet->save();
+            
             foreach ($parents as $parent) {
                 
                  if($user->id_referrer_sponsor == $parent->id_user_sponsor){ //Registrando sin excepciones si es su padre
@@ -80,6 +87,7 @@ class UserRequestController extends Controller
                         'side' => $position,
                         'reason' => "Binary Team Points, ${fullName} Affiliation"
                      ]);
+                    
                 }elseif($user->id_referrer_sponsor != $parent->id_user_sponsor){
                     $userTmp = UserMembreship::find($parent->id_user_sponsor);
                     if($userTmp->active && $userTmp->qualified){

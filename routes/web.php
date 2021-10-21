@@ -111,6 +111,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::apiResource('growthBonus', GrowthBonusController::class)->except(['update']);
     });
 
+    Route::group(['prefix' => 'config'], function () {
+        Route::resource('binarycut', BinaryCutController::class)->only(['index','store']);
+    });
+
+
 
     Route::group(['prefix' => 'config/bank'], function () {
         Route::get('/', [BankController::class, 'index'])->name('bank');
@@ -157,7 +162,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => '/reports'], function () {
         Route::get('/growthBonus', [ClassifiedController::class, 'growthBonus'])->name('report-growthBonus');
         Route::get('/startingBonus', [ClassifiedController::class, 'startingBonus'])->name('report-startingBonus');;
-        Route::get('/wallets', [WalletController::class, 'index'])->name('report-wallets');;
+        Route::get('/mywalletinfo/{username}', [WalletController::class, 'getWalletForUser'])->name('report-mywalletinfo');;
+        Route::view('/wallets', 'content.reports.wallet')->name('report-wallets');
+        Route::get('/walletslist', [WalletController::class, 'getTotalWalletUsers']);
+        Route::view('/mywallet', 'content.reports.mywallet')->name('report-mywallet');
+        
     });
 
 
@@ -177,9 +186,6 @@ Route::group(['middleware' => ['auth']], function () {
         });
     });
 
-    Route::group(['prefix' => '/binarycut'], function () {
-       Route::get('/',[BinaryCutController::class ,'index']);
-    });
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

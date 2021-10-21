@@ -10,6 +10,7 @@ class Wallet extends Model
 {
     use HasFactory;
     protected $table = 'wallet';
+    protected $guarded = [];
 
     /**
      * Get the user that owns the Wallet

@@ -64,12 +64,6 @@ class UserMembreship extends Authenticatable
         $aceptado = $this->request == 2 ? true : false; 
         
         return ($expiro && $aceptado) ? true : false;
-        
-        //Si el usuario lleva mas de 30 dias creado es activo  
-        // $now = Carbon::parse(now());
-        // $f2 = Carbon::parse($this->created_at);
-        // $resto=$f2->diffInDays($now);
-        // return $resto >= 30 ? true : false;
     }
     
 
@@ -104,9 +98,14 @@ class UserMembreship extends Authenticatable
     }
 
 
-    public function payments(): HasOne
+    public function paymentsClient(): HasOne
     {
         return $this->hasOne(Payment::class, 'id_user_membreship');
+    }
+
+    public function paymentsSponsor(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'id_user_sponsor');
     }
 
 
@@ -120,9 +119,9 @@ class UserMembreship extends Authenticatable
         return $this->belongsTo(DocumentType::class, 'id_document_type');
     }
 
-    public function wallet(): HasOne
+    public function wallets(): HasMany
     {
-        return $this->hasOne(Wallet::class,'id_user_membreship');
+        return $this->hasMany(Wallet::class,'id_user_membreship');
     }
 
 
@@ -142,5 +141,11 @@ class UserMembreship extends Authenticatable
     }
 
 
+    public function scopeQualifiedsAndActive($query)
+    {
+        return $query->with('accountType')->where('id_account_type','!=', 5)->get()->filter(function ($key) {
+            return $key->qualified == true && $key->active == true;
+        });
+    }
 
 }

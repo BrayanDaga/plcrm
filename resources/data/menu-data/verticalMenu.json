@@ -47,6 +47,12 @@
             "slug": "report-wallets"
         },
         {
+            "url": "reports/mywallet",
+            "name": "My Wallet",
+            "icon": "circle",
+            "slug": "report-nmywallet"
+        },
+        {
             "url": "reports/startingBonus",
             "name": "Starting Bonus List",
             "icon": "circle",
@@ -67,6 +73,12 @@
             "name": "User Request",
             "icon": "circle",
             "slug": "user-request"
+        },
+        {
+            "url": "config/binarycut",
+            "name": "Binary Cut",
+            "icon": "circle",
+            "slug": "binarycut.index"
         },
         {
             "url": "config/advertisements",

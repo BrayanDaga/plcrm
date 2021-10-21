@@ -34,12 +34,13 @@ class DatabaseSeeder extends Seeder
          $this->call(AccountTypePoinstMoneySeeder::class);
          $this->call(PaymentMethodSeeder::class);
          $this->call(BankSeeder::class);
-        // UserMembreship::factory()->create(); // se reduce la cantida de datos de pruebas
+         $this->call(UserMembreshipSeeder::class);
+      
         // $this->call(PaymentSeeder::class);
         // $this->call(AdvertisementSeeder::class);
-        //   $this->call(ClassifiedSeeder::class);
+           $this->call(ClassifiedSeeder::class);
         // $this->call(WalletSeeder::class);
-        /*$this->call(ClassifiedSeeder::class);*/
+
         // UserMembreship::factory()->create([
         //     'user' => 'admin',
         //     'name' => 'Administrator',
@@ -51,6 +52,7 @@ class DatabaseSeeder extends Seeder
         //     'id_account_type' => 1,
         //      'created_at' => strtotime('-1 years'),
         // ]);
+
         /*creando function mysql para Obtener todos los nodos secundarios de un nodo
         mas info: https://programmerclick.com/article/13791419702/   */
         /* $getChildNodeFunction = "
