@@ -9,8 +9,10 @@ use App\Models\Classified;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\UserPayment;
+use App\Traits\ResponseFormat;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +20,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    use ResponseFormat, AuthenticatesUsers;
+
     public function store(UserRegisterRequest $request)
     {
         DB::beginTransaction();
@@ -56,7 +60,7 @@ class AuthController extends Controller
             /**
              * store classification
              */
-            if(Auth::check()){
+            if (Auth::check()) {
                 $classified = '';
                 $id_classified = '';
                 if ($user->id_account_type != 5) {
@@ -118,24 +122,12 @@ class AuthController extends Controller
             //Generar Token
             $access_token = $user->createToken('authToken')->accessToken;
 
-            // if ($tbRequest == 2) {
-            //     return redirect()->route('virtualclass');
-            // } else {
-            //     return redirect()
-            //         ->route('user-request');
-            // }
             DB::commit();
             return response([
                 'user' => $user,
                 'access_token' => $access_token,
             ]);
         } catch (Exception $e) {
-            // $response_error = [
-            //     "id_user" => $user_id,
-            //     "error" => $e->getMessage()
-            // ];
-            // return response()->json($response_error, 500);
-
             DB::rollBack();
             throw $e;
         }
@@ -145,28 +137,34 @@ class AuthController extends Controller
     {
         DB::beginTransaction();
         try {
-            $username = $request->username;
-            $password = $request->password;
-    
-            $user = User::where('username', $username)->first();
-    
-            $tokenResult = $user->createToken('authToken');
-            $token = $tokenResult->token;
-            $token->expires_at = Carbon::now()->addHours(1);
-            $token->save();
-    
-            Auth::login($user);
+            // $username = $request->username;
+            // $password = $request->password;
 
-            DB::commit();
+            $login_credentials = [
+                'username' => $request->username,
+                'password' => $request->password,
+            ];
 
-            return response(__('auth.correct_login') ,[
-                'access_token' => $tokenResult->accessToken,
-                'token_type' => 'Bearer',
-                'user' => $user->toArray()]);
+            if (Auth::attempt($login_credentials)) {
+                $user = User::where('username', $request->username)->first();
 
-        } catch (\Throwable $th) {
-            //throw $th;
+                $tokenResult = $user->createToken('authToken');
+                $token = $tokenResult->token;
+                $token->expires_at = Carbon::now()->addHours(1);
+                $token->save();
+                DB::commit();
+
+                return $this->responseOk(__('auth.correct_login'), [
+                    'access_token' => $tokenResult->accessToken,
+                    'token_type' => 'Bearer',
+                    'user' => $user->toArray()
+                ]);
+            } else {
+                return $this->responseUnauthorized();
+            }
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            throw $e;
         }
-
     }
 }
