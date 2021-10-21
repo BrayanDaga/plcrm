@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UserMembreship;
+use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +24,7 @@ class WalletController extends Controller
 
     public function getWalletForUser($username)
     {
-        $user = UserMembreship::where('user',$username)->first();
+        $user = User::where('user',$username)->first();
         $wallets = $user->wallets->where('status',1);
         return JsonResource::collection($wallets);
     }

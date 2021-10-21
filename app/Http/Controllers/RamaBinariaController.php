@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classified;
 use Illuminate\Http\Request;
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\UserMembreshipResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -20,7 +20,7 @@ class RamaBinariaController extends Controller
     public function listbinary()
     {
         $data = [];
-        $currentUser =   UserMembreship::find(auth()->user()->id); //Obtengo el usuario actual
+        $currentUser =   User::find(auth()->user()->id); //Obtengo el usuario actual
 
         $data['c'] = $currentUser;  //Agregamos el usuario actual
 
@@ -70,7 +70,7 @@ class RamaBinariaController extends Controller
     {
         $id = auth()->user()->id;
         //usando la funcion creada desde el seeder
-        $users = UserMembreship::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->where('id_account_type', '!=', 5)->select('id', 'id_referrer_sponsor AS pid', 'name', 'email', 'last_name', 'expiration_date', 'created_at')->get();
+        $users = User::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->where('id_account_type', '!=', 5)->select('id', 'id_referrer_sponsor AS pid', 'name', 'email', 'last_name', 'expiration_date', 'created_at')->get();
 
         return UserMembreshipResource::collection($users);
     }

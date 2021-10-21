@@ -11,7 +11,7 @@ use App\Models\AccountType;
 use App\Models\DocumentType;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -66,9 +66,9 @@ class UserMembreshipController extends Controller
 
     public function GetList(Request $request): AnonymousResourceCollection
     {
-        $list_user_membreship = UserMembreship::query()
+        $list_user_membreship = User::query()
             ->with(['country', 'accountType', 'documentType'])
-            ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
+            ->join('classified', 'users.id', '=', 'classified.id_user_membreship')
             ->get();
         return UserMembreshipResource::collection($list_user_membreship);
     }
@@ -79,7 +79,7 @@ class UserMembreshipController extends Controller
 
         DB::transaction(function () use ($request, $tbRequest) {
 
-            $user = new UserMembreship();
+            $user = new User();
             $user->user = $request->user;
             $user->password = Hash::make($request->password);
             $user->name = $request->name;
@@ -180,19 +180,19 @@ class UserMembreshipController extends Controller
 
     public function getDataUser($user)
     {
-        $data = UserMembreship::where('user', $user)->with('accountType')->first();
+        $data = User::where('user', $user)->with('accountType')->first();
         return response()->json($data, 200);
     }
 
     public function getDataCurrentUser()
     {
-        $data = UserMembreship::find(auth()->user()->id);
+        $data = User::find(auth()->user()->id);
         return response()->json($data, 200);
     }
 
     public function changePositionCurrentUser(Request $request)
     {
-        $user = UserMembreship::find(auth()->user()->id);
+        $user = User::find(auth()->user()->id);
         $user->position = $request->position;
         $user->update();
         return response()->json($user, 200);

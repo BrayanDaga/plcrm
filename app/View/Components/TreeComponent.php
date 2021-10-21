@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Classified;
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\View\Component;
 
 class TreeComponent extends Component
@@ -15,13 +15,13 @@ class TreeComponent extends Component
      */
     public function __construct()
     {
-        $currentUser =  UserMembreship::where('id', auth()->user()->id)->select('id', 'name', 'last_name', 'expiration_date')->get();
+        $currentUser =  User::where('id', auth()->user()->id)->select('id', 'name', 'last_name', 'expiration_date')->get();
 
-        $tmpUsers = UserMembreship::where('id_referrer_sponsor', auth()->user()->id)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
+        $tmpUsers = User::where('id_referrer_sponsor', auth()->user()->id)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
 
         $hijos=[];
         foreach ($tmpUsers as $item) {
-            $tmUser =  UserMembreship::where('id_referrer_sponsor', $item->id)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
+            $tmUser =  User::where('id_referrer_sponsor', $item->id)->select('id', 'id_referrer_sponsor AS pid', 'name', 'last_name', 'expiration_date')->get();
             if ($tmUser->isNotEmpty()) {
                 $hijos = $tmUser;
             }

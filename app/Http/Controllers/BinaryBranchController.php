@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\UserMembershipParams;
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -28,9 +28,9 @@ class BinaryBranchController extends Controller
             $pagingParams->setOrderBy($request->order);
         }
 
-        $list_user_membreship = UserMembreship::with(['country','accountType','documentType'])
-            ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
-            ->orderBy('user_membreships.' . $pagingParams->OrderBy, 'asc')
+        $list_user_membreship = User::with(['country','accountType','documentType'])
+            ->join('classified', 'users.id', '=', 'classified.id_user_membreship')
+            ->orderBy('users.' . $pagingParams->OrderBy, 'asc')
             ->paginate($pagingParams->PageSize);
 
         $data_pagination = [

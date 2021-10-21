@@ -43,11 +43,11 @@ class Classified extends Model
     }
 
     public function scopeMyRightClassifiedsUsers($query,$id){
-        return $query->myRightClassifieds($id)->with('UserMembreship');
+        return $query->myRightClassifieds($id)->with('User');
     }
 
     public function scopeMyLeftClassifiedsUsers($query,$id){
-        return $query->myLeftClassifieds($id)->with('UserMembreship');
+        return $query->myLeftClassifieds($id)->with('User');
     }
 
 

@@ -39,7 +39,7 @@ const accountTypesChanged = (e) => {
         return false;
     }
 
-    axios.get(`/api/account-type/get-data-id/${id}`)
+    axios.get(`/account-type/get-data-id/${id}`)
         .then(r => {
             descriptionProducts.value = r.data.account
             outputPriceAccountType(r.data)

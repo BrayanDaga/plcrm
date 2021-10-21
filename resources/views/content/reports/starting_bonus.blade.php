@@ -12,7 +12,7 @@
             <x-table-component tableclass="table-hover table-striped table-bordered" :datatable=true >
                 <x-slot name="theadRows">
                     <tr>
-                        <th>UserMembreship</th>
+                        <th>User</th>
                         <th>Starting bonus</th>
                         <th>Date</th>
                     </tr>

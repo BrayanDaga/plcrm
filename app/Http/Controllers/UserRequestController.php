@@ -6,8 +6,7 @@ use App\Models\Wallet;
 use App\Models\Classified;
 use App\Models\AccountType;
 use Illuminate\Http\Request;
-use PhpParser\Builder\Class_;
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserMembreshipsPoints;
 use App\Models\AccountTypePointsMoney;
@@ -24,7 +23,7 @@ class UserRequestController extends Controller
          */
         $this->isAdmin(auth()->user());
 
-        $all_user_requesting = UserMembreship::with('accountType')
+        $all_user_requesting = User::with('accountType')
             ->where('request', 1)
             ->get();
 
@@ -33,7 +32,7 @@ class UserRequestController extends Controller
         return UserMembreshipResource::collection($all_user_requesting);
     }
 
-    protected function isAdmin(UserMembreship $user)
+    protected function isAdmin(User $user)
     {
         if ($user->id != 1) {
             throw new HttpException(422, 'Este usuario no es el administrador');
@@ -43,7 +42,7 @@ class UserRequestController extends Controller
     // get user by id
     public function getUserById($id)
     {
-        $data = UserMembreship::with('sponsor')
+        $data = User::with('sponsor')
             ->with('paymentsClient', function ($q) {
                 $q->with('paymentMethod');
             })
@@ -59,7 +58,7 @@ class UserRequestController extends Controller
         $this->isAdmin(auth()->user());
  
         DB::transaction(function ()  use ($request) {
-            $user = UserMembreship::find($request->id);
+            $user = User::find($request->id);
             $user->request = $request->status;
             $user->save();
 
@@ -89,7 +88,7 @@ class UserRequestController extends Controller
                      ]);
                     
                 }elseif($user->id_referrer_sponsor != $parent->id_user_sponsor){
-                    $userTmp = UserMembreship::find($parent->id_user_sponsor);
+                    $userTmp = User::find($parent->id_user_sponsor);
                     if($userTmp->active && $userTmp->qualified){
                         $left =$parent->status_position_left;
                         $right =$parent->status_position_right;

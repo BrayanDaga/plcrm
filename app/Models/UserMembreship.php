@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class UserMembreship
+class User
 {
     use HasFactory, Pointable;
 
-    protected $table = "user_membreships";
+    protected $table = "users";
     // protected $fillable = [
     //     'id',
     //     'user',
@@ -78,7 +78,7 @@ class UserMembreship
 
     // public function sponsor(): BelongsTo
     // {
-    //     return $this->belongsTo(UserMembreship::class, 'id_referrer_sponsor');
+    //     return $this->belongsTo(User::class, 'id_referrer_sponsor');
     // }
 
 

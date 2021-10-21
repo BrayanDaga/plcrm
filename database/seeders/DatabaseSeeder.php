@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\FunctionsSeeder;
 use App\Models\Classified;
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Database\Seeders\BankSeeder;
 use Database\Seeders\WalletSeeder;

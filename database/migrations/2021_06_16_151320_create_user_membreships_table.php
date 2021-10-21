@@ -13,7 +13,7 @@ class CreateUserMembreshipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_membreships', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('user', 20)->unique();
             $table->string('password');
@@ -40,6 +40,6 @@ class CreateUserMembreshipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_membreships');
+        Schema::dropIfExists('users');
     }
 }
