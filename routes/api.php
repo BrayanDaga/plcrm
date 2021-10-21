@@ -1,17 +1,29 @@
 <?php
 
 use App\Http\Controllers\AccountTypeController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\UserMembreshipController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//Post Store User
+Route::group(['prefix' => '/v1'], function(){
+    Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
+        Route::post('/register', [AuthController::class, 'store']);
+    });
 });
 
+Route::group(['prefix' => '/v1'], function(){
+    if(config('app.is_api')){
+        Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function(){
+            Route::post('login', [AuthController::class, 'login'])->name('auth.login');
+            Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth:api');
+        });
 
-Route::get('/account-type/get-data-id/{id}', [AccountTypeController::class, 'getDataBytId']);
+        Route::middleware(['auth:api', 'checkAuth'])->group(function(){
 
-// Route::post('/user-membreship/create', [UserMembreshipController::class, 'create']);
+            //Api Account Type
+            Route::group(['prefix' => '/accout-type'], function(){
+                Route::get('/{id}', [AccountTypeController::class, 'getDataBytId']);
+            });
+        });
+    }
+});

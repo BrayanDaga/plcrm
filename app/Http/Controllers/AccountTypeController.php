@@ -77,6 +77,8 @@ class AccountTypeController extends Controller
         }
         return $result->response()->setStatusCode(400);
     }
+
+    //Api Resource
     public function getDataBytId($id)
     {
         $data = AccountType::find($id);
