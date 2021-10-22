@@ -22,7 +22,7 @@ class Payment extends Model
 
     public function userMembreship(): BelongsTo
     {
-        return $this->belongsTo(UserMembreship::class, 'id_user_membreship');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**

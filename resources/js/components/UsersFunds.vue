@@ -8,7 +8,7 @@
         <table class="table table-bordered" id="myTable">
           <thead>
             <tr>
-              <th>UserMembreship</th>
+              <th>User</th>
               <th>Amoun Available</th>
               <th>action</th>
             </tr>

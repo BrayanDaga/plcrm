@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Wallet;
 use App\Models\Payment;
 use App\Models\Classified;
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +18,7 @@ class UserMembreshipSeeder extends Seeder
      */
     public function run()
     {
-        $user1 = UserMembreship::factory([
+        $user1 = User::factory([
             'user' => 'admin',
             'name' => 'Administrator',
             'last_name' => 'Promolider',
@@ -31,7 +31,7 @@ class UserMembreshipSeeder extends Seeder
         ])->has(Wallet::factory())
         ->create();
 
-          $user2 = UserMembreship::factory([
+          $user2 = User::factory([
               'user' => 'user-brayan',
               'name' => 'Brayan',
               'last_name' => 'Vilchez Daga',
@@ -44,7 +44,7 @@ class UserMembreshipSeeder extends Seeder
           ->has(Wallet::factory())
           ->create();
 
-        $user3 = UserMembreship::factory([
+        $user3 = User::factory([
             'user' => 'admin-wiliam',
             'name' => 'Wiliam',
             'last_name' => 'Ramirez',
@@ -57,7 +57,7 @@ class UserMembreshipSeeder extends Seeder
         ->has(Wallet::factory())
         ->create();
 
-        $user4 = UserMembreship::factory([
+        $user4 = User::factory([
             'user' => 'user-jesus',
             'name' => 'Jesus',
             'last_name' => 'Paredes',
@@ -70,7 +70,7 @@ class UserMembreshipSeeder extends Seeder
         ->create();
 
 
-        $user4 = UserMembreship::factory([
+        $user4 = User::factory([
             'user' => 'user-miguel',
             'name' => 'Miguel',
             'last_name' => 'Garcia',
@@ -82,7 +82,7 @@ class UserMembreshipSeeder extends Seeder
         ->has(Wallet::factory())
         ->create();
 
-        $user6 = UserMembreship::factory([
+        $user6 = User::factory([
             'id_referrer_sponsor' => $user1->id,
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
@@ -91,7 +91,7 @@ class UserMembreshipSeeder extends Seeder
         ->has(Wallet::factory())
         ->create();
 
-        UserMembreship::factory([
+        User::factory([
             'id_referrer_sponsor' => $user3->id,
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
@@ -101,7 +101,7 @@ class UserMembreshipSeeder extends Seeder
         ->create();
 
 
-        UserMembreship::factory([
+        User::factory([
             'id_referrer_sponsor' => $user2->id,
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
@@ -110,7 +110,7 @@ class UserMembreshipSeeder extends Seeder
         ->has(Wallet::factory())
         ->create();
 
-        UserMembreship::factory([
+        User::factory([
             'id_referrer_sponsor' => $user6->id,
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),

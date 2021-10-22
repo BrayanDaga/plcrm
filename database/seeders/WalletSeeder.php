@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\UserMembreship;
+use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Database\Seeder;
 
@@ -15,9 +15,9 @@ class WalletSeeder extends Seeder
      */
     public function run()
     {
-        $count = UserMembreship::all()->count();
+        $count = User::all()->count();
         for ($i=1; $i <= $count; $i++) { 
-            Wallet::factory()->create(['id_user_membreship' => $i]);
+            Wallet::factory()->create(['user_id' => $i]);
         }
     }
 }

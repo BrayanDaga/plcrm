@@ -90,6 +90,8 @@ Route::group(['middleware' => ['auth']], function () {
     //account types Routes
     Route::group(['prefix' => '/account-type'], function () {
         //view
+        Route::get('get-data-id/{id}', [AccountTypeController::class, 'getDataBytId']);
+
         Route::get('/', [AccountTypeController::class, 'retornarVista'])->name('account-type');
         //api
         Route::apiResource('accountType', AccountTypeController::class);

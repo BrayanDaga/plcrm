@@ -22,10 +22,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('last_name', 50);
             $table->date('date_birth');
-            $table->string('phone', 12);
+            $table->string('phone', 16);
             $table->bigInteger('id_country')->unsigned();
             $table->bigInteger('id_document_type')->unsigned();
-            $table->string('nro_document', 10)->unique();
+            $table->string('nro_document', 15)->unique();
             $table->bigInteger('id_account_type')->unsigned();
             $table->integer('id_referrer_sponsor');
             $table->string('request', 1)->default('0');

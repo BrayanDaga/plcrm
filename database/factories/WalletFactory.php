@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\UserMembreship;
+use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +23,7 @@ class WalletFactory extends Factory
     public function definition()
     {
         return [
-            // 'id_user_membreship' => UserMembreship::inRandomOrder()->id,
+            // 'user_id' => User::inRandomOrder()->id,
             'amount' => $this->faker->randomFloat(2, 10, 1000),
             'status' => 1
         ]; 

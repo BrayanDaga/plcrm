@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Point;
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PointFactory extends Factory
@@ -23,7 +23,7 @@ class PointFactory extends Factory
     public function definition()
     {
         return [
-            'user_membreship_id' => UserMembreship::inRandomOrder()->first()->id,
+            'user_membreship_id' => User::inRandomOrder()->first()->id,
             'reason' => $this->faker->word(),
              'user_points' => rand(1, 50),
             'leg' => $this->faker->randomElement(['left', 'right']),

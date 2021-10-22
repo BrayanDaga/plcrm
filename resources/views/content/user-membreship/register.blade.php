@@ -73,9 +73,9 @@
                 <hr>
                 <div class="d-flex flex-wrap">
                     <div class="form-group pr-1">
-                        <label for="user">User</label>
-                        {{-- <input type="text" id="user" class="form-control" name="user" onkeyup="validateUser"> --}}
-                        <input type="text" id="user" class="form-control" name="user" value="{{ old('user') }}">
+                        <label for="username">User</label>
+                        {{-- <input type="text" id="username" class="form-control" name="username" onkeyup="validateUser"> --}}
+                        <input type="text" id="username" class="form-control" name="username" value="{{ old('username') }}">
                     </div>
                     <div class="form-group pr-1">
                         <label for="password">Password</label>

@@ -15,10 +15,13 @@ class CreatePointsTable extends Migration
     {
         Schema::create('points', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_membreship_id')->constrained();
-            $table->integer('user_points');
-            $table->enum('leg', ['left', 'right']);
-            $table->string('reason');
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('sponsor_id')->unsigned();
+            $table->foreign('sponsor_id')->references('id')->on('users');
+            $table->unsignedDouble('points',10,2)->default(0.0);
+            $table->boolean('side');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

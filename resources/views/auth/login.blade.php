@@ -56,12 +56,12 @@
 
                     <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="form-group {{ $errors->has('user') ? 'has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
                             <label for="login-user" class="form-label">User</label>
-                            <input type="text" class="form-control @error('user') is-invalid @enderror" id="login-user"
-                                name="user" aria-describedby="login-user" tabindex="1" autofocus
-                                value="{{ old('user') }}" />
-                            @error('user')
+                            <input type="text" class="form-control @error('username') is-invalid @enderror" id="login-user"
+                                name="username" aria-describedby="login-user" tabindex="1" autofocus
+                                value="{{ old('username') }}" />
+                            @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

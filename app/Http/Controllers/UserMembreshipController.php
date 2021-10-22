@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use App\Helpers\Helper;
 use App\Models\Country;
 use App\Models\Payment;
 use App\Models\Classified;
@@ -11,19 +9,14 @@ use App\Models\AccountType;
 use App\Models\DocumentType;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
-use App\Models\UserMembreship;
-use Illuminate\Http\JsonResponse;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Helpers\UserMembershipParams;
-use App\Http\Requests\UserMembreshipRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\UserMembreshipPayment;
-use App\Http\Resources\PaymentResource;
 use App\Http\Resources\UserMembreshipResource;
-use App\Models\Wallet;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserMembreshipController extends Controller
 {
@@ -66,22 +59,21 @@ class UserMembreshipController extends Controller
 
     public function GetList(Request $request): AnonymousResourceCollection
     {
-        $list_user_membreship = UserMembreship::query()
+        $list_user_membreship = User::query()
             ->with(['country', 'accountType', 'documentType'])
-            ->join('classified', 'user_membreships.id', '=', 'classified.id_user_membreship')
+            ->join('classified', 'users.id', '=', 'classified.user_id')
             ->get();
         return UserMembreshipResource::collection($list_user_membreship);
     }
 
-    public function Create(UserMembreshipRequest $request)
+    public function Create(UserRequest $request)
     {
         $tbRequest = $request->id_account_type == 5 ? 2 : 1;
 
         DB::transaction(function () use ($request, $tbRequest) {
 
-            // if ((int)$request->errorCode == 0) :
-            $user = new UserMembreship();
-            $user->user = $request->user;
+            $user = new User();
+            $user->username = $request->username;
             $user->password = Hash::make($request->password);
             $user->name = $request->name;
             $user->last_name = $request->last_name;
@@ -93,18 +85,16 @@ class UserMembreshipController extends Controller
             $user->id_document_type = $request->id_document_type;
             $user->id_account_type = $request->id_account_type;
             $user->nro_document = $request->nro_document;
-
             $user->request = $tbRequest;
             $user->expiration_date =  strtotime('+30 days');
             $user->save();
             $id_user = $user->id; // Get ID of user
-
             /**
              * store payment
              */
             $payment = new Payment(); // payment payment
-            $payment->id_user_membreship = $id_user;
-            $payment->id_user_sponsor = $request->reserved9;
+            $payment->user_id = $id_user;
+            $payment->id_user_sponsor = $request->id_referrer_sponsor;
             $payment->amount = $request->reserved13;
             $payment->amount = $request->amount;
             $payment->operation_number = 0;
@@ -112,34 +102,34 @@ class UserMembreshipController extends Controller
             $payment->save();
             $id_payment = $payment->id;
 
+
             $classified = '';
             $id_classified = '';
             if ($user->id_account_type != 5) {
+                $fieldsClassifieds  = [
+                    'user_id' => $id_user,
+                    'id_user_sponsor' => auth()->user()->id,
+                    'binary_sponsor' => 'test',
+                    'position' => '0',
+                    'classification' => 16,
+                    'status' => '0',
+                    'authorized' => '0',
+                    'status_position_left' => '0',
+                    'status_position_right' => '0',
+                ];
+                
                 if (auth()->user()->position == 1) {
-                    $classified = Classified::create([
-                        'id_user_membreship' => $id_user,
-                        'id_user_sponsor' => auth()->user()->id,
-                        'binary_sponsor' => 'test',
-                        'position' => '0',
-                        'classification' => 16,
-                        'status' => '0',
-                        'authorized' => '1',
-                        'status_position_left' => '0',
-                        'status_position_right' => '1',
-                    ]);
+                    $fieldsClassifieds['authorized'] = 1;
+                    $fieldsClassifieds['status_position_left'] = 0;
+                    $fieldsClassifieds['status_position_right'] = 1;
+
+                    $classified = Classified::create($fieldsClassifieds);
                     $id_classified = $classified->id;
                 } else {
-                    $classified = Classified::create([
-                        'id_user_membreship' => $id_user,
-                        'id_user_sponsor' => auth()->user()->id,
-                        'binary_sponsor' => 'test',
-                        'position' => '0',
-                        'classification' => 16,
-                        'status' => '0',
-                        'authorized' => '1',
-                        'status_position_left' => '1',
-                        'status_position_right' => '0',
-                    ]);
+                    $fieldsClassifieds['authorized'] = 1;
+                    $fieldsClassifieds['status_position_left'] = 1;
+                    $fieldsClassifieds['status_position_right'] = 0;
+                    $classified = Classified::create($fieldsClassifieds);
                     $id_classified = $classified->id;
                 }
             }
@@ -148,7 +138,7 @@ class UserMembreshipController extends Controller
              * store user_membreships_payment
              */
             $table = new UserMembreshipPayment();
-            $table->id_user_membreship = $id_user;
+            $table->user_id = $id_user;
             $table->id_payment = $id_payment;
             $table->authorizationCode = $request->authorizationCode ? $request->authorizationCode : '';
             $table->errorCode = $request->errorCode ? $table->errorCode : '';
@@ -169,43 +159,33 @@ class UserMembreshipController extends Controller
             $table->authorizationResult = $request->authorizationResult ? $request->authorizationResult : '';
 
             $table->save();
+        }, 5);
 
-            if ($tbRequest == 2) {
-                return redirect()->route('virtualclass');
-            } else {
-                return redirect()
-                    ->route('user-request');
-            }
-        } catch (Exception $e) {
-            DB::statement('SET FOREIGN_KEY_CHECKS=0');
-            DB::table('user_membreships')->where('id', '=', $id_user)->delete();
-            DB::table('payments')->where('id', '=', $id_payment)->delete();
-            DB::table('classified')->where('id', '=', $id_classified)->delete();
-            DB::statement('SET FOREIGN_KEY_CHECKS=1');
-
-            $response_error = [
-                "id_user" => $id_user,
-                "error" => $e->getMessage()
-            ];
-            return response()->json($response_error, 500);
+        $msg = 'Cliente Registrado satisfactoriamente';
+        if ($tbRequest == 2) {
+            return redirect()->route('virtualclass')->withSuccess($msg);
+        } else {
+            return redirect()
+                ->route('user-membreship-register')
+                ->withSuccess($msg);
         }
     }
 
     public function getDataUser($user)
     {
-        $data = UserMembreship::where('user', $user)->with('accountType')->first();
+        $data = User::where('user', $user)->with('accountType')->first();
         return response()->json($data, 200);
     }
 
     public function getDataCurrentUser()
     {
-        $data = UserMembreship::find(auth()->user()->id);
+        $data = User::find(auth()->user()->id);
         return response()->json($data, 200);
     }
 
     public function changePositionCurrentUser(Request $request)
     {
-        $user = UserMembreship::find(auth()->user()->id);
+        $user = User::find(auth()->user()->id);
         $user->position = $request->position;
         $user->update();
         return response()->json($user, 200);

@@ -13,14 +13,14 @@ class Classified extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
 
-    public function userMembreship(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(UserMembreship::class, 'id_user_membreship');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function userMembreshipSponsor(): BelongsTo
+    public function userSponsor(): BelongsTo
     {
-        return $this->belongsTo(UserMembreship::class, 'id_user_sponsor');
+        return $this->belongsTo(User::class, 'id_user_sponsor');
     }
 
     public function scopeIsLeft($query){
@@ -43,11 +43,11 @@ class Classified extends Model
     }
 
     public function scopeMyRightClassifiedsUsers($query,$id){
-        return $query->myRightClassifieds($id)->with('UserMembreship');
+        return $query->myRightClassifieds($id)->with('User');
     }
 
     public function scopeMyLeftClassifiedsUsers($query,$id){
-        return $query->myLeftClassifieds($id)->with('UserMembreship');
+        return $query->myLeftClassifieds($id)->with('User');
     }
 
 

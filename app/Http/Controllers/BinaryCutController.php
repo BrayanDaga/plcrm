@@ -4,20 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserMembreshipResource;
 use Illuminate\Http\Request;
-use App\Models\UserMembreship;
+use App\Models\User;
 
 class BinaryCutController extends Controller
 {
     public function index()
     {
-        $users = UserMembreship::qualifiedsAndActive();
+        $users = User::qualifiedsAndActive();
         // return $users;
         return view('content.binarycut.index',compact('users'));
     }
 
     public function store()
     {
-        $users = UserMembreship::qualifiedsAndActive();
+        $users = User::qualifiedsAndActive();
         foreach ($users as $user) {
 
             $maxPoints = 0;
@@ -33,7 +33,7 @@ class BinaryCutController extends Controller
             
             $user->points()->where('status',1)->update(['status' => 0]);
             $user->points()->create([
-                    'id_user_membreship' => $user->id,
+                    'user_id' => $user->id,
                     'points' => $maxPoints - $minPoints,
                     'side' => $sideMax,
                     'reason' => "Binary cut "

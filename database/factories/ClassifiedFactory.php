@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Classified;
-use App\Models\UserMembreship;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ClassifiedFactory extends Factory
@@ -23,8 +23,8 @@ class ClassifiedFactory extends Factory
     public function definition()
     {
         return [
-            'id_user_membreship' => UserMembreship::inRandomOrder()->first()->id,
-            'id_user_sponsor' => UserMembreship::inRandomOrder()->first()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
+            'id_user_sponsor' => User::inRandomOrder()->first()->id,
             'binary_sponsor' => $this->faker->word,
             'position' => rand(1, 2),
             'classification' => $this->faker->randomElement([16,26]),
