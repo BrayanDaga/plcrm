@@ -173,7 +173,7 @@ class UserMembreshipController extends Controller
 
     public function getDataUser($user)
     {
-        $data = User::where('user', $user)->with('accountType')->first();
+        $data = User::where('username', $user)->with('accountType')->first();
         return response()->json($data, 200);
     }
 

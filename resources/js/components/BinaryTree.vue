@@ -15,7 +15,7 @@
             flex: 1;
           "
         ></section>
-        <a v-if="binary.hasOwnProperty('c')" @click="viewUser(binary.c.user)">
+        <a v-if="binary.hasOwnProperty('c')" @click="viewUser(binary.c.username)">
           <img
             :src="binary.c.Photo"
             data-toggle="tooltip"
@@ -55,16 +55,16 @@
             flex: 1;
           "
         ></section>
-        <a v-if="binary.hasOwnProperty('a')" @click="viewUser(binary.a.user_membreship.user)">
+        <a v-if="binary.hasOwnProperty('a')" @click="viewUser(binary.a.user.username)">
           <img
-            :src="binary.a.user_membreship.Photo"
+            :src="binary.a.user.Photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
             class="img-circle"
             alt="User Image"
             style="max-width: 80px; height: 80px; flex: 1"
-            :data-original-title="binary.a.user_membreship.fullName"
+            :data-original-title="binary.a.user.fullName"
           />
         </a>
         <section
@@ -96,16 +96,16 @@
           "
         ></section>
 
-        <a v-if="binary.hasOwnProperty('b')" @click="viewUser(binary.b.user_membreship.user)">
+        <a v-if="binary.hasOwnProperty('b')" @click="viewUser(binary.b.user.username)">
           <img
-            :src="binary.b.user_membreship.Photo"
+            :src="binary.b.user.Photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
             class="img-circle"
             alt="User Image"
             style="max-width: 80px; height: 80px; flex: 1"
-            :data-original-title="binary.b.user_membreship.fullName"
+            :data-original-title="binary.b.user.fullName"
           />
         </a>
         <section
@@ -124,63 +124,63 @@
       </div>
       <br /><br /><br />
       <div style="flex-wrap: wrap; display: flex; justify-content: center">
-        <a v-if="binary.hasOwnProperty('aa')" @click="viewUser(binary.aa.user_membreship.user)">
+        <a v-if="binary.hasOwnProperty('aa')" @click="viewUser(binary.aa.user.username)">
           <img
-            :src="binary.aa.user_membreship.Photo"
+            :src="binary.aa.user.Photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
             class="img-circle"
             alt="User Image"
             style="max-width: 80px; height: 80px; flex: 1"
-            :data-original-title="binary.aa.user_membreship.fullName"
+            :data-original-title="binary.aa.user.fullName"
           />
         </a>
 
         <section style="max-width: 40px; display: inline-block; flex: 1"></section>
         <section style="max-width: 80px; display: inline-block; flex: 1"></section>
-        <a v-if="binary.hasOwnProperty('ab')" @click="viewUser(binary.ab.user_membreship.user)">
+        <a v-if="binary.hasOwnProperty('ab')" @click="viewUser(binary.ab.user.username)">
           <img
-            :src="binary.ab.user_membreship.Photo"
+            :src="binary.ab.user.Photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
             class="img-circle"
             alt="User Image"
             style="max-width: 80px; height: 80px; flex: 1"
-            :data-original-title="binary.ab.user_membreship.fullName"
+            :data-original-title="binary.ab.user.fullName"
           />
         </a>
         &nbsp;
         <section style="max-width: 120px; flex: 1"></section>
-        <a v-if="binary.hasOwnProperty('ba')" @click="viewUser(binary.ba.user_membreship.user)">
+        <a v-if="binary.hasOwnProperty('ba')" @click="viewUser(binary.ba.user.username)">
           <img
-            :src="binary.ba.user_membreship.Photo"
+            :src="binary.ba.user.Photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
             class="img-circle"
             alt="User Image"
             style="max-width: 80px; height: 80px; flex: 1"
-            :data-original-title="binary.ba.user_membreship.fullName"
+            :data-original-title="binary.ba.user.fullName"
           />
         </a>
         <section style="max-width: 80px; display: inline-block; flex: 1">&nbsp;</section>
         <section style="max-width: 40px; display: inline-block; flex: 1"></section>
-        <a v-if="binary.hasOwnProperty('bb')" @click="viewUser(binary.bb.user_membreship.user)">
+        <a v-if="binary.hasOwnProperty('bb')" @click="viewUser(binary.bb.user.username)">
           <img
-            :src="binary.bb.user_membreship.Photo"
+            :src="binary.bb.user.Photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
             class="img-circle"
             alt="User Image"
             style="max-width: 80px; height: 80px; flex: 1"
-            :data-original-title="binary.bb.user_membreship.fullName"
+            :data-original-title="binary.bb.user.fullName"
           />
         </a>
       </div>
-    <modal-user :user="user_membreship"> </modal-user>
+    <modal-user :user="user"> </modal-user>
     </section>
     <custom-spinner v-else></custom-spinner>
   </div>
@@ -196,7 +196,7 @@ export default {
     return {
       loading: false,
       binary: [],
-      user_membreship: {
+      user: {
         account_type: {},
       },
     };
@@ -219,7 +219,7 @@ export default {
       api
         .get(`/user-membreship/get-data-user/${user}`)
         .then((response) => {
-          this.user_membreship = response;
+          this.user = response;
           $(`#viewUser`).modal('show');
         })
         .catch((error) => {

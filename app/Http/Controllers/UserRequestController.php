@@ -79,7 +79,7 @@ class UserRequestController extends Controller
                     $left =$parent->status_position_left;
                     $right =$parent->status_position_right;
                     $position = $left > $right ? 0 : 1;
-                    UserMembreshipsPoints::create([
+                    User::create([
                         'user_id' => $user->id,
                         'id_user_sponsor' => $parent->id_user_sponsor,
                         'points' => $atm->points ,
@@ -93,7 +93,7 @@ class UserRequestController extends Controller
                         $left =$parent->status_position_left;
                         $right =$parent->status_position_right;
                         $position = $left > $right ? 0 : 1;
-                        UserMembreshipsPoints::create([
+                        User::create([
                             'user_id' => $user->id,
                             'id_user_sponsor' => $parent->id_user_sponsor,
                             'points' => $atm->points ,

@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
          $this->call(AccountTypePoinstMoneySeeder::class);
          $this->call(PaymentMethodSeeder::class);
          $this->call(BankSeeder::class);
-        //  $this->call(UserMembreshipSeeder::class);
+         $this->call(UserSeeder::class);
       
         // $this->call(PaymentSeeder::class);
         // $this->call(AdvertisementSeeder::class);
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
 
         /*creando function mysql para Obtener todos los nodos secundarios de un nodo
         mas info: https://programmerclick.com/article/13791419702/   */
-        /* $getChildNodeFunction = "
+         $getChildNodeFunction = "
         CREATE FUNCTION `GET_CHILD_NODE`(rootId varchar(100))   
         RETURNS varchar(2000)  
         BEGIN   
@@ -62,31 +62,6 @@ class DatabaseSeeder extends Seeder
 
         DB::unprepared("DROP FUNCTION IF EXISTS GET_CHILD_NODE"); //borrando la funcion si existe
         DB::unprepared($getChildNodeFunction); //creando la funcion
-
-
-        $getParentNodeFunction = "
-        CREATE FUNCTION `GET_PARENT_NODE`(rootId varchar(100))   
-        RETURNS varchar(1000)   
-        BEGIN   
-        DECLARE fid varchar(100) default '';   
-        DECLARE str varchar(1000) default rootId;   
-          
-        WHILE rootId is not null do   
-            SET fid =(SELECT id_referrer_sponsor FROM users WHERE id = rootId);   
-            IF fid is not null THEN   
-                SET str = concat(str, ',', fid);   
-                SET rootId = fid;   
-            ELSE   
-                SET rootId = fid;   
-            END IF;   
-        END WHILE;   
-        return str;  
-        END
-        ";
-
-        DB::unprepared("DROP FUNCTION IF EXISTS GET_PARENT_NODE"); //borrando la funcion si existe
-        DB::unprepared($getParentNodeFunction); //creando la funcion
-
 
         $getParentClassifiedNodeFunction = "
         CREATE FUNCTION `GET_PARENTCLASSIFIED_NODE`(rootId varchar(100))   

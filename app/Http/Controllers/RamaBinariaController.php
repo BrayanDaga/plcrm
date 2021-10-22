@@ -28,8 +28,8 @@ class RamaBinariaController extends Controller
         $B = $this->findChildRight($currentUser); //Primer hijo derecho llamado B
         if (!empty($A)) {
             $data['a'] = $A;
-            $Aa = $this->findChildLeft($A->userMembreship); //Hijo izquierdo de A llamado Aa
-            $Ab = $this->findChildRight($A->userMembreship); //Hijo derecho de A llamado Ab
+            $Aa = $this->findChildLeft($A->user); //Hijo izquierdo de A llamado Aa
+            $Ab = $this->findChildRight($A->user); //Hijo derecho de A llamado Ab
 
             if (!empty($Aa)) {
                 $data['aa'] = $Aa;
@@ -40,8 +40,8 @@ class RamaBinariaController extends Controller
         }
         if (!empty($B)) {
             $data['b'] = $B;
-            $Ba = $this->findChildLeft($B->userMembreship); //Hijo izquierdo de B llamado Ba
-            $Bb = $this->findChildRight($B->userMembreship); //Hijo derecho de B llamada Bb
+            $Ba = $this->findChildLeft($B->user); //Hijo izquierdo de B llamado Ba
+            $Bb = $this->findChildRight($B->user); //Hijo derecho de B llamada Bb
 
             if (!empty($Ba)) {
                 $data['ba'] = $Ba;
@@ -56,13 +56,13 @@ class RamaBinariaController extends Controller
 
     private function findChildLeft($user)
     {
-        $hijo = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_left', 1)->first();
+        $hijo = Classified::with('user')->where('id_user_sponsor', $user->id)->where('status_position_left', 1)->first();
         return  $hijo;
     }
 
     private function findChildRight($user)
     {
-        $hijo = Classified::with('userMembreship')->where('id_user_sponsor', $user->id)->where('status_position_right', 1)->first();
+        $hijo = Classified::with('user')->where('id_user_sponsor', $user->id)->where('status_position_right', 1)->first();
         return  $hijo;
     }
 
