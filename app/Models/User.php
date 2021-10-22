@@ -130,7 +130,7 @@ class User extends Authenticatable
 
     public function wallets(): HasMany
     {
-        return $this->hasMany(Wallet::class, 'id_user_membreship');
+        return $this->hasMany(Wallet::class, 'user_id');
     }
 
 
@@ -141,7 +141,7 @@ class User extends Authenticatable
 
     public function classifiedClients(): HasMany
     {
-        return $this->hasMany(Classified::class, 'id_user_membreship', 'id');
+        return $this->hasMany(Classified::class, 'user_id', 'id');
     }
 
     public function scopeMyClients($query)

@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
             DECLARE str varchar(1000) default rootId;   
             
             WHILE rootId is not null do   
-                SET fid =(SELECT id_user_sponsor FROM classified WHERE id_user_membreship = rootId);   
+                SET fid =(SELECT id_user_sponsor FROM classified WHERE user_id = rootId);   
                 IF fid is not null THEN   
                     SET str = concat(str, ',', fid);   
                     SET rootId = fid;   

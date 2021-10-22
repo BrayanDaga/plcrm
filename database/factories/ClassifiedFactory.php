@@ -23,7 +23,7 @@ class ClassifiedFactory extends Factory
     public function definition()
     {
         return [
-            'id_user_membreship' => User::inRandomOrder()->first()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
             'id_user_sponsor' => User::inRandomOrder()->first()->id,
             'binary_sponsor' => $this->faker->word,
             'position' => rand(1, 2),

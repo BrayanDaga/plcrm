@@ -17,7 +17,7 @@ class WalletSeeder extends Seeder
     {
         $count = User::all()->count();
         for ($i=1; $i <= $count; $i++) { 
-            Wallet::factory()->create(['id_user_membreship' => $i]);
+            Wallet::factory()->create(['user_id' => $i]);
         }
     }
 }

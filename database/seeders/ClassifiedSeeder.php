@@ -21,7 +21,7 @@ class ClassifiedSeeder extends Seeder
             $user = User::find($i);
             $position = (bool)random_int(0, 1);
             Classified::factory([
-                'id_user_membreship' => $user->id,
+                'user_id' => $user->id,
                 'id_user_sponsor' => $user->id_referrer_sponsor,
                 'status_position_left' => $position,
                 'status_position_right' => !$position,

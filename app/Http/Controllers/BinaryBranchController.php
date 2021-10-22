@@ -29,7 +29,7 @@ class BinaryBranchController extends Controller
         }
 
         $list_user_membreship = User::with(['country','accountType','documentType'])
-            ->join('classified', 'users.id', '=', 'classified.id_user_membreship')
+            ->join('classified', 'users.id', '=', 'classified.user_id')
             ->orderBy('users.' . $pagingParams->OrderBy, 'asc')
             ->paginate($pagingParams->PageSize);
 

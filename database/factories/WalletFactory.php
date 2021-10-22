@@ -23,7 +23,7 @@ class WalletFactory extends Factory
     public function definition()
     {
         return [
-            // 'id_user_membreship' => User::inRandomOrder()->id,
+            // 'user_id' => User::inRandomOrder()->id,
             'amount' => $this->faker->randomFloat(2, 10, 1000),
             'status' => 1
         ]; 

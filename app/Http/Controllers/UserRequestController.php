@@ -65,7 +65,7 @@ class UserRequestController extends Controller
             $id = $user->id;
             $fullName = $user->fullName;
             
-            $parents = Classified::whereRaw("FIND_IN_SET(id_user_membreship, GET_PARENTCLASSIFIED_NODE(${id}))")->get(); ///Obtengo los padres del usuario
+            $parents = Classified::whereRaw("FIND_IN_SET(user_id, GET_PARENTCLASSIFIED_NODE(${id}))")->get(); ///Obtengo los padres del usuario
             $atm =  AccountTypePointsMoney::where('account_type_id',$user->id_account_type)->first(); //Obtengo los puntos de determiando tipo de cuenta
            
             $payment = $user->paymentsClient;
@@ -80,7 +80,7 @@ class UserRequestController extends Controller
                     $right =$parent->status_position_right;
                     $position = $left > $right ? 0 : 1;
                     UserMembreshipsPoints::create([
-                        'id_user_membreship' => $user->id,
+                        'user_id' => $user->id,
                         'id_user_sponsor' => $parent->id_user_sponsor,
                         'points' => $atm->points ,
                         'side' => $position,
@@ -94,7 +94,7 @@ class UserRequestController extends Controller
                         $right =$parent->status_position_right;
                         $position = $left > $right ? 0 : 1;
                         UserMembreshipsPoints::create([
-                            'id_user_membreship' => $user->id,
+                            'user_id' => $user->id,
                             'id_user_sponsor' => $parent->id_user_sponsor,
                             'points' => $atm->points ,
                             'side' => $position,

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use App\Helpers\Helper;
 use App\Models\Country;
 use App\Models\Payment;
 use App\Models\Classified;
@@ -12,18 +10,13 @@ use App\Models\DocumentType;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Helpers\UserMembershipParams;
-use App\Http\Requests\UserMembreshipRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\UserMembreshipPayment;
-use App\Http\Resources\PaymentResource;
 use App\Http\Resources\UserMembreshipResource;
-use App\Models\Wallet;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserMembreshipController extends Controller
 {
@@ -68,19 +61,19 @@ class UserMembreshipController extends Controller
     {
         $list_user_membreship = User::query()
             ->with(['country', 'accountType', 'documentType'])
-            ->join('classified', 'users.id', '=', 'classified.id_user_membreship')
+            ->join('classified', 'users.id', '=', 'classified.user_id')
             ->get();
         return UserMembreshipResource::collection($list_user_membreship);
     }
 
-    public function Create(UserMembreshipRequest $request)
+    public function Create(UserRequest $request)
     {
         $tbRequest = $request->id_account_type == 5 ? 2 : 1;
 
         DB::transaction(function () use ($request, $tbRequest) {
 
             $user = new User();
-            $user->user = $request->user;
+            $user->username = $request->username;
             $user->password = Hash::make($request->password);
             $user->name = $request->name;
             $user->last_name = $request->last_name;
@@ -100,7 +93,7 @@ class UserMembreshipController extends Controller
              * store payment
              */
             $payment = new Payment(); // payment payment
-            $payment->id_user_membreship = $id_user;
+            $payment->user_id = $id_user;
             $payment->id_user_sponsor = $request->id_referrer_sponsor;
             $payment->amount = $request->reserved13;
             $payment->amount = $request->amount;
@@ -114,7 +107,7 @@ class UserMembreshipController extends Controller
             $id_classified = '';
             if ($user->id_account_type != 5) {
                 $fieldsClassifieds  = [
-                    'id_user_membreship' => $id_user,
+                    'user_id' => $id_user,
                     'id_user_sponsor' => auth()->user()->id,
                     'binary_sponsor' => 'test',
                     'position' => '0',
@@ -145,7 +138,7 @@ class UserMembreshipController extends Controller
              * store user_membreships_payment
              */
             $table = new UserMembreshipPayment();
-            $table->id_user_membreship = $id_user;
+            $table->user_id = $id_user;
             $table->id_payment = $id_payment;
             $table->authorizationCode = $request->authorizationCode ? $request->authorizationCode : '';
             $table->errorCode = $request->errorCode ? $table->errorCode : '';

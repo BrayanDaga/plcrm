@@ -84,7 +84,7 @@ class User
 
     // public function paymentsClient(): HasOne
     // {
-    //     return $this->hasOne(Payment::class, 'id_user_membreship');
+    //     return $this->hasOne(Payment::class, 'user_id');
     // }
 
     // public function paymentsSponsor(): HasMany
@@ -105,7 +105,7 @@ class User
 
     // public function wallets(): HasMany
     // {
-    //     return $this->hasMany(Wallet::class,'id_user_membreship');
+    //     return $this->hasMany(Wallet::class,'user_id');
     // }
 
 
@@ -116,7 +116,7 @@ class User
 
     // public function classifiedClients(): HasMany
     // {
-    //       return $this->hasMany(Classified::class, 'id_user_membreship','id');
+    //       return $this->hasMany(Classified::class, 'user_id','id');
     // }
     
     public function scopeMyClients($query)

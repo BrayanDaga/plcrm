@@ -24,7 +24,7 @@ class PaymentFactory extends Factory
     public function definition()
     {
         return [
-            'id_user_membreship' => User::inRandomOrder()->first()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
             'id_user_sponsor' => User::inRandomOrder()->first()->id,
             'amount' => $this->faker->randomFloat(2, 0, 1000),
             'operation_number' => rand(1500, 6868),

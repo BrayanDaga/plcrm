@@ -13,7 +13,7 @@ class UserMembreshipPayment extends Model
     protected $primaryKey = 'id';
     protected $fillabel = [
         'id',
-        'id_user_membreship',
+        'user_id',
         'id_payment',
         'authorizationCode',
         'errorCode',

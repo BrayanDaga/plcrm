@@ -33,7 +33,7 @@ class BinaryCutController extends Controller
             
             $user->points()->where('status',1)->update(['status' => 0]);
             $user->points()->create([
-                    'id_user_membreship' => $user->id,
+                    'user_id' => $user->id,
                     'points' => $maxPoints - $minPoints,
                     'side' => $sideMax,
                     'reason' => "Binary cut "

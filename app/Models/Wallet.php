@@ -19,6 +19,6 @@ class Wallet extends Model
      */
     public function userMembreship(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id_user_membreship');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
