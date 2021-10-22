@@ -18,13 +18,13 @@ class WalletController extends Controller
     public function getTotalWalletUsers()
     {
         $wallets = Wallet::groupBy('user_id')
-        ->selectRaw('sum(AMOUNT) as available, user_id')->where('status',1)->with('userMembreship')->get();
+        ->selectRaw('sum(AMOUNT) as available, user_id')->where('status',1)->with('user')->get();
         return JsonResource::collection($wallets);
     }
 
     public function getWalletForUser($username)
     {
-        $user = User::where('user',$username)->first();
+        $user = User::where('username',$username)->first();
         $wallets = $user->wallets->where('status',1);
         return JsonResource::collection($wallets);
     }

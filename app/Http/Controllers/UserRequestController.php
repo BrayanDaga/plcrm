@@ -8,9 +8,8 @@ use App\Models\AccountType;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use App\Models\UserMembreshipsPoints;
 use App\Models\AccountTypePointsMoney;
-use App\Http\Resources\UserMembreshipResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UserRequestController extends Controller
@@ -29,7 +28,7 @@ class UserRequestController extends Controller
 
         
 
-        return UserMembreshipResource::collection($all_user_requesting);
+        return JsonResource::collection($all_user_requesting);
     }
 
     protected function isAdmin(User $user)
@@ -79,7 +78,7 @@ class UserRequestController extends Controller
                     $left =$parent->status_position_left;
                     $right =$parent->status_position_right;
                     $position = $left > $right ? 0 : 1;
-                    UserMembreshipsPoints::create([
+                    User::create([
                         'user_id' => $user->id,
                         'id_user_sponsor' => $parent->id_user_sponsor,
                         'points' => $atm->points ,
@@ -93,7 +92,7 @@ class UserRequestController extends Controller
                         $left =$parent->status_position_left;
                         $right =$parent->status_position_right;
                         $position = $left > $right ? 0 : 1;
-                        UserMembreshipsPoints::create([
+                        User::create([
                             'user_id' => $user->id,
                             'id_user_sponsor' => $parent->id_user_sponsor,
                             'points' => $atm->points ,

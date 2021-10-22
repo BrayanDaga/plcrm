@@ -2,14 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Wallet;
 use App\Models\Payment;
-use App\Models\Classified;
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class UserMembreshipSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +17,7 @@ class UserMembreshipSeeder extends Seeder
     public function run()
     {
         $user1 = User::factory([
-            'user' => 'admin',
+            'username' => 'admin',
             'name' => 'Administrator',
             'last_name' => 'Promolider',
             'email' => 'admin@promolider.test',
@@ -32,7 +30,7 @@ class UserMembreshipSeeder extends Seeder
         ->create();
 
           $user2 = User::factory([
-              'user' => 'user-brayan',
+              'username' => 'user-brayan',
               'name' => 'Brayan',
               'last_name' => 'Vilchez Daga',
               'email' => 'bryan@gmail.com',
@@ -45,7 +43,7 @@ class UserMembreshipSeeder extends Seeder
           ->create();
 
         $user3 = User::factory([
-            'user' => 'admin-wiliam',
+            'username' => 'admin-wiliam',
             'name' => 'Wiliam',
             'last_name' => 'Ramirez',
             'email' => 'wiliam@gmail.com',
@@ -58,7 +56,7 @@ class UserMembreshipSeeder extends Seeder
         ->create();
 
         $user4 = User::factory([
-            'user' => 'user-jesus',
+            'username' => 'user-jesus',
             'name' => 'Jesus',
             'last_name' => 'Paredes',
             'id_referrer_sponsor' => $user1->id,
@@ -71,7 +69,7 @@ class UserMembreshipSeeder extends Seeder
 
 
         $user4 = User::factory([
-            'user' => 'user-miguel',
+            'username' => 'user-miguel',
             'name' => 'Miguel',
             'last_name' => 'Garcia',
             'id_referrer_sponsor' => $user1->id,
@@ -118,6 +116,5 @@ class UserMembreshipSeeder extends Seeder
         ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user4->id]))
         ->create();
 
-        
     }
 }

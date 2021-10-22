@@ -20,7 +20,7 @@ class Payment extends Model
         return $this->belongsTo(PaymentMethod::class, 'id_payment_method');
     }
 
-    public function userMembreship(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

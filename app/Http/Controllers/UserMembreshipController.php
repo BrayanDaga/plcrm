@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
-use App\Models\UserMembreshipPayment;
-use App\Http\Resources\UserMembreshipResource;
+use App\Models\UserPayment;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserMembreshipController extends Controller
 {
@@ -63,7 +63,7 @@ class UserMembreshipController extends Controller
             ->with(['country', 'accountType', 'documentType'])
             ->join('classified', 'users.id', '=', 'classified.user_id')
             ->get();
-        return UserMembreshipResource::collection($list_user_membreship);
+        return JsonResource::collection($list_user_membreship);
     }
 
     public function Create(UserRequest $request)
@@ -137,7 +137,7 @@ class UserMembreshipController extends Controller
             /**
              * store user_membreships_payment
              */
-            $table = new UserMembreshipPayment();
+            $table = new UserPayment();
             $table->user_id = $id_user;
             $table->id_payment = $id_payment;
             $table->authorizationCode = $request->authorizationCode ? $request->authorizationCode : '';
@@ -173,7 +173,7 @@ class UserMembreshipController extends Controller
 
     public function getDataUser($user)
     {
-        $data = User::where('user', $user)->with('accountType')->first();
+        $data = User::where('username', $user)->with('accountType')->first();
         return response()->json($data, 200);
     }
 
