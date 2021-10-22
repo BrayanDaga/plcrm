@@ -16,7 +16,7 @@
 
 <!-- Codgio HTML del contenido (Importante) -->
 @section('content')
-<wallet-history-user username="{{ auth()->user()->user }}" ></wallet-history-user>
+<wallet-history-user username="{{ auth()->user()->username }}" ></wallet-history-user>
 @endsection
 
 @section('vendor-script')

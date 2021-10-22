@@ -18,20 +18,20 @@ class PaymentController extends Controller
 
     public function List(Request $request): AnonymousResourceCollection
     {
-        $payments = Payment::query()->with(['paymentMethod', 'userMembreship'])->get();
+        $payments = Payment::query()->with(['paymentMethod', 'user'])->get();
         return PaymentResource::collection($payments);
     }
 
     // list pending Payments of User 
     // public function listUserPendingPayments()
     // {
-    //     $payments = Payment::standby()->paymentAuthSponsor()->with(['paymentMethod', 'userMembreship.accountType', 'products'])->get();
+    //     $payments = Payment::standby()->paymentAuthSponsor()->with(['paymentMethod', 'user.accountType', 'products'])->get();
     //     return PaymentResource::collection($payments);
     // }
 
     public function listUserPayments()
     {
-        $payments = Payment::paymentAuthSponsor()->with(['userMembreship.accountType', 'products'])->get();
+        $payments = Payment::paymentAuthSponsor()->with(['user.accountType', 'products'])->get();
         return PaymentResource::collection($payments);
     }
 

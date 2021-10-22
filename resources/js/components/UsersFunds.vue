@@ -4,7 +4,8 @@
       <h4 class="card-title">$ Users' Wallet Funds</h4>
     </div>
     <div class="card-body">
-      <div class="table-responsive" v-if="!initialLoading">
+      sdsd
+      <div class="table-responsive" >
         <table class="table table-bordered" id="myTable">
           <thead>
             <tr>
@@ -15,14 +16,14 @@
           </thead>
           <tbody>
             <tr v-for="wallet in wallets" :key="wallet.id">
-              <td>{{ wallet.user_membreship.fullName }}</td>
+              <td>{{ wallet.user.fullName }}</td>
               <td>
                 <span class="text-primary font-weight-bold">$ {{ wallet.available }}</span>
               </td>
               <td>
                 <button
                   class="btn btn-sm btn-primary"
-                  @click="listWalletsUser(wallet.user_membreship.user)"
+                  @click="listWalletsUser(wallet.user.username)"
                 >
                   Details
                 </button>
@@ -86,7 +87,6 @@ export default {
   data() {
     return {
       wallets: [],
-      initialLoading: false,
       selectedUser: '',
       walletsUser: [],
     };

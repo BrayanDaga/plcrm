@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\UserMembreshipResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 
