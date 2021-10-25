@@ -19,7 +19,9 @@
 
 <!-- Codgio HTML del contenido (Importante) -->
 @section('content')
-    <account-type></account-type>
+    @can('is-admin')
+        <account-type></account-type>
+    @endcan
 @endsection
 
 @section('vendor-script')
@@ -29,7 +31,7 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.bootstrap4.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap4.js')) }}"></script>
-    @endsection
+@endsection
 @section('page-script')
     <!-- Page js files -->
     <script src="{{ asset(mix('js/scripts/extensions/ext-component-toastr.js')) }}"></script>

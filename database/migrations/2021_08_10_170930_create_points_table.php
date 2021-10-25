@@ -22,6 +22,7 @@ class CreatePointsTable extends Migration
             $table->unsignedDouble('points',10,2)->default(0.0);
             $table->boolean('side');
             $table->boolean('status')->default(true);
+            $table->string('reason')->nullable();
             $table->timestamps();
         });
     }

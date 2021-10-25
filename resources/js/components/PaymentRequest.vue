@@ -18,7 +18,7 @@
             <td>{{ payment.created_at | formatDate }}</td>
             <td>
               <a href="#" @click="openModal(payment, 'viewUser')">
-                {{ payment.user_membreship.fullName }}
+                {{ payment.user.fullName }}
               </a>
             </td>
             <td>{{ payment.description }}</td>
@@ -100,7 +100,7 @@
 
     <payment-request-modal-product :products="paymentSelect.products">
     </payment-request-modal-product>
-    <modal-user :user="paymentSelect.user_membreship"> </modal-user>
+    <modal-user :user="paymentSelect.user"> </modal-user>
 
     <!-- Modal para autorizar Payment -->
     <!-- <payment-request-modal-authorize
@@ -136,7 +136,7 @@ export default {
   data: () => ({
     payments: [],
     paymentSelect: {
-      user_membreship: {
+      user: {
         account_type:{}
       },
       products: [],
