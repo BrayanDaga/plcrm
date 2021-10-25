@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('phone', 16);
             $table->bigInteger('id_country')->unsigned();
             $table->bigInteger('id_document_type')->unsigned();
-            $table->string('nro_document', 15)->unique();
+            $table->string('nro_document', 18)->unique();
             $table->bigInteger('id_account_type')->unsigned();
             $table->integer('id_referrer_sponsor');
             $table->string('request', 1)->default('0');

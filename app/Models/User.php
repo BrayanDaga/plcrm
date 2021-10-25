@@ -130,7 +130,7 @@ class User extends Authenticatable
 
     public function wallets(): HasMany
     {
-        return $this->hasMany(Wallet::class, 'user_id');
+        return $this->hasMany(Wallet::class);
     }
 
 

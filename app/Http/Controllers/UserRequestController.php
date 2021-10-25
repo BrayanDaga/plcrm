@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Point;
 use App\Models\Wallet;
 use App\Models\Classified;
 use App\Models\AccountType;
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\AccountTypePointsMoney;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -78,9 +79,9 @@ class UserRequestController extends Controller
                     $left =$parent->status_position_left;
                     $right =$parent->status_position_right;
                     $position = $left > $right ? 0 : 1;
-                    User::create([
+                    Point::create([
                         'user_id' => $user->id,
-                        'id_user_sponsor' => $parent->id_user_sponsor,
+                        'sponsor_id' => $parent->id_user_sponsor,
                         'points' => $atm->points ,
                         'side' => $position,
                         'reason' => "Binary Team Points, ${fullName} Affiliation"
@@ -92,9 +93,9 @@ class UserRequestController extends Controller
                         $left =$parent->status_position_left;
                         $right =$parent->status_position_right;
                         $position = $left > $right ? 0 : 1;
-                        User::create([
+                        Point::create([
                             'user_id' => $user->id,
-                            'id_user_sponsor' => $parent->id_user_sponsor,
+                            'sponsor_id' => $parent->id_user_sponsor,
                             'points' => $atm->points ,
                             'side' => $position,
                             'reason' => "Binary Team Points, ${fullName} Affiliation"

@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Wallet;
 use App\Models\Country;
 use App\Models\Payment;
 use App\Models\Classified;
 use App\Models\AccountType;
+use App\Models\UserPayment;
 use App\Models\DocumentType;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
-use App\Models\User;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\UserRequest;
-use App\Models\UserPayment;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class UserMembreshipController extends Controller
 {
@@ -133,6 +134,8 @@ class UserMembreshipController extends Controller
                     $id_classified = $classified->id;
                 }
             }
+            $fullName = $request->name . ' ' . $request->last_name;
+           
 
             /**
              * store user_membreships_payment
@@ -159,6 +162,14 @@ class UserMembreshipController extends Controller
             $table->authorizationResult = $request->authorizationResult ? $request->authorizationResult : '';
 
             $table->save();
+
+            Wallet::create([
+                'amount' => $request->purchaseAmount,
+                'reason' =>  "Affiliation ${fullName}",
+                'user_id' => auth()->user()->id,
+                'status' => 0,
+                'payment_id' => $id_payment
+            ]);
         }, 5);
 
         $msg = 'Cliente Registrado satisfactoriamente';
