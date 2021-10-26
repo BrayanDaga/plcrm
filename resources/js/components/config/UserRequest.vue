@@ -15,7 +15,7 @@
       <tbody>
         <tr v-for="user in dataUsers" :key="user.id">
           <td>{{ user.id }}</td>
-          <td>{{ user.user }}</td>
+          <td>{{ user.username }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.created_at | formatDate }}</td>
           <td>{{ user.account_type.account }}</td>

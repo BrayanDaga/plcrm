@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import apiUserMembreship from '../../api/api.user-membreship';
+import apiUsers from '../../api/api.users';
 import CustomSpinner from '../../common/custom-spinner/CustomSpinner';
 
 export default {
@@ -90,7 +90,7 @@ export default {
     },
     getUsersMembreship: function () {
       this.initialLoading = true;
-      apiUserMembreship.listUserMembreship().then((response) => {
+      apiUsers.listUserMembreship().then((response) => {
         this.usersMembreship = response.data;
         this.initialLoading = false;
         this.loadDataTable();

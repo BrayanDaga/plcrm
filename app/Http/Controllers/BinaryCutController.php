@@ -9,6 +9,7 @@ class BinaryCutController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny',auth()->user());
         $users = User::qualifiedsAndActive();
         // return $users;
         return view('content.binarycut.index',compact('users'));
@@ -16,6 +17,7 @@ class BinaryCutController extends Controller
 
     public function store()
     {
+        $this->authorize('viewAny',auth()->user());
         $users = User::qualifiedsAndActive();
         foreach ($users as $user) {
 

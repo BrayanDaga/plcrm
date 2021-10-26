@@ -217,7 +217,7 @@ export default {
 
     viewUser(user) {
       api
-        .get(`/user-membreship/get-data-user/${user}`)
+        .get(`/users/get-data-user/${user}`)
         .then((response) => {
           this.user = response;
           $(`#viewUser`).modal('show');

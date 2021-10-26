@@ -146,7 +146,7 @@
 </template>
 
 <script>
-import apiUserMembreship from '../../api/api.user-membreship';
+import apiUsers from '../../api/api.users';
 import CustomSpinner from '../../common/custom-spinner/CustomSpinner';
 
 export default {
@@ -214,7 +214,7 @@ export default {
                 order: this.orderBy,
                 page: page
             };
-            apiUserMembreship.listByUser(params).then(response => {
+            apiUsers.listByUser(params).then(response => {
                 this.usersMembreship = response.result.data;
                 this.pagination = response.pagination;
                 this.initialLoading = false;

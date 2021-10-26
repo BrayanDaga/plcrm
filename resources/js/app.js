@@ -23,7 +23,7 @@ Vue.component(
   'payment-method',
   require('./components/config/payment-method/PaymentMethod').default
 );
-Vue.component('user-membreship-list', require('./components/user-membreship/List').default);
+Vue.component('users-list', require('./components/users/List').default);
 
 Vue.component('bonus-component', require('./components/config/BonusComponent.vue').default);
 Vue.component('account-type', require('./components/config/account-type/AccountType').default);
@@ -32,7 +32,7 @@ Vue.component('user-request', require('./components/config/UserRequest.vue').def
 
 // User membreship
 Vue.component('binary-branch', require('./components/binary-branch/BinaryBranch').default);
-Vue.component('user-membreship-list', require('./components/user-membreship/List').default);
+Vue.component('users-list', require('./components/users/List').default);
 
 Vue.component(
   'payment-request',

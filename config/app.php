@@ -176,6 +176,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         // custom theme menu provider
         App\Providers\MenuServiceProvider::class,
+
+        App\Providers\TreeBinaryProvider::class,
+
     ],
 
     /*
