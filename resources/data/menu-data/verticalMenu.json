@@ -20,10 +20,10 @@
             "dropdown": "1",
             "slug": "",
             "submenu": [{
-                "url": "user-membreship/register",
+                "url": "users/register",
                 "name": "Register",
                 "icon": "mail",
-                "slug": "user-membreship-register"
+                "slug": "users-register"
             }]
         },
         {
@@ -132,10 +132,10 @@
             "dropdown": "1",
             "slug": "",
             "submenu": [{
-                "url": "user-membreship/list",
+                "url": "users/list",
                 "name": "User-Scroll-List",
                 "icon": "circle",
-                "slug": "user-membreship-list"
+                "slug": "users-list"
             }]
         },
         {

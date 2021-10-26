@@ -67,7 +67,7 @@ const outputPriceAccountType = (d) => {
 }
 
 const shaPurchaseVerification = (valueAmount = 0) => {
-    axios.get(`/user-membreship/sha/${purchaseOperationNumber.value}/${valueAmount}`)
+    axios.get(`/users/sha/${purchaseOperationNumber.value}/${valueAmount}`)
         .then(r => purchaseVerification.value = r.data)
 }
 

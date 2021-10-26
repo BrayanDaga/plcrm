@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <user-membreship-list></user-membreship-list>
+    <users-list></users-list>
 @endsection
 
 @section('vendor-script')

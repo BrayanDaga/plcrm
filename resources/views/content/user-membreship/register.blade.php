@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    {{-- <user-membreship-register
+    {{-- <users-register
         :document-type="{{ $document_type }}"
         :account-type="{{ $account_type }}"
         :country="{{ $country }}"
@@ -18,7 +18,7 @@
         :id-commerce="{{ env('ID_COMMERCE') }}"
         :purchase-currency-code="{{ env('PURCHASE_CURRENCY_CODE') }}"
         :purchase-password="'{{ env('PURCHASE_PASSWORD') }}'"
-    ></user-membreship-register> --}}
+    ></users-register> --}}
     @if (session('success'))
         <div role="alert" class="alert alert-success">
             <div class="alert-body">
@@ -49,7 +49,7 @@
     <div class="row">
 
         <div class="col-lg-6">
-            <form name="f1" id="f1" action="{{ url('/user-membreship/create') }}" method="post" class="alignet-form-vpos2">
+            <form name="f1" id="f1" action="{{ url('/users/create') }}" method="post" class="alignet-form-vpos2">
                 @csrf
                 <input type="hidden" name="id_referrer_sponsor" value="{{ $id_referrer_sponsor }}">
                 <input type="hidden" name="acquirerId" value="{{ env('ACQUIRER_ID') }}">
@@ -189,5 +189,5 @@
     </div>
 @endsection
 @section('page-script')
-    <script src="{{ asset('js/api/user-membreship-register.js') }}"></script>
+    <script src="{{ asset('js/api/users-register.js') }}"></script>
 @endsection

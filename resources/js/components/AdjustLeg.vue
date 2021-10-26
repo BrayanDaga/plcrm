@@ -36,7 +36,7 @@ export default {
   methods: {
     listUser() {
       api
-        .get(`/user-membreship/get-data-currentuser`)
+        .get(`/users/get-data-currentuser`)
         .then((response) => {
           // console.log(response);
           this.user = response;
@@ -47,7 +47,7 @@ export default {
     },
     changePosition(position) {
       api
-        .post(`/user-membreship/change-position-currentuser`, { position })
+        .post(`/users/change-position-currentuser`, { position })
         .then((response) => {
           // console.log(response);
 

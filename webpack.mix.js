@@ -74,7 +74,7 @@ mix
     .js('resources/js/app.js', 'public/js/')
     .js('resources/js/core/app-menu.js', 'public/js/core')
     .js('resources/js/core/app.js', 'public/js/core')
-    .js('resources/js/api/user-membreship-register.js', 'public/js/api/user-membreship-register.js')
+    .js('resources/js/api/users-register.js', 'public/js/api/users-register.js')
     .vue()
     .sass('resources/sass/core.scss', 'public/css', { sassOptions })
     .sass('resources/sass/overrides.scss', 'public/css', { sassOptions })

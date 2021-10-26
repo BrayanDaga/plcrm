@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class UserMembreshipController extends Controller
+class UserController extends Controller
 {
     // public function __construct()
     // {
@@ -55,7 +55,7 @@ class UserMembreshipController extends Controller
 
     public function List()
     {
-        return view('content.user-membreship.list');
+        return view('content.users.list');
     }
 
     public function GetList(Request $request): AnonymousResourceCollection
@@ -177,7 +177,7 @@ class UserMembreshipController extends Controller
             return redirect()->route('virtualclass')->withSuccess($msg);
         } else {
             return redirect()
-                ->route('user-membreship-register')
+                ->route('users-register')
                 ->withSuccess($msg);
         }
     }

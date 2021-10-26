@@ -15,12 +15,12 @@ use App\Http\Controllers\BinaryBranchController;
 use App\Http\Controllers\BinaryCutController;
 use App\Http\Controllers\GrowthBonusController;
 use App\Http\Controllers\StartingBonusController;
-use App\Http\Controllers\UserMembreshipController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ClassifiedController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\RamaBinariaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Whoops\Run;
 
@@ -71,20 +71,20 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/list', [PaymentController::class, 'List'])->name('List');
     });
 
-    Route::group(['prefix' => 'user-membreship'], function () {
-        Route::get('/register', [UserMembreshipController::class, 'register'])->name('user-membreship-register');
-        Route::get('/list', [UserMembreshipController::class, 'list'])->name('user-membreship-list');
-        Route::post('/create', [UserMembreshipController::class, 'create'])->name('user-membreship-create');
-        Route::get('/sha/{purchase_operation_number}/{purchase_amount}', [UserMembreshipController::class, 'credentials']);
-        Route::get('/get-data-user/{name}', [UserMembreshipController::class, 'getDataUser']);
-        Route::get('/get-data-currentuser', [UserMembreshipController::class, 'getDataCurrentUser']);
-        Route::post('/change-position-currentuser', [UserMembreshipController::class, 'changePositionCurrentUser']);
-        /*Start api user-membreship*/
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/register', [UserController::class, 'register'])->name('users-register');
+        Route::get('/list', [UserController::class, 'list'])->name('users-list');
+        Route::post('/create', [UserController::class, 'create'])->name('users-create');
+        Route::get('/sha/{purchase_operation_number}/{purchase_amount}', [UserController::class, 'credentials']);
+        Route::get('/get-data-user/{name}', [UserController::class, 'getDataUser']);
+        Route::get('/get-data-currentuser', [UserController::class, 'getDataCurrentUser']);
+        Route::post('/change-position-currentuser', [UserController::class, 'changePositionCurrentUser']);
+        /*Start api users*/
         Route::get('/api', [BinaryBranchController::class, 'getListUsersMembreship'])
             ->name('getListUsersMembreship');
-        Route::get('/api/list', [UserMembreshipController::class, 'GetList'])
+        Route::get('/api/list', [UserController::class, 'GetList'])
             ->name('GetList');
-        /*End api user-membreship*/
+        /*End api users*/
     });
 
     //account types Routes
