@@ -47,13 +47,13 @@ class TreeBinaryService
 
     private function findChildLeft($user)
     {
-        $hijo = Classified::with('user')->where('id_user_sponsor', $user->id)->where('status_position_left', 1)->first();
-        return  $hijo;
+        $son = Classified::with('user')->where('id_user_sponsor', $user->id)->where('status_position_left', 1)->first();
+        return  $son;
     }
 
     private function findChildRight($user)
     {
-        $hijo = Classified::with('user')->where('id_user_sponsor', $user->id)->where('status_position_right', 1)->first();
-        return  $hijo;
+        $son = Classified::with('user')->where('id_user_sponsor', $user->id)->where('status_position_right', 1)->first();
+        return  $son;
     }
 }
