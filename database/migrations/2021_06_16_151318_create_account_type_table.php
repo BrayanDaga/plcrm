@@ -16,6 +16,14 @@ class CreateAccountTypeTable extends Migration
         Schema::create('account_type', function (Blueprint $table) {
             $table->id();
             $table->string('account');
+            $table->unsignedDouble('price',10,2)->default(0.0);
+            $table->unsignedDouble('iva',10,2)->default(0.0);
+            $table->unsignedDouble('disc_purchases',10,2)->default(0);
+            $table->unsignedDouble('pay_in_binary',10,2)->default(0);
+            $table->unsignedDouble('profit_on_purchases',10,2)->default(0);
+            $table->unsignedDouble('profit_on_purchases_2',10,2)->default(0);
+            $table->unsignedDouble('comission',10,2)->default(0);
+            $table->string('status', 1)->default('1');
             $table->timestamps();
         });
     }
