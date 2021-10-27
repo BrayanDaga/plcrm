@@ -58,6 +58,10 @@ Vue.component(
   require('./components/UserStatus.vue').default
 );
 Vue.component(
+  'user-dash',
+  require('./components/UserDash.vue').default
+);
+Vue.component(
   'binary-tree',
   require('./components/BinaryTree.vue').default
 );

@@ -20,7 +20,7 @@ class WalletController extends Controller
         $user = auth()->user();
         $this->authorize('viewAny', $user);
         $wallets = Wallet::groupBy('user_id')
-        ->selectRaw('sum(AMOUNT) as available, user_id')->where('status',1)->with('user')->get();
+        ->selectRaw('sum(AMOUNT) as available, user_id')->where('status','>',0)->with('user')->get();
         return JsonResource::collection($wallets);
     }
 
@@ -28,7 +28,7 @@ class WalletController extends Controller
     {
         $user = User::where('username',$username)->first();
         $this->authorize('view', $user);
-        $wallets = $user->wallets->where('status',1);
+        $wallets = $user->wallets->where('status','>',1);
         return JsonResource::collection($wallets);
     }
 }
