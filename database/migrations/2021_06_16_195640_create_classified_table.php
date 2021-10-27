@@ -24,6 +24,8 @@ class CreateClassifiedTable extends Migration
             $table->string('authorized', 1)->default('1');
             $table->string('status_position_left', 1)->default('0');
             $table->string('status_position_right', 1)->default('0');
+            $table->unsignedDouble('growth_bonus',10,2)->default(0.0);
+            $table->unsignedDouble('starting_bonus',10,2)->default(0.0);
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
