@@ -26,8 +26,9 @@ class UserSeeder extends Seeder
             'expiration_date' => strtotime('+10 years'),
             'id_account_type' => 1,
              'created_at' => strtotime('-1 years'),
-        ])->has(Wallet::factory())
+        ])->has(Wallet::factory(['status'=>3]))
         ->create();
+        //Ahora el estado del registro de billetera es 3 q significa que es despues de un corte binario
 
           $user2 = User::factory([
               'username' => 'user-brayan',
@@ -39,7 +40,7 @@ class UserSeeder extends Seeder
              'expiration_date' => strtotime('+30 days'),
               'id_account_type' => 2,
           ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user1->id]))
-          ->has(Wallet::factory())
+          ->has(Wallet::factory(['status'=>3]))
           ->create();
 
         $user3 = User::factory([
@@ -52,7 +53,7 @@ class UserSeeder extends Seeder
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
         ])->hasPaymentsClient(Payment::factory(['id_user_sponsor' => $user1->id]))
-        ->has(Wallet::factory())
+        ->has(Wallet::factory(['status'=>3]))
         ->create();
 
         $user4 = User::factory([
@@ -64,7 +65,7 @@ class UserSeeder extends Seeder
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 3,
         ])->hasPaymentsClient(Payment::factory(['id_user_sponsor' => $user1->id]))
-        ->has(Wallet::factory())
+        ->has(Wallet::factory(['status'=>3]))
         ->create();
 
 
@@ -77,7 +78,7 @@ class UserSeeder extends Seeder
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 4,
         ])->hasPaymentsClient(Payment::factory(['id_user_sponsor' => $user1->id]))
-        ->has(Wallet::factory())
+        ->has(Wallet::factory(['status'=>3]))
         ->create();
 
         $user6 = User::factory([
@@ -86,7 +87,7 @@ class UserSeeder extends Seeder
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
         ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user1->id]))
-        ->has(Wallet::factory())
+        ->has(Wallet::factory(['status'=>3]))
         ->create();
 
         User::factory([
@@ -95,7 +96,7 @@ class UserSeeder extends Seeder
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
         ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user3->id]))
-        ->has(Wallet::factory())
+        ->has(Wallet::factory(['status'=>3]))
         ->create();
 
 
@@ -105,7 +106,7 @@ class UserSeeder extends Seeder
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
         ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user2->id]))
-        ->has(Wallet::factory())
+        ->has(Wallet::factory(['status'=>3]))
         ->create();
 
         User::factory([

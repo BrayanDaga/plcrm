@@ -77,6 +77,10 @@ Vue.component(
   'users-funds',
   require('./components/UsersFunds.vue').default
 );
+Vue.component(
+  'user-bonuses',
+  require('./components/UserBonuses.vue').default
+);
 const app = new Vue({
     el: '#app'
 });

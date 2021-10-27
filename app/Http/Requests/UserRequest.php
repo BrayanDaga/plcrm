@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
             'password' => ['required','min:5','confirmed'],
             'name' => ['required','min:2'],
             'last_name' => ['required','min:2'],
-            'phone' => ['required','integer'],
+            'phone' => ['required'],
             'date_birth' => ['required','date '],
             'email' => ['required','email','unique:users'],
             'id_referrer_sponsor' => ['required','exists:account_type,id'],
