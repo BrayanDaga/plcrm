@@ -17,17 +17,14 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('id_user_sponsor')->unsigned();
-            $table->string('description', 50);
             $table->double('amount', 10, 2);
             $table->string('operation_number', 30);
             $table->bigInteger('id_payment_method')->unsigned();
-            $table->bigInteger('id_bank')->unsigned();
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('id_user_sponsor')->references('id')->on('users');
             $table->foreign('id_payment_method')->references('id')->on('payment_method');
-            $table->foreign('id_bank')->references('id')->on('bank');
         });
     }
 
