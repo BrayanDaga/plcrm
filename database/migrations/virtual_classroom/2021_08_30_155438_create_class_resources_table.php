@@ -16,11 +16,12 @@ class CreateClassResourcesTable extends Migration
         Schema::create('class_resources', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_course_video')->unsigned();
-            $table->foreign('id_course_video')->references('id')->on('course_video');
-            $table->bigInteger('id_lessons')->unsigned();
-            $table->foreign('id_lessons')->references('id')->on('lessons');
+            $table->bigInteger('class_id')->unsigned();
             $table->longText('resource_file');
             $table->timestamps();
+            
+            $table->foreign('id_course_video')->references('id')->on('course_video');
+            $table->foreign('class_id')->references('id')->on('class');
         });
     }
 

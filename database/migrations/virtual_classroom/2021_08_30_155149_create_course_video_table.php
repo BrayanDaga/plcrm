@@ -16,10 +16,11 @@ class CreateCourseVideoTable extends Migration
         Schema::create('course_video', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_courses')->unsigned();
-            $table->foreign('id_courses')->references('id')->on('courses');
             $table->longText('url');
             $table->time('time');
             $table->timestamps();
+            
+            $table->foreign('id_courses')->references('id')->on('courses');
         });
     }
 
