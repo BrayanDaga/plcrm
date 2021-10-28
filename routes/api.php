@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
 //Post Store User
@@ -23,6 +24,9 @@ Route::group(['prefix' => '/v1'], function(){
             //Api Account Type
             Route::group(['prefix' => '/accout-type'], function(){
                 Route::get('/{id}', [AccountTypeController::class, 'getDataBytId']);
+            });
+            Route::group(['prefix' => '/virtual-temary'],function(){
+                Route::get('/course/{id}',[CourseController::class,'show']);
             });
         });
     }
