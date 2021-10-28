@@ -155,7 +155,7 @@
 
                   <div class="col-md-6 col-12">
                     <div class="form-group">
-                      <label for="profit_on_purchases_2">Gain on 2nd Generation Purchases</label>
+                      <label for="fast_cash_bonus">Gain on 2nd Generation Purchases</label>
                       <input
                         type="text"
                         id="profit_on_purchases_2"
@@ -172,6 +172,28 @@
                         v-if="errors.hasOwnProperty('profit_on_purchases_2')"
                       >
                         {{ errors.profit_on_purchases_2[0] }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label for="fast_cash_bonus">Fast cash bonus</label>
+                      <input
+                        type="text"
+                        id="fast_cash_bonus"
+                        class="form-control"
+                        name="fast_cash_bonus"
+                        placeholder="% Gain on 2nd Generation Purchases"
+                        autocomplete="false"
+                        ref="fast_cash_bonus-account-type"
+                        v-model="form.fast_cash_bonus"
+                        :class="errors.hasOwnProperty('fast_cash_bonus') ? 'is-invalid' : ''"
+                      />
+                      <div
+                        class="invalid-feedback"
+                        v-if="errors.hasOwnProperty('fast_cash_bonus')"
+                      >
+                        {{ errors.fast_cash_bonus[0] }}
                       </div>
                     </div>
                   </div>
@@ -219,7 +241,7 @@
           </div>
 
           <div class="table-responsive">
-            <table class="table" id="datatable">
+            <table class="table-hover table-striped table-bordered"  id="datatable">
               <thead>
                 <tr>
                   <th>Nro</th>
@@ -231,6 +253,7 @@
                   <th>payment in binary cut%</th>
                   <th>Gain on Purchases</th>
                   <th>% Gain on 2nd Generation Purchases</th>
+                  <th>% Fast Cash Bonus</th>
                   <th>Commission</th>
                   <th>Actions</th>
                 </tr>
@@ -251,6 +274,7 @@
                   <td>{{ accountType.pay_in_binary }}</td>
                   <td>{{ accountType.profit_on_purchases }}</td>
                   <td>{{ accountType.profit_on_purchases_2 }}</td>
+                  <td>{{ accountType.fast_cash_bonus }}</td>
                   <td>{{ accountType.comission }}</td>
 
                   <td>
@@ -304,6 +328,7 @@ const formAccountType = {
   pay_in_binary: 0,
   profit_on_purchases: 0,
   profit_on_purchases_2: 0,
+  fast_cash_bonus: 0,
   comission: 0,
   state: '',
 };
@@ -369,6 +394,11 @@ export default {
         if (this.errors.profit_on_purchases_2) {
           this.$refs['profit_on_purchases_2-account-type'].focus();
           return;
+        } 
+        
+        if (this.errors.fats_cash_bonus) {
+          this.$refs['fats_cash_bonus-account-type'].focus();
+          return;
         }
       }
     },
@@ -385,6 +415,7 @@ export default {
         pay_in_binary: this.form.pay_in_binary,
         profit_on_purchases: this.form.profit_on_purchases,
         profit_on_purchases_2: this.form.profit_on_purchases_2,
+        fast_cash_bonus: this.form.fast_cash_bonus,
         comission: this.form.comission,
       };
       if (accountType.id && this.editMode) {
