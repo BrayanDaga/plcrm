@@ -163,8 +163,12 @@ class UserController extends Controller
 
             $table->save();
 
+            $account_type = AccountType::find($request->id_account_type);
             Wallet::create([
-                'amount' => $request->purchaseAmount,
+                // 'amount' => $request->purchaseAmount, //Este campo afectaba a la billetera
+                //insertaba defrente el valor de la venta 
+                'amount' => $account_type->price * $account_type->fast_cash_bonus / 100,
+                //ahora inserta a la billetera el valor de tipo de cuenta por el  $ del efectivo rapido
                 'reason' =>  "Affiliation ${fullName}",
                 'user_id' => auth()->user()->id,
                 'status' => 0,

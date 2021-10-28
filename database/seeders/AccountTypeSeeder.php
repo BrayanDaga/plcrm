@@ -13,7 +13,7 @@ class AccountTypeSeeder extends Seeder
         $accounts = array('Admin', 'School', 'Academy', 'University', 'Invited');
 
         foreach ($accounts as $account) {
-            AccountType::create([
+            AccountType::factory([
                 'account' => $account,
                 'price' => 100.00,
                 'status' => 1,
@@ -23,7 +23,7 @@ class AccountTypeSeeder extends Seeder
                 'profit_on_purchases'=>50.00,
                 'profit_on_purchases_2'=>50.00,
                 'comission'=>  50.00
-            ]);
+            ])->create();
         }
 
         // Actualizando el estado el tipo de cuenta "admin" a 0

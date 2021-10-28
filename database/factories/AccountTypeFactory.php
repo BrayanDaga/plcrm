@@ -31,6 +31,7 @@ class AccountTypeFactory extends Factory
             'profit_on_purchases'=> $this->faker->randomFloat(5, 10,999.99),
             'profit_on_purchases_2'=> $this->faker->randomFloat(5, 10,999.99),
             'comission'=> $this->faker->randomFloat(5, 10,999.99),
+            'fast_cash_bonus' => 18,
         ];
     }
 }

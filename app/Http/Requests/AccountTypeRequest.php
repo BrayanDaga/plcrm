@@ -32,6 +32,7 @@ class AccountTypeRequest extends FormRequest
             'pay_in_binary' => ['nullable','numeric','min:0'],
             'profit_on_purchases' => ['nullable','numeric','min:0'],
             'profit_on_purchases_2' => ['nullable','numeric','min:0'],
+            'fast_cash_bonus' => ['nullable','numeric','min:0'],
         ];
     }
 }
