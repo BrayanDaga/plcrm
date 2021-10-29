@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AccountTypeController;
-use App\Http\Controllers\CourseProducterController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
 //Post Store User
@@ -20,21 +20,18 @@ Route::group(['prefix' => '/v1'], function(){
         });
 
         Route::middleware(['auth:api', 'checkAuth'])->group(function(){
-
             //Api Account Type
             Route::group(['prefix' => '/accout-type'], function(){
                 Route::get('/{id}', [AccountTypeController::class, 'getDataBytId']);
             });
-
-
-
-            Route::group(['prefix' => '/list-course'], function(){
-
-                Route::group(['prefix' => '/producter'], function(){
-                    Route::get('/get-all-list-course-product/{id}', [CourseProducterController::class, 'show']);
+            Route::group(['prefix' => '/course'],function(){
+                Route::group(['prefix' => '/temary'],function(){
+                    Route::get('/get-all-class/{id}',[CourseController::class,'show']);
                 });
-
             });
+            Route::group(['prefix' => '/list-course'], function(){
+                Route::get('/producter/{id}', [CourseController::class,'list']);
+            });  
         });
     }
 });
