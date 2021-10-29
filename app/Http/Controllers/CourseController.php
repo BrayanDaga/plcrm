@@ -2,35 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\ResponseFormat;
 use App\Models\Course;
 use App\Models\Module;
 use App\Models\Clas;
 use Illuminate\Http\Request;
-
-class CourseController extends Controller
-{
+class CourseController extends Controller 
+{  
     public function show($id){
-        $curso = Course::find($id);
+        
+        $curso = Course::select('title')->find($id);
         if($curso){
-            $modules = Module::where('id_courses','=',$id)->get();
-            $clas = [];
+            $modules = Module::select('id','name')->where('id_courses','=',$id)->get();
+            $leason = [];
             $modulesJson=[];
             foreach($modules as $mod){
-                $clas = Clas::where('id_modules',$mod->id)->get();
+                $leason = Clas::select('name','time','url','description')->where('id_modules',$mod->id)->get();
                 $modulesJson[] = [
-                    'id_module' =>$mod->id,
-                    'module'    => $mod->name,
-                    'lessons'    => $clas
+                    'name'    => $mod->name,
+                    'lessons'    => $leason
                 ];
             }
             $courseJson = [
-                'id_course' => $curso->id,
-                'course'    => $curso->title,
+                'title'    => $curso->title,
                 'modules'   => $modulesJson
             ];
             return $courseJson;   
         }else{
-            return "no existen cursos";
+            return ['error'=>'El curso no existe'];
         }
     }
 }

@@ -20,13 +20,14 @@ Route::group(['prefix' => '/v1'], function(){
         });
 
         Route::middleware(['auth:api', 'checkAuth'])->group(function(){
-
             //Api Account Type
             Route::group(['prefix' => '/accout-type'], function(){
                 Route::get('/{id}', [AccountTypeController::class, 'getDataBytId']);
             });
-            Route::group(['prefix' => '/virtual-temary'],function(){
-                Route::get('/course/{id}',[CourseController::class,'show']);
+            Route::group(['prefix' => '/course'],function(){
+                Route::group(['prefix' => '/temary'],function(){
+                    Route::get('/get-all-class/{id}',[CourseController::class,'show']);
+                });
             });
         });
     }
