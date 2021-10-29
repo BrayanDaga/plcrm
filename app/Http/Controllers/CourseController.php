@@ -19,7 +19,7 @@ class CourseController extends Controller
             foreach($modules as $mod){
                 $leason = Clas::select('name','time','url','description')->where('id_modules',$mod->id)->get();
                 $modulesJson[] = [
-                    'name'    => $mod->name,
+                    'name'       => $mod->name,
                     'lessons'    => $leason
                 ];
             }
