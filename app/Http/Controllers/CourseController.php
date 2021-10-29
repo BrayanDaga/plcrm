@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Module;
 use App\Models\Clas;
+use App\Traits\ResponseFormat; 
 use Illuminate\Http\Request;
 class CourseController extends Controller 
 {  
+    use ResponseFormat;
     public function show($id){
         
         $curso = Course::select('title')->find($id);
@@ -25,7 +27,7 @@ class CourseController extends Controller
                 'title'    => $curso->title,
                 'modules'   => $modulesJson
             ];
-            return $courseJson;   
+            return $this->responseOk('',$courseJson );   
         }else{
             return ['error'=>'El curso no existe'];
         }
@@ -36,7 +38,7 @@ class CourseController extends Controller
                       ->where('courses.user_id','=',$id)
                       ->get();
         if(count($data)<>0){
-            return $data;
+            return  $this->responseOk('',$data);
         }else{
             return ['error'=>'No existe el productor'];
         }
