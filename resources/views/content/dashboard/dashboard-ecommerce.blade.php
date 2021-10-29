@@ -809,12 +809,13 @@
 
   </div>
   <div class="row">
-    <adjust-leg></adjust-leg>
-    <user-status></user-status>
+  <div class="col-4">
+    <user-dash></user-dash>
+  </div>
+
+    <user-bonuses></user-bonuses>
   </div>
   <a href="{{ route('uninivel') }}" class="h4">Arbol uninivel</a>
-      {{-- Usando Componente Blade --}}
-    {{-- <x-tree-component></x-tree-component>   --}}
     {{-- Usando Componente Vue --}}
     {{-- <x-binary-component></x-binary-component> --}}
     <binary-tree></binary-tree>

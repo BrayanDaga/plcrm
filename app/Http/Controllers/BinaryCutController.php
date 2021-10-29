@@ -43,8 +43,9 @@ class BinaryCutController extends Controller
             $user->wallets()->create([
                 'amount' => $minPoints * $user->accountType->pay_in_binary / 100  * $valorDePunto ,
                 'reason' => 'Pay Binary Cut',
-                'status' => 1
+                'status' => 2
             ]);
+            $user->wallets('status',1)->update(['status' => 2]);
         }
         return redirect()->route('binarycut.index')->withSuccess('Binary cut successfully'); 
     }

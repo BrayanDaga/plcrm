@@ -58,6 +58,10 @@ Vue.component(
   require('./components/UserStatus.vue').default
 );
 Vue.component(
+  'user-dash',
+  require('./components/UserDash.vue').default
+);
+Vue.component(
   'binary-tree',
   require('./components/BinaryTree.vue').default
 );
@@ -72,6 +76,10 @@ Vue.component(
 Vue.component(
   'users-funds',
   require('./components/UsersFunds.vue').default
+);
+Vue.component(
+  'user-bonuses',
+  require('./components/UserBonuses.vue').default
 );
 const app = new Vue({
     el: '#app'

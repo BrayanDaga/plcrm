@@ -13,6 +13,7 @@ use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\BinaryBranchController;
 use App\Http\Controllers\BinaryCutController;
+use App\Http\Controllers\BonusController;
 use App\Http\Controllers\GrowthBonusController;
 use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserRequestController;
@@ -84,6 +85,8 @@ Route::group(['middleware' => ['auth']], function () {
             ->name('getListUsersMembreship');
         Route::get('/api/list', [UserController::class, 'GetList'])
             ->name('GetList');
+
+        Route::get('get-bonuses',[BonusController::class,'index']);
         /*End api users*/
     });
 

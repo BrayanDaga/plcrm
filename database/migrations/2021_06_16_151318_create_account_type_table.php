@@ -18,6 +18,7 @@ class CreateAccountTypeTable extends Migration
             $table->string('account');
             $table->unsignedDouble('price',10,2)->default(0.0);
             $table->unsignedDouble('iva',10,2)->default(0.0);
+            $table->unsignedDouble('fast_cash_bonus',10,2)->default(0);
             $table->unsignedDouble('disc_purchases',10,2)->default(0);
             $table->unsignedDouble('pay_in_binary',10,2)->default(0);
             $table->unsignedDouble('profit_on_purchases',10,2)->default(0);

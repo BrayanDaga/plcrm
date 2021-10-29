@@ -1,25 +1,24 @@
 <template>
-  <div class="col-lg-6 col-md-6 col-sm-12">
-    <div class="card">
-      <div class="card-header">Ajuste de pierna</div>
+    <div class="card p-0">
       <div class="card-body">
+        <h5>Ajuste de pierna</h5>
         <button
-          class="btn px-3"
+          class="btn btn-sm px-3"
           :class="user.position == 0 ? 'btn-primary' : 'btn-secondary'"
           @click="changePosition(0)"
         >
           Left
         </button>
         <button
-          class="btn px-3"
+          class="btn btn-sm px-3"
           :class="user.position == 1 ? 'btn-primary' : 'btn-secondary'"
           @click="changePosition(1)"
         >
           Right
         </button>
       </div>
-    </div>
   </div>
+  
 </template>
 
 <script>
