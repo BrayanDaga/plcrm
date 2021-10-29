@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Traits\ResponseFormat;
 use App\Models\Course;
 use App\Models\Module;
 use App\Models\Clas;
