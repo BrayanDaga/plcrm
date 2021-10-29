@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountTypeController;
+use App\Http\Controllers\CourseProducterController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,16 @@ Route::group(['prefix' => '/v1'], function(){
             //Api Account Type
             Route::group(['prefix' => '/accout-type'], function(){
                 Route::get('/{id}', [AccountTypeController::class, 'getDataBytId']);
+            });
+
+
+
+            Route::group(['prefix' => '/list-course'], function(){
+
+                Route::group(['prefix' => '/producter'], function(){
+                    Route::get('/get-all-list-course-product/{id}', [CourseProducterController::class, 'show']);
+                });
+
             });
         });
     }
