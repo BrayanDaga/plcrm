@@ -29,6 +29,9 @@ Route::group(['prefix' => '/v1'], function(){
                     Route::get('/get-all-class/{id}',[CourseController::class,'show']);
                 });
             });
+            Route::group(['prefix' => '/list-course'], function(){
+                Route::get('/producter/{id}', [CourseController::class,'list']);
+            });  
         });
     }
 });
