@@ -34,6 +34,9 @@ Route::group(['prefix' => '/v1'], function(){
                 Route::get('/seller/{transmitter}/producer/{receiver}',[MessageController::class,'show']);
                 Route::get('/producer/{transmitter}/seller/{receiver}',[MessageController::class,'show']);
             });
+            Route::group(['prefix' => '/list-course'], function(){
+                Route::get('/producter/{id}', [CourseController::class,'list']);
+            });  
         });
     }
 });

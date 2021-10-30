@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 use App\Models\Clas;
 use App\Models\Course;
 use App\Models\Module;
+<<<<<<< HEAD
+=======
+use App\Models\Clas;
+use App\Traits\ResponseFormat; 
+>>>>>>> master
 use Illuminate\Http\Request;
 use App\Traits\ResponseFormat;
 
@@ -28,9 +33,24 @@ class CourseController extends Controller
                 'title'    => $curso->title,
                 'modules'   => $modulesJson
             ];
+<<<<<<< HEAD
             return $this->responseOk('',$courseJson); 
+=======
+            return $this->responseOk('',$courseJson );   
+>>>>>>> master
         }else{
             return ['error'=>'El curso no existe'];
+        }
+    }
+    public function list($id){
+        $data = Course::select('courses.title','categories.name','courses.price','courses.status')
+                      ->join('categories','categories.id','=','courses.id_categories')
+                      ->where('courses.user_id','=',$id)
+                      ->get();
+        if(count($data)<>0){
+            return  $this->responseOk('',$data);
+        }else{
+            return ['error'=>'No existe el productor'];
         }
     }
 }
