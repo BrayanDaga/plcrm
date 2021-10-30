@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 //Post Store User
@@ -28,6 +29,10 @@ Route::group(['prefix' => '/v1'], function(){
                 Route::group(['prefix' => '/temary'],function(){
                     Route::get('/get-all-class/{id}',[CourseController::class,'show']);
                 });
+            });
+            Route::group(['prefix'=> '/messages'],function(){
+                Route::get('/seller/{transmitter}/producer/{receiver}',[MessageController::class,'show']);
+                Route::get('/producer/{transmitter}/seller/{receiver}',[MessageController::class,'show']);
             });
         });
     }

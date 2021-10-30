@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Clas;
 use App\Models\Course;
 use App\Models\Module;
-use App\Models\Clas;
 use Illuminate\Http\Request;
+use App\Traits\ResponseFormat;
+
 class CourseController extends Controller 
 {  
+    use ResponseFormat;
     public function show($id){
         
         $curso = Course::select('title')->find($id);
@@ -25,7 +28,7 @@ class CourseController extends Controller
                 'title'    => $curso->title,
                 'modules'   => $modulesJson
             ];
-            return $courseJson;   
+            return $this->responseOk('',$courseJson); 
         }else{
             return ['error'=>'El curso no existe'];
         }
