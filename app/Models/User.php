@@ -51,7 +51,6 @@ class User extends Authenticatable
         'active',
         'Photo',
         'qualified',
-        'totalPayment',
     ];
 
     public function  getPhotoAttribute()
@@ -119,10 +118,7 @@ class User extends Authenticatable
         return $this->hasMany(Payment::class, 'id_user_sponsor');
     }
 
-    public function getTotalPaymentAttribute()
-    {
-       return $this->paymentsSponsor()->sum('amount');
-    }
+   
 
     public function accountType(): BelongsTo
     {

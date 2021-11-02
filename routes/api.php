@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 //Post Store User
@@ -32,6 +33,8 @@ Route::group(['prefix' => '/v1'], function(){
             Route::group(['prefix' => '/list-course'], function(){
                 Route::get('/producter/{id}', [CourseController::class,'list']);
             });  
+            Route::get('/getTotalPayment', [PaymentController::class,'getotal']);
+
         });
     }
 });
