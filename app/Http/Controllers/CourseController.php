@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Clas;
 use App\Models\Course;
 use App\Models\Module;
-use App\Models\Clas;
-use App\Traits\ResponseFormat; 
 use Illuminate\Http\Request;
+use App\Traits\ResponseFormat;
+
 class CourseController extends Controller 
 {  
     use ResponseFormat;
@@ -27,6 +28,7 @@ class CourseController extends Controller
                 'title'    => $curso->title,
                 'modules'   => $modulesJson
             ];
+
             return $this->responseOk('',$courseJson );   
         }else{
             return ['error'=>'El curso no existe'];
