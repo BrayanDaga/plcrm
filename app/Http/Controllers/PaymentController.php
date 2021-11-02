@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Payment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Resources\PaymentResource;
+use App\Traits\ResponseFormat;
 use App\Models\CancelledPayment;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\PaymentResource;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class PaymentController extends Controller
+class PaymentController extends Controller 
 {
+    use ResponseFormat;
     public function index()
     {
         return view('content.payment.payment');
@@ -58,4 +62,14 @@ class PaymentController extends Controller
     {
         return view('content.requests.payments');
     }
+
+    public function getotal()
+    {
+        $user = User::find(Auth::user()->id);
+
+        $total = $user->paymentsSponsor()->sum('amount');
+        return $this->responseOk('',['totalPayment' => $total ]);   
+
+    }
+
 }
