@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\PropiertiesforUser;
 use Illuminate\Support\Facades\Route;
 
 //Post Store User
@@ -38,7 +39,7 @@ Route::group(['prefix' => '/v1'], function(){
             Route::group(['prefix' => '/list-course'], function(){
                 Route::get('/producter/{id}', [CourseController::class,'list']);
             });  
-            Route::get('/getTotalPayment', [PaymentController::class,'getotal']);
+            Route::get('/getattributes', [PropiertiesforUser::class,'getPropierties']);
 
         });
     }

@@ -63,13 +63,6 @@ class PaymentController extends Controller
         return view('content.requests.payments');
     }
 
-    public function getotal()
-    {
-        $user = User::find(Auth::user()->id);
 
-        $total = $user->paymentsSponsor()->sum('amount');
-        return $this->responseOk('',['totalPayment' => $total ]);   
-
-    }
 
 }

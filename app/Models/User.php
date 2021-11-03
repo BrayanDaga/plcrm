@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Clas;
+use App\Models\Country;
 use App\Models\Traits\Pointable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -148,9 +149,9 @@ class User extends Authenticatable
         return $this->hasMany(Classified::class, 'user_id', 'id');
     }
 
-    public function scopeMyClients($query)
+    public function scopeMyClients($query,$id)
     {
-        return $query->where('id_referrer_sponsor', $this->id);
+        return $query->where('id_referrer_sponsor', $id);
     }
 
 
@@ -159,6 +160,16 @@ class User extends Authenticatable
         return $query->with('accountType')->where('id_account_type', '!=', 5)->get()->filter(function ($key) {
             return $key->qualified == true && $key->active == true;
         });
+    }
+
+    /**
+     * Get all of the courses for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
     }
 
     /**
