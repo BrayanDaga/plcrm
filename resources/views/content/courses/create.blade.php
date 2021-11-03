@@ -22,8 +22,9 @@
                                 <label for="id_categories">Category</label>
                                 {{-- Input select option bootstrap --}}
                                 <select name="id_categories" id="id_categories" class="custom-select">
-                                    <option value="1">Categoria 1</option>
-                                    <option value="1">Categoria 2</option>
+                                    @foreach ($categories as $category )
+                                    <option value="{{$category->id}}">{{ $category->name }}</option>
+                                    @endforeach
                                 </select>             
                             </div>
                         </div>
@@ -38,9 +39,9 @@
                                 <label for="level">Level</label>
                                 {{-- Input select option bootstrap --}}
                                 <select name="level" id="level" class="custom-select">
-                                    <option value="1">Basic</option>
-                                    <option value="1">Intermediate</option>
-                                    <option value="1">Advanced</option>
+                                    <option value="basic">Basic</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
                                 </select>             
                             </div>
                         </div>
@@ -56,6 +57,15 @@
                                 <label for="image"> Image </label>
                                 <input  type="file" id="image" class="form-control" name="image"
                                     placeholder="enter image"/>                               
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="image">Status </label>
+                                <select name="level" id="level" class="custom-select">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>                               
                             </div>
                         </div>
                     </div>

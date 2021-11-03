@@ -164,7 +164,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });
 
-    Route::group(['prefix' => 'config'], function () {
+    Route::group(['prefix' => 'creator'], function () {
         Route::resource('course', CoursesController::class);
     });
 
