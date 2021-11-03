@@ -19,6 +19,7 @@ use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ClassifiedController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\RamaBinariaController;
 use App\Http\Controllers\UserController;
@@ -163,6 +164,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });
 
+    Route::group(['prefix' => 'config'], function () {
+        Route::resource('course', CoursesController::class);
+    });
 
     Route::group(['prefix' => '/reports'], function () {
         Route::get('/growthBonus', [ClassifiedController::class, 'growthBonus'])->name('report-growthBonus');
