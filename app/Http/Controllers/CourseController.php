@@ -45,4 +45,13 @@ class CourseController extends Controller
             return ['error'=>'No existe el productor'];
         }
     }
+
+    /*
+    $courselessons =$course->lessons
+    $lesoncompleted  = $user->lessons
+    $var comparar 2 arrays hallar cuanto coinciden 
+    aplicar calculo para sacar porcentaje 
+
+    */
+
 }

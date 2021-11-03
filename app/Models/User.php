@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Clas;
 use App\Models\Traits\Pointable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -158,4 +160,19 @@ class User extends Authenticatable
             return $key->qualified == true && $key->active == true;
         });
     }
+
+    /**
+     * The lessons that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function lessons(): BelongsToMany
+    {
+        return $this->belongsToMany(Clas::class, 'class_users', 'user_id', 'clas_id')->withPivot('status');
+    }
+    // $user->lessons()->attach(2,['status'=>1]);
+    // $user->lessons()->dettach(2,['status'=>1]);
+    // $user->lessons()->sync(2,['status'=>1]);
+    // $user->lessons()->syncWithoutDetaching(2,['status'=>1]);
+
 }
