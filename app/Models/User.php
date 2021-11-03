@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Clas;
+use App\Models\Country;
 use App\Models\Traits\Pointable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -146,9 +149,9 @@ class User extends Authenticatable
         return $this->hasMany(Classified::class, 'user_id', 'id');
     }
 
-    public function scopeMyClients($query)
+    public function scopeMyClients($query,$id)
     {
-        return $query->where('id_referrer_sponsor', $this->id);
+        return $query->where('id_referrer_sponsor', $id);
     }
 
 
@@ -158,4 +161,29 @@ class User extends Authenticatable
             return $key->qualified == true && $key->active == true;
         });
     }
+
+    /**
+     * Get all of the courses for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    /**
+     * The lessons that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function lessons(): BelongsToMany
+    {
+        return $this->belongsToMany(Clas::class, 'class_users', 'user_id', 'clas_id')->withPivot('status');
+    }
+    // $user->lessons()->attach(2,['status'=>1]);
+    // $user->lessons()->dettach(2,['status'=>1]);
+    // $user->lessons()->sync(2,['status'=>1]);
+    // $user->lessons()->syncWithoutDetaching(2,['status'=>1]);
+
 }
