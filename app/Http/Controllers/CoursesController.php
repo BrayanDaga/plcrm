@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Course;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CourseRequest;
 
 class CoursesController extends Controller
 {
@@ -35,9 +37,12 @@ class CoursesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        //
+        $user = User::find(auth()->user()->id);
+        $course = $user->courses()->create($request->validated());
+        $course->image = $request->file('image')->store('courses');
+        return redirect()->route('course.edit',$course->id);
     }
 
     /**
@@ -48,7 +53,6 @@ class CoursesController extends Controller
      */
     public function show(Course $course)
     {
-        //
     }
 
     /**
@@ -59,7 +63,8 @@ class CoursesController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        return view('content.courses.edit');
+
     }
 
     /**
