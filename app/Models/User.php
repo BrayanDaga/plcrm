@@ -179,8 +179,9 @@ class User extends Authenticatable
      */
     public function lessons(): BelongsToMany
     {
-        return $this->belongsToMany(Clas::class, 'class_users', 'user_id', 'clas_id')->withPivot('status');
+        return $this->belongsToMany(Clas::class, 'class_users');
     }
+
     // $user->lessons()->attach(2,['status'=>1]);
     // $user->lessons()->dettach(2,['status'=>1]);
     // $user->lessons()->sync(2,['status'=>1]);

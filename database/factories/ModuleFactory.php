@@ -23,7 +23,7 @@ class ModuleFactory extends Factory
     {
         $name = ['edicion', 'renderizado', 'design', 'efectos'];
         return [
-            'id_courses' => $this->faker->numberBetween(1,2),
+            'id_courses' => 21,
             'name' => $name[array_rand($name)],
         ];
     }
