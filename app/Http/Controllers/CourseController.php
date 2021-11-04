@@ -15,13 +15,13 @@ class CourseController extends Controller
         $curso = Course::select('title')->find($id);
         if($curso){
             $modules = Module::select('id','name')->where('id_courses','=',$id)->get();
-            $leason = [];
+            $lesson = [];
             $modulesJson=[];
             foreach($modules as $mod){
-                $leason = Clas::select('name','time','url','description')->where('id_modules',$mod->id)->get();
+                $lesson = Clas::select('name','time','url','description')->where('id_modules',$mod->id)->get();
                 $modulesJson[] = [
                     'name'       => $mod->name,
-                    'lessons'    => $leason
+                    'lessons'    => $lesson
                 ];
             }
             $courseJson = [
