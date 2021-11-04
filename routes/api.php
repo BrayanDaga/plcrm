@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AccountTypeController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PropiertiesforUser;
@@ -35,8 +35,8 @@ Route::group(['prefix' => '/v1'], function () {
 
             //Api Course
             Route::group(['prefix' => '/course'], function () {
-                Route::get('/temary/get-all-class/{id}', [CourseController::class, 'show']);
-                Route::get('/list-course/producter/{id}', [CourseController::class, 'list']);
+                Route::get('/temary/get-all-class/{id}', [CoursesController::class, 'show']);
+                Route::get('/list-course/producter/{id}', [CoursesController::class, 'list']);
             });
 
             //Api Dashboard
