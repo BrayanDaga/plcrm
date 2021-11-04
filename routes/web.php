@@ -19,6 +19,7 @@ use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ClassifiedController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\RamaBinariaController;
 use App\Http\Controllers\UserController;
@@ -190,8 +191,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::apiResource('wallets', WalletController::class)->only('index');
         });
     });
-
-
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 /* Rutas Programada - fin */
@@ -213,3 +212,6 @@ Route::get('/error', [MiscellaneousController::class, 'error'])->name('error');
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
 Route::view('/virtualclassroom', 'newPage')->name('virtualclass');
+Route::group(['prefix'=>'courses'],function(){
+    Route::get('list/{email}', [CourseController::class,'listCourses']);
+});

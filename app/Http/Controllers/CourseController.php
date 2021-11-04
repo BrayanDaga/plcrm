@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Clas;
 use App\Models\Course;
 use App\Models\Module;
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Traits\ResponseFormat;
 
 class CourseController extends Controller 
