@@ -11,8 +11,9 @@ class MessageController extends Controller
     use ResponseFormat;
     public function show($email){
         $idUser = auth()->user()->id;
-        $idUser2 = (DB::table('users')->select('id')->where('email',$email)->get())[0]->id;
-        $data = Message::select('users.username','messages.text','messages.created_at')
+        if($idUser2 = User::where('email',$email)->first()){
+            $idUser2 = $idUser2->id;
+            $data = Message::select('users.name','messages.text','messages.created_at')
                        ->join('users','users.id','=','messages.id_user_transmitter')
                        ->where([
                            ['messages.id_user_transmitter','=',$idUser],
@@ -24,8 +25,11 @@ class MessageController extends Controller
                        ])
                        ->orderBy('messages.created_at','ASC')
                        ->get();
-        if(isset($data[0])){
-            return $this->responseOk('',$data);
+            if(isset($data[0])){
+                return $this->responseOk('',$data);
+            }else{
+                return ["error"=>"no existe conversación"];
+            }
         }else{
             return ["error"=>"no existe conversación"];
         }
