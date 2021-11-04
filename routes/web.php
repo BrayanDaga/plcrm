@@ -215,6 +215,3 @@ Route::get('/error', [MiscellaneousController::class, 'error'])->name('error');
 Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
 Route::view('/virtualclassroom', 'newPage')->name('virtualclass');
-Route::group(['prefix'=>'courses'],function(){
-    Route::get('list/{email}', [CourseController::class,'listCourses']);
-});

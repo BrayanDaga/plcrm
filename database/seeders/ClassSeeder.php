@@ -14,6 +14,6 @@ class ClassSeeder extends Seeder
      */
     public function run()
     {
-        Clas::factory(10)->create();
+        Clas::factory(20)->create();
     }
 }
