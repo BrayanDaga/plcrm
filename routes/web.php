@@ -164,6 +164,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/update-request', [UserRequestController::class, 'updateRequest']);
     });
 
+    Route::group(['prefix' => 'creator'], function () {
+        Route::resource('course', CoursesController::class);
+    });
 
     Route::group(['prefix' => '/reports'], function () {
         Route::get('/growthBonus', [ClassifiedController::class, 'growthBonus'])->name('report-growthBonus');
