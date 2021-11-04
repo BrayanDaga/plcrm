@@ -24,7 +24,7 @@ class CreateCoursesTable extends Migration
             $table->string('currency', 20)->nullable();
             $table->double('price');
             $table->integer('ranking_by_user')->nullable();
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(false);
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');

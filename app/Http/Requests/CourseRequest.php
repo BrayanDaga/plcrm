@@ -32,7 +32,7 @@ class CourseRequest extends FormRequest
             // 'currency' => ['required'],
             'price' => ['required'],
             // 'ranking_by_user' => ['required'],
-            'status' => ['required'],
+            'status' => ['nullable'],
             'level' => ['required'],
         ];
 

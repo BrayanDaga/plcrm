@@ -19,6 +19,7 @@ use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ClassifiedController;
+use App\Http\Controllers\CourseModuleController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\RamaBinariaController;
@@ -165,7 +166,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'creator'], function () {
-        Route::resource('course', CoursesController::class);
+        Route::resource('courses.modules', CourseModuleController::class);
+        Route::resource('courses', CoursesController::class);
     });
 
     Route::group(['prefix' => '/reports'], function () {

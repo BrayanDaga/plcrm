@@ -2,69 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Course;
-use App\Models\Category;
+use App\Models\Module;
 use Illuminate\Http\Request;
-use App\Http\Requests\CourseRequest;
 
-class CoursesController extends Controller
+class CourseModuleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Course $course)
     {
-        return view('content.courses.index');
+        $modules = $course->modules;
+        return $modules;
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Course $course)
     {
-        $categories = Category::all();
-        return view('content.courses.create',compact('categories'));
+        return view('content.courses.modules.create',compact('course'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function store(CourseRequest $request)
+    public function store(Request $request, Course $course)
     {
-        $user = User::find(auth()->user()->id);
-        $course = $user->courses()->create($request->validated());
-        $course->image = $request->file('image')->store('courses');
-        return redirect()->route('courses.modules.create',$course->id);
+        $module = $course->modules()->create(['name'=>$request->name]);
+        return $module;
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Course  $course
+     * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show(Course $course, Module $module)
     {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Course  $course
+     * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit(Course $course, Module $module)
     {
-        return view('content.courses.edit');
-
+        //
     }
 
     /**
@@ -72,9 +73,10 @@ class CoursesController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Course  $course
+     * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, Course $course, Module $module)
     {
         //
     }
@@ -83,9 +85,10 @@ class CoursesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Course  $course
+     * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy(Course $course, Module $module)
     {
         //
     }

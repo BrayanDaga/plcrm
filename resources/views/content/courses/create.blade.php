@@ -21,7 +21,7 @@
                     </div>
                 </div>
             @endif
-                <form action="{{ route('course.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('courses.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
@@ -71,15 +71,6 @@
                                 <label for="image"> Image </label>
                                 <input  type="file" id="image" class="form-control" name="image"
                                     placeholder="enter image"/>                               
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <label for="image">Status </label>
-                                <select name="status" id="status" class="custom-select">
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>                               
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
