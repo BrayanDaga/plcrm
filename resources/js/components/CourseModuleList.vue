@@ -1,10 +1,12 @@
 <template>
     <div class="card">
-        <div class="card-header">Lista de Modulos</div>
+        <div class="card-header">
+          <h3>Lista de Modulos <sapn> Quantity: {{ modules.length }}</sapn></h3>
+          </div>
         <div class="card-body">
           <ol class="list-group">
-            <course-module-class  v-for="module in modules" :key="module.id" :module="module">
-
+            <course-module-class  v-for="(module,index) in modules" :key="module.id" :module="module">
+              {{ index+1 }}
             </course-module-class>
           </ol>
         </div>

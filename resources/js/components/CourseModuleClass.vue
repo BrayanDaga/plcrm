@@ -1,7 +1,10 @@
 <template>
   <div>
     <li class="list-group-item">
-      <h3>* {{ module.name }}</h3>
+      <h3>
+        <slot></slot>
+        - {{ module.name }}
+        </h3>
       <div class="row">
         <div class="col-md-6 col-12 mb-1">
           <form action="post">

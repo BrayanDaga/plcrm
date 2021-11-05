@@ -24,7 +24,7 @@ class ModuleFactory extends Factory
     {
         $name = ['edicion', 'renderizado', 'design', 'efectos'];
         return [
-            'id_courses' => Course::inRamdomOrder()->first()->id,
+            'id_courses' => Course::inRandomOrder()->first()->id,
             'name' => $name[array_rand($name)],
         ];
     }

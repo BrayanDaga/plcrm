@@ -24,7 +24,7 @@ class CourseFactory extends Factory
     public function definition()
     {
         return [
-            'id_families' => User::inRandomOrder()->first()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
             'id_categories' => Category::inRandomOrder()->first()->id,
             'title' => $this->faker->jobTitle(),
             'area' => 'vacio',
