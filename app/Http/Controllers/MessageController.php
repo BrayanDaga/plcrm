@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\User;
 use App\Traits\ResponseFormat;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class MessageController extends Controller
 {
@@ -13,25 +13,64 @@ class MessageController extends Controller
         $idUser = auth()->user()->id;
         if($idUser2 = User::where('email',$email)->first()){
             $idUser2 = $idUser2->id;
-            $data = Message::select('users.name','messages.text','messages.created_at')
-                       ->join('users','users.id','=','messages.id_user_transmitter')
+            $data = Message::select('users.name','messages.message','messages.created_at')
+                       ->join('users','users.id','=','messages.transmitter_id')
                        ->where([
-                           ['messages.id_user_transmitter','=',$idUser],
-                           ['messages.id_user_receiver','=',$idUser2]
+                           ['messages.transmitter_id','=',$idUser],
+                           ['messages.receiver_id','=',$idUser2]
                        ])
                        ->orWhere([
-                        ['messages.id_user_transmitter','=',$idUser2],
-                        ['messages.id_user_receiver','=',$idUser]
+                        ['messages.transmitter_id','=',$idUser2],
+                        ['messages.receiver_id','=',$idUser]
                        ])
                        ->orderBy('messages.created_at','ASC')
                        ->get();
             if(isset($data[0])){
                 return $this->responseOk('',$data);
             }else{
-                return ["error"=>"no existe conversación"];
+                return ["error"=>"No conversations"];
             }
         }else{
-            return ["error"=>"no existe conversación"];
+            return ["error"=>"No conversations"];
         }
+    }
+    public function list(){
+        $data = Message::where('receiver_id',auth()->user()->id)
+                       ->orderBy('created_at','DESC')
+                       ->get();
+        if($data){
+            $k = array();
+            $messages = [];
+            $cont = 0;
+            foreach($data as $msg){
+                if(!$k){
+                    array_push($k,$msg->transmitter_id);
+                    $messages[] = $this->MessageJson($msg,User::find($msg->transmitter_id));
+                    $cont++;
+                    continue;
+                }else if(in_array($msg->transmitter_id,$k)){
+                    continue;
+                }else{
+                    if($cont >= 5){
+                        break;
+                    }else{
+                        array_push($k,$msg->transmitter_id);
+                        $messages[] = $this->MessageJson($msg,User::find($msg->transmitter_id));
+                        $cont++;
+                    }
+                }
+            }
+            return $this->responseOk('',$messages);
+        }else{
+            return ['error'=>"No conversations"];
+        }
+    }
+    public function MessageJson($msg,$user){
+        return array(
+            'user'=> $user->name,
+            'email' => $user->email,
+            'message' => Str::limit($msg->message,20,'...'),
+            'created_at' => $msg->created_at
+        );
     }
 }

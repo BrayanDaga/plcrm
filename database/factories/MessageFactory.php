@@ -21,9 +21,14 @@ class MessageFactory extends Factory
      */
     public function definition()
     {
+        $int= mt_Rand(1200000000,1262055681);
+        $fecha = date("Y-m-d H:i:s",$int);
         return [
-            'id_students_producers' => $this->faker->numberBetween(1,5),
-            'text' => $this->faker->text($maxNbChars = 200),
+            'transmitter_id' => $this->faker->numberBetween(2,9),
+            'receiver_id' => 1,
+            'message' => $this->faker->sentence(10),
+            'created_at' => $fecha,
+            'updated_at' => $fecha
         ];
     }
 }

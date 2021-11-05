@@ -34,6 +34,7 @@ Route::group(['prefix' => '/v1'], function(){
             });
             Route::group(['prefix'=> '/messages'],function(){
                 Route::get('/with/{email}',[MessageController::class,'show']);
+                Route::get('list',[MessageController::class,'list']);
             });
             Route::group(['prefix' => '/list-course'], function(){
                 Route::get('/producter/{id}', [CourseController::class,'list']);
