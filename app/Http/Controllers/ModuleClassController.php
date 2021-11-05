@@ -40,7 +40,14 @@ class ModuleClassController extends Controller
      */
     public function store(Request $request, Module $module)
     {
-        //
+        $lesson = new Clas;
+        $lesson->name = $request->name;
+        $lesson->id_modules = $module->id;
+        $lesson->time = '00:00:00';
+        $lesson->url = '/class/example';
+        $lesson->description = 'description';
+        $lesson->save();
+        return $lesson;
     }
 
     /**

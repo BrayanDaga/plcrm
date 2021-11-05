@@ -3,15 +3,15 @@
     <li class="list-group-item">
       <h3>
         <slot></slot>
-        - {{ module.name }}
+        - {{ module.name }} - ({{ classes.length }})  
         </h3>
       <div class="row">
         <div class="col-md-6 col-12 mb-1">
-          <form action="post">
+      <form @submit.prevent="addClass" action="post">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="enter name class" />
+              <input type="text" class="form-control" placeholder="enter name class" v-model="name" />
               <div class="input-group-append">
-                <button class="btn btn-outline-primary" type="button">Add Class</button>
+                <button class="btn btn-outline-primary" type="submit">Add Class</button>
               </div>
             </div>
           </form>
@@ -19,8 +19,8 @@
       </div>
       <div class="row">
         <ol class="list-group">
-          <li  class="list-group-item" v-for="clas in classes" :key="clas.id">
-              {{ clas.name }}
+          <li  class="list-group-item" v-for="(clas,index) in classes" :key="clas.id">
+              {{ (index+1) + ' - ' + clas.name }}
           </li>
         </ol>
       </div>
@@ -46,7 +46,7 @@ export default {
   methods: {
     addClass() {
       api
-        .post(`/creator/courses/${this.course}/modules`, {
+        .post(`/creator/modules/${this.module.id}/clas`, {
           name: this.name,
         })
         .then((response) => {

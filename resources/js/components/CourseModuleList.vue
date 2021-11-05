@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header">
-          <h3>Lista de Modulos <sapn> Quantity: {{ modules.length }}</sapn></h3>
+          <h3>Lista de Modulos <span> ({{ modules.length }}) </span></h3>
           </div>
         <div class="card-body">
           <ol class="list-group">

@@ -1,30 +1,37 @@
 <template>
   <div class="row">
-   
-   <div class="col-md-6 col-12 mb-1">
+    <div class="col-12">
       <form @submit.prevent="addModule" action="post">
-        <div class="input-group">
-            <input
+        <div class="row">
+          <div class="col-4">
+            <div class="form-group">
+              <input
                 type="text"
                 class="form-control"
                 placeholder="enter name module"
                 aria-describedby="button-addon2"
                 v-model="name"
-            />
-          <div class="input-group-append" id="button-addon2">
-            <button class="btn btn-outline-primary" type="button">Add Module</button>
+                required
+              />
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <!-- <textarea class="form-control" placeholder="Enter description" required></textarea> -->
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <button class="btn btn-outline-primary" type="submit">Add Module</button>
+            </div>
           </div>
         </div>
       </form>
     </div>
     <div class="col-12">
-    <course-module-list :modules="modules"></course-module-list>
+      <course-module-list :modules="modules"></course-module-list>
     </div>
   </div>
-
-
-
-           
 </template>
 
 <script>
