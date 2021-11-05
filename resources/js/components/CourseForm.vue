@@ -1,13 +1,18 @@
 <template>
   <div class="row">
-    <div class="col-12">
+   
+   <div class="col-md-6 col-12 mb-1">
       <form @submit.prevent="addModule" action="post">
-        <div class="col-12">
-          <div class="form-group">
-            <input type="text" v-model="name" class="form-control" />
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary">Add Module</button>
+        <div class="input-group">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="enter name module"
+                aria-describedby="button-addon2"
+                v-model="name"
+            />
+          <div class="input-group-append" id="button-addon2">
+            <button class="btn btn-outline-primary" type="button">Add Module</button>
           </div>
         </div>
       </form>
@@ -16,6 +21,10 @@
     <course-module-list :modules="modules"></course-module-list>
     </div>
   </div>
+
+
+
+           
 </template>
 
 <script>
@@ -34,8 +43,8 @@ export default {
       modules: [],
     };
   },
-  components:{
-      CourseModuleList
+  components: {
+    CourseModuleList,
   },
   mounted() {
     this.listModules();

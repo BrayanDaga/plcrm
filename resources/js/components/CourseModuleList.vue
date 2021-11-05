@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">Lista de Modulos</div>
         <div class="card-body">
-          <ol class="nav-item has-sub open">
+          <ol class="list-group">
             <course-module-class  v-for="module in modules" :key="module.id" :module="module">
 
             </course-module-class>
@@ -13,7 +13,6 @@
 
 <script>
 import CourseModuleClass from './CourseModuleClass.vue';
-
 export default {
     props: {
         modules: {
