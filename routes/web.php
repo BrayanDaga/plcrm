@@ -198,8 +198,6 @@ Route::group(['middleware' => ['auth']], function () {
             Route::apiResource('wallets', WalletController::class)->only('index');
         });
     });
-
-
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 /* Rutas Programada - fin */

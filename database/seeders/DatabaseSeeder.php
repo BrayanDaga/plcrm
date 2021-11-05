@@ -40,7 +40,12 @@ class DatabaseSeeder extends Seeder
         // $this->call(AdvertisementSeeder::class);
           $this->call(ClassifiedSeeder::class);
         // $this->call(WalletSeeder::class);
-
+          $this->call(MessageSeeder::class);
+          $this->call(FamilySeeder::class);
+          $this->call(CategorySeeder::class);
+          $this->call(CourseSeeder::class);
+          $this->call(ModuleSeeder::class);
+          $this->call(ClassSeeder::class);
 
         /*creando function mysql para Obtener todos los nodos secundarios de un nodo
         mas info: https://programmerclick.com/article/13791419702/   */

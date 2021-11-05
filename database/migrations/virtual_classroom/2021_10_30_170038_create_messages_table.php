@@ -15,8 +15,8 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transmitter')->constrained('users');
-            $table->foreignId('receiver')->constrained('users');
+            $table->foreignId('id_user_transmitter')->constrained('users');
+            $table->foreignId('id_user_receiver')->constrained('users');
             $table->string('text');
             $table->dateTime('created_at');
         });
