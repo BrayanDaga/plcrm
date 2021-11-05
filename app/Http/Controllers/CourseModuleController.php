@@ -78,7 +78,10 @@ class CourseModuleController extends Controller
      */
     public function update(Request $request, Course $course, Module $module)
     {
-        //
+        $this->verifyCourse($course,$module);
+        $module->name = $request->name;
+        $module->update();
+        return $module;
     }
 
     /**
@@ -91,5 +94,11 @@ class CourseModuleController extends Controller
     public function destroy(Course $course, Module $module)
     {
         //
+    }
+    protected function verifyCourse(Course $course, Module $module)
+    {
+        if ($course->id != $module->id_courses) {
+          return response()->json(['cod' => '422','message' =>'The specified course is not the actual course of the module']);
+        }
     }
 }

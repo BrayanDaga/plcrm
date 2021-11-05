@@ -5,7 +5,7 @@
           </div>
         <div class="card-body">
           <ol class="list-group">
-            <course-module-class  v-for="(module,index) in modules" :key="module.id" :module="module">
+            <course-module-class @module-updated="moduleUpdate"  v-for="(module,index) in modules" :key="module.id" :module="module" :course="course">
               {{ index+1 }}
             </course-module-class>
           </ol>
@@ -20,11 +20,20 @@ export default {
         modules: {
             type: Array,
             required: true
+        },
+        course: {
+            type: Object,
+            required: true
         }
     },
     components: {
         CourseModuleClass
-    }
+    },
+    methods: {
+        moduleUpdate(module) {
+            this.$emit('module-updated', module);
+        }
+    },
 }
 </script>
 

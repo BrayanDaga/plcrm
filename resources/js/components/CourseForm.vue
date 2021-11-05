@@ -29,7 +29,7 @@
       </form>
     </div>
     <div class="col-12">
-      <course-module-list :modules="modules"></course-module-list>
+      <course-module-list :modules="modules" :course="course"  @module-updated="listModules"></course-module-list>
     </div>
   </div>
 </template>
@@ -41,8 +41,9 @@ import CourseModuleList from './CourseModuleList.vue';
 export default {
   props: {
     course: {
-      required: true,
-    },
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
@@ -59,7 +60,7 @@ export default {
   methods: {
     addModule() {
       api
-        .post(`/creator/courses/${this.course}/modules`, {
+        .post(`/creator/courses/${this.course.id}/modules`, {
           name: this.name,
         })
         .then((response) => {
@@ -70,7 +71,7 @@ export default {
     },
     listModules() {
       api
-        .get(`/creator/courses/${this.course}/modules`)
+        .get(`/creator/courses/${this.course.id}/modules`)
         .then((response) => {
           console.log(response);
           this.modules = response;

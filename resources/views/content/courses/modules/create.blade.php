@@ -12,7 +12,7 @@
                 <div class="card-body ">
                     <div class="row">
                         <div class="col-md-12">
-                            <course-form course="{{ $course->id }}"></course-form>
+                            <course-form :course="{{$course}}"></course-form>
                         </div>
                     </div>
                 </div>
