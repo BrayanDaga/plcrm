@@ -18,12 +18,12 @@ class CreateCoursesTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('id_categories')->unsigned();
             $table->string('title', 50);
-            $table->string('area', 20)->nullable();
+            $table->string('area', 20);
             $table->longText('description');
             $table->string('image', 255);
-            $table->string('currency', 20)->nullable();
+            $table->string('currency', 20);
             $table->double('price');
-            $table->integer('ranking_by_user')->nullable();
+            $table->integer('ranking_by_user');
             $table->boolean('status')->default(false);
             $table->timestamps();
             

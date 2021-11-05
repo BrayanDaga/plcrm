@@ -168,8 +168,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'creator'], function () {
         Route::resource('modules.clas', ModuleClassController::class);
-        Route::resource('courses.modules', CourseModuleController::class);
         Route::resource('courses', CoursesController::class);
+        Route::resource('courses.modules', CourseModuleController::class);
     });
 
     Route::group(['prefix' => '/reports'], function () {
