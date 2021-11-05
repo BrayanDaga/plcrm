@@ -67,7 +67,7 @@ class MessageController extends Controller
     }
     public function MessageJson($msg,$user){
         return array(
-            'user'=> $user->name,
+            'fullname'=> $user->name,
             'email' => $user->email,
             'message' => Str::limit($msg->message,20,'...'),
             'created_at' => $msg->created_at
