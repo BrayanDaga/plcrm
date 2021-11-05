@@ -24,8 +24,8 @@ class MessageFactory extends Factory
         $int= mt_Rand(1200000000,1262055681);
         $fecha = date("Y-m-d H:i:s",$int);
         return [
-            'transmitter_id' => $this->faker->numberBetween(2,9),
-            'receiver_id' => 1,
+            'transmitter_id' => $this->faker->numberBetween(1,9),
+            'receiver_id' =>  $this->faker->numberBetween(1,9),
             'message' => $this->faker->sentence(10),
             'created_at' => $fecha,
             'updated_at' => $fecha
