@@ -29,7 +29,9 @@
       </form>
     </div>
     <div class="col-12">
-      <course-module-list :modules="modules" :course="course"  @module-updated="listModules"></course-module-list>
+      <course-module-list :modules="modules" :course="course"  
+      @module-updated="listModules" @module-deleted="listModules"
+      ></course-module-list>
     </div>
   </div>
 </template>

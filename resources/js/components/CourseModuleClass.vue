@@ -1,13 +1,17 @@
 <template>
   <div>
+
+
     <li class="list-group-item">
       <h3 class="d-inline" v-if="!edit">
         <slot></slot>
         - {{ module.name }} - ({{ classes.length }})
       </h3>
-      <span class="d-inline">
-        <button class="btn btn-outline-warning" v-if="!edit" @click="edit = true">Edit</button>
-      </span>
+  <div class="float-right">
+          <a @click="deleteModule()" class="btn btn-outline-danger">
+            del
+          </a>
+        </div>    
       <div class="row" v-if="edit">
         <div class="col-md-6 col-12 mb-1">
           <form @submit.prevent="editModule" action="post">
@@ -49,7 +53,7 @@
       <div class="row">
         <ol class="list-group">
           <li class="list-group-item" v-for="(clas, index) in classes" :key="clas.id">
-            {{ index + 1 + ' - ' + clas.name }}
+            {{ index + 1 + ' - ' + clas.name }} &nbsp;
           </li>
         </ol>
       </div>
@@ -59,17 +63,21 @@
 
 <script>
 import api from '../api/api';
+import ModalComponent from './ModalComponent.vue';
 
 export default {
-  props:{
+  props: {
     module: {
       type: Object,
-      required: true
+      required: true,
     },
-    course:{
+    course: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
+  },
+  components: {
+    'custom-modal': ModalComponent,
   },
   data() {
     return {
@@ -96,7 +104,8 @@ export default {
       this.name = '';
     },
     editModule() {
-      api.put(`/creator/courses/${this.course.id}/modules/${this.module.id}`, {
+      api
+        .put(`/creator/courses/${this.course.id}/modules/${this.module.id}`, {
           name: this.namemodule,
         })
         .then((response) => {
@@ -105,6 +114,12 @@ export default {
           this.namemodule = this.module.name;
           this.$emit('module-updated', this.module);
         });
+    },
+    deleteModule() {
+      api.delete(`/creator/courses/${this.course.id}/modules/${this.module.id}`).then((response) => {
+        console.log(response);
+        this.$emit('module-deleted', this.module);
+      });
     },
     listClasses() {
       api

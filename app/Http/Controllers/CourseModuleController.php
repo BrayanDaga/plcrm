@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Module;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class CourseModuleController extends Controller
 {
@@ -53,7 +54,8 @@ class CourseModuleController extends Controller
      */
     public function show(Course $course, Module $module)
     {
-        //
+        $this->verifyCourse($course,$module);
+        return $module;
     }
 
     /**
@@ -93,12 +95,15 @@ class CourseModuleController extends Controller
      */
     public function destroy(Course $course, Module $module)
     {
-        //
+        $this->verifyCourse($course,$module);
+        $module->delete();
+        return $module;
     }
+
     protected function verifyCourse(Course $course, Module $module)
     {
         if ($course->id != $module->id_courses) {
-          return response()->json(['cod' => '422','message' =>'The specified course is not the actual course of the module']);
+          throw new HttpException(422,'The specified course is not the actual course of the modules');
         }
     }
 }
