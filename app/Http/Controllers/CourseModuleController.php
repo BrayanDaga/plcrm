@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class CourseModuleController extends Controller
@@ -96,8 +97,11 @@ class CourseModuleController extends Controller
     public function destroy(Course $course, Module $module)
     {
         $this->verifyCourse($course,$module);
-        $module->delete();
-        return $module;
+        
+        return DB::transaction(function() use($module) {
+            $module->lessons()->delete();
+            $module->delete();
+        });
     }
 
     protected function verifyCourse(Course $course, Module $module)
