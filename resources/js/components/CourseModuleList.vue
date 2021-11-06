@@ -9,7 +9,7 @@
       </div>
       <div class="card-body">
         <ol class="list-group">
-          <course-module-class
+          <course-module-item
             @module-updated="moduleUpdate"
             @module-deleted="moduleDelete"
             v-for="(module, index) in modules"
@@ -18,7 +18,7 @@
             :course="course"
           >
             {{ index + 1 }}
-          </course-module-class>
+          </course-module-item>
         </ol>
       </div>
     </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import CourseModuleClass from './CourseModuleClass.vue';
+import CourseModuleItem from './CourseModuleItem.vue';
 export default {
   props: {
     modules: {
@@ -39,7 +39,7 @@ export default {
     },
   },
   components: {
-    CourseModuleClass,
+    CourseModuleItem,
   },
   methods: {
     moduleUpdate(module) {
