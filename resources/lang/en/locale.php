@@ -210,4 +210,7 @@ return [
     "List Payments" => "List Payments",
     "My Wallet" => "My Wallet",
     "Binary Cut" => "Binary Cut",
+    "Virtual Class Room" => "Virtual Class Room",
+    "List Courses" => "List Courses",
+    "Create course" => "Create course",
 ];
