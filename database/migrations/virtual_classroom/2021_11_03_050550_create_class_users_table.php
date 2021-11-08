@@ -17,7 +17,6 @@ class CreateClassUsersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('clas_id');
-            $table->boolean('status');
             $table->timestamps();
             
             $table->foreign('clas_id')->references('id')->on('class')->onDelete('cascade');

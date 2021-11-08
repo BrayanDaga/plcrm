@@ -30,6 +30,6 @@ class Clas extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'class_users','clas_id','user_id')->withPivot('status');
+        return $this->belongsToMany(User::class, 'class_users','clas_id','user_id');
     }
 }

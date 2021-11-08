@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Clas;
+use App\Models\User;
 use App\Models\Course;
 use App\Models\Module;
 use App\Models\User;
@@ -46,12 +47,5 @@ class CourseController extends Controller
         }
     }
 
-    /*
-    $courselessons =$course->lessons
-    $lesoncompleted  = $user->lessons
-    $var comparar 2 arrays hallar cuanto coinciden 
-    aplicar calculo para sacar porcentaje 
-
-    */
 
 }

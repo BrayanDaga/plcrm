@@ -7,21 +7,35 @@
                 <h2>Informacion General</h2>
             </div>
             <div class="card-body">
-                <form action="" method="post" enctype="multipart/form-data">
+                @if (isset($errors) && $errors->any())
+                <div role="alert" class="alert alert-danger">
+                    <div class="alert-body">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            @endif
+                <form action="{{ route('courses.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                <label for="name"> Course name </label>
-                                <input  type="text" id="name" class="form-control" name="name"
-                                    placeholder="course name"/>                               
+                                <label for="title"> Course title </label>
+                                <input  type="text" id="title" class="form-control" name="title"
+                                    placeholder="course title"/>                               
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label for="id_categories">Category</label>
                                 {{-- Input select option bootstrap --}}
-                                <select name="id_categories" id="id_categories" class="custom-select">
+                                <select name="id_categories" id="id_categories" class="form-control">
                                     @foreach ($categories as $category )
                                     <option value="{{$category->id}}">{{ $category->name }}</option>
                                     @endforeach
@@ -61,11 +75,8 @@
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                <label for="image">Status </label>
-                                <select name="level" id="level" class="custom-select">
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>                               
+                                <br>
+                               <button type="submit" class="btn btn-primary btn-block">Save</button>                       
                             </div>
                         </div>
                     </div>

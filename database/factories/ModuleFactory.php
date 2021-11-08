@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
 use App\Models\Module;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,7 @@ class ModuleFactory extends Factory
     {
         $name = ['edicion', 'renderizado', 'design', 'efectos'];
         return [
-            'id_courses' => $this->faker->numberBetween(1,2),
+            'id_courses' => Course::inRandomOrder()->first()->id,
             'name' => $name[array_rand($name)],
         ];
     }

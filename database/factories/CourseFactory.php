@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CourseFactory extends Factory
@@ -22,8 +24,8 @@ class CourseFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => 1,
-            'id_categories' => $this->faker->numberBetween(1,5),
+            'user_id' => User::inRandomOrder()->first()->id,
+            'id_categories' => Category::inRandomOrder()->first()->id,
             'title' => $this->faker->jobTitle(),
             'area' => 'vacio',
             'description' => $this->faker->text($maxNbChars = 200),

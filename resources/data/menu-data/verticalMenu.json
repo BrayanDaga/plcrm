@@ -1,5 +1,6 @@
 {
-    "menu": [{
+    "menu": [
+        {
             "name": "Dashboards",
             "badge": "2",
             "badgeClass": "badge badge-light-warning badge-pill ml-auto mr-1",
@@ -19,12 +20,34 @@
             "icon": "package",
             "dropdown": "1",
             "slug": "",
-            "submenu": [{
-                "url": "users/register",
-                "name": "Register",
-                "icon": "mail",
-                "slug": "users-register"
-            }]
+            "submenu": [
+                {
+                    "url": "users/register",
+                    "name": "Register",
+                    "icon": "mail",
+                    "slug": "users-register"
+                }
+            ]
+        },
+        {
+            "name": "Virtual Class Room",
+            "icon": "package",
+            "dropdown": "1",
+            "slug": "",
+            "submenu": [
+                {
+                    "url": "creator/courses/create",
+                    "name": "Create course",
+                    "icon": "circle",
+                    "slug": "courses.create"
+                },
+                {
+                    "url": "creator/courses",
+                    "name": "List Courses",
+                    "icon": "circle",
+                    "slug": "courses.index"
+                }
+            ]
         },
         {
             "navheader": "Requests",
@@ -57,7 +80,7 @@
             "name": "Starting Bonus List",
             "icon": "circle",
             "slug": "report-startingBonus"
-        }, 
+        },
         {
             "url": "reports/growthBonus",
             "name": "Growth Bonus List",
@@ -131,12 +154,14 @@
             "icon": "users",
             "dropdown": "1",
             "slug": "",
-            "submenu": [{
-                "url": "users/list",
-                "name": "User-Scroll-List",
-                "icon": "circle",
-                "slug": "users-list"
-            }]
+            "submenu": [
+                {
+                    "url": "users/list",
+                    "name": "User-Scroll-List",
+                    "icon": "circle",
+                    "slug": "users-list"
+                }
+            ]
         },
         {
             "navheader": "Payments",

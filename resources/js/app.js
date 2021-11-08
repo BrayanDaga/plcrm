@@ -82,6 +82,7 @@ Vue.component(
   'user-bonuses',
   require('./components/UserBonuses.vue').default
 );
+Vue.component('course-form', require('./components/CourseForm.vue').default);
 const app = new Vue({
     el: '#app'
 });

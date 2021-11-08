@@ -24,17 +24,18 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
-            
-            'user_id' => ['required'],
             'id_categories' => ['required'],
             'title' => ['required'],
             // 'area' => ['required'],
             'description' => ['required'],
-            'image' => ['required'],
+            'image' => ['required','image'],
             // 'currency' => ['required'],
             'price' => ['required'],
             // 'ranking_by_user' => ['required'],
-            'status' => ['required'],
+            'status' => ['nullable'],
+            'level' => ['required'],
         ];
+
+    
     }
 }

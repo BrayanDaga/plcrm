@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\Family;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CategoryFactory extends Factory
@@ -22,7 +23,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'id_families' => $this->faker->numberBetween(1,5),
+            'id_families' => Family::inRandomOrder()->first()->id,
             'name' => $this->faker->word()
         ];
     }
