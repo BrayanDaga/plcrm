@@ -171,7 +171,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Course::class);
     }
-
+    public function coursesProducer():HasMany
+    {
+        return $this->hasMany(Course::class)->select('title','price','status','id_categories','created_at','description');
+    }
     /**
      * The lessons that belong to the User
      *
@@ -186,5 +189,9 @@ class User extends Authenticatable
     // $user->lessons()->dettach(2,['status'=>1]);
     // $user->lessons()->sync(2,['status'=>1]);
     // $user->lessons()->syncWithoutDetaching(2,['status'=>1]);
+    public function messages():HasMany
+    {
+        return $this->hasMany(Message::class,'id_user_receiver');
+    }
 
 }

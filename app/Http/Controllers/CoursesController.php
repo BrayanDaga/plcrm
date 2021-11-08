@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\CourseRequest;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class CoursesController extends Controller
 {
@@ -88,5 +91,10 @@ class CoursesController extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+    public function listCoursesProd(){
+        $user = User::find(auth()->user()->id);
+        $courses = $user->coursesProducer;
+        return $courses;
     }
 }
