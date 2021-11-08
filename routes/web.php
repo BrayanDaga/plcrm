@@ -199,6 +199,10 @@ Route::group(['middleware' => ['auth']], function () {
         });
     });
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::group(['prefix'=>'courses'],function(){
+        Route::get('/list/producer',[CoursesController::class,'listCoursesProd'])->name('listCoursesProd');
+    });
 });
 /* Rutas Programada - fin */
 
