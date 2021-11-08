@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Category;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\CourseRequest;
 use Illuminate\Database\Eloquent\Collection;
@@ -94,7 +93,7 @@ class CoursesController extends Controller
     }
     public function listCoursesProd(){
         $user = User::find(auth()->user()->id);
-        $courses = $user->coursesProducer;
+        $courses = $user->MyCourses()->get();
         return $courses;
     }
 }

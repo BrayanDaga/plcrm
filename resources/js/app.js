@@ -13,7 +13,7 @@ Vue.filter('formatDate', function (value) {
   }
 
 });
-Vue.component('prueba', require('./components/Prueba').default);
+Vue.component('courses', require('./components/Courses').default);
 
 Vue.component('payment', require('./components/payment/Payment').default);
 
