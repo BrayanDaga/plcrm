@@ -9,7 +9,7 @@
       </h3>
   <div class="float-right">
     
-          <button @click="edit=true" class="btn btn-outline-warning">
+          <button @click="edit=true" class="btn btn-outline-warning" v-if="edit==false">
             Edit
           </button>
            <button @click="deleteModule()" class="btn btn-outline-danger">
