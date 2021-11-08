@@ -1,7 +1,7 @@
 <template>
   <div>
     <li class="list-group-item">
-      {{ clas.name }} &nbsp;
+      <a :href="linkClas"> {{ clas.name }} &nbsp;</a>    
       <button class="btn btn-sm btn-outline-danger" @click="deleteClass()">x</button>
     </li>
   </div>
@@ -19,6 +19,11 @@ export default {
         clas: {
         type: Object,
         required: true,
+        },
+    },
+    computed: {
+        linkClas() {
+            return `/creator/modules/${this.module.id}/clas/${this.clas.id}/edit`;
         },
     },
     methods: {

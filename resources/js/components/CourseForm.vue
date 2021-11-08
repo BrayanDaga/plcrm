@@ -17,7 +17,7 @@
           </div>
           <div class="col-4">
             <div class="form-group">
-              <!-- <textarea class="form-control" placeholder="Enter description" required></textarea> -->
+              <textarea class="form-control" v-model="description" placeholder="Enter description" required></textarea>
             </div>
           </div>
           <div class="col-4">
@@ -50,6 +50,7 @@ export default {
   data() {
     return {
       name: '',
+      description: '',
       modules: [],
     };
   },
@@ -64,12 +65,14 @@ export default {
       api
         .post(`/creator/courses/${this.course.id}/modules`, {
           name: this.name,
+          description: this.description,
         })
         .then((response) => {
           console.log(response);
           this.listModules();
         });
       this.name = '';
+      this.description = '';
     },
     listModules() {
       api

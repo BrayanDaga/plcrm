@@ -1,21 +1,38 @@
 <template>
   <div>
+    <custom-modal :id="'module-delete'" color="danger">
+      <template #title
+        >Delete module <u>{{ module.name }}</u></template
+      >
 
+      <p>Are you sure you want to remove this module and its classes?</p>
+      <p>This action cannot be undone.</p>
+      <template #footer>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" @click="deleteModule">
+          <span
+            class="spinner-border spinner-border-sm text-danger"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          <span class="ml-25 align-middle"> Delete Module </span>
+        </button>
+      </template>
+    </custom-modal>
 
     <li class="list-group-item">
       <h3 class="d-inline" v-if="!edit">
         <slot></slot>
         - {{ module.name }} - ({{ classes.length }})
       </h3>
-  <div class="float-right">
-    
-          <button @click="edit=true" class="btn btn-outline-warning">
-            Edit
-          </button>
-           <button @click="deleteModule()" class="btn btn-outline-danger">
-            del
-          </button>
-        </div>    
+      <div class="float-right">
+        <button @click="edit = true" class="btn btn-outline-warning" v-if="edit == false">
+          Edit
+        </button>
+        <button data-toggle="modal" data-target="#module-delete" class="btn btn-outline-danger">
+          Delete?
+        </button>
+      </div>
       <div class="row" v-if="edit">
         <div class="col-md-6 col-12 mb-1">
           <form @submit.prevent="editModule" action="post">
@@ -56,9 +73,14 @@
       </div>
       <div class="row">
         <ol class="list-group">
-          <course-module-class v-for="(clas, index) in classes" :key="clas.id" :module="module" :clas="clas"
-          @clas-deleted="listClasses">
-            {{ index +1 }}
+          <course-module-class
+            v-for="(clas, index) in classes"
+            :key="clas.id"
+            :module="module"
+            :clas="clas"
+            @clas-deleted="listClasses"
+          >
+            {{ index + 1 }}
           </course-module-class>
         </ol>
       </div>
@@ -118,15 +140,18 @@ export default {
         .then((response) => {
           console.log(response);
           this.edit = false;
-          this.namemodule = this.module.name;
           this.$emit('module-updated', this.module);
+          this.namemodule = response.data.name;
         });
     },
     deleteModule() {
-      api.delete(`/creator/courses/${this.course.id}/modules/${this.module.id}`).then((response) => {
-        console.log(response);
-        this.$emit('module-deleted', this.module);
-      });
+      api
+        .delete(`/creator/courses/${this.course.id}/modules/${this.module.id}`)
+        .then((response) => {
+          console.log(response);
+          $('#module-delete').modal('hide');
+          this.$emit('module-deleted', this.module);
+        });
     },
     listClasses() {
       api
