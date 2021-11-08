@@ -93,7 +93,7 @@ class CoursesController extends Controller
     }
     public function listCoursesProd(){
         $user = User::find(auth()->user()->id);
-        $courses = $user->coursesProducer;
+        $courses = $user->MyCourses()->get();
         return $courses;
     }
 }

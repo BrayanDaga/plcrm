@@ -171,9 +171,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Course::class);
     }
-    public function coursesProducer():HasMany
+    public function scopeMyCourses()
     {
-        return $this->hasMany(Course::class)->select('title','price','status','id_categories','created_at','description');
+        return $this->courses()->select('users.name','courses.title','courses.price','courses.status','courses.id_categories','courses.created_at','courses.description','courses.image')->join("users","courses.user_id","=","users.id")->orderBy('courses.created_at','DESC');
     }
     /**
      * The lessons that belong to the User
