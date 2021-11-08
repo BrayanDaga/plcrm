@@ -73,7 +73,8 @@ class ModuleClassController extends Controller
      */
     public function edit(Module $module, Clas $cla)
     {
-        //
+        $this->verifyModule($module,$cla);
+        return view('content.courses.modules.lessons.edit',compact('module','cla'));
     }
 
     /**
