@@ -118,8 +118,8 @@ export default {
         .then((response) => {
           console.log(response);
           this.edit = false;
-          this.namemodule = this.module.name;
           this.$emit('module-updated', this.module);
+          this.namemodule = response.data.name;
         });
     },
     deleteModule() {

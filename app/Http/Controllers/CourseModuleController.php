@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ModuleRequest;
 use App\Models\Course;
 use App\Models\Module;
 use Illuminate\Http\Request;
@@ -40,9 +41,9 @@ class CourseModuleController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Course $course)
+    public function store(ModuleRequest $request, Course $course)
     {
-        $module = $course->modules()->create(['name'=>$request->name]);
+        $module = $course->modules()->create($request->validated());
         return $module;
     }
 
@@ -79,10 +80,10 @@ class CourseModuleController extends Controller
      * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course, Module $module)
+    public function update(ModuleRequest $request, Course $course, Module $module)
     {
         $this->verifyCourse($course,$module);
-        $module->name = $request->name;
+        $module->fill( $request->validated() );
         $module->update();
         return $module;
     }
