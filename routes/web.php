@@ -19,7 +19,7 @@ use App\Http\Controllers\StartingBonusController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ClassifiedController;
-use App\Http\Controllers\CoursesController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\RamaBinariaController;
 use App\Http\Controllers\UserController;
@@ -165,7 +165,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'creator'], function () {
-        Route::resource('course', CoursesController::class);
+        Route::resource('courses', CoursesController::class);
     });
 
     Route::group(['prefix' => '/reports'], function () {
@@ -195,6 +195,10 @@ Route::group(['middleware' => ['auth']], function () {
         });
     });
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::group(['prefix'=>'courses'],function(){
+        Route::get('/list/producer',[CoursesController::class,'listCoursesProd'])->name('listCoursesProd');
+    });
 });
 /* Rutas Programada - fin */
 

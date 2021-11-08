@@ -29,10 +29,11 @@ Route::group(['prefix' => '/v1'], function () {
             });
 
             //Api Message
-            Route::group(['prefix' => '/messages'], function () {
-                Route::get('/with/{email}', [MessageController::class, 'show']);
+            Route::group(['prefix'=> '/messages'],function(){
+                Route::get('/with/{email}',[MessageController::class,'show']);
+                Route::get('list',[MessageController::class,'list']);
             });
-
+          
             //Api Course
             Route::group(['prefix' => '/course'], function () {
                 Route::get('/temary/get-all-class/{id}', [CoursesController::class, 'show']);

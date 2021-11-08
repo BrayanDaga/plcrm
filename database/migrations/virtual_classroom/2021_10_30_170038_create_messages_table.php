@@ -15,13 +15,14 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user_transmitter')->constrained('users');
-            $table->foreignId('id_user_receiver')->constrained('users');
-            $table->string('text');
-            $table->dateTime('created_at');
+            $table->bigInteger('transmitter_id')->unsigned();
+            $table->bigInteger('receiver_id')->unsigned();
+            $table->longText('message');
+            $table->timestamps();
+            $table->foreign('transmitter_id')->references('id')->on('users');
+            $table->foreign('receiver_id')->references('id')->on('users');
         });
     }
-
     /**
      * Reverse the migrations.
      *
