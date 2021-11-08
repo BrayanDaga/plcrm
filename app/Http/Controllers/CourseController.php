@@ -5,7 +5,6 @@ use App\Models\Clas;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Module;
-use App\Models\User;
 use App\Traits\ResponseFormat;
 
 class CourseController extends Controller 

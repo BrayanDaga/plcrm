@@ -23,7 +23,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{show.title}}</h5>
                     <p class="card-text text-justify h-50">{{show.description}}</p>
-                    <p class="card-text text-right"><a>Editar Curso</a></p>
+                    <div>
+                        <p>Editar curso</p>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="row">
