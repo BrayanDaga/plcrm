@@ -92,8 +92,12 @@ class CoursesController extends Controller
         //
     }
     public function listCoursesProd(){
-        $user = User::find(auth()->user()->id);
-        $courses = $user->MyCourses()->get();
-        return $courses;
+        if(auth()->user()->type_user == 1){
+            $user = User::find(auth()->user()->id);
+            $courses = $user->MyCourses()->get();
+            return $courses;
+        }else{
+            return ['error'=>'user not allowed'];
+        }
     }
 }

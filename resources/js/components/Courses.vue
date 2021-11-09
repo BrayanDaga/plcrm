@@ -57,8 +57,12 @@ export default {
         axios
             .get(`/courses/list/producer`)
             .then((response) => {
-            this.courses = response.data;
-            this.latest = response.data[0];
+                if(response.data.error){
+                    window.history.back();
+                }else{
+                this.courses = response.data;
+                this.latest = response.data[0];
+                }
             })
             .catch((error) => {
             console.log(error);
