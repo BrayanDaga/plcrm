@@ -20,7 +20,7 @@ use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\ClassifiedController;
 use App\Http\Controllers\CourseModuleController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\ModuleClassController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\RamaBinariaController;
@@ -168,7 +168,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'creator'], function () {
         Route::resource('modules.clas', ModuleClassController::class);
-        Route::resource('courses', CourseController::class);
+        Route::resource('courses', CoursesController::class);
         Route::resource('courses.modules', CourseModuleController::class);
     });
 
@@ -201,7 +201,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::group(['prefix'=>'courses'],function(){
-        Route::get('/list/producer',[CourseController::class,'listCoursesProd'])->name('listCoursesProd');
+        Route::get('/list/producer',[CoursesController::class,'listCoursesProd'])->name('listCoursesProd');
     });
 });
 /* Rutas Programada - fin */
