@@ -16,6 +16,11 @@ class Course extends Model
     protected $table = 'courses';
     protected $guarded = [];
 
+    public function getImageAttribute($value)
+    {
+        return asset($value);
+    }
+
     /**
      * Get all of the modules for the Course
      *
