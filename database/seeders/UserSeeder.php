@@ -25,7 +25,8 @@ class UserSeeder extends Seeder
             'request' => 3,
             'expiration_date' => strtotime('+10 years'),
             'id_account_type' => 1,
-             'created_at' => strtotime('-1 years'),
+            'created_at' => strtotime('-1 years'),
+            'type_user' => 0
         ])->has(Wallet::factory(['status'=>2]))
         ->create();
         //Ahora el estado del registro de billetera es 3 q significa que es despues de un corte binario
@@ -39,6 +40,7 @@ class UserSeeder extends Seeder
               'request' => 2,
              'expiration_date' => strtotime('+30 days'),
               'id_account_type' => 2,
+              'type_user' => 1
           ])->hasPaymentsClient(Payment::factory([ 'id_user_sponsor' => $user1->id]))
           ->has(Wallet::factory(['status'=>2]))
           ->create();
@@ -52,6 +54,7 @@ class UserSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 2,
+            'type_user' => 1
         ])->hasPaymentsClient(Payment::factory(['id_user_sponsor' => $user1->id]))
         ->has(Wallet::factory(['status'=>2]))
         ->create();
@@ -64,6 +67,7 @@ class UserSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 3,
+            'type_user' => 2
         ])->hasPaymentsClient(Payment::factory(['id_user_sponsor' => $user1->id]))
         ->has(Wallet::factory(['status'=>2]))
         ->create();
@@ -77,6 +81,7 @@ class UserSeeder extends Seeder
             'request' => 2,
             'expiration_date' => strtotime('+30 days'),
             'id_account_type' => 4,
+            'type_user' => 2
         ])->hasPaymentsClient(Payment::factory(['id_user_sponsor' => $user1->id]))
         ->has(Wallet::factory(['status'=>2]))
         ->create();
