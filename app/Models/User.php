@@ -173,7 +173,7 @@ class User extends Authenticatable
     }
     public function scopeMyCourses()
     {
-        return $this->courses()->select('users.name','courses.title','courses.price','courses.status','courses.id_categories','courses.created_at','courses.description','courses.image')->join("users","courses.user_id","=","users.id")->orderBy('courses.created_at','DESC');
+        return $this->courses()->select('users.name','courses.id','courses.title','courses.price','courses.status','courses.id_categories','courses.created_at','courses.description','courses.image')->join("users","courses.user_id","=","users.id")->orderBy('courses.created_at','DESC');
     }
     /**
      * The lessons that belong to the User

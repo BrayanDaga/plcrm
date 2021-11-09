@@ -16,11 +16,14 @@ class Course extends Model
     protected $table = 'courses';
     protected $guarded = [];
 
-    public function getImageAttribute($value)
-    {
-        return asset($value);
-    }
+     protected $appends = [
+       'urlImage',
+    ];
 
+    public function getUrlImageAttribute()
+    {
+        return asset($this->image);
+    }
     /**
      * Get all of the modules for the Course
      *

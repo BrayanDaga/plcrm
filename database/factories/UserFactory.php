@@ -37,7 +37,8 @@ class UserFactory extends Factory
         'id_account_type' => rand(1, 4),
         'request' => 1,
         'id_referrer_sponsor' => 0,
-        'position' => "0"
+        'position' => "0",
+        'type_user' => 2
      ];
     }
 }

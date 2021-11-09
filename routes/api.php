@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\AccountTypeController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CoursesController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\MessageController;
-use App\Http\Controllers\PropiertiesforUser;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Api\CourseController;
+use App\Http\Controllers\Api\AccountTypeController;
+use App\Http\Controllers\Api\MessageController;
+use App\Http\Controllers\Api\PropiertiesforUserController;
 
 //Post Store User
 Route::group(['prefix' => '/v1'], function () {
@@ -36,13 +35,13 @@ Route::group(['prefix' => '/v1'], function () {
           
             //Api Course
             Route::group(['prefix' => '/course'], function () {
-                Route::get('/temary/get-all-class/{id}', [CoursesController::class, 'show']);
-                Route::get('/list-course/producter/{id}', [CoursesController::class, 'list']);
+                Route::get('/temary/get-all-class/{id}', [CourseController::class, 'show']);
+                Route::get('/list-course/producter/{id}', [CourseController::class, 'list']);
             });
 
             //Api Dashboard
             Route::group(['prefix' => 'dashboard'], function () {
-                Route::get('/getattributes', [PropiertiesforUser::class, 'getPropierties']);
+                Route::get('/getattributes', [PropiertiesforUserController::class, 'getPropierties']);
             });
         });
     }
