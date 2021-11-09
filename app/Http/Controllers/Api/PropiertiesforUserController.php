@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\ResponseFormat;
+use App\Http\Controllers\Controller;
 
-class PropiertiesforUser extends Controller
+class PropiertiesforUserController extends Controller
 {
     use ResponseFormat;
 
@@ -26,6 +27,4 @@ class PropiertiesforUser extends Controller
         ];
         return $this->responseOk('',$data);
     }
-
- 
 }
