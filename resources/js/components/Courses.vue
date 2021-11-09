@@ -2,11 +2,11 @@
 <div>
     <h4>Último Agregado</h4>
     <div class="card" style="width: 22rem;">
-        <img class="card-img-top" :src="latest.image" alt="Card image cap">
+        <img class="card-img-top" :src="latest.urlImage" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">{{latest.title}}</h5>
             <p class="card-text text-justify h-50">{{latest.description}}.</p>
-            <p class="card-text text-right"><a>Editar Curso</a></p>
+            <p class="card-text text-right"><a :href="linkEdit(latest.id)">Editar Curso</a></p>
         </div>
         <div class="card-footer">
             <div class="row">
@@ -19,11 +19,11 @@
     <div class="row">
         <div class="col-sm-6 col-lg-4 col-xl-4 mb-3" v-for="(show,index) in courses" :key="index">
             <div class="card h-100 mb-0">
-                <img class="card-img-top" :src="show.image" alt="Card image cap">
+                <img class="card-img-top" :src="show.urlImage" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{show.title}}</h5>
                     <p class="card-text text-justify h-50">{{show.description}}</p>
-                    <p class="card-text text-right"><a>Editar Curso</a></p>
+                    <p class="card-text text-right"><a :href="linkEdit(show.id)">Editar Curso</a></p>
                 </div>
                 <div class="card-footer">
                     <div class="row">
@@ -59,6 +59,9 @@ export default {
             .catch((error) => {
             console.log(error);
             });
+        },
+        linkEdit(id){
+            return `/creator/courses/${id}/edit`;
         }
     }
 }

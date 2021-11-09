@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\CourseRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -29,8 +30,9 @@ class CoursesController extends Controller
      */
     public function create()
     {
+        $course = new Course();
         $categories = Category::all();
-        return view('content.courses.create',compact('categories'));
+        return view('content.courses.create',compact('categories','course'));
     }
 
     /**
@@ -42,8 +44,11 @@ class CoursesController extends Controller
     public function store(CourseRequest $request)
     {
         $user = User::find(auth()->user()->id);
-        $course = $user->courses()->create($request->validated());
-        $course->image = $request->file('image')->store('courses');
+        $course = $user->courses()->make($request->validated());
+        $image = $request->file('image')->store('courses');
+        $course->image = $image;
+        $course->save();
+
         return redirect()->route('courses.modules.create',$course->id);
     }
 
@@ -64,8 +69,9 @@ class CoursesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Course $course)
-    {
-        return view('content.courses.edit');
+    {       
+        $categories = Category::all();
+        return view('content.courses.edit',compact('course','categories'));
 
     }
 
@@ -78,7 +84,12 @@ class CoursesController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        Storage::delete([$course->image]);
+        $course->fill( $request->validated() );
+        $image = $request->file('image')->store('courses');
+        $course->image = $image;
+        $course->update();
+        return $course;
     }
 
     /**
