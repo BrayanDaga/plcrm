@@ -8,7 +8,7 @@
             <p class="card-text text-justify h-50">{{latest.description}}.</p>
         </div>
         <div class="container">
-            <p class="text-right"><a :href="linkEdit(latest.id)"class="btn btn-primary">Editar curso</a></p>
+            <p class="text-right"><a :href="linkEdit(latest.id)" class="btn btn-primary">Editar curso</a></p>
         </div>
         <div class="card-footer">
             <div class="row">
@@ -27,7 +27,7 @@
                     <p class="card-text text-justify h-50">{{show.description}}</p>
                 </div>
                 <div class="container">
-                    <p class="text-right"><a href="#" class="btn btn-primary">Editar curso</a></p>
+                    <p class="text-right"><a :href="linkEdit(show.id)" class="btn btn-primary">Editar curso</a></p>
                 </div>
                 <div class="card-footer">
                     <div class="row">
