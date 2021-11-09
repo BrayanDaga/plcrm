@@ -25,7 +25,7 @@ class MessageFactory extends Factory
         $fecha = date("Y-m-d H:i:s",$int);
         return [
             'transmitter_id' => $this->faker->numberBetween(1,9),
-            'receiver_id' =>  $this->faker->numberBetween(1,9),
+            'receiver_id' =>  1,
             'message' => $this->faker->sentence(10),
             'created_at' => $fecha,
             'updated_at' => $fecha

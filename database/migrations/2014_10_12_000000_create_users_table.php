@@ -31,7 +31,6 @@ class CreateUsersTable extends Migration
             $table->string('request', 1)->default('0');
             $table->string('expiration_date')->nullable();
             $table->string('position', 1)->default('0');
-            $table->integer('type_user')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
