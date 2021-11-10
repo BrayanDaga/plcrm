@@ -19,7 +19,7 @@
     </div>
     <h4>Demás cursos</h4>
     <div class="row">
-        <div class="col-sm-6 col-lg-4 col-xl-4 mb-3" v-for="(show,index) in courses" :key="index">
+        <div class="col-sm-6 col-lg-4 col-xl-4 mb-3" v-for="(show,index) in course" :key="index">
             <div class="card h-100 mb-0">
                 <img class="card-img-top" :src="show.urlImage" alt="Card image cap">
                 <div class="card-body mb-0">
@@ -45,7 +45,7 @@
 export default {
     data(){
         return {
-            courses:[],
+            course:[],
             latest:[]
         }
     },
@@ -57,7 +57,7 @@ export default {
         axios
             .get(`/courses/list/producer`)
             .then((response) => {
-                this.courses = response.data;
+                this.course = response.data;
                 this.latest = response.data[0];
             })
             .catch((error) => {
