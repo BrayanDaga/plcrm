@@ -21,9 +21,10 @@
                     </div>
                 </div>
             @endif
-                <form action="{{ route('courses.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('courses.update', $course) }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @include('content.courses._form')
+                    @method('PUT')
+                    @include('content.courses._form',['btnText' => 'Update'])
                 </form>
             </div>
         </div>

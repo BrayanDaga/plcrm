@@ -23,7 +23,7 @@
             @endif
                 <form action="{{ route('courses.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    @include('content.courses._form')
+                    @include('content.courses._form',['btnText' => 'Create'])
                 </form>
             </div>
         </div>

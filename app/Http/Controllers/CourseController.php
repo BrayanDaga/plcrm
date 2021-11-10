@@ -31,7 +31,7 @@ class CourseController extends Controller
     public function create()
     {
         $course = new Course();
-        $categories = Category::all();
+        $categories = Category::pluck('name', 'id');
         return view('content.courses.create',compact('categories','course'));
     }
 
@@ -70,7 +70,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {       
-        $categories = Category::all();
+        $categories = Category::pluck('name', 'id');
         return view('content.courses.edit',compact('course','categories'));
 
     }
@@ -82,14 +82,15 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(CourseRequest $request, Course $course)
     {
-        if($request->file('image')){
+        
+        $course->fill( $request->validated() );
+        if($request->hasFile('image')){
             Storage::delete($course->image);
             $image = $request->file('image')->store('courses');
+            $course->image = $image;
         }
-        $course->fill( $request->validated() );
-        $course->image = $image;
         $course->update();
         return redirect()->route('courses.modules.create',$course->id);
     }
