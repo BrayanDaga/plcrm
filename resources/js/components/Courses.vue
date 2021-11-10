@@ -2,18 +2,18 @@
 <div>
     <h4>Último Agregado</h4>
     <div class="card" style="width: 22rem;">
-        <img class="card-img-top" :src="latest.urlImage" alt="Card image cap">
+        <img class="card-img-top" :src="latests.urlImage" alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">{{latest.title}}</h5>
-            <p class="card-text text-justify h-50">{{latest.description}}.</p>
+            <h5 class="card-title">{{latests.title}}</h5>
+            <p class="card-text text-justify h-50">{{latests.description}}.</p>
         </div>
         <div class="container">
-            <p class="text-right"><a :href="linkEdit(latest.id)" class="btn btn-primary">Editar curso</a></p>
+            <p class="text-right"><a :href="linkEdit(latests.id)" class="btn btn-primary">Editar curso</a></p>
         </div>
         <div class="card-footer">
             <div class="row">
-                <div class="col-6 text-left">{{latest.name}}</div>
-                <div class="col-6 text-right">S/ {{latest.price}}</div>
+                <div class="col-6 text-left">{{latests.name}}</div>
+                <div class="col-6 text-right">S/ {{latests.price}}</div>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@ export default {
     data(){
         return {
             course:[],
-            latest:[]
+            latests:[]
         }
     },
     mounted(){//llamar 
@@ -58,7 +58,7 @@ export default {
             .get(`/courses/list/producer`)
             .then((response) => {
                 this.course = response.data;
-                this.latest = response.data[0];
+                this.latests = response.data[0];
             })
             .catch((error) => {
             console.log(error);
