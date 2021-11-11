@@ -7,6 +7,16 @@
                 <h2>Informacion General</h2>
             </div>
             <div class="card-body">
+                @if (session('success'))
+                <div role="alert" class="alert alert-success">
+                    <div class="alert-body">
+                        <span><strong>Success </strong> {{ session('success') }}!</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            @endif        
                 @if (isset($errors) && $errors->any())
                 <div role="alert" class="alert alert-danger">
                     <div class="alert-body">

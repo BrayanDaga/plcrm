@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Clas;
 use App\Models\Module;
+use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ModuleClassController extends Controller
@@ -104,11 +106,35 @@ class ModuleClassController extends Controller
         return $cla;
     }
 
+    public function addVideo(Request $request, Module $module, Clas $cla)
+    {
+        $this->verifyModule($module,$cla);
+         $request->validate([
+             'path' => 'required|mimes:mp4,ogx,oga,ogv,ogg,webm',
+         ]);
+        $path = $request->file('path')->store('courses/modules/class');
+        // $image = $request->file('image')->store('courses');
+
+        $video = Video::make(
+            ['path' => $path]
+        );
+
+        $cla->video()->save($video);
+        return redirect()->back()->withSuccess('The video has been uploaded successfully.');
+    }
+
+    public function delVideo(Module $module, Clas $cla)
+    {
+        $this->verifyModule($module,$cla);
+        Storage::delete($cla->video->path);
+        $cla->video()->delete();
+        return redirect()->back()->withSuccess('The video has been deleted.');
+    }
+
     protected function verifyModule(Module $module, Clas $cla)
     {
         if ($module->id != $cla->id_modules) {
             throw new HttpException(422,'The specified module is not the actual module of the class');
         }
     }
-
 }
