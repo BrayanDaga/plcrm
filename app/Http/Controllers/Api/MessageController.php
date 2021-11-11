@@ -36,42 +36,18 @@ class MessageController extends Controller
         }
     }
     public function list(){
-        $data = Message::where('receiver_id',auth()->user()->id)
-                       ->orderBy('created_at','DESC')
-                       ->get();
-        if($data){
-            $k = array();
-            $messages = [];
-            $cont = 0;
-            foreach($data as $msg){
-                if(!$k){
-                    array_push($k,$msg->transmitter_id);
-                    $messages[] = $this->MessageJson($msg,User::find($msg->transmitter_id));
-                    $cont++;
-                    continue;
-                }else if(in_array($msg->transmitter_id,$k)){
-                    continue;
+        if($msj = Message::MessageSelect()->MessageOrder()){
+            $json = [];
+            foreach ($msj as $key => $value) {
+                if(count($json) >= 5){
+                    break;
                 }else{
-                    if($cont >= 5){
-                        break;
-                    }else{
-                        array_push($k,$msg->transmitter_id);
-                        $messages[] = $this->MessageJson($msg,User::find($msg->transmitter_id));
-                        $cont++;
-                    }
+                    $json[] = $msj[$key]->first();
                 }
             }
-            return $this->responseOk('',$messages);
+            return $this->responseOk('',$json);
         }else{
-            return ['error'=>"No conversations"];
+            return ['error' => "no conversations"];
         }
-    }
-    public function MessageJson($msg,$user){
-        return array(
-            'fullname'=> $user->name,
-            'email' => $user->email,
-            'message' => Str::limit($msg->message,20,'...'),
-            'created_at' => $msg->created_at
-        );
     }
 }

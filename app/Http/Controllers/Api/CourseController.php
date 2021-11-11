@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Clas;
 use App\Models\Course;
 use App\Models\Module;
@@ -57,7 +56,7 @@ class CourseController extends Controller
             'category'    => $category,
             'price'       => $course->price,
             'level'       => $course->level,
-            'created'     => (explode(" ",$course->created_at))[0]
+            'created'     => $course->created_at->format('d/m/Y')
         ];
         return $this->responseOk('',$json);
     }
