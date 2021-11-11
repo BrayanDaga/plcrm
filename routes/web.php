@@ -167,9 +167,13 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'creator'], function () {
-        Route::resource('modules.clas', ModuleClassController::class);
+        Route::resource('modules.clas', ModuleClassController::class)->except(['update']);
         Route::resource('courses', CourseController::class);
         Route::resource('courses.modules', CourseModuleController::class);
+        Route::group(['prefix' => 'video'], function () {
+            Route::post('modules/{module}/clas/{cla}', [ModuleClassController::class,'addVideo'] )->name('modules.clas.addVideo');
+            Route::delete('modules/{module}/clas/{cla}', [ModuleClassController::class,'delVideo'] )->name('modules.clas.delVideo');
+        });
     });
 
     Route::group(['prefix' => '/reports'], function () {
