@@ -71,6 +71,6 @@ class CourseController extends Controller
                 'producer'  => ($c->user)->name
             );
         }
-        return $json;
+        return $this->responseOk('',$json);
     }
 }
