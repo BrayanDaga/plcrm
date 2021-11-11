@@ -46,14 +46,15 @@ class ModuleObserver
      */
     public function deleting(Module $module)
     {
-        foreach ($module->lessons as $lesson) {
-            if (!empty($lesson->video)) {
-                Storage::delete($lesson->video->path);
-                $lesson->video()->delete();
-                $lesson->delete();
-            }
+        foreach ($module->lessons as $lesson) { // $module->lessons()->delete();
+            $lesson->delete();
+            // if (!empty($lesson->video)) {
+            //     Storage::delete($lesson->video->path);
+            //     $lesson->video()->delete();
+            //     $lesson->delete();
+            // }
         } 
-        // $module->lessons()->delete();
+        
     }
 
 }
