@@ -46,6 +46,30 @@ class CourseController extends Controller
             return ['error'=>'No existe el productor'];
         }
     }
-
-
+    public function detailsCourse(Course $course){
+        $category = ($course->category)->name;
+        $json = [
+            'id'          => $course->id,
+            'title'       => $course->title,
+            'description' => $course->description,
+            'id_category' => $course->id_categories, 
+            'category'    => $category,
+            'price'       => $course->price,
+            'level'       => $course->level,
+            'created'     => $course->created_at->format('d/m/Y')
+        ];
+        return $this->responseOk('',$json);
+    }
+    public function recomendations($category){
+        $courses = Course::inRandomOrder()->where('id_categories',$category)->get()->take(3);
+        foreach($courses as $c){
+            $json[] = array(
+                'id'        => $c->id,
+                'title'     => $c->title,
+                'image'     => $c->image,
+                'producer'  => ($c->user)->name
+            );
+        }
+        return $this->responseOk('',$json);
+    }
 }
