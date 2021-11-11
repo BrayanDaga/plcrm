@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\AccountTypeController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\PropiertiesforUserController;
+use App\Models\Course;
 
 //Post Store User
 Route::group(['prefix' => '/v1'], function () {
@@ -37,6 +38,8 @@ Route::group(['prefix' => '/v1'], function () {
             Route::group(['prefix' => '/course'], function () {
                 Route::get('/temary/get-all-class/{id}', [CourseController::class, 'show']);
                 Route::get('/list-course/producter/{id}', [CourseController::class, 'list']);
+                Route::get('/details/{course}',[CourseController::class,'detailsCourse']);
+                Route::get('/recomendations/{category}',[CourseController::class,'recomendations']);
             });
 
             //Api Dashboard
