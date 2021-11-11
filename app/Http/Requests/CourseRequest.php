@@ -28,7 +28,7 @@ class CourseRequest extends FormRequest
             'title' => ['required'],
             // 'area' => ['required'],
             'description' => ['required'],
-            'image' => ['required','image'],
+            'image' => [ $this->route('course') ? 'nullable' : 'required', 'image' ],
             // 'currency' => ['required'],
             'price' => ['required'],
             // 'ranking_by_user' => ['required'],

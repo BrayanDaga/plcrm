@@ -9,11 +9,12 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="id_categories">Category</label>
-            {{-- Input select option bootstrap --}}
             <select name="id_categories" id="id_categories" class="form-control">
-                @foreach ($categories as $category )
-                <option value="{{$category->id}}">{{ $category->name }}</option>
-                @endforeach
+            @foreach($categories as $id => $name)
+                <option value="{{ $id }}"
+                    @if($id == old('id_categories', $course->id_categories)) selected @endif
+                >{{ $name }}</option>
+            @endforeach
             </select>             
         </div>
     </div>
@@ -28,9 +29,9 @@
             <label for="level">Level</label>
             {{-- Input select option bootstrap --}}
             <select name="level" id="level" class="custom-select">
-                <option value="basic">Basic</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
+                <option value="basic" @if('basic' == old('level', $course->level) ) selected  ) @endif >Basic</option>
+                <option value="intermediate"  @if('intermediate' == old('level', $course->level) ) selected  ) @endif>Intermediate</option>
+                <option value="advanced"  @if('advanced' == old('level', $course->level) ) selected  ) @endif>Advanced</option>
             </select>             
         </div>
     </div>
@@ -51,7 +52,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <br>
-           <button type="submit" class="btn btn-primary btn-block">Save</button>                       
+           <button type="submit" class="btn btn-primary btn-block">{{ $btnText }}</button>                       
         </div>
     </div>
 </div>
