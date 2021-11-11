@@ -98,11 +98,8 @@ class CourseModuleController extends Controller
     public function destroy(Course $course, Module $module)
     {
         $this->verifyCourse($course,$module);
-        
-        return DB::transaction(function() use($module) {
-            $module->lessons()->delete();
-            $module->delete();
-        });
+        // $module->lessons()->delete();
+        $module->delete();
     }
 
     protected function verifyCourse(Course $course, Module $module)
