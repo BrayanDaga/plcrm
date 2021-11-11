@@ -31,6 +31,7 @@ class CourseModuleController extends Controller
      */
     public function create(Course $course)
     {
+        $this->authorize('update', $course);
         return view('content.courses.modules.create',compact('course'));
     }
 
@@ -43,6 +44,7 @@ class CourseModuleController extends Controller
      */
     public function store(ModuleRequest $request, Course $course)
     {
+        $this->authorize('update', $course);
         $module = $course->modules()->create($request->validated());
         return $module;
     }

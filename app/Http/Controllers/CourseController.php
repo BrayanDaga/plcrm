@@ -20,6 +20,8 @@ class CourseController extends Controller
      */
     public function index()
     {
+        $course = new Course();
+        $this->authorize('viewAny', $course);
         return view('content.courses.index');
     }
 
@@ -31,6 +33,7 @@ class CourseController extends Controller
     public function create()
     {
         $course = new Course();
+        $this->authorize('create', $course);
         $categories = Category::pluck('name', 'id');
         return view('content.courses.create',compact('categories','course'));
     }
@@ -43,8 +46,10 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
+        
         $user = User::find(auth()->user()->id);
         $course = $user->courses()->make($request->validated());
+        $this->authorize('create', $course);
         $image = $request->file('image')->store('courses');
         $course->image = $image;
         $course->save();
@@ -70,6 +75,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {       
+        $this->authorize('update', $course);
         $categories = Category::pluck('name', 'id');
         return view('content.courses.edit',compact('course','categories'));
 
@@ -84,7 +90,7 @@ class CourseController extends Controller
      */
     public function update(CourseRequest $request, Course $course)
     {
-        
+        $this->authorize('update', $course);
         $course->fill( $request->validated() );
         if($request->hasFile('image')){
             Storage::delete($course->image);
