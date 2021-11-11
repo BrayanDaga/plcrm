@@ -9,7 +9,6 @@ use App\Http\Resources\AccountTypeResource;
 
 class AccountTypeController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
