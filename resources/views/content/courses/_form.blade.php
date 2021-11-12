@@ -27,7 +27,6 @@
     <div class="col-md-6 col-sm-12">
         <div class="form-group">
             <label for="level">Level</label>
-            {{-- Input select option bootstrap --}}
             <select name="level" id="level" class="custom-select">
                 <option value="basic" @if('basic' == old('level', $course->level) ) selected  ) @endif >Basic</option>
                 <option value="intermediate"  @if('intermediate' == old('level', $course->level) ) selected  ) @endif>Intermediate</option>
