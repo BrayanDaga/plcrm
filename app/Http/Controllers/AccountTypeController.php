@@ -80,6 +80,7 @@ class AccountTypeController extends Controller
     //Api Resource
     public function getDataBytId($id)
     {
+        //
         $data = AccountType::find($id);
         return response()->json($data);
     }

@@ -55,7 +55,7 @@ class User extends Authenticatable
         'Photo',
         'qualified',
     ];
-
+    protected $table= 'users';
     public function  getPhotoAttribute()
     {
         return 'https://i.pravatar.cc/150?u=' . $this->email;
