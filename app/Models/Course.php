@@ -23,7 +23,7 @@ class Course extends Model
 
     public function getUrlImageAttribute()
     {
-        return asset($this->image);
+        return asset('storage/'.$this->image);
     }
     /**
      * Get all of the modules for the Course

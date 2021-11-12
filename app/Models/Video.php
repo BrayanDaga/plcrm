@@ -16,4 +16,8 @@ class Video extends Model
     {
         return $this->morphTo();
     }
+    public function getPathAttribute($value)
+    {
+        return asset('storage/' . $value);
+    }
 }
