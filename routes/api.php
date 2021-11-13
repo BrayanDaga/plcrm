@@ -47,6 +47,7 @@ Route::group(['prefix' => '/v1'], function () {
             Route::group(['prefix' => 'dashboard'], function () {
                 Route::get('/getattributes', [PropiertiesforUserController::class, 'getPropierties']);
                 Route::get('/saleshistory', [SalesController::class, 'index'])->name('api.saleshistory.index');
+                Route::get('/saleshistory/{payment}', [SalesController::class, 'show'])->name('api.saleshistory.show');
             });
         });
     }

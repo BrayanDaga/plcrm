@@ -16,18 +16,13 @@ class SaleResource extends JsonResource
     {
         return [
             'id' => (string) $this->resource->getRouteKey(),
-            'attributes' => [
                 'payments' => [
                     'user' => $this->resource->user->fullName,
                     'courses' => 
                         $this->resource->courses
-                    
                 ],
-                // 'slug' => $this->resource->slug,
-                // 'content' => $this->resource->content,
-            ],
             'links' => [
-                // 'self' => route('api.v1.articles.show', $this->resource)
+                'self' => route('api.saleshistory.show', $this->resource)
             ]
         ];
     }
