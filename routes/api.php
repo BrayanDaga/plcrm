@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\AccountTypeController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\PropiertiesforUserController;
+use App\Http\Controllers\Api\SalesController;
 use App\Models\Course;
 
 //Post Store User
@@ -45,6 +46,7 @@ Route::group(['prefix' => '/v1'], function () {
             //Api Dashboard
             Route::group(['prefix' => 'dashboard'], function () {
                 Route::get('/getattributes', [PropiertiesforUserController::class, 'getPropierties']);
+                Route::get('/saleshistory', [SalesController::class, 'index'])->name('api.saleshistory.index');
             });
         });
     }
