@@ -22,7 +22,7 @@ class SalesController extends Controller
             } ]  );
         },'courses' => function($query){
              $query->select('title');
-        }))->whereHas('courses')->get();
+        }))->whereHas('courses')->orderBy('created_at','DESC')->get();
 
         //  return $payments;
 

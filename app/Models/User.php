@@ -195,9 +195,6 @@ class User extends Authenticatable
         return $this->hasMany(Message::class,'id_user_receiver');
     }
 
-    public function scopeMySales()
-    {
-        return $this->paymentsSponsor()->select('payments.id','amount','payments.created_at','user_id');    
-    }
+
 
 }
