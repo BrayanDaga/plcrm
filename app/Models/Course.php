@@ -18,6 +18,8 @@ class Course extends Model
     protected $table = 'courses';
     protected $guarded = [];
 
+    protected $hidden = ['pivot'];
+
     public function getImageAttribute($value)
     {
         return asset('storage/' . $value);
