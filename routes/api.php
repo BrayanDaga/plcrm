@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\PropiertiesforUserController;
 use App\Http\Controllers\Api\SalesController;
 use App\Models\Course;
+use App\Http\Controllers\Api\LessonController;
 
 //Post Store User
 Route::group(['prefix' => '/v1'], function () {
@@ -48,6 +49,8 @@ Route::group(['prefix' => '/v1'], function () {
                 Route::get('/getattributes', [PropiertiesforUserController::class, 'getPropierties']);
                 Route::get('/saleshistory', [SalesController::class, 'index'])->name('api.saleshistory.index');
                 Route::get('/saleshistory/{payment}', [SalesController::class, 'show'])->name('api.saleshistory.show');
+                Route::get('/lastlessonseen', LessonController::class);
+
             });
         });
     }
