@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateShoppingCartTable extends Migration
+class CreateClassroomCartTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateShoppingCartTable extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_cart', function (Blueprint $table) {
+        Schema::create('classroom_cart', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->enum('status',['NO ACTION','WAITING','BOUGHT'])->default('WAITING');
@@ -29,6 +29,6 @@ class CreateShoppingCartTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shopping_cart');
+        Schema::dropIfExists('classroom_cart');
     }
 }

@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ShoppingCartDetail;
+use App\Models\ClassroomCartDetail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ShoppingCart extends Model
+class ClassroomCart extends Model
 {
     use HasFactory;
-    protected $table = "shopping_cart";
+    protected $table = "classroom_cart";
     protected $fillable = ['user_id','status'];
     protected $guarded = ['id'];
 
@@ -21,7 +21,7 @@ class ShoppingCart extends Model
      */
     public function cartDetails(): HasMany
     {
-        return $this->hasMany(ShoppingCartDetail::class, 'shopping_cart_id');
+        return $this->hasMany(ClassroomCartDetail::class, 'classroom_cart_id');
     }
     public function scopeCartUser($query){
         return $query->where('user_id',auth()->user()->id)->where('status','<>','NO ACTION')->orderBy('updated_at','DESC');
