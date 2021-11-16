@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
-use App\Models\ShopingCart;
-use App\Models\ShopingCartDetail;
+use App\Models\ShoppingCart;
+use App\Models\ShoppingCartDetail;
 use App\Traits\ResponseFormat;
 
 class CartController extends Controller
@@ -13,39 +13,41 @@ class CartController extends Controller
     use ResponseFormat;
 
     public function validateCart(Course $course){
-        $cart = ShopingCart::CartUser()->first();
+        $cart = ShoppingCart::CartUser()->first();
         if(!isset($cart) or $cart->status == "BOUGHT"){
             $this->createCart(auth()->user()->id);
-            $cart = (ShopingCart::CartWaiting()->first())->id;
+            $cart = (ShoppingCart::CartWaiting()->first())->id;
             $this->addCart($course,$cart);
         }else if($cart->status == "WAITING"){
-            $this->addCart($course,$cart->id);
+            if(ShoppingCartDetail::where('shopping_cart_id',$cart->id)->
+                                where('courses_id',$course->id)
+                                ->count() == 0){
+                $this->addCart($course,$cart->id);
+            }
         }
         return $this->showCart();
     }
     public function createCart($user){
-        $cart = new ShopingCart();
+        $cart = new ShoppingCart();
         $cart->user_id = $user;
         $cart->save();
     }
     public function addCart($course,$cart){
-        if(ShopingCartDetail::where('courses_id',$course->id)->count() == 0){
-            $cartDetail = new ShopingCartDetail();
-            $cartDetail->shoping_cart_id = $cart;
-            $cartDetail->courses_id = $course->id;
-            $cartDetail->save();
-        }
+        $cartDetail = new ShoppingCartDetail();
+        $cartDetail->shopping_cart_id = $cart;
+        $cartDetail->courses_id = $course->id;
+        $cartDetail->save();
     }
     public function removeCart($cartDetail){
-        ShopingCartDetail::where('id',$cartDetail)->delete();
+        ShoppingCartDetail::where('id',$cartDetail)->delete();
         return $this->showCart();
     }
     public function clearCart($cart){
-        ShopingCartDetail::where('shoping_cart_id',$cart)->delete();
+        ShoppingCartDetail::where('shopping_cart_id',$cart)->delete();
         return $this->showCart();
     }
     public function updateCart($action){
-        $cart = ShopingCart::CartWaiting()->first();
+        $cart = ShoppingCart::CartWaiting()->first();
         switch ($action) {
             case 0:
                 $cart->status = "NO ACTION";
@@ -58,8 +60,17 @@ class CartController extends Controller
         }
     }
     public function showCart(){
-        $cart = (ShopingCart::CartWaiting()->first())->id;
-        $details = ShopingCartDetail::where('shoping_cart_id',$cart)->get();
-        return $this->responseOk('',$details);
+        $cart = ShoppingCart::CartWaiting()->first();
+        if($cart!=null){
+            $cart = $cart->id;
+            $details = ShoppingCartDetail::where('shopping_cart_id',$cart)->get();
+            if(count($details)>0){
+                return $this->responseOk('',$details);
+            }else{
+                return ["error"=>"Empty shopping cart"];
+            }
+        }else{
+            return ["error"=>"Not exists shopping cart"];
+        }
     }
 }

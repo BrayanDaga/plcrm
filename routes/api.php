@@ -50,9 +50,11 @@ Route::group(['prefix' => '/v1'], function () {
 
             //Api Cart
             Route::group(['prefix'=>'cart'],function(){
+                Route::get('/show',[CartController::class,'showCart']);
                 Route::get('/add/{course}',[CartController::class,'validateCart']);
                 Route::get('/remove/{cartDetail}',[CartController::class,'removeCart']);
                 Route::get('/clear/{cart}',[CartController::class,'clearCart']);
+                Route::get('/update/{action}',[CartController::class,'updateCart']);
             });
         });
     }
