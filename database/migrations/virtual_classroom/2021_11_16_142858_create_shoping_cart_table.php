@@ -16,7 +16,7 @@ class CreateShopingCartTable extends Migration
         Schema::create('shoping_cart', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->enum('status',['NO ACTION','WATING','BOUGHT'])->default('WATING');
+            $table->enum('status',['NO ACTION','WAITING','BOUGHT'])->default('WAITING');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });

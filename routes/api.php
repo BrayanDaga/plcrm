@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\AccountTypeController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\PropiertiesforUserController;
+use App\Http\Controllers\Api\CartController;
 use App\Models\Course;
 
 //Post Store User
@@ -45,6 +46,13 @@ Route::group(['prefix' => '/v1'], function () {
             //Api Dashboard
             Route::group(['prefix' => 'dashboard'], function () {
                 Route::get('/getattributes', [PropiertiesforUserController::class, 'getPropierties']);
+            });
+
+            //Api Cart
+            Route::group(['prefix'=>'cart'],function(){
+                Route::get('/add/{course}',[CartController::class,'validateCart']);
+                Route::get('/remove/{cartDetail}',[CartController::class,'removeCart']);
+                Route::get('/clear/{cart}',[CartController::class,'clearCart']);
             });
         });
     }
