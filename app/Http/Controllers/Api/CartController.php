@@ -63,7 +63,7 @@ class CartController extends Controller
         $cart = ClassroomCart::CartWaiting()->first();
         if($cart!=null){
             $cart = $cart->id;
-            $details = ClassroomCartDetail::where('classroom_cart_id',$cart)->get();
+            $details = ClassroomCartDetail::SltData()->where('classroom_cart_id',$cart)->with('courses')->get();
             if(count($details)>0){
                 return $this->responseOk('',$details);
             }else{
