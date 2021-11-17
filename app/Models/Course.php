@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Models\Clas;
-use App\Models\Module;
 use App\Models\User;
+use App\Models\Module;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Course extends Model
@@ -17,13 +18,11 @@ class Course extends Model
     protected $table = 'courses';
     protected $guarded = [];
 
-     protected $appends = [
-       'urlImage',
-    ];
+    protected $hidden = ['pivot'];
 
-    public function getUrlImageAttribute()
+    public function getImageAttribute($value)
     {
-        return asset('storage/'.$this->image);
+        return asset('storage/' . $value);
     }
     /**
      * Get all of the modules for the Course
@@ -62,5 +61,15 @@ class Course extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * The payments that belong to the Course
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function payments(): BelongsToMany
+    {
+        return $this->belongsToMany(Payment::class, 'courses_payments', 'course_id', 'payment_id');
     }
 }
