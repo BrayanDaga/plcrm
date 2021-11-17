@@ -16,6 +16,8 @@ class CreateCoursesPaymentsTable extends Migration
         Schema::create('courses_payments', function (Blueprint $table) {
             $table->foreignId('course_id')->constrained();
             $table->foreignId('payment_id')->constrained();
+            $table->unsignedDouble('desc',10,2)->nullable();
+            $table->unsignedDouble('price',10,2)->nullable();
         });
     }
 

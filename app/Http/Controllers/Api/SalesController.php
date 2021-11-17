@@ -20,7 +20,7 @@ class SalesController extends Controller
         ->join('courses as c', 'course_id', '=', 'c.id')
         ->join('users as u', 'p.user_id', '=', 'u.id')
         ->join('account_type as a', 'u.id_account_type', '=', 'a.id')
-        ->select('p.id as payment_id','p.amount','p.user_id as client','u.name as client_name','u.last_name as client_last_name','c.title as course','c.user_id','a.account as client_account')
+        ->select('p.id as payment_id','p.amount','p.user_id as client','u.name as client_name','u.last_name as client_last_name','c.title as course','c.user_id','cp.price','cp.desc','a.account as client_account')
         ->where('c.user_id',auth()->user()->id)
         ->get();
          return $this->responseOk('',$payments);
