@@ -25,7 +25,7 @@ class PaymentFactory extends Factory
     {
         return [
             'user_id' => User::inRandomOrder()->first()->id,
-            // 'id_user_sponsor' => User::inRandomOrder()->first()->id,
+            'id_user_sponsor' => User::inRandomOrder()->first()->id,
             'amount' => $this->faker->randomFloat(2, 0, 1000),
             'operation_number' => rand(1500, 6868),
             'id_payment_method' => PaymentMethod::inRandomOrder()->first()->id,
