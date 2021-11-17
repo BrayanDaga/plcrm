@@ -17,7 +17,7 @@
         ></section>
         <a v-if="binary.hasOwnProperty('c')" @click="viewUser(binary.c.username)">
           <img
-            :src="binary.c.Photo"
+            :src="binary.c.photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
@@ -57,7 +57,7 @@
         ></section>
         <a v-if="binary.hasOwnProperty('a')" @click="viewUser(binary.a.user.username)">
           <img
-            :src="binary.a.user.Photo"
+            :src="binary.a.user.photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
@@ -98,7 +98,7 @@
 
         <a v-if="binary.hasOwnProperty('b')" @click="viewUser(binary.b.user.username)">
           <img
-            :src="binary.b.user.Photo"
+            :src="binary.b.user.photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
@@ -126,7 +126,7 @@
       <div style="flex-wrap: wrap; display: flex; justify-content: center">
         <a v-if="binary.hasOwnProperty('aa')" @click="viewUser(binary.aa.user.username)">
           <img
-            :src="binary.aa.user.Photo"
+            :src="binary.aa.user.photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
@@ -141,7 +141,7 @@
         <section style="max-width: 80px; display: inline-block; flex: 1"></section>
         <a v-if="binary.hasOwnProperty('ab')" @click="viewUser(binary.ab.user.username)">
           <img
-            :src="binary.ab.user.Photo"
+            :src="binary.ab.user.photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
@@ -155,7 +155,7 @@
         <section style="max-width: 120px; flex: 1"></section>
         <a v-if="binary.hasOwnProperty('ba')" @click="viewUser(binary.ba.user.username)">
           <img
-            :src="binary.ba.user.Photo"
+            :src="binary.ba.user.photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""
@@ -169,7 +169,7 @@
         <section style="max-width: 40px; display: inline-block; flex: 1"></section>
         <a v-if="binary.hasOwnProperty('bb')" @click="viewUser(binary.bb.user.username)">
           <img
-            :src="binary.bb.user.Photo"
+            :src="binary.bb.user.photo"
             data-toggle="tooltip"
             data-placement="bottom"
             title=""

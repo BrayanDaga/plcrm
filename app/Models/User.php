@@ -53,14 +53,14 @@ class User extends Authenticatable
         'LeftPoints',
         'RightPoints',
         'active',
-        'Photo',
         'qualified',
     ];
     
     protected $table= 'users';
-    public function  getPhotoAttribute()
+
+    public function getPhotoAttribute($value)
     {
-        return 'https://i.pravatar.cc/150?u=' . $this->email;
+        return $value ?: '/images/portrait/small/avatar-s-11.jpg';
     }
 
     public function getfullNameAttribute()

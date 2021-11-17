@@ -23,6 +23,9 @@ class UserFactory extends Factory
     {
      
      static $password;
+
+     $username =$this->faker->unique()->username();
+
      return [
         'username' => $this->faker->unique()->username(),
         'password' => $password ?: $password = bcrypt('secret'),
@@ -38,7 +41,8 @@ class UserFactory extends Factory
         'request' => 1,
         'id_referrer_sponsor' => 0,
         'position' => "0",
-        'type_user' => 2
+        'type_user' => 2,
+        'photo' => "https://i.pravatar.cc/150?u={$username}"
      ];
     }
 }
