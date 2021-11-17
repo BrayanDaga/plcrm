@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\PropiertiesforUserController;
 use App\Http\Controllers\Api\SalesController;
 use App\Http\Controllers\Api\CartController;
-use App\Models\Course;
 use App\Http\Controllers\Api\LessonController;
 
 //Post Store User
