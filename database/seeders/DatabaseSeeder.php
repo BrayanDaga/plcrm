@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
           $this->call(CourseSeeder::class);
           $this->call(ModuleSeeder::class);
           $this->call(ClassSeeder::class);
-        //   $this->call(PaymentSeeder::class);
+            $this->call(PaymentSeeder::class);
 
         /*creando function mysql para Obtener todos los nodos secundarios de un nodo
         mas info: https://programmerclick.com/article/13791419702/   */
