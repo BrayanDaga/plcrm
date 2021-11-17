@@ -18,8 +18,8 @@ class PaymentSeeder extends Seeder
         $c2 = Course::factory(['user_id'=>2])->create();
         $c3 = Course::factory(['user_id'=>2])->create();
         $c4 = Course::factory(['user_id'=>2])->create();
-        $payment1 = Payment::factory()->create();
-        $payment2 = Payment::factory()->create();
+        $payment1 = Payment::factory(['id_user_sponsor'=>1])->create();
+        $payment2 = Payment::factory(['id_user_sponsor'=>1])->create();
         $payment1->courses()->attach($c1,['desc'=>50, 'price' => 50]);
         $payment1->courses()->attach($c2,['desc'=>40, 'price' => 60]);
         $payment2->courses()->attach($c3,['desc'=>50, 'price' => 50]);
