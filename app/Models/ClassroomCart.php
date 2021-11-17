@@ -23,6 +23,9 @@ class ClassroomCart extends Model
     {
         return $this->hasMany(ClassroomCartDetail::class, 'classroom_cart_id');
     }
+    public function scopeSltData($query){
+        return $query->select('classroom_cart.id','classroom_cart.user_id','classroom_cart.status','classroom_cart.updated_at');
+    }
     public function scopeCartUser($query){
         return $query->where('user_id',auth()->user()->id)->where('status','<>','NO ACTION')->orderBy('updated_at','DESC');
     }

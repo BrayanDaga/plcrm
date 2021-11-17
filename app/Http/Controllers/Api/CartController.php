@@ -60,12 +60,12 @@ class CartController extends Controller
         }
     }
     public function showCart(){
-        $cart = ClassroomCart::CartWaiting()->first();
+        $cart = ClassroomCart::SltData()->CartWaiting()->first();
         if($cart!=null){
-            $cart = $cart->id;
-            $details = ClassroomCartDetail::SltData()->where('classroom_cart_id',$cart)->with('courses')->get();
+            $details = ClassroomCartDetail::SltData()->where('classroom_cart_id',$cart->id)->with('courses')->get();
             if(count($details)>0){
-                return $this->responseOk('',$details);
+                $cart->cart_details= $details;
+                return $this->responseOk('',$cart);
             }else{
                 return ["error"=>"Empty shopping cart"];
             }
@@ -73,4 +73,5 @@ class CartController extends Controller
             return ["error"=>"Not exists shopping cart"];
         }
     }
+
 }
