@@ -26,7 +26,7 @@ class CourseFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(2,5),
             'id_categories' => Category::inRandomOrder()->first()->id,
-            'title' => $this->faker->jobTitle(),
+            'title' => $this->faker->word(),
             'area' => 'vacio',
             'description' => $this->faker->text($maxNbChars = 200),
             'image' => $this->faker->imageUrl($width = 640, $height = 480),
