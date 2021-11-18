@@ -14,6 +14,7 @@ class Payment extends Model
     use HasFactory;
     protected $table = 'payments';
     protected $guarded = [];
+    protected $hidden = ['pivot'];
 
     public function paymentMethod(): BelongsTo
     {
@@ -65,4 +66,21 @@ class Payment extends Model
     {
         return $query->where('id_user_sponsor', auth()->user()->id);
     }
+
+    // public function paymentable()
+    // {
+    //     return $this->morphTo();
+    // }
+
+    /**
+     * The coursees that belong to the Payment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function courses(): BelongsToMany
+    {
+        return $this->belongsToMany(Course::class, 'courses_payments', 'payment_id', 'course_id');
+    }
+    //$payment->courses()->syncWithoutDetaching(course_id);
+
 }

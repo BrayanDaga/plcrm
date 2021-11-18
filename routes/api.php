@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\AccountTypeController;
 use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\PropiertiesforUserController;
-use App\Models\Course;
+use App\Http\Controllers\Api\SalesController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\LessonController;
 
 //Post Store User
 Route::group(['prefix' => '/v1'], function () {
@@ -45,6 +47,19 @@ Route::group(['prefix' => '/v1'], function () {
             //Api Dashboard
             Route::group(['prefix' => 'dashboard'], function () {
                 Route::get('/getattributes', [PropiertiesforUserController::class, 'getPropierties']);
+                Route::get('/saleshistory', [SalesController::class, 'index'])->name('api.saleshistory.index');
+                Route::get('/saleshistory/{payment}', [SalesController::class, 'show'])->name('api.saleshistory.show');
+                Route::get('/lastlessonseen', LessonController::class);
+
+            });
+
+            //Api Cart
+            Route::group(['prefix'=>'cart'],function(){
+                Route::get('/show',[CartController::class,'showCart']);
+                Route::get('/add/{course}',[CartController::class,'validateCart']);
+                Route::get('/remove/{cartDetail}',[CartController::class,'removeCart']);
+                Route::get('/clear/{cart}',[CartController::class,'clearCart']);
+                Route::get('/update/{action}',[CartController::class,'updateCart']);
             });
         });
     }

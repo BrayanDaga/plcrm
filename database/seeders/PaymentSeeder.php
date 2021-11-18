@@ -1,12 +1,10 @@
 <?php
-
 namespace Database\Seeders;
 
+use App\Models\Course;
 use App\Models\Payment;
-use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
 class PaymentSeeder extends Seeder
 {
     /**
@@ -16,12 +14,10 @@ class PaymentSeeder extends Seeder
      */
     public function run()
     {
-        //Crear 30 payments con relacionado con 3 productos (pivote) con cantidad 4
-        Payment::factory()->times(30)
-        ->hasAttached(
-            Product::factory()->count(3),
-            ['quantity' => 4]
-        )
-        ->create();    
+        $payment1 = Payment::factory()->create();
+        $payment2 = Payment::factory()->create();
+        $payment1->courses()->syncWithoutDetaching(Course::inRandomOrder()->first()->id);
+        $payment2->courses()->syncWithoutDetaching(Course::inRandomOrder()->first()->id);
     }
 }
+

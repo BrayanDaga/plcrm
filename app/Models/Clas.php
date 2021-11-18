@@ -15,6 +15,7 @@ class Clas extends Model
     use HasFactory;
     protected $table = 'class';
     protected $guarded = [];
+    protected $hidden = ['pivot'];
 
     /**
      * Get the module that owns the Clas

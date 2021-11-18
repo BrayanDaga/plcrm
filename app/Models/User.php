@@ -34,6 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'pivot'
     ];
 
     /**
@@ -55,6 +56,7 @@ class User extends Authenticatable
         'Photo',
         'qualified',
     ];
+    
     protected $table= 'users';
     public function  getPhotoAttribute()
     {
@@ -185,13 +187,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Clas::class, 'class_users');
     }
 
-    // $user->lessons()->attach(2,['status'=>1]);
-    // $user->lessons()->dettach(2,['status'=>1]);
-    // $user->lessons()->sync(2,['status'=>1]);
-    // $user->lessons()->syncWithoutDetaching(2,['status'=>1]);
+    // $user->lessons()->attach(2);
+    // $user->lessons()->dettach(2);
+    // $user->lessons()->sync(2);
+    // $user->lessons()->syncWithoutDetaching(2);
     public function messages():HasMany
     {
         return $this->hasMany(Message::class,'id_user_receiver');
     }
+
+
 
 }
