@@ -26,7 +26,7 @@ export default {
 
           nodeBinding: {
             field_0: 'name',
-            img_0: 'Photo',
+            img_0: 'photo',
           },
           nodes: this.users,
         });

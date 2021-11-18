@@ -27,7 +27,7 @@ class RamaBinariaController extends Controller
     {
         $id = auth()->user()->id;
         //usando la funcion creada desde el seeder
-        $users = User::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->where('id_account_type', '!=', 5)->select('id', 'id_referrer_sponsor AS pid', 'name', 'email', 'last_name', 'expiration_date', 'created_at')->get();
+        $users = User::whereRaw("FIND_IN_SET(id, GET_CHILD_NODE(${id}))")->where('id_account_type', '!=', 5)->select('id', 'id_referrer_sponsor AS pid', 'name', 'email', 'last_name', 'expiration_date', 'created_at','photo')->get();
 
         return JsonResource::collection($users);
     }

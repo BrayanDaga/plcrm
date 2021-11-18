@@ -26,7 +26,8 @@ class UserSeeder extends Seeder
             'expiration_date' => strtotime('+10 years'),
             'id_account_type' => 1,
              'created_at' => strtotime('-1 years'),
-             'type_user' => 0
+             'type_user' => 0,
+             'photo' => null
         ])->has(Wallet::factory(['status'=>2]))
         ->create();
         //Ahora el estado del registro de billetera es 3 q significa que es despues de un corte binario

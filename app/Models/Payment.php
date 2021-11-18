@@ -79,7 +79,7 @@ class Payment extends Model
      */
     public function courses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class, 'courses_payments', 'payment_id', 'course_id');
+        return $this->belongsToMany(Course::class, 'courses_payments', 'payment_id', 'course_id')->withPivot('desc','price');
     }
     //$payment->courses()->syncWithoutDetaching(course_id);
 

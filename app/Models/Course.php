@@ -70,6 +70,6 @@ class Course extends Model
      */
     public function payments(): BelongsToMany
     {
-        return $this->belongsToMany(Payment::class, 'courses_payments', 'course_id', 'payment_id');
+        return $this->belongsToMany(Payment::class, 'courses_payments', 'course_id', 'payment_id')->withPivot('desc','price');
     }
 }
